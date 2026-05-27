@@ -2,13 +2,15 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Linkedin } from 'lucide-react';
-import padmanabhan from '../assets/padma.jpg';
-import priyanshu from '../assets/priyanshu.jpg';
-import arjav from '../assets/arjav.jpg';
-import sai from '../assets/me.jpg';
-import anirban from '../assets/anirban.jpg';
-import siya from '../assets/siya.jpg';
-import shaunak from '../assets/shaunak.jpg';
+
+// coordis
+import utkarsh from '../assets/cocos_26_27/utkarsh.png';
+import satvikjain from '../assets/cocos_26_27/satvikjain.png';
+import umang from '../assets/cocos_26_27/umang.png';
+import satviksrinivas from '../assets/cocos_26_27/satviksrinivas.png';
+import tanay from '../assets/cocos_26_27/tanay.png';
+import anvesh from '../assets/cocos_26_27/anvesh.png';
+import rishika from '../assets/cocos_26_27/rishika.png';
 
 
 const Coordinators=() => {
@@ -42,46 +44,46 @@ const Coordinators=() => {
 
   const coordinators = [
     {
-      name: 'Padmanabhan Sridhar',
+      name: 'Utkarsh Sharma',
       role: 'Chief Coordinator',
-      image: padmanabhan,
-      linkedin: 'https://www.linkedin.com/in/padmanabhansridhar/',
+      image: utkarsh,
+      linkedin: 'https://in.linkedin.com/in/utkarsh-sharma-37090a27a',
     },
     {
-      name: 'Priyanshu Talwar',
-      role: 'Sub-Coordinator and AI-ML Head',
-      image: priyanshu,
-      linkedin: 'https://www.linkedin.com/in/priyanshu-talwar/',
+      name: 'Satvik Jain',
+      role: 'Sub-Coordinator',
+      image: satvikjain,
+      linkedin: 'https://www.linkedin.com/in/satvik-jain-64a30631a/',
     },
     {
-      name: 'Arjav Patel',
+      name: 'Umang Goel',
+      role: 'AI-ML Head',
+      image: umang,
+      linkedin: 'https://www.linkedin.com/in/umang-goel-7a0b52311/',
+    },
+    {
+      name: 'Satvik Srinivas',
       role: 'App Development Head',
-      image: arjav,
-      linkedin: 'https://www.linkedin.com/in/arjav-patel-56283536a/',
+      image: satviksrinivas,
+      linkedin: 'https://www.linkedin.com/in/satvik-srinivas-b94165247/',
     },
     {
-      name: 'Sai Sridhar',
+      name: 'Tanay Sheth',
       role: 'Web Development Head',
-      image: sai,
-      linkedin: 'https://www.linkedin.com/in/sai-sridhar-98892a2ab/',
+      image: tanay,
+      linkedin: 'https://www.linkedin.com/in/tanay-sheth-088123344/',
     },
     {
-      name: 'Anirban Deshmukh',
+      name: 'Anvesh Mishra',
       role: 'Game Development Head',
-      image: anirban,
-      linkedin: 'https://www.linkedin.com/in/anirban-deshmukh-663120343/',
+      image: anvesh,
+      linkedin: 'https://mrgreenapplz.netlify.app',
     },
     {
-      name: 'Siya Goel',
+      name: 'Rishika Gupta',
       role: 'UI/UX Head',
-      image: siya,
-      linkedin: 'https://www.linkedin.com/in/siya-goel/',
-    },
-    {
-      name: 'Shaunak Aghor',
-      role: 'Project SysCall Head',
-      image: shaunak,
-      linkedin: 'https://www.linkedin.com/in/shaunak-aghor-89ba6228b/',
+      image: rishika,
+      linkedin: 'https://www.linkedin.com/in/rishika-gupta-05858b2b5/',
     }
   ];
 
