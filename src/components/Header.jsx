@@ -7,7 +7,7 @@ import logo from "../assets/DevSocLogo.png";
 import devtestblack from "../assets/DevTextBlack.png";
 import devtestwhite from "../assets/DevTextWhite.png";
 
-const Header = () => {
+const Header = ({ offsetTop = false }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme } = useTheme();
@@ -33,8 +33,15 @@ const Header = () => {
     { name: "Projects", href: "/projects" },
     { name: "Team & Verticals", href: "/team" },
     { name: "Gallery", href: "/gallery" },
-
+    { name: "Inductees", href: "/inductees", highlight: true },
   ];
+
+  const newBadge = (
+    <span className="relative flex w-1.5 h-1.5">
+      <span className="absolute inset-0 rounded-full bg-teal-500 dark:bg-teal-400 animate-ping" />
+      <span className="relative w-1.5 h-1.5 rounded-full bg-teal-500 dark:bg-teal-400" />
+    </span>
+  );
 
   const handleNavClick = (href) => {
     setIsMenuOpen(false);
@@ -63,7 +70,9 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        offsetTop ? "top-9" : "top-0"
+      } ${
         isScrolled
           ? "backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm"
           : "bg-transparent"
@@ -107,13 +116,14 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`transition-colors duration-200 text-sm font-medium ${
+                  className={`inline-flex items-center gap-1.5 transition-colors duration-200 text-sm font-medium ${
                     isActive(item.href)
                       ? "text-teal-600 dark:text-teal-400"
                       : "text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
                   }`}
                 >
                   {item.name}
+                  {item.highlight && newBadge}
                 </Link>
               )
             )}
@@ -163,13 +173,14 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block py-3 px-2 rounded-md transition-colors duration-200 text-sm font-medium ${
+                  className={`flex items-center gap-1.5 py-3 px-2 rounded-md transition-colors duration-200 text-sm font-medium ${
                     isActive(item.href)
                       ? "text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20"
                       : "text-slate-600 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-slate-50 dark:hover:bg-slate-800"
                   }`}
                 >
                   {item.name}
+                  {item.highlight && newBadge}
                 </Link>
               )
             )}
