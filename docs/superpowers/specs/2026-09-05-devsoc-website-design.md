@@ -8,7 +8,11 @@ Inspo: `/inspo` (dark cinematic hero comps, type behind chrome objects, side rai
 
 ## 1. Direction
 
-One sentence: an obsidian room lit by a single verdigris light, where the DevSoc braces are a physical chrome object and every chapter is a scene you scroll through.
+One sentence: an atelier of instruments in an obsidian room, lit by a single verdigris light, where every vertical is an instrument in the collection and every chapter is a scene you scroll through.
+
+Personality: DevSoc as a maison. Goa was a port for five centuries and navigators arrived with brass instruments; the society still ships. The hero subject is a hovering armillary sphere (the instrument that finds the way). Each of the six rooms holds one instrument: the Loom (web), the Chronometer (app), the Automaton (game), the Orrery (AI and ML), the Lens (UI and UX), the Movement (engine). Materials are brushed brass with verdigris patina, liquid chrome and smoked glass, photographed like a luxury watch campaign. Not steampunk: no copper-brown, no Victorian ornament. Chapter names follow the maison: the Collection, the Ledger, the Salon, the Makers, the Archive, the Door.
+
+Hero line: "Goa has always been a port. We still ship."
 
 Visual world (commit, no middle ground): cinematic noir editorial. It borrows exactly these from the UX Planet style list and nothing else:
 
@@ -99,14 +103,14 @@ Obsidian. A mono frame counter ticks 00 to 24 top-right. The two brace glyphs sl
 ### 1. Hero: the mark
 12 column grid, full viewport.
 - DEVSOC in display at about 22vw, spanning all columns, baseline near 62% height, bone.
-- Generated chrome brace object centred slightly right, in front of the letters V and S so it partially occludes them (type behind object, as in the inspo).
+- Generated armillary sphere centred slightly right, in front of the letters V and S so it partially occludes them (type behind object, as in the inspo).
 - Left rail (col 1): vertical mono chapter index doubling as anchor nav.
-- Bottom-left (cols 1 to 5): serif voice line "The developers' society of BITS Pilani, Goa. Six verticals, one room." plus one underlined mono link "See the six rooms".
+- Bottom-left (cols 1 to 5): serif voice line "Goa has always been a port. We still ship." with the mono sub-line "The developers' society of BITS Pilani, Goa" plus one underlined mono link "Open the collection".
 - Bottom-right (cols 9 to 12): mono metadata block: founding year, campus, "186 inducted in 2026", "DevFest 4.0".
 - Frame chrome: brass corner marks at 24px inset, DotGothic timecode top-right that advances with scroll.
 - Behind everything: `PointField` dots that settle into the outline of the braces, offset behind the object, very dim.
 
-Motion: letters rise through a baseline mask (1.2s, stagger 0.07). Object un-blurs and drifts into place (1.6s). Dots gather (2s). Idle: object breathes 1% over 8s. Pointer: object parallax 12px, letters 4px the other way, ripples on the object texture via `LiquidImage`. Scroll out: the object scales to 1.35 while DEV parts left and SOC parts right like curtains, and the manifesto's first line rises through the gap.
+Motion: letters rise through a baseline mask (1.2s, stagger 0.07). Object un-blurs and drifts into place (1.6s). Dots gather (2s). Idle: object breathes 1% over 8s and rotates 2 degrees over 20s. Pointer: object parallax 12px, letters 4px the other way, ripples on the object texture via `LiquidImage`. Scroll out: the object scales to 1.35 while DEV parts left and SOC parts right like curtains, and the manifesto's first line rises through the gap.
 
 Mobile: portrait object crop, wordmark stacks DEV over SOC, rail hidden, metadata under the voice line.
 
@@ -125,14 +129,14 @@ Pinned stage, 600vh of scroll, six states.
 - Ambient: one faint verdigris radial that moves to a new position per room (the aurora light).
 - Scroll scrubs through the six. Each change is a liquid crossfade; pointer movement adds ripples. Hovering an index name previews that room; leaving returns to the scrolled state.
 
-| Room | Name | Voice line | Head |
-|------|------|-----------|------|
-| 01 | Web Development | Every fest opens in a browser first. | Tanay Sheth |
-| 02 | App Development | The timetable lives in a pocket. | Satvik Srinivas |
-| 03 | Game Development | Frames, physics, and someone's first boss fight. | Anvesh Mishra |
-| 04 | AI and ML | Models trained on campus problems. | Umang Goel |
-| 05 | UI and UX | The part people think is the whole thing. | Rishika Gupta |
-| 06 | Engine Development | Below the framework. Bare metal, C++, the parts nobody sees. | to confirm |
+| Room | Name | Instrument | Voice line | Head |
+|------|------|------------|-----------|------|
+| 01 | Web Development | The Loom | Every fest opens in a browser first. | Tanay Sheth |
+| 02 | App Development | The Chronometer | The timetable lives in a pocket. | Satvik Srinivas |
+| 03 | Game Development | The Automaton | Frames, physics, and someone's first boss fight. | Anvesh Mishra |
+| 04 | AI and ML | The Orrery | Models trained on campus problems. | Umang Goel |
+| 05 | UI and UX | The Lens | The part people think is the whole thing. | Rishika Gupta |
+| 06 | Engine Development | The Movement | Below the framework. Bare metal, C++, the parts nobody sees. | to confirm |
 
 Mobile: unpinned. Each room is a full-width frame; the six specimens ride an Embla carousel with the index as the caption.
 
@@ -196,22 +200,8 @@ Testing: Playwright smoke per route (renders, no console errors, reduced-motion 
 ### Reused from the old repo
 Seven coordinator PNGs, 23 gallery photos, project images (Waves, Class Sync, Maestro, client, fest app), the CSA Times phone video, the DS logo PNG (traced to SVG).
 
-### To generate (GPT), one studio setup for all
-Shared prompt tail: "obsidian black backdrop, single soft patina-teal key light from upper left, faint warm amber rim light from lower right, 85mm lens, shallow depth of field, fine film grain, no text, no logos, photoreal render".
-
-| ID | Asset | Size | Prompt subject |
-|----|-------|------|----------------|
-| A1 | Hero object | 3200x1800 PNG | two chrome brace glyphs { } sculpted as one hovering liquid-metal object, teal and amber reflections |
-| A2 | Hero object, portrait | 1800x2400 PNG | same object, vertical framing |
-| B1 | Room 01 Web | 2048x2560 | a floating lattice of thin glass panes stacked in perspective, faint etched lines |
-| B2 | Room 02 App | 2048x2560 | a single tall obsidian glass slab with rounded edges, light bending through it |
-| B3 | Room 03 Game | 2048x2560 | a chrome icosahedron half dissolving into small cubes |
-| B4 | Room 04 AI and ML | 2048x2560 | a sphere made of thousands of tiny points, some drifting away |
-| B5 | Room 05 UI and UX | 2048x2560 | three translucent curved sheets nested as layers, one ribbon threading them |
-| B6 | Room 06 Engine | 2048x2560 | a cutaway mechanical core, brass turbine blades and gears inside a chrome shell |
-| C1 | DevFest poster | 2400x3200 | Art Deco sunburst in thin brass hairlines on obsidian, radiating from a small chrome brace pair |
-| C2 | DevFest wide | 3200x1800 | same composition, horizontal |
-| D1 | Manifesto bleed (optional) | 3840x1600 | empty campus computer lab at night, monitors casting teal light, long exposure |
+### To generate (GPT)
+Full copy-paste prompts, filenames and sizes live in `docs/assets/image-prompts.md`. Fourteen images: hero armillary sphere (wide and tall), six instruments, DevFest sunburst (wide and tall), the atelier workbench, the key, two macro textures.
 
 ### Facts to confirm
 Founding year, Engine Development head, DevFest 4.0 date and sponsor line, whether the inductees list should be live at launch, vector logo file if one exists.

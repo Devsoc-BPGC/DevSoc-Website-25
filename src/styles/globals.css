@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   DevSoc 2026 · tokens
+   Obsidian ground, bone type, verdigris light, brass hairlines.
+   ------------------------------------------------------------------ */
+
+@theme {
+  --color-*: initial;
+  --color-obsidian: oklch(0.13 0.008 60);
+  --color-soot: oklch(0.2 0.008 60);
+  --color-bone: oklch(0.93 0.02 85);
+  --color-ash: oklch(0.66 0.015 80);
+  --color-verdigris: oklch(0.72 0.11 185);
+  --color-verdigris-deep: oklch(0.45 0.08 190);
+  --color-ember: oklch(0.7 0.17 50);
+  --color-brass: oklch(0.78 0.09 85);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--font-archivo), "Arial Black", Impact, sans-serif;
+  --font-body: var(--font-archivo), Arial, sans-serif;
+  --font-voice: var(--font-bodoni), "Bodoni MT", Didot, Georgia, serif;
+  --font-mono: var(--font-martian), ui-monospace, "Cascadia Mono", monospace;
+  --font-hud: var(--font-dotgothic), "Courier New", monospace;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+:root {
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --nav-h: 4.5rem;
+  --z-grain: 90;
+  --z-frame: 70;
+  --z-nav: 60;
+  --z-menu: 80;
+  --z-overture: 100;
+  --z-cursor: 120;
+  --dur-hover: 0.6s;
+  color-scheme: dark;
+}
+
+/* ------------------------------------------------------------------ base */
+
+html {
+  background: var(--color-obsidian);
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-obsidian);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-verdigris-deep);
+  color: var(--color-bone);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-brass);
+  outline-offset: 4px;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* the whole site runs on a fine pointer with the custom cursor;
+   touch devices and reduced motion keep the native one */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ utilities */
+
+@utility gutter {
+  padding-inline: var(--gutter);
+}
+
+@utility grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 125;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+}
+
+@utility voice {
+  font-family: var(--font-voice);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+}
+
+@utility mono {
+  font-family: var(--font-mono);
+  font-variation-settings: "wdth" 87.5;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility hud {
+  font-family: var(--font-hud);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility body-copy {
+  font-family: var(--font-body);
+  font-variation-settings: "wdth" 100;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: color-mix(in oklch, var(--color-bone) 86%, transparent);
+  max-width: 68ch;
+}
+
+/* text link: hairline underline that thickens toward brass on hover */
+@utility text-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.2em;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  transition:
+    background-size var(--dur-hover) var(--ease-out-expo),
+    color var(--dur-hover) var(--ease-out-expo);
+}
+.text-link:hover {
+  background-size: 100% 2px;
+  color: var(--color-brass);
+}
+
+/* ------------------------------------------------------------------ duotone
+   Archive photos rest as verdigris duotone and resolve to colour on state. */
+
+.duotone {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-verdigris-deep);
+}
+.duotone > img,
+.duotone > picture > img {
+  filter: grayscale(1) contrast(1.06) brightness(0.86);
+  transition: filter var(--dur-hover) var(--ease-out-expo);
+}
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-verdigris-deep);
+  mix-blend-mode: color;
+  pointer-events: none;
+  transition: opacity var(--dur-hover) var(--ease-out-expo);
+}
+.duotone.is-color > img,
+.duotone.is-color > picture > img,
+.duotone:hover > img,
+.duotone:hover > picture > img {
+  filter: none;
+}
+.duotone.is-color::after,
+.duotone:hover::after {
+  opacity: 0;
+}
+
+/* ------------------------------------------------------------------ grain
+   Film grain from the frame-chrome concept. Fixed, non-interactive, faint. */
+
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  mix-blend-mode: screen;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .grain {
+    animation: grain-shift 1.2s steps(6) infinite;
+  }
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-2%, 3%); }
+  40% { transform: translate(3%, -1%); }
+  60% { transform: translate(-1%, -3%); }
+  80% { transform: translate(2%, 2%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ------------------------------------------------------------------ ambient light
+   One soft field of verdigris light. Position is driven by --lx / --ly. */
+
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    60% 50% at var(--lx, 70%) var(--ly, 40%),
+    color-mix(in oklch, var(--color-verdigris-deep) 55%, transparent),
+    transparent 70%
+  );
+  opacity: 0.55;
+  transition:
+    background-position 1.2s var(--ease-out-expo),
+    opacity 1.2s var(--ease-out-expo);
+}
+
+/* ------------------------------------------------------------------ reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
