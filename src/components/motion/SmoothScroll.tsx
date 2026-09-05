@@ -2,38 +2,59 @@
 
 /**
  * SmoothScroll
- * Lenis smooth scrolling wired into the GSAP ticker so ScrollTrigger and
- * Lenis share one clock. Renders children directly (root mode), so the page
- * keeps native scroll semantics, anchors and the scrollbar API.
+ * Lenis smooth scrolling driven by the GSAP ticker, so Lenis and ScrollTrigger
+ * share one clock and pinned sections cannot drift.
  *
- * Reduced motion: Lenis is not created at all; native scroll takes over.
+ * Lenis runs with autoRaf off, which means something has to call lenis.raf on
+ * every frame. Lenis swallows the wheel event either way, so if that call is
+ * missing the wheel goes dead while the keyboard still scrolls. The driver
+ * therefore lives in a child that reads the instance from context: the child
+ * only renders once the instance actually exists, where reading a ref from
+ * the parent would run a render too early and silently attach nothing.
  *
- * Usage: wrap the page once in the root layout.
+ * Reduced motion: no Lenis at all, native scrolling takes over.
  */
 
-import { ReactLenis, type LenisRef } from "lenis/react";
-import { useEffect, useRef, type ReactNode } from "react";
+import { ReactLenis, useLenis } from "lenis/react";
+import { useEffect, type ReactNode } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useMedia";
 
 const easeOutExpo = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
-export function SmoothScroll({ children }: { children: ReactNode }) {
-  const reduced = useReducedMotion();
-  const lenisRef = useRef<LenisRef>(null);
+function ScrollDriver() {
+  const lenis = useLenis();
 
   useEffect(() => {
-    if (reduced) return;
-    const lenis = lenisRef.current?.lenis;
     if (!lenis) return;
 
-    const update = (time: number) => lenis.raf(time * 1000);
+    let ticks = 0;
+    const update = (time: number) => {
+      ticks += 1;
+      lenis.raf(time * 1000);
+    };
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
     lenis.on("scroll", ScrollTrigger.update);
 
+    // Watchdog. Lenis swallows the wheel whether or not anything is driving
+    // it, so a driver that fails to attach leaves the page scrollable only by
+    // keyboard. If no frame has arrived shortly after mount, run our own loop.
+    let fallback = 0;
+    const watchdog = setTimeout(() => {
+      if (ticks > 0) return;
+      const loop = (time: number) => {
+        lenis.raf(time);
+        fallback = requestAnimationFrame(loop);
+      };
+      fallback = requestAnimationFrame(loop);
+      if (process.env.NODE_ENV !== "production") {
+        console.warn("SmoothScroll: GSAP ticker never fired, driving Lenis directly.");
+      }
+    }, 600);
+
     // Pins and scrubs measure after fonts and images settle, and again
-    // whenever the document changes height (lazy images, carousels).
+    // whenever the document changes height (lazy images, rails, filters).
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
     document.fonts?.ready.then(refresh);
@@ -49,20 +70,27 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     ro.observe(document.body);
 
     return () => {
+      clearTimeout(watchdog);
+      if (fallback) cancelAnimationFrame(fallback);
       gsap.ticker.remove(update);
       lenis.off("scroll", ScrollTrigger.update);
       window.removeEventListener("load", refresh);
       ro.disconnect();
       clearTimeout(timer);
     };
-  }, [reduced]);
+  }, [lenis]);
+
+  return null;
+}
+
+export function SmoothScroll({ children }: { children: ReactNode }) {
+  const reduced = useReducedMotion();
 
   if (reduced) return <>{children}</>;
 
   return (
     <ReactLenis
       root
-      ref={lenisRef}
       options={{
         duration: 1.2,
         easing: easeOutExpo,
@@ -72,6 +100,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         anchors: true,
       }}
     >
+      <ScrollDriver />
       {children}
     </ReactLenis>
   );
