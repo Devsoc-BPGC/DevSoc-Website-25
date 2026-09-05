@@ -32,15 +32,28 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     gsap.ticker.lagSmoothing(0);
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Pins measure after fonts and images settle.
+    // Pins and scrubs measure after fonts and images settle, and again
+    // whenever the document changes height (lazy images, carousels).
     const refresh = () => ScrollTrigger.refresh();
     window.addEventListener("load", refresh);
     document.fonts?.ready.then(refresh);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let lastH = document.body.scrollHeight;
+    const ro = new ResizeObserver(() => {
+      const h = document.body.scrollHeight;
+      if (Math.abs(h - lastH) < 2) return;
+      lastH = h;
+      clearTimeout(timer);
+      timer = setTimeout(refresh, 250);
+    });
+    ro.observe(document.body);
 
     return () => {
       gsap.ticker.remove(update);
       lenis.off("scroll", ScrollTrigger.update);
       window.removeEventListener("load", refresh);
+      ro.disconnect();
+      clearTimeout(timer);
     };
   }, [reduced]);
 

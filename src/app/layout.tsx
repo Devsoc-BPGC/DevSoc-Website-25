@@ -3,6 +3,9 @@ import { Archivo, Bodoni_Moda, Martian_Mono, DotGothic16 } from "next/font/googl
 import "@/styles/globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
+import { FrameChrome } from "@/components/motion/FrameChrome";
+import { Nav } from "@/components/shell/Nav";
+import { Overture } from "@/components/shell/Overture";
 import { site } from "@/content/site";
 
 // Display and body: one variable family with a live width axis.
@@ -69,7 +72,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${archivo.variable} ${bodoni.variable} ${martian.variable} ${dotgothic.variable}`}
     >
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <Nav />
+          {children}
+        </SmoothScroll>
+        <FrameChrome />
+        <Overture />
         <Cursor />
         <div className="grain" aria-hidden="true" />
       </body>

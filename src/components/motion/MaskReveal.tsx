@@ -63,7 +63,7 @@ export function MaskReveal({ base, reveal, radius = 170, className, cursorLabel 
   if (!interactive) {
     return (
       <div
-        className={`duotone ${tapped || reduced ? "is-color" : ""} ${className ?? ""}`}
+        className={`duotone relative ${tapped || reduced ? "is-color" : ""} ${className ?? ""}`}
         onClick={() => setTapped((v) => !v)}
       >
         {base}
@@ -79,7 +79,7 @@ export function MaskReveal({ base, reveal, radius = 170, className, cursorLabel 
       onPointerLeave={leave}
       data-cursor={cursorLabel}
     >
-      <div className="duotone absolute inset-0 [&>img]:h-full [&>img]:w-full [&>img]:object-cover">{base}</div>
+      <div className="duotone relative h-full w-full [&>img]:h-full [&>img]:w-full [&>img]:object-cover">{base}</div>
       <motion.div
         className="absolute inset-0 [&>img]:h-full [&>img]:w-full [&>img]:object-cover"
         style={{ WebkitMaskImage: mask, maskImage: mask }}

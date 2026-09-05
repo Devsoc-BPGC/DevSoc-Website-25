@@ -200,14 +200,14 @@ p {
 /* ------------------------------------------------------------------ duotone
    Archive photos rest as verdigris duotone and resolve to colour on state. */
 
+/* callers position the element (relative or absolute); the tint overlay needs it */
 .duotone {
-  position: relative;
   isolation: isolate;
   background: var(--color-verdigris-deep);
 }
 .duotone > img,
 .duotone > picture > img {
-  filter: grayscale(1) contrast(1.1) brightness(0.7);
+  filter: grayscale(1) contrast(1.08) brightness(0.62);
   transition: filter var(--dur-hover) var(--ease-out-expo);
 }
 .duotone::after {
@@ -216,7 +216,7 @@ p {
   inset: 0;
   background: var(--color-verdigris-deep);
   mix-blend-mode: color;
-  opacity: 0.7;
+  opacity: 0.5;
   pointer-events: none;
   transition: opacity var(--dur-hover) var(--ease-out-expo);
 }
@@ -276,6 +276,33 @@ p {
   transition:
     background-position 1.2s var(--ease-out-expo),
     opacity 1.2s var(--ease-out-expo);
+}
+
+/* a single soft light that can be moved with transform (see Rooms) */
+.glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 70vw;
+  height: 70vh;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklch, var(--color-verdigris-deep) 60%, transparent),
+    transparent
+  );
+  opacity: 0.5;
+  will-change: transform;
+  transition: transform 1.8s var(--ease-out-expo);
+}
+
+/* crossfade for captions that change with state */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.rise-in {
+  animation: rise-in 0.9s var(--ease-out-expo) both;
 }
 
 /* ------------------------------------------------------------------ reduced motion */

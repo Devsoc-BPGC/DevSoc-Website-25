@@ -44,6 +44,8 @@ uniform float uProgress;
 uniform float uTime;
 uniform vec2 uPointer;
 uniform float uHover;
+uniform float uTint;
+uniform vec3 uTintColor;
 uniform vec4 uRipples[${MAX_RIPPLES}];
 
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
@@ -85,8 +87,14 @@ void main() {
   vec4 a = texture2D(uTexA, uvA);
   vec4 b = texture2D(uTexB, uvB);
   float m = smoothstep(0.0, 1.0, uProgress);
-  float edge = smoothstep(m - 0.35, m + 0.35, noise(uv * 2.5 + 3.1) * 0.6 + m * 0.7 - 0.15);
-  vec4 col = mix(a, b, clamp(mix(m, edge, 0.6), 0.0, 1.0));
+  // noisy threshold that still reaches exactly 0 at the start and 1 at the end
+  float thr = noise(uv * 2.5 + 3.1);
+  float edge = smoothstep(0.0, 1.0, clamp((m - thr * 0.4) / 0.6, 0.0, 1.0));
+  vec4 col = mix(a, b, mix(m, edge, 0.6));
+  // optional duotone: grade to the verdigris shadows, resolve to colour under the pointer
+  float l = dot(col.rgb, vec3(0.299, 0.587, 0.114));
+  vec3 graded = mix(vec3(l * 0.85), uTintColor * (0.3 + l * 1.4), 0.7);
+  col.rgb = mix(col.rgb, graded, uTint);
   float vig = smoothstep(0.95, 0.35, length((vUv - 0.5) * vec2(1.0, 0.9)));
   col.rgb *= 0.86 + 0.14 * vig;
   gl_FragColor = col;
@@ -102,6 +110,8 @@ type Uniforms = {
   uTime: { value: number };
   uPointer: { value: THREE.Vector2 };
   uHover: { value: number };
+  uTint: { value: number };
+  uTintColor: { value: THREE.Color };
   uRipples: { value: THREE.Vector4[] };
 };
 
@@ -114,6 +124,7 @@ type Shared = {
   pointer: { x: number; y: number; hover: number };
   ripples: THREE.Vector4[];
   clock: { t: number };
+  tint: number;
 };
 
 function Plane({ textures, index, shared }: { textures: THREE.Texture[]; index: number; shared: Shared }) {
@@ -135,6 +146,8 @@ function Plane({ textures, index, shared }: { textures: THREE.Texture[]; index: 
       uTime: { value: 0 },
       uPointer: { value: new THREE.Vector2(-10, -10) },
       uHover: { value: 0 },
+      uTint: { value: shared.tint },
+      uTintColor: { value: new THREE.Color("#2f6b68") },
       uRipples: { value: shared.ripples },
     };
     return new THREE.ShaderMaterial({ uniforms, vertexShader: vertex, fragmentShader: fragment, transparent: true });
@@ -164,6 +177,8 @@ function Plane({ textures, index, shared }: { textures: THREE.Texture[]; index: 
     u.uPlaneAspect.value = viewport.width / viewport.height;
     u.uPointer.value.set(shared.pointer.x, shared.pointer.y);
     u.uHover.value += (shared.pointer.hover - u.uHover.value) * 0.08;
+    const tintTarget = shared.tint * (1 - shared.pointer.hover);
+    u.uTint.value += (tintTarget - u.uTint.value) * 0.05;
   });
 
   return (
@@ -230,6 +245,7 @@ export function LiquidImage({
   className,
   simple = false,
   priority = false,
+  tint = 0,
 }: {
   images: LiquidSource[];
   index: number;
@@ -237,6 +253,8 @@ export function LiquidImage({
   /** Force the CSS crossfade (used on mobile). */
   simple?: boolean;
   priority?: boolean;
+  /** 0 to 1: verdigris duotone at rest, resolving to colour under the pointer. */
+  tint?: number;
 }) {
   const reduced = useReducedMotion();
   const [gl, setGl] = useState<boolean | null>(null);
@@ -246,7 +264,9 @@ export function LiquidImage({
     pointer: { x: -10, y: -10, hover: 0 },
     ripples: Array.from({ length: MAX_RIPPLES }, () => new THREE.Vector4(0, 0, -100, 0)),
     clock: { t: 0 },
+    tint,
   });
+  shared.current.tint = tint;
   const rippleCursor = useRef(0);
   const last = useRef<{ x: number; y: number; t: number } | null>(null);
 
@@ -318,7 +338,9 @@ export function LiquidImage({
           <Plane textures={textures} index={safeIndex} shared={shared.current} />
         </Canvas>
       ) : (
-        <Fallback images={images} index={safeIndex} priority={priority} />
+        <div className={tint > 0 ? "duotone absolute inset-0" : "absolute inset-0"}>
+          <Fallback images={images} index={safeIndex} priority={priority} />
+        </div>
       )}
     </div>
   );
