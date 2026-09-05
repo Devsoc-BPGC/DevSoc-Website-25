@@ -24,7 +24,7 @@ export const verticals: Vertical[] = [
     head: "Tanay Sheth",
     tools: ["Next.js", "React", "Three.js", "Node"],
     build: "Waves and Quark fest websites",
-    image: "/images/rooms/01-web.png",
+    image: "/images/rooms/01-web.jpg",
     light: { x: 72, y: 32 },
   },
   {
@@ -37,7 +37,7 @@ export const verticals: Vertical[] = [
     head: "Satvik Srinivas",
     tools: ["Flutter", "Dart", "Firebase", "Swift"],
     build: "Fest apps and Class Sync",
-    image: "/images/rooms/02-app.png",
+    image: "/images/rooms/02-app.jpg",
     light: { x: 30, y: 40 },
   },
   {
@@ -50,7 +50,7 @@ export const verticals: Vertical[] = [
     head: "Anvesh Mishra",
     tools: ["Unity", "Unreal", "C#", "Godot"],
     build: "Game jams during Quark",
-    image: "/images/rooms/03-game.png",
+    image: "/images/rooms/03-game.jpg",
     light: { x: 64, y: 70 },
   },
   {
@@ -63,7 +63,7 @@ export const verticals: Vertical[] = [
     head: "Umang Goel",
     tools: ["Python", "PyTorch", "TensorFlow"],
     build: "Timetable capture for Class Sync",
-    image: "/images/rooms/04-ai-ml.png",
+    image: "/images/rooms/04-ai-ml.jpg",
     light: { x: 40, y: 24 },
   },
   {
@@ -76,7 +76,7 @@ export const verticals: Vertical[] = [
     head: "Rishika Gupta",
     tools: ["Figma", "Framer", "Blender"],
     build: "Design systems for every fest",
-    image: "/images/rooms/05-ui-ux.png",
+    image: "/images/rooms/05-ui-ux.jpg",
     light: { x: 76, y: 56 },
   },
   {
@@ -89,7 +89,7 @@ export const verticals: Vertical[] = [
     head: null,
     tools: ["C++", "Assembly", "Bare metal"],
     build: "Project SysCall",
-    image: "/images/rooms/06-engine.png",
+    image: "/images/rooms/06-engine.jpg",
     light: { x: 26, y: 62 },
   },
 ];

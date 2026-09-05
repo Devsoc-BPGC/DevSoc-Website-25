@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw generated images (2MB PNGs); compressed copies live in public/images
+/assets-src
+/.playwright-mcp
+*.tsbuildinfo

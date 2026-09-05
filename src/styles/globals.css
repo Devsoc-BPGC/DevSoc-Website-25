@@ -207,7 +207,7 @@ p {
 }
 .duotone > img,
 .duotone > picture > img {
-  filter: grayscale(1) contrast(1.06) brightness(0.86);
+  filter: grayscale(1) contrast(1.1) brightness(0.7);
   transition: filter var(--dur-hover) var(--ease-out-expo);
 }
 .duotone::after {
@@ -216,6 +216,7 @@ p {
   inset: 0;
   background: var(--color-verdigris-deep);
   mix-blend-mode: color;
+  opacity: 0.7;
   pointer-events: none;
   transition: opacity var(--dur-hover) var(--ease-out-expo);
 }
