@@ -2,9 +2,10 @@
 
 /**
  * The Makers: credits
- * A credits roll. One row per person, name in display, role in mono, a brass
- * hairline between rows. Hovering a row swaps the portrait in the frame at
- * the right, which rests in the verdigris grade and resolves under the pointer.
+ * A credits roll that plays itself. As the list travels up the screen the
+ * portrait at the right changes to whoever is level with the middle of the
+ * viewport, melting from one face to the next. Hovering a name takes over
+ * for as long as the pointer stays there; otherwise scroll has the wheel.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -18,18 +19,19 @@ const portraits = people.map((p) => ({ src: p.image, alt: p.name }));
 
 export function Credits({ all = false }: { all?: boolean }) {
   const root = useRef<HTMLElement>(null);
-  const [index, setIndex] = useState(0);
+  const [scrolled, setScrolled] = useState(0);
+  const [hover, setHover] = useState<number | null>(null);
   const reduced = useReducedMotion();
   const mobile = useIsMobile();
+  const index = hover ?? scrolled;
 
-  // Rows rise in when the section arrives. Layout-independent: an
-  // IntersectionObserver decides, so late-loading images cannot stale it.
-  // If the section is already on screen when this runs, nothing is hidden.
+  // Rows rise in on arrival. IntersectionObserver decides, so late-loading
+  // images cannot leave a row stranded, and a row already on screen shows.
   useEffect(() => {
     const el = root.current;
     if (reduced || !el) return;
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
     const rows = Array.from(el.querySelectorAll<HTMLElement>("[data-row]"));
+    if (!rows.length || el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
     gsap.set(rows, { y: 28, opacity: 0 });
     let played = false;
     const play = () => {
@@ -53,6 +55,35 @@ export function Credits({ all = false }: { all?: boolean }) {
     };
   }, [reduced]);
 
+  // The face follows the scroll: whichever row is nearest the middle wins.
+  useEffect(() => {
+    const el = root.current;
+    if (!el || mobile) return;
+    const rows = Array.from(el.querySelectorAll<HTMLElement>("[data-row]"));
+    if (!rows.length) return;
+    const pick = () => {
+      const mid = window.innerHeight * 0.5;
+      let best = 0;
+      let bestGap = Infinity;
+      rows.forEach((r, i) => {
+        const b = r.getBoundingClientRect();
+        const gap = Math.abs(b.top + b.height / 2 - mid);
+        if (gap < bestGap) {
+          bestGap = gap;
+          best = i;
+        }
+      });
+      setScrolled((prev) => (prev === best ? prev : best));
+    };
+    const io = new IntersectionObserver(pick, {
+      rootMargin: "-40% 0px -40% 0px",
+      threshold: [0, 0.5, 1],
+    });
+    rows.forEach((r) => io.observe(r));
+    pick();
+    return () => io.disconnect();
+  }, [mobile]);
+
   return (
     <section id="makers" ref={root} aria-labelledby="makers-title" className="relative py-[14vh]">
       <div className="gutter grid-12">
@@ -69,14 +100,19 @@ export function Credits({ all = false }: { all?: boolean }) {
                   href={p.link}
                   target="_blank"
                   rel="noreferrer"
-                  onMouseEnter={() => setIndex(i)}
-                  onFocus={() => setIndex(i)}
-                  className={`group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 py-5 transition-colors duration-500 ${
+                  onMouseEnter={() => setHover(i)}
+                  onMouseLeave={() => setHover(null)}
+                  onFocus={() => setHover(i)}
+                  onBlur={() => setHover(null)}
+                  className={`group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 py-5 transition-colors duration-700 ${
                     i === index ? "text-bone" : "text-ash hover:text-bone"
                   }`}
                   data-cursor="Open"
                 >
-                  <span className="font-display text-[clamp(1.5rem,3.4vw,3.6rem)] font-black uppercase leading-none tracking-[-0.02em] [font-variation-settings:'wdth'_112]">
+                  <span
+                    className="font-display text-[clamp(1.5rem,3.4vw,3.6rem)] font-black uppercase leading-none tracking-[-0.02em] transition-[font-variation-settings] duration-700 ease-[var(--ease-out-expo)]"
+                    style={{ fontVariationSettings: i === index ? '"wdth" 118' : '"wdth" 104' }}
+                  >
                     {p.name}
                   </span>
                   <span className="mono">{p.role}</span>
@@ -94,8 +130,8 @@ export function Credits({ all = false }: { all?: boolean }) {
         </div>
 
         <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
-          <div className="sticky top-[18vh]">
-            <LiquidImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={1} simple={mobile} />
+          <div className="sticky top-[22vh]">
+            <LiquidImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={0.55} simple={mobile} />
             <p key={people[index].id} className="mono rise-in mt-4 text-ash">
               <span className="text-bone">{people[index].name}</span>. {people[index].role}
             </p>

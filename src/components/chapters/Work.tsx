@@ -2,17 +2,19 @@
 
 /**
  * The Ledger: what we shipped
- * The fest app film runs under the scroll inside a framed window, graded to
- * the room. Then a free-drag rail of projects, each resting in duotone and
- * resolving to colour under the pointer's lens.
+ * Two scroll-driven movements and no buttons. First the fest app film runs
+ * under the scrollbar inside a framed window. Then the shelf: the section
+ * pins and the projects travel sideways as you keep scrolling down, each one
+ * lifting out of its grade as it crosses the middle of the screen.
  */
 
 import { useRef } from "react";
 import Image from "next/image";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useMedia";
-import { Carousel, CarouselSlide } from "@/components/motion/Carousel";
-import { MaskReveal } from "@/components/motion/MaskReveal";
+import { HorizontalPan, PanItem } from "@/components/motion/HorizontalPan";
+import { ScrollResolve } from "@/components/motion/ScrollResolve";
+import { Reveal } from "@/components/motion/Reveal";
 import { TextLink } from "@/components/ui/TextLink";
 import { projects } from "@/content/projects";
 
@@ -61,7 +63,7 @@ function ScrubFilm() {
     <div ref={track} className="relative h-[220vh]">
       <div className="sticky top-0 flex h-[100dvh] items-center gutter">
         <div className="relative mx-auto w-full max-w-[min(88vw,150vh)]">
-          <div className="duotone relative aspect-video overflow-hidden">
+          <div className="resolve relative aspect-video" style={{ ["--resolve" as string]: 0.35 }}>
             <video
               ref={video}
               src="/video/csa-times.mp4"
@@ -72,7 +74,6 @@ function ScrubFilm() {
               className="h-full w-full object-cover"
             />
           </div>
-          {/* frame chrome on the film */}
           <span className="pointer-events-none absolute -left-3 -top-3 h-4 w-4 border-l border-t border-brass/70" />
           <span className="pointer-events-none absolute -right-3 -top-3 h-4 w-4 border-r border-t border-brass/70" />
           <span className="pointer-events-none absolute -bottom-3 -left-3 h-4 w-4 border-b border-l border-brass/70" />
@@ -91,10 +92,13 @@ function ScrubFilm() {
   );
 }
 
+// Widths alternate so the shelf has rhythm instead of a row of equal cards.
+const WIDTHS = ["w-[86vw] lg:w-[54vw]", "w-[78vw] lg:w-[34vw]", "w-[86vw] lg:w-[44vw]"];
+
 export function Work() {
   return (
     <section id="ledger" aria-labelledby="ledger-title" className="relative py-[12vh]">
-      <div className="gutter">
+      <Reveal className="gutter">
         <h2 id="ledger-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-bone">
           The ledger
         </h2>
@@ -102,32 +106,37 @@ export function Work() {
           Fest websites the whole campus registers on. Apps that open on every phone during Waves and Quark. Tools that
           fix a Tuesday.
         </p>
-      </div>
+      </Reveal>
 
       <ScrubFilm />
 
-      <Carousel label="Projects" className="mt-[6vh]">
-        <div className="w-[var(--gutter)] flex-none" aria-hidden="true" />
-        {projects.map((p) => (
-          <CarouselSlide key={p.id} className="w-[84vw] md:w-[46vw]">
-            <MaskReveal
-              className="aspect-[16/10]"
-              radius={200}
-              cursorLabel="Look"
-              base={<Image src={p.image} alt={p.title} width={p.width} height={p.height} sizes="(min-width: 768px) 46vw, 84vw" />}
-              reveal={<Image src={p.image} alt="" width={p.width} height={p.height} sizes="(min-width: 768px) 46vw, 84vw" />}
-            />
+      <HorizontalPan label="Projects" className="mt-[14vh]">
+        <div className="w-[var(--gutter)] shrink-0" aria-hidden="true" />
+        {projects.map((p, i) => (
+          <PanItem key={p.id} className={WIDTHS[i % WIDTHS.length]}>
+            <ScrollResolve to={0.72} className="aspect-[16/10] w-full">
+              <Image
+                src={p.image}
+                alt={p.title}
+                width={p.width}
+                height={p.height}
+                sizes="(min-width: 1024px) 54vw, 86vw"
+                className="h-full w-full object-cover"
+              />
+            </ScrollResolve>
             <div className="mt-5 flex items-baseline justify-between gap-6">
-              <h3 className="display text-[clamp(1.4rem,2.2vw,2.2rem)] text-bone [font-variation-settings:'wdth'_110]">{p.title}</h3>
+              <h3 className="display text-[clamp(1.4rem,2.4vw,2.4rem)] text-bone [font-variation-settings:'wdth'_110]">
+                {p.title}
+              </h3>
               <p className="mono shrink-0 text-ash">
                 {p.year}. {p.vertical}
               </p>
             </div>
-            <p className="body-copy mt-2 text-[0.95rem]">{p.blurb}</p>
-          </CarouselSlide>
+            <p className="body-copy mt-2 max-w-[46ch] text-[0.95rem]">{p.blurb}</p>
+          </PanItem>
         ))}
-        <div className="w-[var(--gutter)] flex-none" aria-hidden="true" />
-      </Carousel>
+        <div className="w-[var(--gutter)] shrink-0" aria-hidden="true" />
+      </HorizontalPan>
 
       <div className="gutter mt-12">
         <TextLink href="/projects" cursor="Go">

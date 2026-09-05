@@ -48,7 +48,10 @@ export function Manifesto() {
       <ScrollExpand
         media={
           // eslint-disable-next-line @next/next/no-img-element
-          <img src="/images/atelier/workbench-wide.jpg" alt="The atelier at night: instruments under glass along two workbenches, one lamp" />
+          <img
+            src="/images/atelier/workbench-wide.jpg"
+            alt="The atelier at night: instruments under glass along two workbenches, one lamp"
+          />
         }
         expanded={
           <div className="gutter flex h-full flex-col justify-end pb-[10vh]">

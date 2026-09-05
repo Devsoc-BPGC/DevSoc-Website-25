@@ -33,6 +33,8 @@ Generated instrument photography (see `docs/assets/image-prompts.md`): one studi
 12 column grid, gutter `clamp(1.25rem, 4vw, 4rem)`. Chapter padding varies on purpose (hero 0, manifesto 18vh, rooms 0 pinned, work 12vh, DevFest 0, people 14vh, archive 8vh, join 22vh). Radius 0 everywhere except the ScrollExpand frame (24px collapsing to 0) and the cursor ring. No cards. Brass 1px hairlines only where they separate real rows.
 
 ## Motion
+Scroll drives the page. Every chapter plays itself: the shelf of projects pans sideways under vertical scroll, photographs lift out of the grade as they reach the middle of the screen, the credits portrait follows whichever name is level with the middle, and the film scrubs. Hover refines what scroll has already shown; clicks are for navigation and for going deeper only.
+
 Lenis 1.2 duration, exponential ease. GSAP ScrollTrigger for pins and scrubs (scrub 1.2). Reveals 0.9 to 1.4s on `expo.out`. Hover 0.6s cubic-bezier(0.22, 1, 0.36, 1). Cursor follow 0.18s. No bounce, elastic or spring. three.js only for `LiquidImage` (shader crossfade with pointer ripples) and `PointField`. Reduced motion renders every chapter static; all content is in the DOM without JS.
 
 ## Voice

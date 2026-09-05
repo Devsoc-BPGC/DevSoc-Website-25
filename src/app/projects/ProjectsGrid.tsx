@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { MaskReveal } from "@/components/motion/MaskReveal";
+import { Reveal } from "@/components/motion/Reveal";
 import { projects } from "@/content/projects";
 
 export function ProjectsGrid() {
@@ -27,7 +28,7 @@ export function ProjectsGrid() {
         ))}
       </ul>
 
-      <ol className="gutter mt-12 grid grid-cols-1 gap-x-[3vw] gap-y-16 md:grid-cols-2">
+      <Reveal as="ol" stagger={0.08} className="gutter mt-12 grid grid-cols-1 gap-x-[3vw] gap-y-16 md:grid-cols-2">
         {shown.map((p, i) => (
           <li key={p.id} className={i % 2 === 1 ? "md:mt-[14vh]" : ""}>
             <MaskReveal
@@ -46,7 +47,7 @@ export function ProjectsGrid() {
             <p className="body-copy mt-2 text-[0.95rem]">{p.blurb}</p>
           </li>
         ))}
-      </ol>
+      </Reveal>
     </>
   );
 }

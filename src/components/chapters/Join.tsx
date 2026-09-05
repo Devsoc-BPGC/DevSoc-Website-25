@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { SplitLines } from "@/components/motion/SplitLines";
+import { Reveal } from "@/components/motion/Reveal";
 import { TextLink } from "@/components/ui/TextLink";
 import { site } from "@/content/site";
 import inductees from "@/content/inductees.json";
@@ -28,7 +29,7 @@ export function Join() {
   return (
     <section id="door" aria-labelledby="door-title" className="relative py-[22vh]">
       <div className="gutter grid-12 items-center gap-y-12">
-        <div className="col-span-12 md:col-span-5 lg:col-span-4">
+        <Reveal className="col-span-12 md:col-span-5 lg:col-span-4">
           <div className="relative aspect-[4/5] w-full max-w-[420px] overflow-hidden">
             <Image
               src="/images/join/key.jpg"
@@ -38,7 +39,7 @@ export function Join() {
               className="object-cover"
             />
           </div>
-        </div>
+        </Reveal>
 
         <div className="col-span-12 md:col-span-7 lg:col-span-6 lg:col-start-6">
           {site.inducteesLive ? (

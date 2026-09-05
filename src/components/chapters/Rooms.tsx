@@ -16,7 +16,6 @@ import { useLenis } from "lenis/react";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
 import { LiquidImage } from "@/components/motion/LiquidImage";
-import { Carousel, CarouselSlide } from "@/components/motion/Carousel";
 import { verticals } from "@/content/verticals";
 
 const images = verticals.map((v) => ({ src: v.image, alt: `${v.instrument}, the instrument of ${v.name}` }));
@@ -57,10 +56,13 @@ export function Rooms() {
         <p className="body-copy gutter mt-5">
           Six rooms, one atelier. Each vertical keeps an instrument.
         </p>
-        <Carousel label="The six rooms" className="mt-10">
-          <div className="w-[var(--gutter)] flex-none" aria-hidden="true" />
+        <ul
+          className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label="The six rooms"
+        >
+          <li className="w-[calc(var(--gutter)-1.25rem)] shrink-0" aria-hidden="true" />
           {verticals.map((v, i) => (
-            <CarouselSlide key={v.id} className="w-[78vw]">
+            <li key={v.id} className="w-[78vw] shrink-0 snap-start">
               <LiquidImage images={[images[i]]} index={0} className="aspect-[4/5]" simple />
               <p className="mono mt-4 text-ash">
                 {v.index} <span className="text-bone">{v.name}</span>
@@ -70,9 +72,10 @@ export function Rooms() {
                 {v.instrument}
                 {v.head ? `. ${v.head}` : ""}
               </p>
-            </CarouselSlide>
+            </li>
           ))}
-        </Carousel>
+          <li className="w-[calc(var(--gutter)-1.25rem)] shrink-0" aria-hidden="true" />
+        </ul>
       </section>
     );
   }

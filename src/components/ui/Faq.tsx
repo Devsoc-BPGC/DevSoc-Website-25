@@ -1,31 +1,27 @@
+import { Reveal } from "@/components/motion/Reveal";
 import { faq } from "@/content/faq";
 
 /**
  * Faq
- * Native disclosures in a hairline list. No JavaScript, no cards.
+ * Questions and answers both on the page, hairline between them, rising as
+ * you scroll. Nothing to open: if it is worth answering it is worth reading.
  */
 export function Faq() {
   return (
     <section aria-labelledby="faq-title" className="gutter grid-12 py-[10vh]">
-      <h2 id="faq-title" className="display col-span-12 text-[clamp(2rem,4vw,4rem)] text-bone lg:col-span-4">
-        Questions
-      </h2>
-      <div className="col-span-12 mt-8 lg:col-span-7 lg:col-start-6 lg:mt-0">
+      <Reveal className="col-span-12 lg:col-span-4">
+        <h2 id="faq-title" className="display text-[clamp(2rem,4vw,4rem)] text-bone">
+          Questions
+        </h2>
+      </Reveal>
+      <Reveal as="dl" stagger={0.05} className="col-span-12 mt-10 lg:col-span-7 lg:col-start-6 lg:mt-2">
         {faq.map((f) => (
-          <details key={f.q} className="group border-t border-brass/25 last:border-b">
-            <summary
-              className="flex cursor-pointer list-none items-baseline justify-between gap-8 py-5 text-[1.05rem] text-bone marker:content-none [&::-webkit-details-marker]:hidden"
-              data-cursor="Open"
-            >
-              <span>{f.q}</span>
-              <span className="mono text-ash transition-transform duration-500 group-open:rotate-45" aria-hidden="true">
-                +
-              </span>
-            </summary>
-            <p className="body-copy pb-6 text-[1rem]">{f.a}</p>
-          </details>
+          <div key={f.q} className="border-t border-brass/25 py-6 last:border-b">
+            <dt className="text-[1.05rem] text-bone">{f.q}</dt>
+            <dd className="body-copy mt-2 text-[1rem]">{f.a}</dd>
+          </div>
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }

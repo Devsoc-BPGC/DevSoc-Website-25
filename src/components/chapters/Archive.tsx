@@ -2,21 +2,23 @@
 
 /**
  * The Archive: gallery
- * Three lanes of photographs moving at different speeds under the scroll,
- * resting in the verdigris grade and resolving to colour under the pointer.
- * Click opens the lightbox. One lane on small screens.
+ * Three lanes of photographs travelling at different speeds under the scroll.
+ * Each one arrives graded and lifts into full colour as it reaches the middle
+ * of the screen, so the whole wall plays without a single click. Opening one
+ * larger is offered, never required.
  */
 
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
-import { MaskReveal } from "@/components/motion/MaskReveal";
+import { ScrollResolve } from "@/components/motion/ScrollResolve";
+import { Reveal } from "@/components/motion/Reveal";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { TextLink } from "@/components/ui/TextLink";
 import { gallery, type Photo } from "@/content/gallery";
 
-const SPEEDS = [-6, -16, -3];
+const SPEEDS = [-5, -13, -2];
 
 export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos?: Photo[]; all?: boolean }) {
   const root = useRef<HTMLElement>(null);
@@ -45,35 +47,39 @@ export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos
     { scope: root, dependencies: [reduced, mobile] },
   );
 
-  const tile = (p: Photo, className = "") => {
+  const tile = (p: Photo) => {
     const idx = photos.indexOf(p);
     return (
       <button
         key={p.src}
         type="button"
         onClick={() => setOpen(idx)}
-        className={`block w-full text-left ${className}`}
-        aria-label={`Open photo ${idx + 1}`}
+        className="block w-full text-left"
+        aria-label={`Open photo ${idx + 1} larger`}
+        data-cursor="Open"
       >
-        <MaskReveal
-          className="w-full"
-          radius={180}
-          cursorLabel="Open"
-          base={<Image src={p.src} alt={p.alt} width={p.width} height={p.height} sizes="(min-width: 1024px) 30vw, 88vw" className="h-auto w-full" />}
-          reveal={<Image src={p.src} alt="" width={p.width} height={p.height} sizes="(min-width: 1024px) 30vw, 88vw" className="h-auto w-full" />}
-        />
+        <ScrollResolve className="w-full">
+          <Image
+            src={p.src}
+            alt={p.alt}
+            width={p.width}
+            height={p.height}
+            sizes="(min-width: 1024px) 30vw, 88vw"
+            className="h-auto w-full"
+          />
+        </ScrollResolve>
       </button>
     );
   };
 
   return (
     <section id="archive" ref={root} aria-labelledby="archive-title" className="relative py-[8vh]">
-      <div className="gutter">
+      <Reveal className="gutter">
         <h2 id="archive-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-bone">
           The archive
         </h2>
         <p className="body-copy mt-6">Beach days, DevFest nights, the room after a ship.</p>
-      </div>
+      </Reveal>
 
       {mobile ? (
         <div className="gutter mt-10 flex flex-col gap-6">{photos.slice(0, all ? photos.length : 6).map((p) => tile(p))}</div>

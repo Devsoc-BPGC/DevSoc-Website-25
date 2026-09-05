@@ -12,6 +12,7 @@ import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useMedia";
 import { SplitLines } from "@/components/motion/SplitLines";
+import { Reveal } from "@/components/motion/Reveal";
 import { devfest, events } from "@/content/events";
 
 export function DevFest() {
@@ -82,7 +83,9 @@ export function DevFest() {
       </div>
 
       <div className="gutter py-[12vh]">
-        <p className="body-copy">The salon runs all year. The flagship is one weekend of it.</p>
+        <Reveal as="p" className="body-copy">
+          The salon runs all year. The flagship is one weekend of it.
+        </Reveal>
         <table className="mono mt-10 w-full border-collapse text-left text-ash">
           <thead>
             <tr className="border-b border-brass/40 text-bone">
@@ -92,7 +95,7 @@ export function DevFest() {
               <th className="hidden py-3 font-normal md:table-cell">Note</th>
             </tr>
           </thead>
-          <tbody>
+          <Reveal as="tbody" stagger={0.06} y={18}>
             {events.map((e) => (
               <tr key={e.name} className="border-b border-soot">
                 <td className="py-4 pr-6 text-bone">{e.name}</td>
@@ -101,7 +104,7 @@ export function DevFest() {
                 <td className="hidden py-4 md:table-cell">{e.note}</td>
               </tr>
             ))}
-          </tbody>
+          </Reveal>
         </table>
       </div>
     </section>

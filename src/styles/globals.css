@@ -231,6 +231,34 @@ p {
   opacity: 0;
 }
 
+/* ------------------------------------------------------------------ resolve
+   Scroll-driven grade: --resolve runs 0 to 1 as the photo climbs the
+   viewport. Without JavaScript it stays at 1, so photos ship in colour. */
+
+.resolve {
+  --resolve: 1;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--color-verdigris-deep);
+}
+.resolve > img,
+.resolve > picture > img,
+.resolve > video {
+  filter: grayscale(calc(1 - var(--resolve))) contrast(calc(1.08 - 0.08 * var(--resolve)))
+    brightness(calc(0.6 + 0.4 * var(--resolve)));
+}
+.resolve::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--color-verdigris-deep);
+  mix-blend-mode: color;
+  opacity: calc(0.55 * (1 - var(--resolve)));
+  pointer-events: none;
+}
+
 /* ------------------------------------------------------------------ grain
    Film grain from the frame-chrome concept. Fixed, non-interactive, faint. */
 

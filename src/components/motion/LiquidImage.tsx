@@ -93,7 +93,7 @@ void main() {
   vec4 col = mix(a, b, mix(m, edge, 0.6));
   // optional duotone: grade to the verdigris shadows, resolve to colour under the pointer
   float l = dot(col.rgb, vec3(0.299, 0.587, 0.114));
-  vec3 graded = mix(vec3(l * 0.85), uTintColor * (0.3 + l * 1.4), 0.7);
+  vec3 graded = mix(vec3(l * 1.02), uTintColor * (0.55 + l * 1.5), 0.6);
   col.rgb = mix(col.rgb, graded, uTint);
   float vig = smoothstep(0.95, 0.35, length((vUv - 0.5) * vec2(1.0, 0.9)));
   col.rgb *= 0.86 + 0.14 * vig;
