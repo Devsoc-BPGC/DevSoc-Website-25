@@ -27,7 +27,7 @@ Strategy: Committed. Obsidian carries the surface, verdigris carries the light. 
 Swap plan: licensed Wild World (display), Heming or Disket Mono (technical) can replace the Google faces via `public/fonts` and the font tokens in `src/app/layout.tsx`.
 
 ## Imagery
-Generated instrument photography (see `docs/assets/image-prompts.md`): one studio, one key light, brass, chrome, smoked glass. Real archive photos render as verdigris duotone at rest and resolve to colour on hover or at full bleed. Portraits from the existing team PNGs, duotone.
+Generated instrument photography (see `docs/assets/image-prompts.md`): one studio, one key light, brass, chrome, smoked glass. Archive photographs arrive graded to verdigris and lift into colour as scroll carries them to the middle of the screen. Project screenshots lift only part way, so their own colour never overruns the room. Portraits from the existing team PNGs, lightly graded.
 
 ## Layout
 12 column grid, gutter `clamp(1.25rem, 4vw, 4rem)`. Chapter padding varies on purpose (hero 0, manifesto 18vh, rooms 0 pinned, work 12vh, DevFest 0, people 14vh, archive 8vh, join 22vh). Radius 0 everywhere except the ScrollExpand frame (24px collapsing to 0) and the cursor ring. No cards. Brass 1px hairlines only where they separate real rows.
