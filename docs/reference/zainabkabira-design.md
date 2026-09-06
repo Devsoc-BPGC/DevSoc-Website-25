@@ -249,7 +249,29 @@ If we follow this grammar, DevSoc needs:
 
 ---
 
-## 11. Measured reference values
+## 11. What it costs
+
+Measured on the live page. This is the bill for the approach, and it is steep.
+
+| | Value | |
+|---|---|---|
+| Largest contentful paint | 14.7s | poor |
+| Cumulative layout shift | 0.30 | poor |
+| Interaction to next paint | 168ms | acceptable |
+| Images | 8.1MB across 63 requests | |
+| Video and other media | 4.0MB | |
+| Fonts | 127KB across 5 files, **zero preloaded** | |
+| Total requests | 74 | |
+
+The site is beautiful and slow. Nearly 12MB of media, no font preloading, and a third of a viewport of layout shift. Our current build is static across seven routes and holds a far better budget.
+
+So the rule for us: take the grammar, refuse the bill. Specifically, custom artwork has to arrive as sized AVIF through `next/image` with explicit dimensions, video has to be poster-first and lazy, and fonts stay self-hosted through `next/font` where they already are. The illustrated feeling is achievable at a tenth of the weight; theirs simply was not optimised.
+
+Their responsive work was captured at 375, 768, 1280 and 1920 across both themes, which is the matrix worth testing ours against too.
+
+---
+
+## 12. Measured reference values
 
 Straight from the extraction, for building against:
 
