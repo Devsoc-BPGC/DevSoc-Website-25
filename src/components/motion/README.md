@@ -17,7 +17,7 @@ Reusable pieces behind the DevSoc site. Every component is a client island that 
 | `ScrollResolve` | Photograph that lifts out of the verdigris grade as it reaches the middle of the screen | `to` caps the lift for loud images |
 | `Reveal` | Rises children on arrival, once | `stagger` moves direct children in turn |
 | `Carousel` | Free-drag Embla rail with trackpad wheel support | Kept for the lab; the home page uses `HorizontalPan` |
-| `FrameChrome` | Brass corner marks at the four corners of the viewport | Fixed, non-interactive; the timecode lives in `shell/Timecode` |
+| `FrameChrome` | Brass corner marks at the four corners of the viewport | Fixed, non-interactive; the night clock lives in `shell/NightClock` |
 
 Motion constants live in `src/lib/easings.ts`. GSAP plugins are registered once in `src/lib/gsap.ts`; import `gsap` from there, never from the package directly.
 

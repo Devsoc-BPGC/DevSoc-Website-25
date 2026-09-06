@@ -2,14 +2,15 @@
 
 /**
  * Nav
- * The mark at the left, the timecode and the word "Menu" at the right.
+ * The mark at the left, the night clock, the theme switch and the word
+ * "Menu" at the right.
  * No bar, no blur, no border: the composition is the navigation.
  */
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Timecode } from "./Timecode";
+import { NightClock } from "./NightClock";
 import { Menu } from "./Menu";
 import { ChapterLabel } from "./Rail";
 import { ThemeToggle } from "./ThemeToggle";
@@ -37,7 +38,7 @@ export function Nav() {
         </Link>
         <div className="flex items-center gap-6 md:gap-8">
           <ChapterLabel className="hidden lg:inline" />
-          <Timecode className="hidden md:inline" />
+          <NightClock className="hidden md:inline" />
           <ThemeToggle />
           <button
             type="button"

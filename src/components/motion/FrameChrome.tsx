@@ -4,7 +4,7 @@
  * FrameChrome
  * Four thin brass corner marks fixed to the viewport: the film-frame device
  * from the reference boards. Purely presentational; pointer events pass through.
- * The scroll timecode lives in the nav (see shell/Timecode).
+ * The night clock lives in the nav (see shell/NightClock).
  */
 
 export function FrameChrome() {
