@@ -78,6 +78,7 @@ export function Dusk() {
           fill
           priority
           sizes="100vw"
+          style={variant === "morning" ? { scale: "1.09" } : undefined}
           className="hidden object-cover md:block"
         />
         <Image
@@ -87,6 +88,7 @@ export function Dusk() {
           fill
           priority
           sizes="100vw"
+          style={variant === "morning" ? { scale: "1.09" } : undefined}
           className="object-cover md:hidden"
         />
       </div>
