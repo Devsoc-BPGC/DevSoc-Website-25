@@ -32,7 +32,7 @@ Seven plus a colophon. Deliberately fewer than a page of this length usually car
 | 02:00 | `devfest` | DevFest | Full bleed. The one night nobody sleeps. Recurring events as a plain table. |
 | 04:10 | `crew` | The Crew | Credits roll. The portrait follows whichever name is level with the middle. |
 | 05:58 | `dawn` | Dawn | First light. Inductions, the inductee search, questions, the door. |
-| — | — | Colophon | Particle wordmark, facts, socials. |
+| after dawn | `colophon` | Colophon | Particle wordmark, facts, socials. |
 
 No dedicated gallery chapter. The archive photographs appear as texture inside DevFest and The Crew. `/gallery` remains as a route for anyone who wants the full set.
 
