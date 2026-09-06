@@ -1,0 +1,60 @@
+{
+  "openGraph": {
+    "type": "website",
+    "site_name": "Zainab Kabira",
+    "title": "Zainab Kabira — Product Designer in Vancouver, Canada",
+    "description": "Independent product designer in Vancouver, Canada — a designer who builds. Shipped work with Google's Flutter team at Google I/O 2026 and MWC Barcelona.",
+    "url": "https://zainabkabira.com/",
+    "image": "https://zainabkabira.com/assets/og-card.jpg",
+    "image:width": "2400",
+    "image:height": "1260",
+    "image:alt": "Zainab Kabira — Product Designer, Vancouver, Canada"
+  },
+  "twitter": {
+    "card": "summary_large_image",
+    "title": "Zainab Kabira — Product Designer in Vancouver, Canada",
+    "description": "Independent product designer in Vancouver, Canada — a designer who builds. Shipped work with Google's Flutter team at Google I/O 2026 and MWC Barcelona.",
+    "image": "https://zainabkabira.com/assets/og-card.jpg"
+  },
+  "description": "Independent product designer in Vancouver, Canada — a designer who builds. Shipped work with Google's Flutter team at Google I/O 2026 and MWC Barcelona.",
+  "canonical": null,
+  "themeColor": "#fff9f1",
+  "viewport": "width=device-width, initial-scale=1.0",
+  "favicons": [
+    {
+      "rel": "icon",
+      "href": "https://zainabkabira.com/assets/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "rel": "icon",
+      "href": "https://zainabkabira.com/assets/favicon-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "rel": "apple-touch-icon",
+      "href": "https://zainabkabira.com/assets/favicon-180.png",
+      "sizes": "",
+      "type": ""
+    }
+  ],
+  "manifest": null,
+  "structuredData": [
+    {
+      "type": "Thing",
+      "name": null,
+      "sample": "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"Person\",\"@id\":\"https://zainabkabira.com/#person\",\"name\":\"Zainab Kabira\",\"jobTitle\":\"Product Designer\",\"url\":\"https://zainabkabira.com/\",\"image\":\"https://zainabkabira.com/assets/imgProfilePicture.jpg\",\"address\":{\"@type\":\"PostalAddress\",\"addressLocality\":\"Vancouver\",\"addressRegion\":\"BC\",\"addressCountry\":\"CA\"},\"sameAs\":[\"https://www.linkedin.com/in"
+    }
+  ],
+  "score": {
+    "hasOg": true,
+    "hasTwitter": true,
+    "hasDescription": true,
+    "hasCanonical": false,
+    "hasStructuredData": true,
+    "hasFavicon": true,
+    "hasThemeColor": true
+  }
+}

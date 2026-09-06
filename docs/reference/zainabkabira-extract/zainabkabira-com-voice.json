@@ -1,0 +1,34 @@
+{
+  "tone": "neutral",
+  "pronoun": "we→you",
+  "headingStyle": "Sentence case",
+  "headingLengthClass": "balanced",
+  "ctaVerbs": [
+    {
+      "value": "send",
+      "count": 1
+    }
+  ],
+  "buttonPatterns": [
+    {
+      "value": "send it over",
+      "count": 1
+    }
+  ],
+  "sampleHeadings": [
+    "Planted!",
+    "Planted!",
+    "Zainab Kabira, Product Designer in Vancouver, Canada —\nDESIGN / DETAILS / CODE\nDesigner who\nSolves\nBuilds",
+    "Work featured on",
+    "In their words",
+    "I trained as an architect. Now I design products people actually want to use.",
+    "Playground — design and code experiments by Zainab Kabira",
+    "Membership Card",
+    "Hatcha",
+    "An event planner that builds itself around what’s happening"
+  ],
+  "stats": {
+    "buttons": 1,
+    "headings": 40
+  }
+}

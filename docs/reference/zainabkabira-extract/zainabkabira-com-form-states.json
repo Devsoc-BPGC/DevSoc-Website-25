@@ -1,0 +1,39 @@
+{
+  "flags": [
+    "modal",
+    "forms"
+  ],
+  "forms": {
+    "count": 3,
+    "families": [
+      3
+    ]
+  },
+  "inputTypesSeen": {
+    "input": 3,
+    "textarea": 1
+  },
+  "modals": [
+    {
+      "role": "dialog",
+      "className": "contact-drawer",
+      "bounds": {
+        "x": 1296.800048828125,
+        "y": 0,
+        "w": 560,
+        "h": 800
+      }
+    }
+  ],
+  "toastLibraries": [],
+  "loading": {
+    "skeleton": 0,
+    "spinner": 0
+  },
+  "empty": {
+    "count": 0
+  },
+  "error": {
+    "count": 0
+  }
+}

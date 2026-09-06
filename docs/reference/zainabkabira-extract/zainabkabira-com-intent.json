@@ -1,0 +1,1545 @@
+{
+  "pageIntent": {
+    "type": "landing",
+    "confidence": 0.61,
+    "path": "/",
+    "title": "Zainab Kabira — Product Designer in Vancouver, Canada",
+    "description": "Independent product designer in Vancouver, Canada — a designer who builds. Shipped work with Google's Flutter team at Google I/O 2026 and MWC Barcelona.",
+    "signals": [
+      {
+        "kind": "dom",
+        "type": "blog-post",
+        "weight": 0.35,
+        "detail": "byline|min-read"
+      },
+      {
+        "kind": "url",
+        "type": "landing",
+        "weight": 0.45,
+        "detail": "root-path"
+      },
+      {
+        "kind": "shape",
+        "type": "landing",
+        "weight": 0.3,
+        "detail": "features+hero+cta+footer"
+      }
+    ],
+    "alternates": [
+      {
+        "type": "blog-post",
+        "score": 0.35
+      }
+    ],
+    "needsSmart": false
+  },
+  "sectionRoles": {
+    "sections": [
+      {
+        "index": 0,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 80
+        },
+        "buttonCount": 6,
+        "cardCount": 3,
+        "slots": {
+          "heading": "",
+          "subheadings": [
+            "Planted!"
+          ],
+          "ctaCount": 6,
+          "lede": "VANCOUVER, BC\nAvailable for work\nWork\nAbout\nPlayground\nWork with me\n01\nWork\n02\nAbout\n03\nPlayground"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 1,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 32,
+          "y": 262.40625,
+          "w": 1216,
+          "h": 275.171875
+        },
+        "buttonCount": 0,
+        "cardCount": 3,
+        "slots": {
+          "lede": "01\nWork\n02\nAbout\n03\nPlayground"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 2,
+        "tag": "aside",
+        "role": "sidebar",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": null,
+        "bounds": {
+          "x": 1296.800048828125,
+          "y": 0,
+          "w": 560,
+          "h": 800
+        },
+        "buttonCount": 2,
+        "cardCount": 0,
+        "slots": {
+          "heading": "",
+          "subheadings": [
+            "Planted!"
+          ],
+          "ctaCount": 2
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 3,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 1347.800048828125,
+          "y": 920.171875,
+          "w": 458,
+          "h": 17
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": false
+      },
+      {
+        "index": 4,
+        "tag": "section",
+        "role": "hero",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "Zainab Kabira, Product Designer in Vancouver, Canada —\nDESIGN / DETAILS / CODE\nDesigner who\nSolves\nBuilds",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 800
+        },
+        "buttonCount": 1,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Zainab Kabira, Product Designer in Vancouver, Canada —\nDESIGN / DETAILS / CODE\nDesigner who\nSolves\nBuilds",
+          "ctaCount": 1,
+          "lede": "HELLO, I’M ZAINAB KABIRA. A –"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 5,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 800,
+          "w": 1280,
+          "h": 821.171875
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Six years across architecture and product design, designing what’s\nnext – from India’s first carbon-positive modular home to shipping AI\nexperiences with gskinner, brought to the world at Google I/O ’26\nand MWC Barcelona ’25."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 6,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Work featured on",
+        "bounds": {
+          "x": 0,
+          "y": 1621.171875,
+          "w": 1280,
+          "h": 1889.3125
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Work featured on"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 7,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "In their words",
+        "bounds": {
+          "x": 0,
+          "y": 4214.796875,
+          "w": 1280,
+          "h": 1010
+        },
+        "buttonCount": 0,
+        "cardCount": 4,
+        "slots": {
+          "heading": "In their words",
+          "lede": "TESTIMONIALS"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 8,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "I trained as an architect. Now I design products people actually want to use.",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 1,
+        "cardCount": 4,
+        "slots": {
+          "heading": "I trained as an architect. Now I design products people actually want to use.",
+          "ctaCount": 1,
+          "lede": ""
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 9,
+        "tag": "section",
+        "role": "feature-grid",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 4,
+        "cardCount": 13,
+        "slots": {
+          "ctaCount": 4,
+          "lede": "Professional Experience"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 10,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 1,
+        "cardCount": 6,
+        "slots": {
+          "ctaCount": 1,
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 11,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "Playground — design and code experiments by Zainab Kabira",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 2,
+        "cardCount": 40,
+        "slots": {
+          "heading": "Playground — design and code experiments by Zainab Kabira",
+          "subheadings": [
+            "Membership Card"
+          ],
+          "ctaCount": 2,
+          "lede": "Playground — design and code experiments by Zainab Kabira\n      \n      \n        Each vignette is a small study in material, light, and movement, and a few grew into showcase work for FlutterFlow and Flutter Animate."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 12,
+        "tag": "section",
+        "role": "hero",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "Hatcha",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Hatcha"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 13,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "An event planner that builds itself around what’s happening",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "An event planner that builds itself around what’s happening"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 14,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 15,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Every new event type meant new flows and still fell short",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Every new event type meant new flows and still fell short"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 16,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "“The screen wasn't the unit of design anymore. The goal was. Once I made that shift, everything else followed.”"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 17,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "I had to stop thinking in user flows",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "I had to stop thinking in user flows"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 18,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 3,
+        "slots": {},
+        "needsSmart": false
+      },
+      {
+        "index": 19,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "We defined the shell: what stays fixed, what GenUI composes",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "We defined the shell: what stays fixed, what GenUI composes"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 20,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 7,
+        "slots": {},
+        "needsSmart": false
+      },
+      {
+        "index": 21,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Building the system GenUI composes from",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Building the system GenUI composes from"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 22,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 23,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Designing the rules for colour and image, not the output",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Designing the rules for colour and image, not the output"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 24,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 25,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 26,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "“Less flow-charting. More system thinking. The designer's job didn't disappear – it moved upstream.”"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 27,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "Shipped at Google I/O 2026",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Shipped at Google I/O 2026"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 28,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "What designing for GenUIactually changed",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "What designing for GenUIactually changed",
+          "lede": "What designing for GenUIactually changed\n        The work didn’t disappear. It moved. From drawing every screen to curating a system the AI composes from. From mapping flows to mapping goals. From predicting every scenario to defining the rules of every scenario."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 29,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Fireflut",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Fireflut",
+          "lede": "Read next\n        Fireflut\n        Designing a Gemini demo for the MWC floor 2025."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 30,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 10,
+        "cardCount": 0,
+        "slots": {
+          "ctaCount": 10
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 31,
+        "tag": "section",
+        "role": "hero",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "Fireflut",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Fireflut"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 32,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Functional, but not showcase-ready",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Functional, but not showcase-ready",
+          "lede": "01\n          The Problem\n        \n        \n        \n          Functional, but not showcase-ready\n          The app worked, but its most compelling feature was invisible. The Gemini chat sat buried below the fold, usage data was hard to scan, and nothing signalled that this was an AI product."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 33,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 34,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "The redesign started with a simple question: would this stop someone walking past the booth? To answer that, we restructured the content hierarchy by bringing the most important data forward and creating a clearer path from curiosity to understanding."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 35,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Dark, high-contrast, AI-first",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Dark, high-contrast, AI-first",
+          "lede": "02\n          Direction\n        \n        \n        \n          Dark, high-contrast, AI-first\n          Carrier apps are light and predictable. Breaking from that made the AI feel like the point – not an add-on. Three principles guided every screen."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 36,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 37,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Built for every brand.",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Built for every brand.",
+          "lede": "Built for every brand.\n            The experience was designed with flexible theme variants, allowing telecom providers to seamlessly adapt the interface to their own brand identity while maintaining a consistent AI experience."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 38,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Glanceable data, AI in reach",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 3,
+        "slots": {
+          "heading": "Glanceable data, AI in reach",
+          "lede": "03\n          Home screen\n        \n        \n        \n          Glanceable data, AI in reach\n          A bold usage gauge replaces the wall of text. The Gemini entry point sits high and stays visible – no scrolling to find the smartest part of the app."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 39,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Small motions that make AI feel responsive",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Small motions that make AI feel responsive",
+          "lede": "04\n          Chat details\n        \n        \n        \n          Small motions that make AI feel responsive\n          The chat's polish lives in its motion. Pre-prompts lower the barrier to the first message; responsive animation makes Gemini feel present and quick."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 40,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Shipped to the MWC 2025 show floor",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Shipped to the MWC 2025 show floor",
+          "lede": "05\n          Outcome\n        \n        \n        \n          Shipped to the MWC 2025 show floor\n          Designed, built, and brought to production in just 3.5 weeks, then demoed live as Google Cloud's telecom AI showcase."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 41,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 42,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 43,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Convention was the thingworth breaking",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Convention was the thingworth breaking",
+          "lede": "Convention was the thingworth breaking\n        The redesign leaned into contrast, a dark, AI-forward feel over the familiar carrier look, and let small motions carry the sense that this was something new. That's what made it land on the world stage."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 44,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Existence",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Existence",
+          "lede": "Read next\n        Existence\n        A time-intelligence app built for Rob Dyrdek, releasing 2026."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 45,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 8,
+        "cardCount": 0,
+        "slots": {
+          "ctaCount": 8
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 46,
+        "tag": "section",
+        "role": "hero",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "Existence",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Existence"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 47,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "In his words — Rob Dyrdek on Existence"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 48,
+        "tag": "section",
+        "role": "testimonials",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "What I owned on the build",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "What I owned on the build"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 49,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "Heading to launch with real momentum",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Heading to launch with real momentum"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 50,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Time Block form\n        \n        \n          \n            \n              \n            \n          \n          Energy rating\n        \n        \n          \n            \n              \n            \n          \n          Adding reflections"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 51,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Reach out to know more",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 1,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Reach out to know more",
+          "ctaCount": 1,
+          "lede": "Reach out to know more\n        Existence is still under wraps before launch, so there's only so much I can show here. Get in touch and I'll walk you through the deeper work.\n        Get in touch"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 52,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Jumpable",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Jumpable",
+          "lede": "Read next\n        Jumpable\n        Benchmark your vertical from a jump lab on your ankle."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 53,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 5,
+        "cardCount": 0,
+        "slots": {
+          "ctaCount": 5
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 54,
+        "tag": "section",
+        "role": "hero",
+        "subrole": null,
+        "confidence": 0.85,
+        "heading": "Jumpable",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Jumpable"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 55,
+        "tag": "section",
+        "role": "testimonial",
+        "subrole": null,
+        "confidence": 0.8,
+        "heading": "Fixing a live product without breaking it",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Fixing a live product without breaking it"
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 56,
+        "tag": "section",
+        "role": "testimonials",
+        "subrole": null,
+        "confidence": 0.4,
+        "heading": "What the redesign changed",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "What the redesign changed"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 57,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Jumpable on Apple Watch Ultra"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 58,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "Jumpable worn on the ankle"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 59,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {},
+        "needsSmart": true
+      },
+      {
+        "index": 60,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Building onboarding from scratch",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Building onboarding from scratch",
+          "lede": "03\n          Phase 1 · Onboarding\n        \n        \n          Building onboarding from scratch\n          Sign-up dropped athletes straight into the app with no context. I created a lean, watch-first onboarding experience with concise microcopy and clear guidance, making the first interaction intuitive and confidence-building."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 61,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 62,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Redesigning the post-jump home screen",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Redesigning the post-jump home screen"
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 63,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 64,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "The numbers were always there. Now they land",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "The numbers were always there. Now they land",
+          "lede": "The numbers were always there. Now they land\n        Jumpable could always measure the jump. My work made it something athletes actually understand, trust, and rely on, from their very first launch to a split-second glance after a rep."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 65,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": ""
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 66,
+        "tag": "section",
+        "role": "content",
+        "subrole": null,
+        "confidence": 0.3,
+        "heading": "Hatcha",
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Hatcha",
+          "lede": "Read next\n        Hatcha\n        How we prototyped generative UI for Google's biggest developer stages."
+        },
+        "needsSmart": true
+      },
+      {
+        "index": 67,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "buttonCount": 7,
+        "cardCount": 0,
+        "slots": {
+          "ctaCount": 7
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 68,
+        "tag": "footer",
+        "role": "footer",
+        "subrole": null,
+        "confidence": 0.95,
+        "heading": "Let’s grow your next idea",
+        "bounds": {
+          "x": 0,
+          "y": 5844.796875,
+          "w": 1280,
+          "h": 938
+        },
+        "buttonCount": 1,
+        "cardCount": 0,
+        "slots": {
+          "heading": "Let’s grow your next idea",
+          "ctaCount": 1,
+          "lede": "From early concepts to refined experiences, I help ambitious teams build products that earn trust, move quickly, and drive growth."
+        },
+        "needsSmart": false
+      },
+      {
+        "index": 69,
+        "tag": "nav",
+        "role": "nav",
+        "subrole": null,
+        "confidence": 0.9,
+        "heading": null,
+        "bounds": {
+          "x": 999.515625,
+          "y": 6730.796875,
+          "w": 264.484375,
+          "h": 37
+        },
+        "buttonCount": 0,
+        "cardCount": 0,
+        "slots": {
+          "lede": "LinkedIn\nGitHub\nBehance"
+        },
+        "needsSmart": false
+      }
+    ],
+    "counts": {
+      "nav": 8,
+      "sidebar": 1,
+      "hero": 5,
+      "content": 38,
+      "testimonial": 14,
+      "feature-grid": 1,
+      "testimonials": 2,
+      "footer": 1
+    },
+    "readingOrder": [
+      "nav",
+      "sidebar",
+      "hero",
+      "testimonial",
+      "feature-grid",
+      "content",
+      "testimonial",
+      "hero",
+      "content",
+      "content",
+      "content",
+      "testimonial",
+      "testimonial",
+      "testimonial",
+      "testimonial",
+      "testimonial",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "testimonial",
+      "testimonial",
+      "content",
+      "content",
+      "nav",
+      "hero",
+      "content",
+      "content",
+      "testimonial",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "nav",
+      "hero",
+      "testimonial",
+      "testimonials",
+      "testimonial",
+      "content",
+      "content",
+      "content",
+      "nav",
+      "hero",
+      "testimonial",
+      "testimonials",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "content",
+      "nav",
+      "nav",
+      "content",
+      "nav",
+      "content",
+      "testimonial",
+      "footer",
+      "nav"
+    ]
+  }
+}

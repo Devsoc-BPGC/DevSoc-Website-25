@@ -1,0 +1,1939 @@
+{
+  "colors": {
+    "all": [
+      {
+        "hex": "#060606",
+        "rgb": {
+          "r": 6,
+          "g": 6,
+          "b": 6,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 2
+        },
+        "count": 3803,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#0b0b0b",
+        "rgb": {
+          "r": 11,
+          "g": 11,
+          "b": 11,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 4
+        },
+        "count": 876,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#fff9ea",
+        "rgb": {
+          "r": 255,
+          "g": 249,
+          "b": 234,
+          "a": 1
+        },
+        "hsl": {
+          "h": 43,
+          "s": 100,
+          "l": 96
+        },
+        "count": 811,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 0.2
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 100
+        },
+        "count": 512,
+        "contexts": [
+          "background",
+          "border",
+          "text"
+        ]
+      },
+      {
+        "hex": "#8a8474",
+        "rgb": {
+          "r": 138,
+          "g": 132,
+          "b": 116,
+          "a": 1
+        },
+        "hsl": {
+          "h": 44,
+          "s": 9,
+          "l": 50
+        },
+        "count": 172,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#2b2b2b",
+        "rgb": {
+          "r": 43,
+          "g": 43,
+          "b": 43,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 17
+        },
+        "count": 72,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#0000ee",
+        "rgb": {
+          "r": 0,
+          "g": 0,
+          "b": 238,
+          "a": 1
+        },
+        "hsl": {
+          "h": 240,
+          "s": 100,
+          "l": 47
+        },
+        "count": 64,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#a79c89",
+        "rgb": {
+          "r": 167,
+          "g": 156,
+          "b": 137,
+          "a": 1
+        },
+        "hsl": {
+          "h": 38,
+          "s": 15,
+          "l": 60
+        },
+        "count": 54,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#fc9073",
+        "rgb": {
+          "r": 252,
+          "g": 144,
+          "b": 115,
+          "a": 1
+        },
+        "hsl": {
+          "h": 13,
+          "s": 96,
+          "l": 72
+        },
+        "count": 40,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#8f8a80",
+        "rgb": {
+          "r": 143,
+          "g": 138,
+          "b": 128,
+          "a": 1
+        },
+        "hsl": {
+          "h": 40,
+          "s": 6,
+          "l": 53
+        },
+        "count": 39,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#6d6d6d",
+        "rgb": {
+          "r": 109,
+          "g": 109,
+          "b": 109,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 43
+        },
+        "count": 24,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#c9bea9",
+        "rgb": {
+          "r": 201,
+          "g": 190,
+          "b": 169,
+          "a": 1
+        },
+        "hsl": {
+          "h": 39,
+          "s": 23,
+          "l": 73
+        },
+        "count": 24,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#f5a623",
+        "rgb": {
+          "r": 245,
+          "g": 166,
+          "b": 35,
+          "a": 1
+        },
+        "hsl": {
+          "h": 37,
+          "s": 91,
+          "l": 55
+        },
+        "count": 22,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#eee8d2",
+        "rgb": {
+          "r": 238,
+          "g": 232,
+          "b": 210,
+          "a": 1
+        },
+        "hsl": {
+          "h": 47,
+          "s": 45,
+          "l": 88
+        },
+        "count": 20,
+        "contexts": [
+          "background",
+          "border",
+          "text"
+        ]
+      },
+      {
+        "hex": "#939393",
+        "rgb": {
+          "r": 147,
+          "g": 147,
+          "b": 147,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 58
+        },
+        "count": 19,
+        "contexts": [
+          "border",
+          "text"
+        ]
+      },
+      {
+        "hex": "#3c3c3c",
+        "rgb": {
+          "r": 60,
+          "g": 60,
+          "b": 60,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 24
+        },
+        "count": 15,
+        "contexts": [
+          "border",
+          "text"
+        ]
+      },
+      {
+        "hex": "#4a9eff",
+        "rgb": {
+          "r": 74,
+          "g": 158,
+          "b": 255,
+          "a": 1
+        },
+        "hsl": {
+          "h": 212,
+          "s": 100,
+          "l": 65
+        },
+        "count": 15,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#00315c",
+        "rgb": {
+          "r": 0,
+          "g": 49,
+          "b": 92,
+          "a": 1
+        },
+        "hsl": {
+          "h": 208,
+          "s": 100,
+          "l": 18
+        },
+        "count": 14,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#f4f1e8",
+        "rgb": {
+          "r": 244,
+          "g": 241,
+          "b": 232,
+          "a": 1
+        },
+        "hsl": {
+          "h": 45,
+          "s": 35,
+          "l": 93
+        },
+        "count": 9,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#297000",
+        "rgb": {
+          "r": 41,
+          "g": 112,
+          "b": 0,
+          "a": 1
+        },
+        "hsl": {
+          "h": 98,
+          "s": 100,
+          "l": 22
+        },
+        "count": 8,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#3456c8",
+        "rgb": {
+          "r": 52,
+          "g": 86,
+          "b": 200,
+          "a": 1
+        },
+        "hsl": {
+          "h": 226,
+          "s": 59,
+          "l": 49
+        },
+        "count": 6,
+        "contexts": [
+          "background",
+          "border"
+        ]
+      },
+      {
+        "hex": "#ffda3f",
+        "rgb": {
+          "r": 255,
+          "g": 218,
+          "b": 63,
+          "a": 1
+        },
+        "hsl": {
+          "h": 48,
+          "s": 100,
+          "l": 62
+        },
+        "count": 5,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#a85a48",
+        "rgb": {
+          "r": 168,
+          "g": 90,
+          "b": 72,
+          "a": 1
+        },
+        "hsl": {
+          "h": 11,
+          "s": 40,
+          "l": 47
+        },
+        "count": 4,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#d9e0e6",
+        "rgb": {
+          "r": 217,
+          "g": 224,
+          "b": 230,
+          "a": 1
+        },
+        "hsl": {
+          "h": 208,
+          "s": 21,
+          "l": 88
+        },
+        "count": 4,
+        "contexts": [
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#e5c07b",
+        "rgb": {
+          "r": 229,
+          "g": 192,
+          "b": 123,
+          "a": 1
+        },
+        "hsl": {
+          "h": 39,
+          "s": 67,
+          "l": 69
+        },
+        "count": 4,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#808080",
+        "rgb": {
+          "r": 128,
+          "g": 128,
+          "b": 128,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 50
+        },
+        "count": 3,
+        "contexts": [
+          "text"
+        ]
+      },
+      {
+        "hex": "#f4cd44",
+        "rgb": {
+          "r": 244,
+          "g": 205,
+          "b": 68,
+          "a": 1
+        },
+        "hsl": {
+          "h": 47,
+          "s": 89,
+          "l": 61
+        },
+        "count": 2,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#5b5b5b",
+        "rgb": {
+          "r": 91,
+          "g": 91,
+          "b": 91,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 36
+        },
+        "count": 2,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#8bff49",
+        "rgb": {
+          "r": 139,
+          "g": 255,
+          "b": 73,
+          "a": 1
+        },
+        "hsl": {
+          "h": 98,
+          "s": 100,
+          "l": 64
+        },
+        "count": 2,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#010412",
+        "rgb": {
+          "r": 1,
+          "g": 4,
+          "b": 18,
+          "a": 1
+        },
+        "hsl": {
+          "h": 229,
+          "s": 89,
+          "l": 4
+        },
+        "count": 2,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#767676",
+        "rgb": {
+          "r": 118,
+          "g": 118,
+          "b": 118,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 46
+        },
+        "count": 1,
+        "contexts": [
+          "border"
+        ]
+      },
+      {
+        "hex": "#dfdcd5",
+        "rgb": {
+          "r": 223,
+          "g": 220,
+          "b": 213,
+          "a": 1
+        },
+        "hsl": {
+          "h": 42,
+          "s": 14,
+          "l": 85
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#c9c9c9",
+        "rgb": {
+          "r": 201,
+          "g": 201,
+          "b": 201,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 79
+        },
+        "count": 1,
+        "contexts": [
+          "border"
+        ]
+      },
+      {
+        "hex": "#686360",
+        "rgb": {
+          "r": 104,
+          "g": 99,
+          "b": 96,
+          "a": 1
+        },
+        "hsl": {
+          "h": 23,
+          "s": 4,
+          "l": 39
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#9eafbe",
+        "rgb": {
+          "r": 158,
+          "g": 175,
+          "b": 190,
+          "a": 1
+        },
+        "hsl": {
+          "h": 208,
+          "s": 20,
+          "l": 68
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#3700a4",
+        "rgb": {
+          "r": 55,
+          "g": 0,
+          "b": 164,
+          "a": 1
+        },
+        "hsl": {
+          "h": 260,
+          "s": 100,
+          "l": 32
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      }
+    ]
+  },
+  "regions": [
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 80
+      },
+      "heading": null,
+      "buttonCount": 6,
+      "cardCount": 3,
+      "className": "nav-on-dark"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 32,
+        "y": 262.40625,
+        "w": 1216,
+        "h": 275.171875
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 3,
+      "className": null
+    },
+    {
+      "role": "sidebar",
+      "tag": "aside",
+      "bounds": {
+        "x": 1296.800048828125,
+        "y": 0,
+        "w": 560,
+        "h": 800
+      },
+      "heading": null,
+      "buttonCount": 2,
+      "cardCount": 0,
+      "className": "contact-drawer"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 1347.800048828125,
+        "y": 920.171875,
+        "w": 458,
+        "h": 17
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cd-alt-social"
+    },
+    {
+      "role": "hero",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 800
+      },
+      "heading": "Zainab Kabira, Product Designer in Vancouver, Canada —\nDESIGN / DETAILS / CODE\nDesigner who\nSolves\nBuilds",
+      "buttonCount": 1,
+      "cardCount": 0,
+      "className": "hero"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 800,
+        "w": 1280,
+        "h": 821.171875
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "projects"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 1621.171875,
+        "w": 1280,
+        "h": 1889.3125
+      },
+      "heading": "Work featured on",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "featured-work"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 4214.796875,
+        "w": 1280,
+        "h": 1010
+      },
+      "heading": "In their words",
+      "buttonCount": 0,
+      "cardCount": 4,
+      "className": "testimonials anim-idle"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "I trained as an architect. Now I design products people actually want to use.",
+      "buttonCount": 1,
+      "cardCount": 4,
+      "className": "about-intro"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 4,
+      "cardCount": 13,
+      "className": "about-exp"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 1,
+      "cardCount": 6,
+      "className": "about-fun"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Playground — design and code experiments by Zainab Kabira",
+      "buttonCount": 2,
+      "cardCount": 40,
+      "className": "playground pg-flow"
+    },
+    {
+      "role": "hero",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Hatcha",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-hero cs-slide-sec"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "An event planner that builds itself around what’s happening",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-show cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-logoband cs-band cs-panel cs-final cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Every new event type meant new flows and still fell short",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-prob cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-quote cs-quote-center cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "I had to stop thinking in user flows",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-mind cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 3,
+      "className": "cs-band dark cs-panel cs-mind cs-slide-sec cv"
+    },
+    {
+      "role": "pricing",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "We defined the shell: what stays fixed, what GenUI composes",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-home cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 7,
+      "className": "cs-band cream cs-panel cs-fw cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Building the system GenUI composes from",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-chat cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-gal cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Designing the rules for colour and image, not the output",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-dir cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-theme-p cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-theme-b cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-quote cs-quote-center cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Shipped at Google I/O 2026",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-out cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "What designing for GenUIactually changed",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-closing cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Fireflut",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-readnext cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 10,
+      "cardCount": 0,
+      "className": "cs-pager on-dark"
+    },
+    {
+      "role": "hero",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Fireflut",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-hero cs-slide-sec"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Functional, but not showcase-ready",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-prob cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-quote cs-quote-center cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Dark, high-contrast, AI-first",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-dir cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Built for every brand.",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Glanceable data, AI in reach",
+      "buttonCount": 0,
+      "cardCount": 3,
+      "className": "cs-band cream cs-panel cs-home cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Small motions that make AI feel responsive",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-chat cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Shipped to the MWC 2025 show floor",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-out cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-final cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Convention was the thingworth breaking",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-closing cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Existence",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-readnext cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 8,
+      "cardCount": 0,
+      "className": "cs-pager on-dark"
+    },
+    {
+      "role": "hero",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Existence",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-hero cs-slide-sec"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-reel cs-slide-sec cv"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "What I owned on the build",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-work cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Heading to launch with real momentum",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-out cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-screens cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Reach out to know more",
+      "buttonCount": 1,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-cta cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Jumpable",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-readnext cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 5,
+      "cardCount": 0,
+      "className": "cs-pager on-dark"
+    },
+    {
+      "role": "hero",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Jumpable",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-hero cs-slide-sec"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Fixing a live product without breaking it",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-show cs-slide-sec cv"
+    },
+    {
+      "role": "testimonials",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "What the redesign changed",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-impact cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-jp-device cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-jp-device cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-appr cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Building onboarding from scratch",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-onb cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-onb-video cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Redesigning the post-jump home screen",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-panel cs-home cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-home-video cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "The numbers were always there. Now they land",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band cream cs-closing cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-panel cs-jp-device cs-threewatch cs-slide-sec cv"
+    },
+    {
+      "role": "content",
+      "tag": "section",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": "Hatcha",
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "cs-band dark cs-readnext cs-panel cs-slide-sec cv"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 7,
+      "cardCount": 0,
+      "className": "cs-pager on-dark"
+    },
+    {
+      "role": "footer",
+      "tag": "footer",
+      "bounds": {
+        "x": 0,
+        "y": 5844.796875,
+        "w": 1280,
+        "h": 938
+      },
+      "heading": "Let’s grow your next idea",
+      "buttonCount": 1,
+      "cardCount": 0,
+      "className": "footer anim-idle"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 999.515625,
+        "y": 6730.796875,
+        "w": 264.484375,
+        "h": 37
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 0,
+      "className": "ft-social"
+    }
+  ],
+  "componentClusters": [
+    {
+      "kind": "button",
+      "structuralHash": "button>svg",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgb(255, 255, 255)",
+            "color": "rgb(6, 6, 6)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "50%",
+            "border": "1px solid rgb(231, 223, 205)",
+            "fontSize": "13.3333px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "button",
+      "structuralHash": "button>svg>svg",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgb(255, 255, 255)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "50%",
+            "border": "1px solid rgb(231, 223, 205)",
+            "fontSize": "13.3333px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "button",
+      "structuralHash": "button",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(255, 255, 255, 0.55)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "50%",
+            "border": "1px solid rgba(6, 6, 6, 0.18)",
+            "fontSize": "13.3333px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "input",
+      "structuralHash": "input",
+      "instanceCount": 2,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "4px 0px 14px 0px",
+            "borderRadius": "0px",
+            "border": "0px 0px 1px none none solid rgb(0, 0, 0) rgb(0, 0, 0) rgba(6, 6, 6, 0.25)",
+            "fontSize": "18px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 2
+        }
+      ]
+    },
+    {
+      "kind": "input",
+      "structuralHash": "textarea",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "4px 0px 14px 0px",
+            "borderRadius": "0px",
+            "border": "0px 0px 1px none none solid rgb(0, 0, 0) rgb(0, 0, 0) rgba(6, 6, 6, 0.25)",
+            "fontSize": "18px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "button",
+      "structuralHash": "button>span>img",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgb(6, 6, 6)",
+            "color": "rgb(255, 249, 241)",
+            "padding": "14px 26px 14px 26px",
+            "borderRadius": "999px",
+            "border": "0px none rgb(255, 249, 241)",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "button",
+      "structuralHash": "button>img>img>span",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(0, 0, 0)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "50%",
+            "border": "0px none rgb(0, 0, 0)",
+            "fontSize": "13.3333px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "div>figure>figure>figure",
+      "instanceCount": 1,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(6, 6, 6)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "0px",
+            "border": "0px none rgb(6, 6, 6)",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "figure>img>blockquote>hr>figcaption",
+      "instanceCount": 3,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(6, 6, 6)",
+            "padding": "34px 34px 34px 34px",
+            "borderRadius": "34px",
+            "border": "1px solid rgb(153, 153, 153)",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 3
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "remediation": []
+  },
+  "cssHealth": {
+    "sheets": [
+      {
+        "url": "https://zainabkabira.com/css/site.css",
+        "totalBytes": 79781,
+        "usedBytes": 34483,
+        "unusedBytes": 45298,
+        "unusedPercent": 57
+      },
+      {
+        "url": "https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Figtree:wght@300;400;500&family=Inter:wght@300;400&family=Roboto:wght@500;800&family=Lato:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400..600;1,400..600&family=Darker+Grotesque:wght@700&family=Bitter:ital,wght@1,400&display=swap",
+        "totalBytes": 41207,
+        "usedBytes": 0,
+        "unusedBytes": 41207,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://zainabkabira.com/",
+        "totalBytes": 118542,
+        "usedBytes": 28670,
+        "unusedBytes": 89872,
+        "unusedPercent": 76
+      },
+      {
+        "url": "https://zainabkabira.com/",
+        "totalBytes": 71075,
+        "usedBytes": 4513,
+        "unusedBytes": 66562,
+        "unusedPercent": 94
+      },
+      {
+        "url": "https://zainabkabira.com/",
+        "totalBytes": 116645,
+        "usedBytes": 6648,
+        "unusedBytes": 109997,
+        "unusedPercent": 94
+      },
+      {
+        "url": "https://zainabkabira.com/",
+        "totalBytes": 25776,
+        "usedBytes": 419,
+        "unusedBytes": 25357,
+        "unusedPercent": 98
+      }
+    ],
+    "totalBytes": 453026,
+    "usedBytes": 74733,
+    "unusedBytes": 378293,
+    "unusedPercent": 84,
+    "importantCount": 13,
+    "duplicates": 4490,
+    "vendorPrefixes": {
+      "webkit": 29,
+      "moz": 1,
+      "ms": 1,
+      "o": 0
+    },
+    "keyframes": [
+      {
+        "name": "avail-pulse",
+        "steps": 13
+      },
+      {
+        "name": "plStream",
+        "steps": 2
+      },
+      {
+        "name": "plChompTop",
+        "steps": 2
+      },
+      {
+        "name": "plChompBottom",
+        "steps": 2
+      }
+    ],
+    "specificity": {
+      "max": [
+        4,
+        16,
+        94
+      ],
+      "average": [
+        0.32,
+        1.41,
+        4.79
+      ],
+      "count": 3156
+    },
+    "issues": [
+      "13 !important rules",
+      "4490 duplicate declarations",
+      "84% unused CSS"
+    ]
+  }
+}

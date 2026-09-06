@@ -1,0 +1,19 @@
+/* shadcn/ui Theme — extracted from https://zainabkabira.com */
+/* Paste into your globals.css */
+
+@layer base {
+  :root {
+    --background: 34 100% 97%;
+    --foreground: 0 0% 0%;
+    --primary: 43 100% 96%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 47 89% 61%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 226 59% 49%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 208 20% 68%;
+    --muted-foreground: 0 0% 2%;
+    --border: 0 0% 17%;
+    --radius: 8px;
+  }
+}

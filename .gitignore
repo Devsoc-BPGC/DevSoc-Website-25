@@ -44,3 +44,6 @@ next-env.d.ts
 /assets-src
 /.playwright-mcp
 *.tsbuildinfo
+
+# reference captures of a third-party site: kept locally for design study, not published
+/docs/reference/zainabkabira/
