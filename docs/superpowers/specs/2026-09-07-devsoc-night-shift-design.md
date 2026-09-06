@@ -27,7 +27,7 @@ Seven plus a colophon. Deliberately fewer than a page of this length usually car
 |---|---|---|---|
 | 18:42 | `dusk` | Dusk | Hero. Last light over the sea. Wordmark, the line, one link, a metadata block. |
 | 20:15 | `society` | The Society | One oversized centred paragraph, then the port line as a statement. Three real numbers. |
-| 22:30 | `rooms` | Six Rooms | The core. Six windows lighting one at a time, scroll-driven. Each is a real desk at night. |
+| 22:30 | `rooms` | The Flywheel | The core. A six-spoke wheel that turns as you scroll, one spoke per vertical, the active one lit. |
 | 00:40 | `log` | The Log | What shipped, panning sideways under vertical scroll. The fest film sits here. |
 | 02:00 | `devfest` | DevFest | Full bleed. The one night nobody sleeps. Recurring events as a plain table. |
 | 04:10 | `crew` | The Crew | Credits roll. The portrait follows whichever name is level with the middle. |
@@ -117,7 +117,7 @@ Taken from the teardown, deliberately different from our current build:
 
 The existing toolkit carries forward unchanged. Scroll drives the page; clicks are for navigation and for going deeper. Added from the reference:
 
-- **Ambient loops.** The page is never completely still and nothing moves fast. Periods of 6 to 14 seconds: light breathing in the windows, the boat rocking, the availability dot pulsing, dust in the beam. This is the quality our current build most lacks.
+- **Ambient loops.** The page is never completely still and nothing moves fast. Periods of 6 to 14 seconds: the ambient light breathing, the boat rocking, the flywheel drifting a degree when idle. This is the quality our current build most lacks.
 - **The paper boat.** One SVG path from the hero to the colophon, stroke-drawn on scroll, with the boat riding the head of the drawn line. It is the single element that makes a long page feel like one journey.
 - **The morphing navigation.** Full at rest: mark, chapter name, clock, theme toggle, menu. Once scrolled: collapses to a compact pill carrying the clock and the chapter name.
 
@@ -127,38 +127,29 @@ Reduced motion renders every chapter static, the boat fully drawn, the clock fix
 
 ## 7. Artwork
 
-The reference reads as real because every image is a device on real furniture and its extraction contained zero screenshots. The direction follows from that.
+Flat illustration, not photography and not rendering. The reference site's identity is carried by illustration, and flat vector work has a second advantage here: it cannot read as an AI photograph because it is not pretending to be a photograph at all. Simple shapes, flat colour, limited palette, a little grain.
 
-**Rule: photographs of real rooms with real clutter, shot at night on a phone.** Not rendered objects floating on black. Grain, imperfect framing, mixed light temperature, things slightly out of place. Generated imagery reads as artificial mostly because it is too clean and too centred, so the prompts fight that directly.
+Two kinds of image, and only two.
 
-### To generate, 14 images
+**Scenes.** Flat illustrated skies and horizons: a smooth gradient ground, fine star speckle, a striped circle standing in for the moon, and solid silhouettes of palms, a roofline and the sea along the bottom. Used for the hero at both times of day, DevFest and Dawn.
 
-| Id | File | Orientation | Subject |
-|---|---|---|---|
-| N1 | `hero/dusk-wide` | landscape | Campus at last light, the sea beyond, a few lit windows |
-| N2 | `hero/dusk-tall` | portrait | Same, vertical crop |
-| M1 | `hero/morning-wide` | landscape | Same view at first light |
-| M2 | `hero/morning-tall` | portrait | Same, vertical crop |
-| R1 | `rooms/01-web` | portrait | Desk at night, laptop with a browser open, mug, cables |
-| R2 | `rooms/02-app` | portrait | Phone face up on a stack of books, screen lit, desk lamp |
-| R3 | `rooms/03-game` | portrait | Controller on a desk, monitor glow, headphones |
-| R4 | `rooms/04-ai-ml` | portrait | Whiteboard with working, marker, laptop half closed |
-| R5 | `rooms/05-ui-ux` | portrait | Sketchbook, pen, tablet, tracing paper |
-| R6 | `rooms/06-engine` | portrait | Board with jumper wires, oscilloscope or meter, solder |
-| F1 | `devfest/night-wide` | landscape | A hall at 2am during a hackathon, many screens |
-| D1 | `dawn/door-wide` | landscape | A corridor or doorway at first light |
-| D2 | `dawn/door-tall` | portrait | Same, vertical crop |
-| B1 | `brand/boat` | square, transparent | A small folded paper boat, lit warm |
+**Posters.** One flat colour field filling the frame with a single simple object sitting on it and a soft contact shadow. A browser window, a phone, a controller, a small node graph, stacked artboards, a gear. The object is the whole idea; there is no scene. These are the six verticals.
 
-Full copy-paste prompts live in `docs/assets/night-shift-prompts.md`, written for phone generation.
+Palette across every image: deep indigo, near-black, bone white, patina teal, warm amber, brass.
+
+The rule that decides any argument: if it looks like a photograph or a 3D render, it is wrong, however good it is.
+
+Full copy-paste prompts, written for generating on a phone, live in `docs/assets/PROMPTS-COPY-PASTE.md`. Fourteen images: four scenes for the hero at both times, six vertical posters, DevFest, two for Dawn, and the paper boat.
+
+**The flywheel is not generated.** It is drawn in code as SVG so it can turn with the scroll, light the active spoke and carry type. The six posters are what ride in it.
 
 ### Reused
 
-Seven coordinator portraits, six project images, the fest film (one video, not forty), the logo. A handful of archive photographs as texture.
+Seven coordinator portraits, six project images, the fest film, the logo. A handful of archive photographs as texture.
 
 ### Retired
 
-The armillary sphere, the six instruments, the sunburst, the atelier, the key, the macro textures. They are kept in `assets-src/` and unreferenced.
+The armillary sphere, the six instruments, the sunburst, the atelier, the key, the macro textures. Kept in `assets-src/` and unreferenced.
 
 ## 8. What carries forward from the current build
 
@@ -172,7 +163,7 @@ This is a refactor of a working site, not a rebuild.
 
 ## 9. Success criteria
 
-1. A first-year on a phone at night scrolls to the end and can say what the six rooms are.
+1. A first-year on a phone at night scrolls to the end and can say what the six verticals are.
 2. Nothing on the home page requires a click to reveal content.
 3. The page reads as one night, and the clock makes that legible without a caption explaining it.
 4. Night and morning are both complete, and neither looks like an afterthought.
@@ -182,3 +173,20 @@ This is a refactor of a working site, not a rebuild.
 ## 10. Open questions
 
 None blocking. Two facts remain unconfirmed from the earlier spec and render only when set: the founding year and the Engine Development head. DevFest date and sponsor line are likewise optional. The inductees moment is behind a flag that is currently on.
+
+## 11. The flywheel
+
+The one place the site departs from the reference entirely, and the piece that has to be best.
+
+A large wheel drawn in SVG, centred and bleeding slightly off the right edge. Six spokes, sixty degrees apart, one per vertical, with the vertical's name set along or beside its spoke. A brass rim, thin spokes, a hub.
+
+- Scrolling the pinned section turns the wheel. Six sixths of a turn across the whole section.
+- Whichever spoke reaches the marker at the top is the active one: its name goes bone, the others sit at ash.
+- The hub holds the active vertical's poster, circular cropped, melting from one to the next through `LiquidImage`.
+- The voice line, the head and the tools sit to the left of the wheel and change with the active spoke.
+- Hovering a name turns the wheel to it directly.
+- When idle the wheel drifts about a degree over twelve seconds so it never looks frozen.
+
+Mobile: the wheel is dropped. The six posters become the swipe rail that already exists, with the name, voice line and head under each.
+
+Reduced motion: the wheel renders at its first position and does not turn; the six are reachable as a list.

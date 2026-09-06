@@ -805,7 +805,7 @@ git commit -m "feat: The Society, oversized prose and the port line"
 
 ---
 
-### Task 6: Six Rooms as lit windows
+### Task 6: The flywheel
 
 **Files:**
 - Modify: `src/components/chapters/Rooms.tsx`, `src/content/verticals.ts`
@@ -820,13 +820,18 @@ desk: "A laptop open on a dark desk, browser lit",
 
 Do this for all six: web, app, game, ai-ml, ui-ux, engine, matching the subjects in `docs/assets/night-shift-prompts.md`.
 
-- [ ] **Step 2: Reframe the pinned stage as windows**
+- [ ] **Step 2: Build the flywheel**
 
-Keep the existing pinned `ScrollTrigger` and `LiquidImage` machinery exactly as it is. Change three things:
+Keep the existing pinned `ScrollTrigger` and `LiquidImage` machinery. Replace the left-hand index with an SVG wheel:
 
-1. The heading becomes `Six rooms stay lit` instead of `The collection`.
-2. Each room's frame gets a thin warm rule on its left edge to read as a window jamb: `border-l border-rule`.
-3. The `Ambient` field moves to that room's `light` position from `verticals[i].light`, replacing the inline `glow` div.
+1. A `<svg viewBox="0 0 100 100">` circle rim in `--rule-color`, six spokes at sixty degree intervals, and a hub circle of radius 26.
+2. The whole group rotates by `-(activeIndex * 60) + scrollFraction` degrees, driven by the same ScrollTrigger progress that already picks the active room. One sixth of a turn per vertical.
+3. Each spoke carries its vertical's name as an HTML label positioned around the rim, bone when active and ash otherwise, with `font-variation-settings` widening on the active one exactly as the current index does.
+4. The hub holds `<LiquidImage>` clipped to a circle, showing the active vertical's poster.
+5. The voice line, head and tools sit in the left column and change with the active vertical.
+6. Hovering a name sets the preview index, which turns the wheel to it.
+7. Idle drift: a 12s `ease-in-out` loop of one degree, disabled under reduced motion.
+8. The heading becomes `The flywheel`.
 
 - [ ] **Step 3: Generate placeholders for the six rooms**
 
