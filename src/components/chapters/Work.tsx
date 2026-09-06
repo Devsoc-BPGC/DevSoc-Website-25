@@ -74,15 +74,15 @@ function ScrubFilm() {
               className="h-full w-full object-cover"
             />
           </div>
-          <span className="pointer-events-none absolute -left-3 -top-3 h-4 w-4 border-l border-t border-brass/70" />
-          <span className="pointer-events-none absolute -right-3 -top-3 h-4 w-4 border-r border-t border-brass/70" />
-          <span className="pointer-events-none absolute -bottom-3 -left-3 h-4 w-4 border-b border-l border-brass/70" />
-          <span className="pointer-events-none absolute -bottom-3 -right-3 h-4 w-4 border-b border-r border-brass/70" />
-          <div className="mono mt-5 flex justify-between text-ash">
+          <span className="pointer-events-none absolute -left-3 -top-3 h-4 w-4 border-l border-t border-rule/70" />
+          <span className="pointer-events-none absolute -right-3 -top-3 h-4 w-4 border-r border-t border-rule/70" />
+          <span className="pointer-events-none absolute -bottom-3 -left-3 h-4 w-4 border-b border-l border-rule/70" />
+          <span className="pointer-events-none absolute -bottom-3 -right-3 h-4 w-4 border-b border-r border-rule/70" />
+          <div className="mono mt-5 flex justify-between text-muted">
             <span>
-              <span className="text-bone">Fest app</span>. Waves and Quark, 2025
+              <span className="text-primary">Fest app</span>. Waves and Quark, 2025
             </span>
-            <span ref={code} className="hud text-verdigris">
+            <span ref={code} className="hud text-light">
               00:00:00:00
             </span>
           </div>
@@ -99,7 +99,7 @@ export function Work() {
   return (
     <section id="ledger" aria-labelledby="ledger-title" className="relative py-[12vh]">
       <Reveal className="gutter">
-        <h2 id="ledger-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-bone">
+        <h2 id="ledger-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
           The ledger
         </h2>
         <p className="body-copy mt-6">
@@ -125,10 +125,10 @@ export function Work() {
               />
             </ScrollResolve>
             <div className="mt-5 flex items-baseline justify-between gap-6">
-              <h3 className="display text-[clamp(1.4rem,2.4vw,2.4rem)] text-bone [font-variation-settings:'wdth'_110]">
+              <h3 className="display text-[clamp(1.4rem,2.4vw,2.4rem)] text-primary [font-variation-settings:'wdth'_110]">
                 {p.title}
               </h3>
-              <p className="mono shrink-0 text-ash">
+              <p className="mono shrink-0 text-muted">
                 {p.year}. {p.vertical}
               </p>
             </div>

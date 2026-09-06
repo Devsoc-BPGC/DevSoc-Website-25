@@ -15,19 +15,19 @@ export function Colophon() {
       <Reveal
         stagger={0.06}
         y={16}
-        className="mono mt-10 grid grid-cols-2 gap-y-6 border-t border-brass/25 pt-8 text-ash md:grid-cols-4"
+        className="mono mt-10 grid grid-cols-2 gap-y-6 border-t border-rule/25 pt-8 text-muted md:grid-cols-4"
       >
         <ul className="flex flex-col gap-2">
           {site.socials.map((s) => (
             <li key={s.href}>
-              <a href={s.href} target="_blank" rel="noreferrer" className="text-link hover:text-bone" data-cursor="Open">
+              <a href={s.href} target="_blank" rel="noreferrer" className="text-link hover:text-primary" data-cursor="Open">
                 {s.label}
               </a>
             </li>
           ))}
         </ul>
         <div className="flex flex-col gap-2">
-          <a href={`mailto:${site.email}`} className="text-link self-start hover:text-bone" data-cursor="Write">
+          <a href={`mailto:${site.email}`} className="text-link self-start hover:text-primary" data-cursor="Write">
             {site.email}
           </a>
           <span>{site.campus}</span>

@@ -54,7 +54,7 @@ export function Lightbox({
           role="dialog"
           aria-modal="true"
           aria-label="Photo"
-          className="fixed inset-0 grid place-items-center bg-obsidian/95 gutter"
+          className="fixed inset-0 grid place-items-center bg-base/95 gutter"
           style={{ zIndex: "var(--z-menu)" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -65,18 +65,18 @@ export function Lightbox({
         >
           <div className="w-full max-w-[min(92vw,140vh)]" onClick={(e) => e.stopPropagation()}>
             <LiquidImage images={images} index={i} className="aspect-[3/2] w-full" />
-            <div className="mono mt-4 flex items-center justify-between text-ash">
+            <div className="mono mt-4 flex items-center justify-between text-muted">
               <span>
                 {String(i + 1).padStart(2, "0")} of {String(photos.length).padStart(2, "0")}
               </span>
               <span className="flex gap-6">
-                <button type="button" onClick={prev} className="text-link hover:text-bone">
+                <button type="button" onClick={prev} className="text-link hover:text-primary">
                   Prev
                 </button>
-                <button type="button" onClick={next} className="text-link hover:text-bone">
+                <button type="button" onClick={next} className="text-link hover:text-primary">
                   Next
                 </button>
-                <button type="button" onClick={onClose} className="text-link hover:text-bone">
+                <button type="button" onClick={onClose} className="text-link hover:text-primary">
                   Close
                 </button>
               </span>

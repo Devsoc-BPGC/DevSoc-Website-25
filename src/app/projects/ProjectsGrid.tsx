@@ -13,14 +13,14 @@ export function ProjectsGrid() {
 
   return (
     <>
-      <ul className="mono gutter mt-12 flex flex-wrap gap-x-8 gap-y-3 text-ash" aria-label="Filter by room">
+      <ul className="mono gutter mt-12 flex flex-wrap gap-x-8 gap-y-3 text-muted" aria-label="Filter by room">
         {rooms.map((r) => (
           <li key={r}>
             <button
               type="button"
               onClick={() => setRoom(r)}
               aria-pressed={room === r}
-              className={`text-link ${room === r ? "text-bone" : "hover:text-bone"}`}
+              className={`text-link ${room === r ? "text-primary" : "hover:text-primary"}`}
             >
               {r}
             </button>
@@ -39,8 +39,8 @@ export function ProjectsGrid() {
               reveal={<Image src={p.image} alt="" width={p.width} height={p.height} sizes="(min-width: 768px) 46vw, 90vw" />}
             />
             <div className="mt-5 flex items-baseline justify-between gap-6">
-              <h2 className="display text-[clamp(1.4rem,2.2vw,2.2rem)] text-bone [font-variation-settings:'wdth'_110]">{p.title}</h2>
-              <p className="mono shrink-0 text-ash">
+              <h2 className="display text-[clamp(1.4rem,2.2vw,2.2rem)] text-primary [font-variation-settings:'wdth'_110]">{p.title}</h2>
+              <p className="mono shrink-0 text-muted">
                 {p.year}. {p.vertical}
               </p>
             </div>

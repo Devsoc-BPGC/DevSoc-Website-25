@@ -44,34 +44,34 @@ export function Join() {
         <div className="col-span-12 md:col-span-7 lg:col-span-6 lg:col-start-6">
           {site.inducteesLive ? (
             <>
-              <SplitLines as="h2" id="door-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-bone">
+              <SplitLines as="h2" id="door-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
                 {`The ${site.inducteesYear} list is out.`}
               </SplitLines>
               <p className="body-copy mt-6">
                 {list.length} names. Find yours, or come to DevFest and meet the rest of the room.
               </p>
               <label className="mt-10 block">
-                <span className="mono text-ash">Search by name or BITS ID</span>
+                <span className="mono text-muted">Search by name or BITS ID</span>
                 <input
                   type="search"
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   placeholder="Type a name"
-                  className="mono mt-3 w-full border-b border-brass/50 bg-transparent py-3 text-[1rem] text-bone placeholder:text-ash/70 focus:border-brass focus:outline-none"
+                  className="mono mt-3 w-full border-b border-rule/50 bg-transparent py-3 text-[1rem] text-primary placeholder:text-muted/70 focus:border-rule focus:outline-none"
                   autoComplete="off"
                 />
               </label>
               {q.trim() ? (
-                <ul className="mt-6 divide-y divide-soot">
+                <ul className="mt-6 divide-y divide-raised">
                   {matches.length ? (
                     matches.map((m) => (
-                      <li key={`${m.name}-${m.id}`} className="mono flex justify-between gap-6 py-3 text-bone">
+                      <li key={`${m.name}-${m.id}`} className="mono flex justify-between gap-6 py-3 text-primary">
                         <span>{m.name}</span>
-                        <span className="text-ash">{m.id ?? "ID not given"}</span>
+                        <span className="text-muted">{m.id ?? "ID not given"}</span>
                       </li>
                     ))
                   ) : (
-                    <li className="mono py-3 text-ash">Nothing matches that spelling.</li>
+                    <li className="mono py-3 text-muted">Nothing matches that spelling.</li>
                   )}
                 </ul>
               ) : null}
@@ -83,13 +83,13 @@ export function Join() {
             </>
           ) : (
             <>
-              <SplitLines as="h2" id="door-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-bone">
+              <SplitLines as="h2" id="door-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
                 Inductions open once a year. Until then, come to DevFest.
               </SplitLines>
               <p className="body-copy mt-6">Walk in for the interview when it opens. Missed it? Write to us; exceptional cases happen.</p>
               <div className="mt-10">
                 <Magnetic>
-                  <a href={`mailto:${site.email}`} className="text-link mono text-bone" data-cursor="Write">
+                  <a href={`mailto:${site.email}`} className="text-link mono text-primary" data-cursor="Write">
                     {site.email}
                   </a>
                 </Magnetic>

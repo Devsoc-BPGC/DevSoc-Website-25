@@ -313,7 +313,7 @@ export function LiquidImage({
   return (
     <div
       ref={box}
-      className={`relative overflow-hidden bg-soot ${className ?? ""}`}
+      className={`relative overflow-hidden bg-raised ${className ?? ""}`}
       onPointerMove={useCanvas ? onMove : undefined}
       onPointerLeave={useCanvas ? onLeave : undefined}
       role="img"
@@ -350,7 +350,7 @@ function Fallback({ images, index, priority }: { images: LiquidSource[]; index: 
   return (
     <>
       {images.map((img, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
+         
         <img
           key={img.src}
           src={img.src}

@@ -33,7 +33,7 @@ export function Timecode({ className }: { className?: string }) {
   });
 
   return (
-    <span ref={code} className={`hud text-verdigris ${className ?? ""}`} aria-hidden="true">
+    <span ref={code} className={`hud text-light ${className ?? ""}`} aria-hidden="true">
       00:00:00:00
     </span>
   );

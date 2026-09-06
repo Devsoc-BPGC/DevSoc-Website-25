@@ -61,7 +61,7 @@ export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) 
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 bg-obsidian"
+          className="fixed inset-0 bg-base"
           style={{ zIndex: "var(--z-menu)" }}
           initial={{ clipPath: "inset(0 0 100% 0)" }}
           animate={{ clipPath: "inset(0 0 0% 0)" }}
@@ -87,7 +87,7 @@ export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) 
                       onMouseEnter={() => setHover(i)}
                       onFocus={() => setHover(i)}
                       className={`display block py-[0.6vh] text-[clamp(2.6rem,7vw,7.25rem)] transition-colors duration-500 ${
-                        pathname === r.href ? "text-bone" : "text-ash/50 hover:text-bone focus-visible:text-bone"
+                        pathname === r.href ? "text-primary" : "text-muted/50 hover:text-primary focus-visible:text-primary"
                       }`}
                       data-cursor="Go"
                     >
@@ -107,7 +107,7 @@ export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) 
               <LiquidImage images={previews} index={hover} className="aspect-[4/5] w-full max-h-[64vh]" simple={mobile} />
             </motion.div>
             <motion.div
-              className="mono col-span-12 flex flex-wrap items-end justify-between gap-6 self-end text-ash"
+              className="mono col-span-12 flex flex-wrap items-end justify-between gap-6 self-end text-muted"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -116,13 +116,13 @@ export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) 
               <ul className="flex flex-wrap gap-6">
                 {site.socials.map((s) => (
                   <li key={s.href}>
-                    <a href={s.href} target="_blank" rel="noreferrer" className="text-link hover:text-bone" data-cursor="Open">
+                    <a href={s.href} target="_blank" rel="noreferrer" className="text-link hover:text-primary" data-cursor="Open">
                       {s.label}
                     </a>
                   </li>
                 ))}
               </ul>
-              <a href={`mailto:${site.email}`} className="text-link hover:text-bone" data-cursor="Write">
+              <a href={`mailto:${site.email}`} className="text-link hover:text-primary" data-cursor="Write">
                 {site.email}
               </a>
             </motion.div>

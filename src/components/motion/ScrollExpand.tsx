@@ -144,7 +144,7 @@ export function ScrollExpand({
           <div ref={mediaRef} className="absolute inset-0 origin-center will-change-transform [&>img]:h-full [&>img]:w-full [&>img]:object-cover [&>video]:h-full [&>video]:w-full [&>video]:object-cover">
             {media}
           </div>
-          <div ref={scrimRef} className="absolute inset-0 bg-obsidian opacity-0" />
+          <div ref={scrimRef} className="absolute inset-0 bg-base opacity-0" />
         </div>
         {children && !reduced ? (
           <div ref={titleRef} className="pointer-events-none absolute inset-0 grid place-items-center">

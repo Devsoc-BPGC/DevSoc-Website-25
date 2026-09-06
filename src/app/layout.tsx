@@ -6,6 +6,8 @@ import { Cursor } from "@/components/motion/Cursor";
 import { FrameChrome } from "@/components/motion/FrameChrome";
 import { Nav } from "@/components/shell/Nav";
 import { Overture } from "@/components/shell/Overture";
+import { ThemeProvider } from "@/components/shell/ThemeProvider";
+import { themeBootScript } from "@/lib/theme";
 import { site } from "@/content/site";
 
 // Display and body: one variable family with a live width axis.
@@ -60,7 +62,6 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#161310",
-  colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -69,17 +70,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
+      data-theme="night"
+      suppressHydrationWarning
       className={`${archivo.variable} ${bodoni.variable} ${martian.variable} ${dotgothic.variable}`}
     >
+      <head>
+        {/* Applies the stored lighting before first paint, so night never flashes. */}
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body>
-        <SmoothScroll>
-          <Nav />
-          {children}
-        </SmoothScroll>
-        <FrameChrome />
-        <Overture />
-        <Cursor />
-        <div className="grain" aria-hidden="true" />
+        <ThemeProvider>
+          <SmoothScroll>
+            <Nav />
+            {children}
+          </SmoothScroll>
+          <FrameChrome />
+          <Overture />
+          <Cursor />
+          <div className="grain" aria-hidden="true" />
+        </ThemeProvider>
       </body>
     </html>
   );

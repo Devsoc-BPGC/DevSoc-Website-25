@@ -91,16 +91,16 @@ export function Cursor() {
     >
       <div
         ref={dot}
-        className="absolute -left-1 -top-1 h-2 w-2 rounded-full bg-bone"
+        className="absolute -left-1 -top-1 h-2 w-2 rounded-full bg-primary"
         style={{ mixBlendMode: "difference" }}
       />
       <div
         ref={ring}
-        className="absolute -left-7 -top-7 h-14 w-14 rounded-full border border-brass opacity-0"
+        className="absolute -left-7 -top-7 h-14 w-14 rounded-full border border-rule opacity-0"
         style={{ transform: "scale(0.4)" }}
       />
       {label ? (
-        <span className="mono absolute left-9 top-9 whitespace-nowrap bg-obsidian px-1.5 py-0.5 text-bone">
+        <span className="mono absolute left-9 top-9 whitespace-nowrap bg-base px-1.5 py-0.5 text-primary">
           {label}
         </span>
       ) : null}

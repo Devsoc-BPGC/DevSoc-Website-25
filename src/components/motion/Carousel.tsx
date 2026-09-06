@@ -66,18 +66,18 @@ export function Carousel({
         </div>
       </div>
       <div className="mt-10 flex items-center gap-10 gutter">
-        <div className="relative h-px flex-1 bg-soot">
+        <div className="relative h-px flex-1 bg-raised">
           <div
             ref={progress}
-            className="absolute inset-y-0 left-0 w-full origin-left bg-brass"
+            className="absolute inset-y-0 left-0 w-full origin-left bg-rule"
             style={{ transform: "scaleX(0.08)" }}
           />
         </div>
-        <div className="mono flex gap-8 text-ash">
-          <button type="button" onClick={() => api?.scrollPrev()} className="text-link hover:text-bone">
+        <div className="mono flex gap-8 text-muted">
+          <button type="button" onClick={() => api?.scrollPrev()} className="text-link hover:text-primary">
             Prev
           </button>
-          <button type="button" onClick={() => api?.scrollNext()} className="text-link hover:text-bone">
+          <button type="button" onClick={() => api?.scrollNext()} className="text-link hover:text-primary">
             Next
           </button>
         </div>

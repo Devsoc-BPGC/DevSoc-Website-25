@@ -12,6 +12,7 @@ import Image from "next/image";
 import { Timecode } from "./Timecode";
 import { Menu } from "./Menu";
 import { ChapterLabel } from "./Rail";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -32,17 +33,18 @@ export function Nav() {
       >
         <Link href="/" className="flex items-center gap-3" aria-label="DevSoc, home" data-cursor="Home">
           <Image src="/images/brand/mark.png" alt="" width={34} height={26} priority className="h-[26px] w-auto" />
-          <span className="mono text-bone">DevSoc</span>
+          <span className="mono text-primary">DevSoc</span>
         </Link>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6 md:gap-8">
           <ChapterLabel className="hidden lg:inline" />
           <Timecode className="hidden md:inline" />
+          <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="text-link mono text-bone"
+            className="text-link mono text-primary"
             data-cursor={open ? "Close" : "Open"}
           >
             {open ? "Close" : "Menu"}

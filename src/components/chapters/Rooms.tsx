@@ -50,7 +50,7 @@ export function Rooms() {
   if (mobile) {
     return (
       <section id="collection" className="py-[12vh]" aria-labelledby="collection-title">
-        <h2 id="collection-title" className="display gutter text-[clamp(2.4rem,9vw,4rem)] text-bone">
+        <h2 id="collection-title" className="display gutter text-[clamp(2.4rem,9vw,4rem)] text-primary">
           The collection
         </h2>
         <p className="body-copy gutter mt-5">
@@ -64,11 +64,11 @@ export function Rooms() {
           {verticals.map((v, i) => (
             <li key={v.id} className="w-[78vw] shrink-0 snap-start">
               <LiquidImage images={[images[i]]} index={0} className="aspect-[4/5]" simple />
-              <p className="mono mt-4 text-ash">
-                {v.index} <span className="text-bone">{v.name}</span>
+              <p className="mono mt-4 text-muted">
+                {v.index} <span className="text-primary">{v.name}</span>
               </p>
-              <p className="voice mt-2 text-[1.35rem] text-bone">{v.voice}</p>
-              <p className="mono mt-3 text-ash">
+              <p className="voice mt-2 text-[1.35rem] text-primary">{v.voice}</p>
+              <p className="mono mt-3 text-muted">
                 {v.instrument}
                 {v.head ? `. ${v.head}` : ""}
               </p>
@@ -97,7 +97,7 @@ export function Rooms() {
           <div className="grid-12 relative h-full items-center gutter">
             {/* index */}
             <div className="col-span-5 self-center">
-              <h2 id="collection-title" className="mono mb-8 text-ash">
+              <h2 id="collection-title" className="mono mb-8 text-muted">
                 The collection
               </h2>
               <ol className="flex flex-col gap-[0.6vh]">
@@ -105,7 +105,7 @@ export function Rooms() {
                   const on = i === shown;
                   return (
                     <li key={v.id} className="flex items-baseline gap-5">
-                      <span className={`mono w-6 shrink-0 transition-colors duration-500 ${on ? "text-brass" : "text-ash/50"}`}>
+                      <span className={`mono w-6 shrink-0 transition-colors duration-500 ${on ? "text-warm" : "text-muted/50"}`}>
                         {v.index}
                       </span>
                       <button
@@ -124,7 +124,7 @@ export function Rooms() {
                           else window.scrollTo({ top: y, behavior: "smooth" });
                         }}
                         className={`text-left font-display text-[clamp(1.6rem,3.6vw,3.9rem)] font-black uppercase leading-[0.95] tracking-[-0.02em] transition-[color,font-variation-settings] duration-700 ease-[var(--ease-out-expo)] ${
-                          on ? "text-bone" : "text-ash/45 hover:text-ash"
+                          on ? "text-primary" : "text-muted/45 hover:text-muted"
                         }`}
                         style={{ fontVariationSettings: on ? '"wdth" 125' : '"wdth" 100' }}
                         aria-current={i === active ? "true" : undefined}
@@ -142,15 +142,15 @@ export function Rooms() {
             <div className="col-span-6 col-start-7 self-center">
               <div className="relative">
                 <LiquidImage images={images} index={shown} className="aspect-[4/5] max-h-[76vh] w-full" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-obsidian/80 to-transparent p-7 pt-24">
-                  <p key={room.id} className="voice rise-in max-w-[22ch] text-[clamp(1.25rem,1.9vw,1.9rem)] text-bone">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-base/80 to-transparent p-7 pt-24">
+                  <p key={room.id} className="voice rise-in max-w-[22ch] text-[clamp(1.25rem,1.9vw,1.9rem)] text-primary">
                     {room.voice}
                   </p>
                 </div>
               </div>
-              <div key={`${room.id}-meta`} className="rise-in mono mt-5 flex flex-wrap justify-between gap-x-8 gap-y-2 text-ash">
+              <div key={`${room.id}-meta`} className="rise-in mono mt-5 flex flex-wrap justify-between gap-x-8 gap-y-2 text-muted">
                 <span>
-                  <span className="text-bone">{room.instrument}</span>
+                  <span className="text-primary">{room.instrument}</span>
                   {room.head ? `. ${room.head}` : ""}
                 </span>
                 <span>{room.tools.join(", ")}</span>

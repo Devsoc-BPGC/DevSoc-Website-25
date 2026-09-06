@@ -97,7 +97,7 @@ Muted text is expressed as alpha over the ground rather than as a separate grey,
 
 - `data-theme="night" | "morning"` on the root element. Night is the served default, so no flash.
 - Stored in `localStorage`; a tiny inline script in the document head applies it before first paint.
-- `prefers-color-scheme: light` on a first visit with no stored choice selects morning. Any explicit choice wins forever after.
+- Night is the default for every first visit. The operating system light preference deliberately does not override it, because the site is a night on campus and that is the state it should be met in. An explicit choice is stored and wins forever after.
 - The toggle sits in the navigation, a small control with a warm knob, following the reference's pattern of making the theme switch a real object rather than an icon button.
 - Crossfade of 0.6s on the role tokens. Artwork crossfades over the same duration.
 

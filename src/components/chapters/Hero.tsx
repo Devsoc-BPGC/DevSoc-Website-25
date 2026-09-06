@@ -118,7 +118,7 @@ export function Hero() {
 
       {/* wordmark */}
       <div className="absolute inset-x-0 top-[26vh] overflow-hidden px-[var(--gutter)] lg:top-[24vh]">
-        <FitText className="display text-bone" innerClassName="leading-[0.86]">
+        <FitText className="display text-primary" innerClassName="leading-[0.86]">
           <span ref={mark} className="inline-block">
             <span ref={dev} className="inline-block">
               Dev
@@ -161,7 +161,7 @@ export function Hero() {
           <SplitLines
             as="h1"
             id="hero-line"
-            className="voice max-w-[22ch] text-[clamp(1.75rem,3vw,3rem)] text-bone"
+            className="voice max-w-[22ch] text-[clamp(1.75rem,3vw,3rem)] text-primary"
             immediate
             delay={overturePending() ? 1.9 : 0.8}
           >
@@ -173,7 +173,7 @@ export function Hero() {
             </TextLink>
           </div>
         </div>
-        <p className="mono col-span-12 mt-8 text-ash lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
+        <p className="mono col-span-12 mt-8 text-muted lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
           Developers&rsquo; Society
           <br />
           {site.campus}

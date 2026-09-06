@@ -60,20 +60,20 @@ export function DevFest() {
             className="object-cover md:hidden"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-obsidian/40 via-transparent to-obsidian" />
+        <div className="absolute inset-0 bg-gradient-to-b from-base/40 via-transparent to-base" />
 
         <div className="relative flex min-h-[100dvh] flex-col justify-end gutter pb-[10vh] pt-[30vh]">
           <div className="grid-12 items-end">
             <div className="col-span-12 lg:col-span-8">
               <h2 id="salon-title" className="flex flex-wrap items-baseline gap-x-[0.15em]">
-                <span className="display text-[clamp(3rem,11vw,11rem)] text-bone">DevFest</span>
-                <span className="voice text-[clamp(2rem,6vw,6rem)] text-brass">{devfest.edition}</span>
+                <span className="display text-[clamp(3rem,11vw,11rem)] text-primary">DevFest</span>
+                <span className="voice text-[clamp(2rem,6vw,6rem)] text-warm">{devfest.edition}</span>
               </h2>
               <SplitLines as="p" className="body-copy mt-6 max-w-[52ch]">
                 {devfest.blurb}
               </SplitLines>
             </div>
-            <ul className="mono col-span-12 mt-8 flex flex-col gap-2 text-ash lg:col-span-3 lg:col-start-10 lg:mt-0 lg:text-right">
+            <ul className="mono col-span-12 mt-8 flex flex-col gap-2 text-muted lg:col-span-3 lg:col-start-10 lg:mt-0 lg:text-right">
               {facts.map((f) => (
                 <li key={f}>{f}</li>
               ))}
@@ -86,9 +86,9 @@ export function DevFest() {
         <Reveal as="p" className="body-copy">
           The salon runs all year. The flagship is one weekend of it.
         </Reveal>
-        <table className="mono mt-10 w-full border-collapse text-left text-ash">
+        <table className="mono mt-10 w-full border-collapse text-left text-muted">
           <thead>
-            <tr className="border-b border-brass/40 text-bone">
+            <tr className="border-b border-rule/40 text-primary">
               <th className="py-3 pr-6 font-normal">Event</th>
               <th className="py-3 pr-6 font-normal">Kind</th>
               <th className="hidden py-3 pr-6 font-normal md:table-cell">When</th>
@@ -97,8 +97,8 @@ export function DevFest() {
           </thead>
           <Reveal as="tbody" stagger={0.06} y={18}>
             {events.map((e) => (
-              <tr key={e.name} className="border-b border-soot">
-                <td className="py-4 pr-6 text-bone">{e.name}</td>
+              <tr key={e.name} className="border-b border-raised">
+                <td className="py-4 pr-6 text-primary">{e.name}</td>
                 <td className="py-4 pr-6">{e.kind}</td>
                 <td className="hidden py-4 pr-6 md:table-cell">{e.when}</td>
                 <td className="hidden py-4 md:table-cell">{e.note}</td>

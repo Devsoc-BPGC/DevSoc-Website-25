@@ -8,7 +8,7 @@
  */
 
 export function FrameChrome() {
-  const mark = "pointer-events-none absolute h-4 w-4 border-brass/70";
+  const mark = "pointer-events-none absolute h-4 w-4 border-rule/70";
   return (
     <div className="pointer-events-none fixed inset-0" style={{ zIndex: "var(--z-frame)" }} aria-hidden="true">
       <span className={`${mark} left-5 top-5 border-l border-t`} />

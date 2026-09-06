@@ -33,17 +33,17 @@ export function InducteesList() {
   return (
     <div className="gutter mt-12">
       <label className="block max-w-xl">
-        <span className="mono text-ash">Search by name or BITS ID</span>
+        <span className="mono text-muted">Search by name or BITS ID</span>
         <input
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Type a name"
           autoComplete="off"
-          className="mono mt-3 w-full border-b border-brass/50 bg-transparent py-3 text-[1rem] text-bone placeholder:text-ash/70 focus:border-brass focus:outline-none"
+          className="mono mt-3 w-full border-b border-rule/50 bg-transparent py-3 text-[1rem] text-primary placeholder:text-muted/70 focus:border-rule focus:outline-none"
         />
       </label>
-      <p className="mono mt-4 text-ash" aria-live="polite">
+      <p className="mono mt-4 text-muted" aria-live="polite">
         {groups.reduce((n, [, g]) => n + g.length, 0)} of {list.length}
       </p>
 
@@ -53,12 +53,12 @@ export function InducteesList() {
         <div className="mt-16 flex flex-col gap-16">
           {groups.map(([letter, people]) => (
             <section key={letter} className="grid-12 items-start">
-              <h2 className="display col-span-12 text-[clamp(3rem,8vw,8rem)] leading-none text-bone/90 lg:col-span-2">
+              <h2 className="display col-span-12 text-[clamp(3rem,8vw,8rem)] leading-none text-primary/90 lg:col-span-2">
                 {letter}
               </h2>
               <ol className="col-span-12 mt-6 lg:col-span-9 lg:col-start-4 lg:mt-3">
                 {people.map((p) => (
-                  <li key={`${p.name}-${p.id}`} className="border-t border-soot last:border-b">
+                  <li key={`${p.name}-${p.id}`} className="border-t border-raised last:border-b">
                     <button
                       type="button"
                       onClick={() => p.id && copy(p.id)}
@@ -66,8 +66,8 @@ export function InducteesList() {
                       className="flex w-full flex-wrap items-baseline justify-between gap-x-8 gap-y-1 py-4 text-left disabled:cursor-default"
                       data-cursor={p.id ? "Copy" : undefined}
                     >
-                      <span className="text-[1.05rem] text-bone">{p.name}</span>
-                      <span className="mono text-ash">
+                      <span className="text-[1.05rem] text-primary">{p.name}</span>
+                      <span className="mono text-muted">
                         {copied === p.id ? "Copied" : (p.id ?? "ID not given")}
                       </span>
                     </button>

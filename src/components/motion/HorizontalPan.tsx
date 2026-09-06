@@ -84,10 +84,10 @@ export function HorizontalPan({
         </div>
         {progress ? (
           <div className="mt-10 hidden gutter lg:block lg:motion-reduce:hidden" aria-hidden="true">
-            <div className="relative h-px w-full bg-soot">
+            <div className="relative h-px w-full bg-raised">
               <div
                 ref={bar}
-                className="absolute inset-y-0 left-0 w-full origin-left bg-brass"
+                className="absolute inset-y-0 left-0 w-full origin-left bg-rule"
                 style={{ transform: "scaleX(0.04)" }}
               />
             </div>

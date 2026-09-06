@@ -62,14 +62,14 @@ export function Rail() {
               >
                 <span
                   className={`mono whitespace-nowrap transition-opacity duration-500 ${
-                    on ? "text-bone opacity-100" : "text-ash opacity-0 group-hover:opacity-100"
+                    on ? "text-primary opacity-100" : "text-muted opacity-0 group-hover:opacity-100"
                   }`}
                 >
                   {c.label}
                 </span>
                 <span
                   className={`block h-px transition-all duration-700 ease-[var(--ease-out-expo)] ${
-                    on ? "w-7 bg-brass" : "w-3 bg-brass/40 group-hover:w-5 group-hover:bg-brass/80"
+                    on ? "w-7 bg-rule" : "w-3 bg-rule/40 group-hover:w-5 group-hover:bg-rule/80"
                   }`}
                   aria-hidden="true"
                 />
@@ -92,7 +92,7 @@ export function ChapterLabel({ className }: { className?: string }) {
   }, []);
   return (
     <span
-      className={`mono text-ash transition-opacity duration-700 ${label ? "opacity-100" : "opacity-0"} ${className ?? ""}`}
+      className={`mono text-muted transition-opacity duration-700 ${label ? "opacity-100" : "opacity-0"} ${className ?? ""}`}
       aria-live="polite"
     >
       {label}

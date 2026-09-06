@@ -15,7 +15,7 @@ export function TextLink({
   cursor?: string;
   external?: boolean;
 }) {
-  const cls = `text-link mono text-bone ${className ?? ""}`;
+  const cls = `text-link mono text-primary ${className ?? ""}`;
   if (external || href.startsWith("http") || href.startsWith("mailto:")) {
     return (
       <a

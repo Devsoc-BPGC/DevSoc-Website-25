@@ -75,7 +75,7 @@ export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos
   return (
     <section id="archive" ref={root} aria-labelledby="archive-title" className="relative py-[8vh]">
       <Reveal className="gutter">
-        <h2 id="archive-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-bone">
+        <h2 id="archive-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
           The archive
         </h2>
         <p className="body-copy mt-6">Beach days, DevFest nights, the room after a ship.</p>

@@ -88,14 +88,14 @@ export function Credits({ all = false }: { all?: boolean }) {
     <section id="makers" ref={root} aria-labelledby="makers-title" className="relative py-[14vh]">
       <div className="gutter grid-12">
         <div className="col-span-12 lg:col-span-7">
-          <h2 id="makers-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-bone">
+          <h2 id="makers-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
             The makers
           </h2>
           <p className="body-copy mt-6">The coordinators for this year. Every room has a head; the heads answer to two.</p>
 
           <ol className="mt-14">
             {people.map((p, i) => (
-              <li key={p.id} data-row className="border-t border-brass/25 last:border-b">
+              <li key={p.id} data-row className="border-t border-rule/25 last:border-b">
                 <a
                   href={p.link}
                   target="_blank"
@@ -105,7 +105,7 @@ export function Credits({ all = false }: { all?: boolean }) {
                   onFocus={() => setHover(i)}
                   onBlur={() => setHover(null)}
                   className={`group flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 py-5 transition-colors duration-700 ${
-                    i === index ? "text-bone" : "text-ash hover:text-bone"
+                    i === index ? "text-primary" : "text-muted hover:text-primary"
                   }`}
                   data-cursor="Open"
                 >
@@ -132,8 +132,8 @@ export function Credits({ all = false }: { all?: boolean }) {
         <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
           <div className="sticky top-[22vh]">
             <LiquidImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={0.55} simple={mobile} />
-            <p key={people[index].id} className="mono rise-in mt-4 text-ash">
-              <span className="text-bone">{people[index].name}</span>. {people[index].role}
+            <p key={people[index].id} className="mono rise-in mt-4 text-muted">
+              <span className="text-primary">{people[index].name}</span>. {people[index].role}
             </p>
           </div>
         </div>

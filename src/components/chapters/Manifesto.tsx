@@ -33,21 +33,21 @@ export function Manifesto() {
       <div className="gutter grid-12 gap-y-[14vh] py-[18vh]">
         {statements.map((s) => (
           <div key={s.text} className={`col-span-12 ${s.cols}`}>
-            <div className="mb-6 h-px w-full bg-brass/40" />
+            <div className="mb-6 h-px w-full bg-rule/40" />
             <SplitLines
               as="p"
-              className="display text-[clamp(1.9rem,3.8vw,4rem)] normal-case text-bone [font-variation-settings:'wdth'_100]"
+              className="display text-[clamp(1.9rem,3.8vw,4rem)] normal-case text-primary [font-variation-settings:'wdth'_100]"
             >
               {s.text}
             </SplitLines>
-            <p className="mono mt-5 text-ash">{s.note}</p>
+            <p className="mono mt-5 text-muted">{s.note}</p>
           </div>
         ))}
       </div>
 
       <ScrollExpand
         media={
-          // eslint-disable-next-line @next/next/no-img-element
+           
           <img
             src="/images/atelier/workbench-wide.jpg"
             alt="The atelier at night: instruments under glass along two workbenches, one lamp"
@@ -55,14 +55,14 @@ export function Manifesto() {
         }
         expanded={
           <div className="gutter flex h-full flex-col justify-end pb-[10vh]">
-            <p className="voice max-w-[24ch] text-[clamp(1.75rem,3.2vw,3.25rem)] text-bone">
+            <p className="voice max-w-[24ch] text-[clamp(1.75rem,3.2vw,3.25rem)] text-primary">
               Shipping from the Goa campus{since}.
             </p>
-            <p className="mono mt-5 text-ash">Fest websites and apps. DevFest. Workshops. Whatever a member brings in.</p>
+            <p className="mono mt-5 text-muted">Fest websites and apps. DevFest. Workshops. Whatever a member brings in.</p>
           </div>
         }
       >
-        <p className="display text-[clamp(2.4rem,7vw,7rem)] text-bone/90">The atelier</p>
+        <p className="display text-[clamp(2.4rem,7vw,7rem)] text-primary/90">The atelier</p>
       </ScrollExpand>
     </section>
   );

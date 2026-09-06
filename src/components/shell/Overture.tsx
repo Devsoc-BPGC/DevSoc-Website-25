@@ -101,14 +101,14 @@ export function Overture() {
   return (
     <div
       ref={root}
-      className="fixed inset-0 grid place-items-center bg-obsidian"
+      className="fixed inset-0 grid place-items-center bg-base"
       style={{ zIndex: "var(--z-overture)", clipPath: "inset(0 0 0% 0)" }}
       aria-hidden="true"
     >
-      <span ref={counter} className="hud absolute right-10 top-[1.35rem] text-verdigris">
+      <span ref={counter} className="hud absolute right-10 top-[1.35rem] text-light">
         00:00:00:00
       </span>
-      <div className="display flex items-center gap-[12vw] text-[clamp(6rem,22vw,20rem)] text-bone">
+      <div className="display flex items-center gap-[12vw] text-[clamp(6rem,22vw,20rem)] text-primary">
         <span ref={left} className="inline-block">
           {"{"}
         </span>

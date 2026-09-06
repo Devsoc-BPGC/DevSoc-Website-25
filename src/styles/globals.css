@@ -5,19 +5,65 @@
    Obsidian ground, bone type, verdigris light, brass hairlines.
    ------------------------------------------------------------------ */
 
-@theme {
+/* Tier 1: palette. Raw values, never referenced directly by a component. */
+:root {
+  --c-obsidian: oklch(0.13 0.008 60);
+  --c-soot: oklch(0.2 0.008 60);
+  --c-bone: oklch(0.93 0.02 85);
+  --c-ash: oklch(0.66 0.015 80);
+  --c-verdigris: oklch(0.72 0.11 185);
+  --c-verdigris-deep: oklch(0.45 0.08 190);
+  --c-ember: oklch(0.7 0.17 50);
+  --c-brass: oklch(0.78 0.09 85);
+  --c-haze: oklch(0.94 0.012 170);
+  --c-haze-2: oklch(0.9 0.016 170);
+  --c-ink: oklch(0.22 0.02 200);
+  --c-slate: oklch(0.5 0.02 200);
+}
+
+/* Tier 2: semantic roles. Components only ever speak in these.
+   The theme swaps this layer and nothing else. */
+:root,
+[data-theme="night"] {
+  --bg-base: var(--c-obsidian);
+  --surface-raised: var(--c-soot);
+  --text-primary: var(--c-bone);
+  --text-muted: var(--c-ash);
+  --accent-light: var(--c-verdigris);
+  --accent-warm: var(--c-ember);
+  --rule-color: var(--c-brass);
+  --scrim: color-mix(in oklch, var(--c-obsidian) 70%, transparent);
+  --grade: var(--c-verdigris-deep);
+  color-scheme: dark;
+}
+
+[data-theme="morning"] {
+  --bg-base: var(--c-haze);
+  --surface-raised: var(--c-haze-2);
+  --text-primary: var(--c-ink);
+  --text-muted: var(--c-slate);
+  --accent-light: var(--c-verdigris);
+  --accent-warm: var(--c-ember);
+  --rule-color: var(--c-ink);
+  --scrim: color-mix(in oklch, var(--c-haze) 70%, transparent);
+  --grade: var(--c-verdigris-deep);
+  color-scheme: light;
+}
+
+@theme inline {
   --color-*: initial;
-  --color-obsidian: oklch(0.13 0.008 60);
-  --color-soot: oklch(0.2 0.008 60);
-  --color-bone: oklch(0.93 0.02 85);
-  --color-ash: oklch(0.66 0.015 80);
-  --color-verdigris: oklch(0.72 0.11 185);
-  --color-verdigris-deep: oklch(0.45 0.08 190);
-  --color-ember: oklch(0.7 0.17 50);
-  --color-brass: oklch(0.78 0.09 85);
+  --color-base: var(--bg-base);
+  --color-raised: var(--surface-raised);
+  --color-primary: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-light: var(--accent-light);
+  --color-warm: var(--accent-warm);
+  --color-rule: var(--rule-color);
   --color-transparent: transparent;
   --color-current: currentColor;
+}
 
+@theme {
   --font-display: var(--font-archivo), "Arial Black", Impact, sans-serif;
   --font-body: var(--font-archivo), Arial, sans-serif;
   --font-voice: var(--font-bodoni), "Bodoni MT", Didot, Georgia, serif;
@@ -45,13 +91,12 @@
   --z-overture: 100;
   --z-cursor: 120;
   --dur-hover: 0.6s;
-  color-scheme: dark;
 }
 
 /* ------------------------------------------------------------------ base */
 
 html {
-  background: var(--color-obsidian);
+  background: var(--bg-base);
   scrollbar-width: none;
 }
 html::-webkit-scrollbar {
@@ -73,8 +118,11 @@ html.lenis body {
 }
 
 body {
-  background: var(--color-obsidian);
-  color: var(--color-bone);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  transition:
+    background-color 0.6s var(--ease-out-expo),
+    color 0.6s var(--ease-out-expo);
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -84,12 +132,12 @@ body {
 }
 
 ::selection {
-  background: var(--color-verdigris-deep);
-  color: var(--color-bone);
+  background: var(--grade);
+  color: var(--text-primary);
 }
 
 :focus-visible {
-  outline: 1px solid var(--color-brass);
+  outline: 1px solid var(--rule-color);
   outline-offset: 4px;
 }
 
@@ -175,7 +223,7 @@ p {
   font-weight: 400;
   font-size: 1.0625rem;
   line-height: 1.6;
-  color: color-mix(in oklch, var(--color-bone) 86%, transparent);
+  color: color-mix(in oklch, var(--text-primary) 86%, transparent);
   max-width: 68ch;
 }
 
@@ -194,7 +242,7 @@ p {
 }
 .text-link:hover {
   background-size: 100% 2px;
-  color: var(--color-brass);
+  color: var(--accent-warm);
 }
 
 /* ------------------------------------------------------------------ duotone
@@ -203,7 +251,7 @@ p {
 /* callers position the element (relative or absolute); the tint overlay needs it */
 .duotone {
   isolation: isolate;
-  background: var(--color-verdigris-deep);
+  background: var(--grade);
 }
 .duotone > img,
 .duotone > picture > img {
@@ -214,7 +262,7 @@ p {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--color-verdigris-deep);
+  background: var(--grade);
   mix-blend-mode: color;
   opacity: 0.5;
   pointer-events: none;
@@ -240,7 +288,7 @@ p {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: var(--color-verdigris-deep);
+  background: var(--grade);
 }
 .resolve > img,
 .resolve > picture > img,
@@ -253,7 +301,7 @@ p {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: var(--color-verdigris-deep);
+  background: var(--grade);
   mix-blend-mode: color;
   opacity: calc(0.55 * (1 - var(--resolve)));
   pointer-events: none;
@@ -297,7 +345,7 @@ p {
   pointer-events: none;
   background: radial-gradient(
     60% 50% at var(--lx, 70%) var(--ly, 40%),
-    color-mix(in oklch, var(--color-verdigris-deep) 55%, transparent),
+    color-mix(in oklch, var(--grade) 55%, transparent),
     transparent 70%
   );
   opacity: 0.55;
@@ -316,7 +364,7 @@ p {
   pointer-events: none;
   background: radial-gradient(
     closest-side,
-    color-mix(in oklch, var(--color-verdigris-deep) 60%, transparent),
+    color-mix(in oklch, var(--grade) 60%, transparent),
     transparent
   );
   opacity: 0.5;
