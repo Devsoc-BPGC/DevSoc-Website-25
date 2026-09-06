@@ -581,7 +581,7 @@ In the browser, scroll the whole page and confirm the dashed line draws from the
 
 ```bash
 git add -A
-git commit -m "feat: ambient light field and the paper boat path"
+git commit -m "feat: ambient light field and the wire path"
 ```
 
 ---

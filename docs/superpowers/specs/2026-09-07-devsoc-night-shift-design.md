@@ -15,7 +15,7 @@ DevSoc builds at night. The site is a single night on campus, and the reader tra
 
 **Hero line: "The campus sleeps. Six rooms stay lit."**
 
-Seven words that say what the society is and hand over the six verticals in the same breath. The port line survives as the turn in chapter two: Goa has been a port for five hundred years, and we still ship. That pun is the spine of the whole site and it earns the connective element, a paper boat travelling the page on a dashed waterline.
+Seven words that say what the society is and hand over the six verticals in the same breath. The port line survives as the turn in chapter two: Goa has been a port for five hundred years, and we still ship. That pun is the spine of the whole site.
 
 Voice: declarative, specific, unhurried, first person plural. Short sentences. No marketing verbs. Numbers are data. No em or en dashes anywhere.
 
@@ -155,7 +155,7 @@ Unchanged: Next 16 App Router, Tailwind v4, the whole `src/components/motion` to
 
 Changed: chapter components are renamed and restructured; the token layer gains the two tiers and the second theme; the timecode becomes the night clock; `FrameChrome` loses the timecode to the navigation; artwork is replaced.
 
-Added: `ThemeProvider`, `NightClock`, `BoatPath`, `Ambient`, and `src/content/chapters.ts`.
+Added: `ThemeProvider`, `ThemeToggle`, `NightClock`, `WirePath`, `WaveDivider`, `Ambient`, and `src/content/chapters.ts`.
 
 This is a refactor of a working site, not a rebuild.
 
