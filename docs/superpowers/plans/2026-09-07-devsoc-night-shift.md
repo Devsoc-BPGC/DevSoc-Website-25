@@ -10,7 +10,7 @@
 
 Spec: `docs/superpowers/specs/2026-09-07-devsoc-night-shift-design.md`
 Reference teardown: `docs/reference/zainabkabira-design.md`
-Image prompts: `docs/assets/night-shift-prompts.md`
+Image prompts: `docs/assets/PROMPTS-COPY-PASTE.md`
 
 ## Global Constraints
 
@@ -37,7 +37,7 @@ src/content/chapters.ts              NEW  chapter ids, labels, times, light posi
 src/content/site.ts                  MOD  add themes config
 src/content/verticals.ts             MOD  repoint images to rooms/*.jpg, add window copy
 src/styles/globals.css               MOD  two-tier tokens, [data-theme], resolve, ambient
-src/app/layout.tsx                   MOD  theme script, ThemeProvider, Nav, BoatPath
+src/app/layout.tsx                   MOD  theme script, ThemeProvider, Nav, WirePath
 src/app/page.tsx                     MOD  the seven chapters in order
 src/lib/theme.ts                     NEW  theme type, storage key, inline boot script
 src/components/shell/ThemeProvider.tsx   NEW  context, toggle, persistence
@@ -45,7 +45,7 @@ src/components/shell/ThemeToggle.tsx     NEW  the physical switch
 src/components/shell/NightClock.tsx      NEW  scroll-interpolated clock
 src/components/shell/Nav.tsx         MOD  clock, chapter name, toggle, morph on scroll
 src/components/shell/Rail.tsx        MOD  show each chapter's time
-src/components/motion/BoatPath.tsx       NEW  scroll-drawn path with the boat riding it
+src/components/motion/WirePath.tsx       NEW  scroll-drawn path with the boat riding it
 src/components/motion/Ambient.tsx        NEW  slow looping light field
 src/components/chapters/Dusk.tsx         NEW  (replaces Hero.tsx)
 src/components/chapters/Society.tsx      NEW  (replaces Manifesto.tsx)
@@ -435,15 +435,15 @@ git commit -m "feat: night clock driven by scroll position through the chapters"
 
 ---
 
-### Task 3: Ambient light and the paper boat
+### Task 3: Ambient light and the wire
 
 **Files:**
-- Create: `src/components/motion/Ambient.tsx`, `src/components/motion/BoatPath.tsx`
+- Create: `src/components/motion/Ambient.tsx`, `src/components/motion/WirePath.tsx`
 - Modify: `src/styles/globals.css`, `src/app/page.tsx`
 
 **Interfaces:**
 - Consumes: `chapters` from Task 2.
-- Produces: `<Ambient x={number} y={number} intensity?={number} />` and `<BoatPath />`.
+- Produces: `<Ambient x={number} y={number} intensity?={number} />` and `<WirePath />`.
 
 - [ ] **Step 1: Add the ambient keyframes to `globals.css`**
 
@@ -488,7 +488,7 @@ export function Ambient({ x = 60, y = 40, intensity = 0.5 }: { x?: number; y?: n
 }
 ```
 
-- [ ] **Step 3: Write `BoatPath.tsx`**
+- [ ] **Step 3: Write `WirePath.tsx`**
 
 One SVG path down the whole page, stroke-drawn by scroll, with the boat riding the head of the line.
 
@@ -501,7 +501,7 @@ import { useReducedMotion } from "@/lib/useMedia";
 /** A gentle S down the page, in a 100 x 1000 viewBox stretched to the document. */
 const D = "M 18 0 C 74 120, 8 210, 32 320 C 58 430, 92 470, 68 580 C 44 690, 12 730, 30 840 C 46 940, 80 960, 62 1000";
 
-export function BoatPath() {
+export function WirePath() {
   const wrap = useRef<HTMLDivElement>(null);
   const path = useRef<SVGPathElement>(null);
   const boat = useRef<SVGImageElement>(null);
@@ -568,7 +568,7 @@ export function BoatPath() {
 
 - [ ] **Step 4: Mount the boat behind the page in `src/app/page.tsx`**
 
-Wrap `<main>` in a `relative` container and render `<BoatPath />` as its first child so the path sits behind every chapter.
+Wrap `<main>` in a `relative` container and render `<WirePath />` as its first child so the path sits behind every chapter.
 
 - [ ] **Step 5: Verify**
 
@@ -626,7 +626,7 @@ export function Dusk() {
   const reduced = useReducedMotion();
   const fine = useFinePointer();
   const night = theme === "night";
-  const base = night ? "dusk" : "morning";
+  const base = night ? "night" : "morning";
 
   useGSAP(
     () => {
@@ -656,7 +656,7 @@ export function Dusk() {
       <div ref={art} className="absolute inset-0 will-change-transform">
         <Image
           key={base}
-          src={`/images/hero/${base}-wide.jpg`}
+          src={`/images/hero/facade-${base}-wide.jpg`}
           alt={night ? "The Goa campus at last light, a few windows lit" : "The Goa campus at first light"}
           fill
           priority
@@ -665,7 +665,7 @@ export function Dusk() {
         />
         <Image
           key={`${base}-tall`}
-          src={`/images/hero/${base}-tall.jpg`}
+          src={`/images/hero/facade-${base}-tall.jpg`}
           alt=""
           fill
           priority
@@ -889,7 +889,7 @@ Rename the export to `Crew`, the section id to `crew`, the heading to `The crew`
 
 - [ ] **Step 3: Repoint DevFest to the night artwork**
 
-In `DevFest.tsx` change both `Image` sources to `/images/devfest/night-wide.jpg` and drop the separate tall variant, using `object-cover` with `object-position: center` at both sizes. Change the section id to `devfest`. Replace the rotating sunburst tween with a slow scale from 1.08 to 1.0 on the same ScrollTrigger, because a photograph should not rotate.
+In `DevFest.tsx` change both `Image` sources to `/images/devfest/facade-full-wide.jpg` and drop the separate tall variant, using `object-cover` with `object-position: center` at both sizes. Change the section id to `devfest`. Replace the rotating sunburst tween with a slow scale from 1.08 to 1.0 on the same ScrollTrigger, because a photograph should not rotate.
 
 - [ ] **Step 4: Placeholders**
 
@@ -898,7 +898,7 @@ python -c "
 from PIL import Image
 import os
 os.makedirs('public/images/devfest', exist_ok=True)
-p='public/images/devfest/night-wide.jpg'
+p='public/images/devfest/facade-full-wide.jpg'
 if not os.path.exists(p):
     Image.new('RGB',(1536,1024),(20,22,24)).save(p,'JPEG',quality=70); print('placeholder',p)
 "
@@ -965,7 +965,7 @@ for n,s in [('door-wide',(1536,1024)),('door-tall',(1024,1536))]:
 - [ ] **Step 4: Update `page.tsx` to the final seven plus the colophon**
 
 ```tsx
-<BoatPath />
+<WirePath />
 <Dusk />
 <Society />
 <Rooms />
@@ -1094,6 +1094,6 @@ git commit -m "feat: night shift artwork"
 
 **Placeholders.** None. Every code step carries the code. Every verification step names the command and the expected result.
 
-**Type consistency.** `Theme`, `THEME_KEY`, `themeBootScript`, `useTheme` defined in Task 1 and used in Tasks 1 and 4. `Chapter`, `chapters`, `formatNightTime` defined in Task 2 and used in Tasks 2, 3 and 5. `Ambient` and `BoatPath` defined in Task 3 and used in Tasks 3, 5, 6 and 8. Section ids `dusk`, `society`, `rooms`, `log`, `devfest`, `crew`, `dawn` are identical in `chapters.ts` and in every chapter component.
+**Type consistency.** `Theme`, `THEME_KEY`, `themeBootScript`, `useTheme` defined in Task 1 and used in Tasks 1 and 4. `Chapter`, `chapters`, `formatNightTime` defined in Task 2 and used in Tasks 2, 3 and 5. `Ambient` and `WirePath` defined in Task 3 and used in Tasks 3, 5, 6 and 8. Section ids `dusk`, `society`, `rooms`, `log`, `devfest`, `crew`, `dawn` are identical in `chapters.ts` and in every chapter component.
 
 **One gap worth naming.** Task 1 Step 6 rewrites colour classes across roughly twenty files at once. It is mechanical and the grep at the end proves it complete, but it is the single largest-blast-radius step in the plan and deserves its own review before Task 2 starts.

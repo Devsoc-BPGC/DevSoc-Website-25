@@ -117,8 +117,8 @@ Taken from the teardown, deliberately different from our current build:
 
 The existing toolkit carries forward unchanged. Scroll drives the page; clicks are for navigation and for going deeper. Added from the reference:
 
-- **Ambient loops.** The page is never completely still and nothing moves fast. Periods of 6 to 14 seconds: the ambient light breathing, the boat rocking, the flywheel drifting a degree when idle. This is the quality our current build most lacks.
-- **The paper boat.** One SVG path from the hero to the colophon, stroke-drawn on scroll, with the boat riding the head of the drawn line. It is the single element that makes a long page feel like one journey.
+- **Ambient loops.** The page is never completely still and nothing moves fast. Periods of 6 to 16 seconds: the ambient light breathing, a pulse running down the wire, the flywheel drifting a degree when idle. This is the quality our current build most lacks.
+- **The wire.** One thin conduit drawn from the hero to the colophon, stroke-drawn on scroll, with a small lit window riding the head of the drawn line, so the light you follow is the light that ends up over the door at dawn. It is the single element that makes a long page feel like one journey. Deliberately not a paper boat: the reference threads its page with a paper plane, and a folded paper anything is that idea in costume.
 - **The morphing navigation.** Full at rest: mark, chapter name, clock, theme toggle, menu. Once scrolled: collapses to a compact pill carrying the clock and the chapter name.
 
 Easing stays as it is, `cubic-bezier(0.22, 1, 0.36, 1)`, which is the same curve the reference uses. The overshoot curve they use freely stays banned for us.
@@ -127,21 +127,19 @@ Reduced motion renders every chapter static, the boat fully drawn, the clock fix
 
 ## 7. Artwork
 
-Flat illustration, not photography and not rendering. The reference site's identity is carried by illustration, and flat vector work has a second advantage here: it cannot read as an AI photograph because it is not pretending to be a photograph at all. Simple shapes, flat colour, limited palette, a little grain.
+**The lit facade.** One building seen through one night, drawn straight on like an elevation: a flat grid of windows, most dark, some filled solid amber. Each lit window is a room where somebody is building something. The hero has six lit. DevFest has every window lit. Dawn has them out, with one door open and light falling from it.
 
-Two kinds of image, and only two.
+It comes directly from the line the site opens on, and it is DevSoc's own image. That matters: an earlier pass at this produced a night sky with an aurora, a star field, a striped circle moon and palm silhouettes, which is the reference site's signature artwork rather than ours. Restyling someone else's picture is not the same as learning from how they build a page.
 
-**Scenes.** Flat illustrated skies and horizons: a smooth gradient ground, fine star speckle, a striped circle standing in for the moon, and solid silhouettes of palms, a roofline and the sea along the bottom. Used for the hero at both times of day, DevFest and Dawn.
+**Two hard rules for every image.** No night skies, auroras, star fields, moons, palms, flowers or meadows. And nothing photographic or 3D rendered. Flat vector, bold geometric shapes, limited palette, subtle grain, close to a screen print of an elevation drawing.
 
-**Posters.** One flat colour field filling the frame with a single simple object sitting on it and a soft contact shadow. A browser window, a phone, a controller, a small node graph, stacked artboards, a gear. The object is the whole idea; there is no scene. These are the six verticals.
+**Palette:** deep indigo, near-black, bone white, patina teal, warm amber, brass.
 
-Palette across every image: deep indigo, near-black, bone white, patina teal, warm amber, brass.
+Alongside the facade, six **posters**, one per vertical: a single flat colour field with one simple object on it and a soft contact shadow. A browser window, a phone, a controller, a small node graph, stacked artboards, a gear. The object is the whole idea. These ride in the flywheel.
 
-The rule that decides any argument: if it looks like a photograph or a 3D render, it is wrong, however good it is.
+Fourteen images with exact sizes and ratios in `docs/assets/PROMPTS-COPY-PASTE.md`: four facades for the hero at both times of night, six posters, DevFest, two for Dawn, and one lit window used small.
 
-Full copy-paste prompts, written for generating on a phone, live in `docs/assets/PROMPTS-COPY-PASTE.md`. Fourteen images: four scenes for the hero at both times, six vertical posters, DevFest, two for Dawn, and the paper boat.
-
-**The flywheel is not generated.** It is drawn in code as SVG so it can turn with the scroll, light the active spoke and carry type. The six posters are what ride in it.
+**The flywheel is not generated.** It is SVG so it can turn with the scroll, light the active spoke and carry type.
 
 ### Reused
 
@@ -198,10 +196,10 @@ The details that stop a site reading as a template. Each one is small; together 
 | # | Device | Where | Status |
 |---|---|---|---|
 | 1 | **Pill navigation.** The mark, the links and one call to action inside a single rounded pill, floating rather than sitting on a bar. On scroll it collapses to a compact pill carrying the clock and the chapter. | Every page | Task 7a |
-| 2 | **Shooting star.** A head with a tapering trail crosses a short diagonal of the night sky, then waits fifteen to twenty seconds before doing it again. The long wait is the point. | Dusk, DevFest | Built |
-| 3 | **The paper boat.** One dashed path drawn down the entire page with the boat riding its head, threading every chapter. The single element that makes seven thousand pixels feel like one journey. | Whole page | Task 3 |
+| 2 | **The pulse.** A short lit segment runs down the wire every sixteen seconds and is gone. Same delight as a shooting star crossing a sky, but on our own motif rather than borrowed from a night scene we no longer have. | Whole page | Built |
+| 3 | **The wire.** A conduit drawn down the entire page with a lit window riding its head, threading every chapter. | Whole page | Built |
 | 4 | **Tiles that grow.** In the shelf, each project scales up as it approaches the middle of the screen and settles back as it leaves, so the one you are looking at is always the largest. | The Log | Task 7 |
 | 5 | **Wave dividers.** Sections do not meet on a straight edge. The next ground rises into the current one on a soft organic curve, alternating crest and trough so no two transitions repeat. | Every boundary | Built |
-| 6 | **Click to light a window.** At Dawn, a flat building silhouette with dark windows. Each click lights one, warm amber, and it stays lit. The counter reads how many are lit. Our answer to a garden you water: every window is someone who walked in. | Dawn | Task 8 |
+| 6 | **Click to light a window.** At Dawn, a flat facade with dark windows. Each click lights one, warm amber, and it stays lit, with a count of how many. Every window is someone who walked in. | Dawn | Task 8 |
 
-Rules that keep these from becoming noise: only one of them is ever moving in a given viewport, none of them block content, and all six are absent under reduced motion except the wave dividers, which are static shapes.
+Rules that keep these from becoming noise: only one of them is ever moving in a given viewport, none of them block content, and all of them are absent under reduced motion except the wave dividers, which are static shapes, and the wire, which draws in full and parks.
