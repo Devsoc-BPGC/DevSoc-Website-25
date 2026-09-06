@@ -190,3 +190,18 @@ A large wheel drawn in SVG, centred and bleeding slightly off the right edge. Si
 Mobile: the wheel is dropped. The six posters become the swipe rail that already exists, with the name, voice line and head under each.
 
 Reduced motion: the wheel renders at its first position and does not turn; the six are reachable as a list.
+
+## 12. Personality
+
+The details that stop a site reading as a template. Each one is small; together they are most of the character.
+
+| # | Device | Where | Status |
+|---|---|---|---|
+| 1 | **Pill navigation.** The mark, the links and one call to action inside a single rounded pill, floating rather than sitting on a bar. On scroll it collapses to a compact pill carrying the clock and the chapter. | Every page | Task 7a |
+| 2 | **Shooting star.** A head with a tapering trail crosses a short diagonal of the night sky, then waits fifteen to twenty seconds before doing it again. The long wait is the point. | Dusk, DevFest | Built |
+| 3 | **The paper boat.** One dashed path drawn down the entire page with the boat riding its head, threading every chapter. The single element that makes seven thousand pixels feel like one journey. | Whole page | Task 3 |
+| 4 | **Tiles that grow.** In the shelf, each project scales up as it approaches the middle of the screen and settles back as it leaves, so the one you are looking at is always the largest. | The Log | Task 7 |
+| 5 | **Wave dividers.** Sections do not meet on a straight edge. The next ground rises into the current one on a soft organic curve, alternating crest and trough so no two transitions repeat. | Every boundary | Built |
+| 6 | **Click to light a window.** At Dawn, a flat building silhouette with dark windows. Each click lights one, warm amber, and it stays lit. The counter reads how many are lit. Our answer to a garden you water: every window is someone who walked in. | Dawn | Task 8 |
+
+Rules that keep these from becoming noise: only one of them is ever moving in a given viewport, none of them block content, and all six are absent under reduced motion except the wave dividers, which are static shapes.
