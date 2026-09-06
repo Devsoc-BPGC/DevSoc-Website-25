@@ -27,7 +27,7 @@ export function Join() {
   }, [q, list]);
 
   return (
-    <section id="door" aria-labelledby="door-title" className="relative py-[22vh]">
+    <section id="dawn" aria-labelledby="dawn-title" className="relative py-[22vh]">
       <div className="gutter grid-12 items-center gap-y-12">
         <Reveal className="col-span-12 md:col-span-5 lg:col-span-4">
           <div className="relative aspect-[4/5] w-full max-w-[420px] overflow-hidden">
@@ -44,7 +44,7 @@ export function Join() {
         <div className="col-span-12 md:col-span-7 lg:col-span-6 lg:col-start-6">
           {site.inducteesLive ? (
             <>
-              <SplitLines as="h2" id="door-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
+              <SplitLines as="h2" id="dawn-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
                 {`The ${site.inducteesYear} list is out.`}
               </SplitLines>
               <p className="body-copy mt-6">
@@ -83,7 +83,7 @@ export function Join() {
             </>
           ) : (
             <>
-              <SplitLines as="h2" id="door-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
+              <SplitLines as="h2" id="dawn-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
                 Inductions open once a year. Until then, come to DevFest.
               </SplitLines>
               <p className="body-copy mt-6">Walk in for the interview when it opens. Missed it? Write to us; exceptional cases happen.</p>

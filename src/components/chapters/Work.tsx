@@ -97,9 +97,9 @@ const WIDTHS = ["w-[86vw] lg:w-[54vw]", "w-[78vw] lg:w-[34vw]", "w-[86vw] lg:w-[
 
 export function Work() {
   return (
-    <section id="ledger" aria-labelledby="ledger-title" className="relative py-[12vh]">
+    <section id="log" aria-labelledby="log-title" className="relative py-[12vh]">
       <Reveal className="gutter">
-        <h2 id="ledger-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
+        <h2 id="log-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
           The ledger
         </h2>
         <p className="body-copy mt-6">

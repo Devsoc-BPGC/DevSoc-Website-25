@@ -8,7 +8,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { chapters } from "@/content/site";
+import { chapters } from "@/content/chapters";
 
 export const CHAPTER_EVENT = "devsoc:chapter";
 
@@ -54,7 +54,7 @@ export function Rail() {
           return (
             <li key={c.id} className="group relative flex items-center justify-end">
               <a
-                href={c.href}
+                href={`/#${c.id}`}
                 className="flex items-center gap-3 py-1"
                 aria-current={on ? "true" : undefined}
                 aria-label={c.label}
@@ -65,7 +65,7 @@ export function Rail() {
                     on ? "text-primary opacity-100" : "text-muted opacity-0 group-hover:opacity-100"
                   }`}
                 >
-                  {c.label}
+                  {c.label} <span className="text-muted/70">{c.time}</span>
                 </span>
                 <span
                   className={`block h-px transition-all duration-700 ease-[var(--ease-out-expo)] ${

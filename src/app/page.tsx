@@ -1,5 +1,5 @@
-import { Hero } from "@/components/chapters/Hero";
-import { Manifesto } from "@/components/chapters/Manifesto";
+import { Dusk } from "@/components/chapters/Dusk";
+import { Society } from "@/components/chapters/Society";
 import { Rooms } from "@/components/chapters/Rooms";
 import { Work } from "@/components/chapters/Work";
 import { DevFest } from "@/components/chapters/DevFest";
@@ -9,14 +9,16 @@ import { Join } from "@/components/chapters/Join";
 import { Colophon } from "@/components/chapters/Colophon";
 import { Faq } from "@/components/ui/Faq";
 import { Rail } from "@/components/shell/Rail";
+import { WirePath } from "@/components/motion/WirePath";
 
 export default function Home() {
   return (
     <>
       <Rail />
-      <main>
-        <Hero />
-        <Manifesto />
+      <main className="relative">
+        <WirePath />
+        <Dusk />
+        <Society />
         <Rooms />
         <Work />
         <DevFest />

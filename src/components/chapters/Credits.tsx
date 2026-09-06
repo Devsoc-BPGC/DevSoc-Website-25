@@ -85,10 +85,10 @@ export function Credits({ all = false }: { all?: boolean }) {
   }, [mobile]);
 
   return (
-    <section id="makers" ref={root} aria-labelledby="makers-title" className="relative py-[14vh]">
+    <section id="crew" ref={root} aria-labelledby="crew-title" className="relative py-[14vh]">
       <div className="gutter grid-12">
         <div className="col-span-12 lg:col-span-7">
-          <h2 id="makers-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
+          <h2 id="crew-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
             The makers
           </h2>
           <p className="body-copy mt-6">The coordinators for this year. Every room has a head; the heads answer to two.</p>

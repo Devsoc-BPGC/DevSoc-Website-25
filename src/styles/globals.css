@@ -93,7 +93,12 @@
   --dur-hover: 0.6s;
 }
 
-/* ------------------------------------------------------------------ base */
+/* ------------------------------------------------------------------ base
+   Wrapped in @layer base on purpose. Unlayered rules outrank anything in
+   @layer utilities no matter the specificity, so an unlayered `img {
+   display: block }` silently defeats `md:hidden` on every image. */
+
+@layer base {
 
 html {
   background: var(--bg-base);
@@ -169,6 +174,7 @@ p {
   html.has-cursor * {
     cursor: none !important;
   }
+}
 }
 
 /* ------------------------------------------------------------------ utilities */

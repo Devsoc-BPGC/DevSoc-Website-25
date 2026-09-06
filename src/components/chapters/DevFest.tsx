@@ -42,7 +42,7 @@ export function DevFest() {
   ) as string[];
 
   return (
-    <section id="salon" ref={root} aria-labelledby="salon-title" className="relative">
+    <section id="devfest" ref={root} aria-labelledby="devfest-title" className="relative">
       <div className="relative min-h-[100dvh] overflow-hidden">
         <div ref={art} className="absolute inset-0 will-change-transform">
           <Image
@@ -65,7 +65,7 @@ export function DevFest() {
         <div className="relative flex min-h-[100dvh] flex-col justify-end gutter pb-[10vh] pt-[30vh]">
           <div className="grid-12 items-end">
             <div className="col-span-12 lg:col-span-8">
-              <h2 id="salon-title" className="flex flex-wrap items-baseline gap-x-[0.15em]">
+              <h2 id="devfest-title" className="flex flex-wrap items-baseline gap-x-[0.15em]">
                 <span className="display text-[clamp(3rem,11vw,11rem)] text-primary">DevFest</span>
                 <span className="voice text-[clamp(2rem,6vw,6rem)] text-warm">{devfest.edition}</span>
               </h2>

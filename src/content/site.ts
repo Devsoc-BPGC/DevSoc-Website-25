@@ -4,7 +4,8 @@ export const site = {
   url: "https://devsoc.club",
   description:
     "The developers' society of BITS Pilani, K.K. Birla Goa Campus. Six verticals, one atelier. Web, app, game, AI and ML, UI and UX, engine development.",
-  line: "Goa has always been a port. We still ship.",
+  line: "The campus sleeps. Six rooms stay lit.",
+  portLine: "Goa has been a port for five hundred years. We still ship.",
   campus: "BITS Pilani, K.K. Birla Goa Campus",
   campusShort: "K.K. Birla Goa Campus",
   email: "devsocbpgc@gmail.com",
@@ -20,15 +21,6 @@ export const site = {
     { label: "YouTube", href: "https://www.youtube.com/channel/UCOYKNjQaifpxy5qG3as82ZA" },
   ],
 } as const;
-
-export const chapters = [
-  { id: "collection", label: "Collection", href: "/#collection" },
-  { id: "ledger", label: "Ledger", href: "/#ledger" },
-  { id: "salon", label: "Salon", href: "/#salon" },
-  { id: "makers", label: "Makers", href: "/#makers" },
-  { id: "archive", label: "Archive", href: "/#archive" },
-  { id: "door", label: "Door", href: "/#door" },
-] as const;
 
 export const routes = [
   { label: "Home", href: "/" },

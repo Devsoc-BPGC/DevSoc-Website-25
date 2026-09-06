@@ -49,8 +49,8 @@ export function Rooms() {
 
   if (mobile) {
     return (
-      <section id="collection" className="py-[12vh]" aria-labelledby="collection-title">
-        <h2 id="collection-title" className="display gutter text-[clamp(2.4rem,9vw,4rem)] text-primary">
+      <section id="rooms" className="py-[12vh]" aria-labelledby="rooms-title">
+        <h2 id="rooms-title" className="display gutter text-[clamp(2.4rem,9vw,4rem)] text-primary">
           The collection
         </h2>
         <p className="body-copy gutter mt-5">
@@ -81,7 +81,7 @@ export function Rooms() {
   }
 
   return (
-    <section id="collection" aria-labelledby="collection-title" className="relative">
+    <section id="rooms" aria-labelledby="rooms-title" className="relative">
       <div ref={track} className="relative h-[600vh]">
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           {/* the one light, moved per room */}
@@ -97,7 +97,7 @@ export function Rooms() {
           <div className="grid-12 relative h-full items-center gutter">
             {/* index */}
             <div className="col-span-5 self-center">
-              <h2 id="collection-title" className="mono mb-8 text-muted">
+              <h2 id="rooms-title" className="mono mb-8 text-muted">
                 The collection
               </h2>
               <ol className="flex flex-col gap-[0.6vh]">
