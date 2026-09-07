@@ -3,7 +3,7 @@
 /**
  * Menu
  * Full-screen overlay. Routes stacked in expanded display type at the left;
- * a LiquidImage at the right previews whatever is hovered; socials and the
+ * a LitImage at the right previews whatever is hovered; socials and the
  * email sit in a mono row at the bottom. Opens with a downward wipe.
  */
 
@@ -12,7 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useLenis } from "lenis/react";
-import { LiquidImage } from "@/components/motion/LiquidImage";
+import { LitImage } from "@/components/motion/LitImage";
 import { routes, site } from "@/content/site";
 import { EASE_OUT_ARR } from "@/lib/easings";
 import { useIsMobile } from "@/lib/useMedia";
@@ -105,7 +105,7 @@ export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) 
               exit={{ opacity: 0 }}
               transition={{ duration: 0.9, delay: 0.4 }}
             >
-              <LiquidImage images={previews} index={hover} className="aspect-[4/5] w-full max-h-[64vh]" simple={mobile} />
+              <LitImage images={previews} index={hover} className="aspect-[4/5] w-full max-h-[64vh]" simple={mobile} />
             </motion.div>
             <motion.div
               className="mono col-span-12 flex flex-wrap items-end justify-between gap-6 self-end text-muted"

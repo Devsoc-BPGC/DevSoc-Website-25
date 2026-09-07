@@ -6,7 +6,7 @@
  * Six verticals on one wheel. Scrolling the pinned section turns it a sixth
  * of a revolution per vertical, and whichever spoke reaches the tick at the
  * top is the one you are reading about. The hub carries that vertical's
- * poster, melting from one to the next. Hovering a name turns the wheel
+ * poster, dissolving from one to the next. Hovering a name turns the wheel
  * straight to it.
  *
  * The wheel is drawn in code rather than generated so it can turn, light the
@@ -21,7 +21,7 @@ import Image from "next/image";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
 import { Ambient } from "@/components/motion/Ambient";
-import { LiquidImage } from "@/components/motion/LiquidImage";
+import { LitImage } from "@/components/motion/LitImage";
 import { WaveDivider } from "@/components/motion/WaveDivider";
 import { chapters } from "@/content/chapters";
 import { verticals } from "@/content/verticals";
@@ -122,7 +122,7 @@ export function Rooms() {
             <li className="w-[calc(var(--gutter)-1.25rem)] shrink-0" aria-hidden="true" />
             {verticals.map((v, i) => (
               <li key={v.id} className="w-[78vw] shrink-0 snap-start">
-                <LiquidImage images={[posters[i]]} index={0} className="aspect-[4/5]" simple />
+                <LitImage images={[posters[i]]} index={0} className="aspect-[4/5]" simple />
                 <p className="mono mt-4 text-muted">
                   {v.index} <span className="text-primary">{v.name}</span>
                 </p>
@@ -257,7 +257,7 @@ export function Rooms() {
 
                 {/* the hub carries the vertical you are on */}
                 <div className="absolute inset-[27%] overflow-hidden rounded-full border border-rule/50">
-                  <LiquidImage images={posters} index={shown} className="h-full w-full" />
+                  <LitImage images={posters} index={shown} className="h-full w-full" />
                 </div>
               </div>
             </div>

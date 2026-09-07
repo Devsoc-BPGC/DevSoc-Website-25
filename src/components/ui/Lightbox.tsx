@@ -2,14 +2,14 @@
 
 /**
  * Lightbox
- * One photo at a time over the obsidian ground, melting between neighbours.
+ * One photo at a time over the obsidian ground, dissolving between neighbours.
  * Arrow keys move, Escape closes, the scrim closes.
  */
 
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLenis } from "lenis/react";
-import { LiquidImage } from "@/components/motion/LiquidImage";
+import { LitImage } from "@/components/motion/LitImage";
 import type { Photo } from "@/content/gallery";
 import { EASE_OUT_ARR } from "@/lib/easings";
 
@@ -64,7 +64,7 @@ export function Lightbox({
           data-lenis-prevent
         >
           <div className="w-full max-w-[min(92vw,140vh)]" onClick={(e) => e.stopPropagation()}>
-            <LiquidImage images={images} index={i} className="aspect-[3/2] w-full" />
+            <LitImage images={images} index={i} className="aspect-[3/2] w-full" />
             <div className="mono mt-4 flex items-center justify-between text-muted">
               <span>
                 {String(i + 1).padStart(2, "0")} of {String(photos.length).padStart(2, "0")}

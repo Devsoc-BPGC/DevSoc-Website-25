@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ScrollExpand } from "@/components/motion/ScrollExpand";
-import { LiquidImage } from "@/components/motion/LiquidImage";
+import { LitImage } from "@/components/motion/LitImage";
 import { PointField } from "@/components/motion/PointField";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { Carousel, CarouselSlide } from "@/components/motion/Carousel";
@@ -29,16 +29,16 @@ export function LabClient() {
             Goa has always been a port. We still ship.
           </SplitLines>
           <Magnetic className="mt-10">
-            <a href="#liquid" className="text-link mono text-primary" data-cursor="Go">
+            <a href="#lit" className="text-link mono text-primary" data-cursor="Go">
               Next tool
             </a>
           </Magnetic>
         </div>
       </section>
 
-      <section id="liquid" className="gutter grid-12 py-32">
+      <section id="lit" className="gutter grid-12 py-32">
         <div className="col-span-12 lg:col-span-5">
-          <p className="mono text-muted">LiquidImage</p>
+          <p className="mono text-muted">LitImage</p>
           <ul className="mt-6 space-y-3">
             {verticals.map((v, i) => (
               <li key={v.id}>
@@ -55,7 +55,7 @@ export function LabClient() {
           </ul>
         </div>
         <div className="col-span-12 lg:col-span-7">
-          <LiquidImage images={rooms} index={room} className="aspect-[4/5] max-h-[80vh] w-full" />
+          <LitImage images={rooms} index={room} className="aspect-[4/5] max-h-[80vh] w-full" />
         </div>
       </section>
 

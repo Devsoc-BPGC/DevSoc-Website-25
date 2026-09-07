@@ -33,8 +33,12 @@ export function Cursor() {
     const xTo = gsap.quickTo(root.current, "x", { duration: DUR.cursor, ease: "power3.out" });
     const yTo = gsap.quickTo(root.current, "y", { duration: DUR.cursor, ease: "power3.out" });
     let visible = false;
+    let frame = 0;
+    const at = { x: -1, y: -1 };
 
     const move = (e: PointerEvent) => {
+      at.x = e.clientX;
+      at.y = e.clientY;
       xTo(e.clientX);
       yTo(e.clientY);
       if (!visible) {
@@ -48,8 +52,8 @@ export function Cursor() {
     };
 
     // Delegated: the whole tree can change under us and this keeps working.
-    const over = (e: PointerEvent) => {
-      const target = (e.target as Element | null)?.closest<HTMLElement>("[data-cursor], a, button");
+    const settle = (el: Element | null) => {
+      const target = el?.closest<HTMLElement>("[data-cursor], a, button");
       const active = Boolean(target);
       const text = target?.dataset.cursor ?? "";
       setLabel(text);
@@ -68,14 +72,28 @@ export function Cursor() {
       });
     };
 
+    const over = (e: PointerEvent) => settle(e.target as Element | null);
+
+    // Scrolling moves the page under a still pointer, and that fires no
+    // pointer event at all, so the ring would keep whatever label it had
+    // when the page last moved beneath it. Re-read what is under it.
+    const recheck = () => {
+      if (!visible) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => settle(document.elementFromPoint(at.x, at.y)));
+    };
+
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("pointerover", over, { passive: true });
+    window.addEventListener("scroll", recheck, { passive: true });
     document.documentElement.addEventListener("pointerleave", leave);
 
     return () => {
+      cancelAnimationFrame(frame);
       html.classList.remove("has-cursor");
       window.removeEventListener("pointermove", move);
       window.removeEventListener("pointerover", over);
+      window.removeEventListener("scroll", recheck);
       document.documentElement.removeEventListener("pointerleave", leave);
     };
   }, [enabled]);

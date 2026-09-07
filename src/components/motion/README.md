@@ -10,7 +10,7 @@ Reusable pieces behind the DevSoc site. Every component is a client island that 
 | `SplitLines` | Masked line-by-line text rise on scroll | Text is visible before JS |
 | `ScrollExpand` | Framed media that grows to full bleed on scroll and holds | 2.6 viewports of scroll by default |
 | `ParticleText` | A word made of drifting dots that part around the pointer | Inherits the font from `className` |
-| `LiquidImage` | three.js plane that melts between images and ripples under the pointer | Controlled by `index`; CSS crossfade fallback |
+| `LitImage` | three.js plane that dissolves between images on a grain sweep; the pointer carries a light that lifts the grade where it falls | Controlled by `index`; CSS crossfade fallback |
 | `PointField` | Points that settle into the silhouette of an image | GPU-side motion; static on mobile |
 | `MaskReveal` | Duotone base with a soft-edged colour window that follows the pointer | Tap toggles colour on touch |
 | `HorizontalPan` | Pinned shelf that travels sideways as the page scrolls down | No buttons; becomes a swipe rail on phones and reduced motion |

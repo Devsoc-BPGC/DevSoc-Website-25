@@ -4,14 +4,18 @@
  * The Crew, 04:10
  * A credits roll that plays itself. As the list travels up the screen the
  * portrait at the right changes to whoever is level with the middle of the
- * viewport, melting from one face to the next. Hovering a name takes over
+ * viewport, dissolving from one face to the next. Hovering a name takes over
  * for as long as the pointer stays there; otherwise scroll has the wheel.
+ *
+ * The portrait is graded lightly, not heavily: these are real faces and a
+ * deep duotone turned them to mud. Moving the pointer over one lifts the
+ * grade where the light falls.
  */
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "@/lib/gsap";
 import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
-import { LiquidImage } from "@/components/motion/LiquidImage";
+import { LitImage } from "@/components/motion/LitImage";
 import { TextLink } from "@/components/ui/TextLink";
 import { people } from "@/content/people";
 
@@ -131,7 +135,7 @@ export function Crew({ all = false }: { all?: boolean }) {
 
         <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
           <div className="sticky top-[22vh]">
-            <LiquidImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={0.55} simple={mobile} />
+            <LitImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={0.3} simple={mobile} />
             <p key={people[index].id} className="mono rise-in mt-4 text-muted">
               <span className="text-primary">{people[index].name}</span>. {people[index].role}
             </p>

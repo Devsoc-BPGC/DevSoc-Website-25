@@ -79,7 +79,9 @@ Scroll drives the page, and every chapter plays itself. The flywheel turns a six
 
 Two things run on their own clock, and only ever one per viewport: a pulse down the wire every sixteen seconds, and the ambient light field breathing behind each chapter.
 
-Lenis 1.2s duration on an exponential ease, driven by the GSAP ticker so there is one loop and not two. ScrollTrigger for pins and scrubs at scrub 1.0 to 1.4. Reveals 0.9 to 1.4s on `expo.out`. Hover 0.6s on `cubic-bezier(0.22, 1, 0.36, 1)`. Cursor follow 0.18s. No bounce, elastic or spring. three.js only for `LiquidImage` and `PointField`.
+Images never warp. `LitImage` swaps one plate for the next on a grain sweep with both plates perfectly straight, because a lens ripple across a face reads as a defect rather than an effect. What the pointer carries instead is a light: where it falls the grade lifts and the picture warms, which is the same gesture as lighting a window.
+
+Lenis 1.2s duration on an exponential ease, driven by the GSAP ticker so there is one loop and not two. ScrollTrigger for pins and scrubs at scrub 1.0 to 1.4. Reveals 0.9 to 1.4s on `expo.out`. Hover 0.6s on `cubic-bezier(0.22, 1, 0.36, 1)`. Cursor follow 0.18s. No bounce, elastic or spring. three.js only for `LitImage` and `PointField`.
 
 Pins are created inside `gsap.matchMedia()` so no pin spacer is ever built on a phone, and the two layouts are chosen in CSS rather than JavaScript so there is no first render flash. Reduced motion renders every chapter static, with the wire drawn in full and parked; all content is in the DOM without JavaScript.
 

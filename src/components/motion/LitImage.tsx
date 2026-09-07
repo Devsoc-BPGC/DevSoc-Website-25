@@ -1,13 +1,17 @@
 "use client";
 
 /**
- * LiquidImage
- * A three.js plane that shows one of several images and melts between
- * them. The crossfade displaces both images with flowing noise that peaks
- * mid-transition, and pointer movement drops ripples that refract the
- * picture for a moment. The "liquid cursor reactive image swap".
+ * LitImage
+ * A three.js plane that shows one of several images and swaps between them.
  *
- * <LiquidImage images={[{src, alt}, ...]} index={active} className="aspect-[4/5]" />
+ * Two rules, both learned the hard way. Nothing warps: a lens ripple across a
+ * face reads as a defect, not an effect, so the swap is a grain sweep that
+ * dissolves one plate into the next while both stay perfectly straight. And
+ * the pointer carries a light rather than a distortion: where it falls the
+ * grade lifts and the picture warms, so moving over a portrait is like
+ * walking a lamp across it. That is the whole site in one gesture.
+ *
+ * <LitImage images={[{src, alt}, ...]} index={active} className="aspect-[4/5]" />
  *
  * Controlled: change `index` and it transitions. Textures are preloaded
  * outside the canvas so the WebGL context is created exactly once.
@@ -21,9 +25,7 @@ import * as THREE from "three";
 import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useMedia";
 
-export type LiquidSource = { src: string; alt: string };
-
-const MAX_RIPPLES = 8;
+export type LitSource = { src: string; alt: string };
 
 const vertex = /* glsl */ `
 varying vec2 vUv;
@@ -41,12 +43,11 @@ uniform float uAspectA;
 uniform float uAspectB;
 uniform float uPlaneAspect;
 uniform float uProgress;
-uniform float uTime;
 uniform vec2 uPointer;
 uniform float uHover;
 uniform float uTint;
 uniform vec3 uTintColor;
-uniform vec4 uRipples[${MAX_RIPPLES}];
+uniform vec3 uWarmColor;
 
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123); }
 float noise(vec2 p) {
@@ -55,46 +56,42 @@ float noise(vec2 p) {
   float a = hash(i), b = hash(i + vec2(1.0, 0.0)), c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
   return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
 }
+
+/** object-fit: cover, in uv space. */
 vec2 cover(vec2 uv, float planeAspect, float texAspect) {
   vec2 s = planeAspect > texAspect ? vec2(1.0, texAspect / planeAspect) : vec2(planeAspect / texAspect, 1.0);
   return (uv - 0.5) * s + 0.5;
 }
+
 void main() {
   vec2 uv = vUv;
-  vec2 disp = vec2(0.0);
-  for (int i = 0; i < ${MAX_RIPPLES}; i++) {
-    vec4 rp = uRipples[i];
-    float age = uTime - rp.z;
-    if (rp.w <= 0.0 || age < 0.0 || age > 2.4) continue;
-    vec2 d = uv - rp.xy;
-    d.x *= uPlaneAspect;
-    float dist = length(d);
-    float wave = sin(dist * 34.0 - age * 7.0) * exp(-age * 1.6) * exp(-dist * 6.0);
-    disp += normalize(d + 1e-5) * wave * 0.018 * rp.w;
-  }
-  vec2 toP = uv - uPointer;
-  toP.x *= uPlaneAspect;
-  float pd = length(toP);
-  disp += normalize(toP + 1e-5) * exp(-pd * 5.0) * 0.012 * uHover;
+  float p = smoothstep(0.0, 1.0, uProgress);
 
-  float k = uProgress * (1.0 - uProgress) * 4.0;
-  float n = noise(uv * 3.0 + uTime * 0.15) - 0.5;
-  float n2 = noise(uv * 5.0 - uTime * 0.1 + 7.3) - 0.5;
-  vec2 flow = vec2(n, n2) * 0.16 * k;
-
-  vec2 uvA = cover(uv + disp + flow, uPlaneAspect, uAspectA);
-  vec2 uvB = cover(uv + disp - flow, uPlaneAspect, uAspectB);
+  // The arriving plate settles out of a hair of scale and the leaving one
+  // drifts back. Uniform scale only, so no straight line ever bends.
+  vec2 uvA = cover((uv - 0.5) * (1.0 + 0.030 * p) + 0.5, uPlaneAspect, uAspectA);
+  vec2 uvB = cover((uv - 0.5) * (1.030 - 0.030 * p) + 0.5, uPlaneAspect, uAspectB);
   vec4 a = texture2D(uTexA, uvA);
   vec4 b = texture2D(uTexB, uvB);
-  float m = smoothstep(0.0, 1.0, uProgress);
-  // noisy threshold that still reaches exactly 0 at the start and 1 at the end
-  float thr = noise(uv * 2.5 + 3.1);
-  float edge = smoothstep(0.0, 1.0, clamp((m - thr * 0.4) / 0.6, 0.0, 1.0));
-  vec4 col = mix(a, b, mix(m, edge, 0.6));
-  // optional duotone: grade to the verdigris shadows, resolve to colour under the pointer
+
+  // A soft edge sweeps up the frame and grain breaks it, so the swap reads
+  // as a film dissolve. It reaches exactly 0 at the start and 1 at the end.
+  float grain = noise(uv * 240.0) * 0.10 + noise(uv * 6.0) * 0.14;
+  float lead = uv.y * 0.55 + uv.x * 0.20;
+  float m = smoothstep(0.0, 1.0, clamp((p * 1.45 - (lead * 0.55 + grain)) / 0.42, 0.0, 1.0));
+  vec4 col = mix(a, b, m);
+
+  // The lamp. A soft pool of light under the pointer.
+  vec2 toP = uv - uPointer;
+  toP.x *= uPlaneAspect;
+  float lamp = exp(-dot(toP, toP) * 8.0) * uHover;
+
+  // Duotone at rest, resolving to colour where the lamp falls.
   float l = dot(col.rgb, vec3(0.299, 0.587, 0.114));
   vec3 graded = mix(vec3(l * 1.02), uTintColor * (0.55 + l * 1.5), 0.6);
-  col.rgb = mix(col.rgb, graded, uTint);
+  col.rgb = mix(col.rgb, graded, uTint * (1.0 - lamp));
+  col.rgb += uWarmColor * lamp * 0.10 * (0.35 + l);
+
   float vig = smoothstep(0.95, 0.35, length((vUv - 0.5) * vec2(1.0, 0.9)));
   col.rgb *= 0.86 + 0.14 * vig;
   gl_FragColor = col;
@@ -107,12 +104,11 @@ type Uniforms = {
   uAspectB: { value: number };
   uPlaneAspect: { value: number };
   uProgress: { value: number };
-  uTime: { value: number };
   uPointer: { value: THREE.Vector2 };
   uHover: { value: number };
   uTint: { value: number };
   uTintColor: { value: THREE.Color };
-  uRipples: { value: THREE.Vector4[] };
+  uWarmColor: { value: THREE.Color };
 };
 
 function aspectOf(t: THREE.Texture) {
@@ -122,8 +118,6 @@ function aspectOf(t: THREE.Texture) {
 
 type Shared = {
   pointer: { x: number; y: number; hover: number };
-  ripples: THREE.Vector4[];
-  clock: { t: number };
   tint: number;
 };
 
@@ -143,12 +137,11 @@ function Plane({ textures, index, shared }: { textures: THREE.Texture[]; index: 
       uAspectB: { value: asp },
       uPlaneAspect: { value: 1 },
       uProgress: { value: 0 },
-      uTime: { value: 0 },
       uPointer: { value: new THREE.Vector2(-10, -10) },
       uHover: { value: 0 },
       uTint: { value: shared.tint },
       uTintColor: { value: new THREE.Color("#2f6b68") },
-      uRipples: { value: shared.ripples },
+      uWarmColor: { value: new THREE.Color("#ff8a3d") },
     };
     return new THREE.ShaderMaterial({ uniforms, vertexShader: vertex, fragmentShader: fragment, transparent: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -168,17 +161,14 @@ function Plane({ textures, index, shared }: { textures: THREE.Texture[]; index: 
     u.uTexB.value = to;
     u.uAspectB.value = aspectOf(to);
     u.uProgress.value = 0;
-    gsap.to(u.uProgress, { value: 1, duration: 1.4, ease: "power2.inOut" });
+    gsap.to(u.uProgress, { value: 1, duration: 1.2, ease: "power2.inOut" });
   }, [index, textures, u]);
 
-  useFrame((_, delta) => {
-    shared.clock.t += delta;
-    u.uTime.value = shared.clock.t;
+  useFrame(() => {
     u.uPlaneAspect.value = viewport.width / viewport.height;
     u.uPointer.value.set(shared.pointer.x, shared.pointer.y);
-    u.uHover.value += (shared.pointer.hover - u.uHover.value) * 0.08;
-    const tintTarget = shared.tint * (1 - shared.pointer.hover);
-    u.uTint.value += (tintTarget - u.uTint.value) * 0.05;
+    u.uHover.value += (shared.pointer.hover - u.uHover.value) * 0.07;
+    u.uTint.value += (shared.tint - u.uTint.value) * 0.05;
   });
 
   return (
@@ -239,7 +229,7 @@ function useTextures(srcs: string[], enabled: boolean) {
   return { textures, failed };
 }
 
-export function LiquidImage({
+export function LitImage({
   images,
   index,
   className,
@@ -247,28 +237,21 @@ export function LiquidImage({
   priority = false,
   tint = 0,
 }: {
-  images: LiquidSource[];
+  images: LitSource[];
   index: number;
   className?: string;
   /** Force the CSS crossfade (used on mobile). */
   simple?: boolean;
   priority?: boolean;
-  /** 0 to 1: verdigris duotone at rest, resolving to colour under the pointer. */
+  /** 0 to 1: verdigris duotone at rest, resolving to colour under the lamp. */
   tint?: number;
 }) {
   const reduced = useReducedMotion();
   const [gl, setGl] = useState<boolean | null>(null);
   const [visible, setVisible] = useState(true);
   const box = useRef<HTMLDivElement>(null);
-  const shared = useRef<Shared>({
-    pointer: { x: -10, y: -10, hover: 0 },
-    ripples: Array.from({ length: MAX_RIPPLES }, () => new THREE.Vector4(0, 0, -100, 0)),
-    clock: { t: 0 },
-    tint,
-  });
+  const shared = useRef<Shared>({ pointer: { x: -10, y: -10, hover: 0 }, tint });
   shared.current.tint = tint;
-  const rippleCursor = useRef(0);
-  const last = useRef<{ x: number; y: number; t: number } | null>(null);
 
   useEffect(() => setGl(supportsWebGL()), []);
   useEffect(() => {
@@ -287,27 +270,13 @@ export function LiquidImage({
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width;
-    const y = 1 - (e.clientY - r.top) / r.height;
     const s = shared.current;
-    s.pointer.x = x;
-    s.pointer.y = y;
+    s.pointer.x = (e.clientX - r.left) / r.width;
+    s.pointer.y = 1 - (e.clientY - r.top) / r.height;
     s.pointer.hover = 1;
-    const now = s.clock.t;
-    const l = last.current;
-    if (l) {
-      const v = Math.hypot(x - l.x, y - l.y) / Math.max(0.016, now - l.t);
-      if (v > 0.35 && now - l.t > 0.05) {
-        const rp = s.ripples[rippleCursor.current % MAX_RIPPLES];
-        rp.set(x, y, now, Math.min(1, v * 0.25));
-        rippleCursor.current += 1;
-        last.current = { x, y, t: now };
-      }
-    } else last.current = { x, y, t: now };
   };
   const onLeave = () => {
     shared.current.pointer.hover = 0;
-    last.current = null;
   };
 
   return (
@@ -346,11 +315,11 @@ export function LiquidImage({
   );
 }
 
-function Fallback({ images, index, priority }: { images: LiquidSource[]; index: number; priority: boolean }) {
+function Fallback({ images, index, priority }: { images: LitSource[]; index: number; priority: boolean }) {
   return (
     <>
       {images.map((img, i) => (
-         
+
         <img
           key={img.src}
           src={img.src}
