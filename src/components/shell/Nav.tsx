@@ -10,7 +10,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { NightClock } from "./NightClock";
 import { Menu } from "./Menu";
 import { ChapterLabel } from "./Rail";
 import { ThemeToggle } from "./ThemeToggle";
@@ -34,18 +33,17 @@ export function Nav() {
       >
         <Link href="/" className="flex items-center gap-3" aria-label="DevSoc, home" data-cursor="Home">
           <Image src="/images/brand/mark.png" alt="" width={34} height={26} priority className="h-[26px] w-auto" />
-          <span className="mono text-primary">DevSoc</span>
+          <span className="meta text-primary">DevSoc</span>
         </Link>
         <div className="flex items-center gap-6 md:gap-8">
           <ChapterLabel className="hidden lg:inline" />
-          <NightClock className="hidden md:inline" />
           <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="text-link mono text-primary"
+            className="text-link meta text-primary"
             data-cursor={open ? "Close" : "Open"}
           >
             {open ? "Close" : "Menu"}

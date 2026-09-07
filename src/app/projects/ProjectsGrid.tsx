@@ -13,7 +13,7 @@ export function ProjectsGrid() {
 
   return (
     <>
-      <ul className="mono gutter mt-12 flex flex-wrap gap-x-8 gap-y-3 text-muted" aria-label="Filter by room">
+      <ul className="meta gutter mt-12 flex flex-wrap gap-x-8 gap-y-3 text-muted" aria-label="Filter by room">
         {rooms.map((r) => (
           <li key={r}>
             <button
@@ -40,7 +40,7 @@ export function ProjectsGrid() {
             />
             <div className="mt-5 flex items-baseline justify-between gap-6">
               <h2 className="display text-[clamp(1.4rem,2.2vw,2.2rem)] text-primary [font-variation-settings:'wdth'_110]">{p.title}</h2>
-              <p className="mono shrink-0 text-muted">
+              <p className="meta shrink-0 text-muted">
                 {p.year}. {p.vertical}
               </p>
             </div>

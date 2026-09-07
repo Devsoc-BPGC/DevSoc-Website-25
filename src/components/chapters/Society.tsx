@@ -1,9 +1,15 @@
 "use client";
 
 /**
- * The Society, 20:15
- * A breath between two loud chapters. One oversized paragraph, the port line
- * as a statement, three real numbers. No artwork: the quiet is the point.
+ * The Society
+ * A breath between two loud chapters, and the only place that says plainly
+ * what this is. One statement, one paragraph that names the six rooms in
+ * passing, and the facts as a plain list of rows.
+ *
+ * Left aligned on the grid like everything else. The earlier centred version
+ * floated in the middle of the page with nothing holding it, and the line it
+ * ended on was a pun about Goa being a port, which said nothing true about
+ * the society. No artwork here on purpose: the quiet is the point.
  */
 
 import { Ambient } from "@/components/motion/Ambient";
@@ -14,40 +20,53 @@ import { chapters } from "@/content/chapters";
 import { site } from "@/content/site";
 
 const facts = [
-  { value: "Six", label: "rooms" },
-  { value: "186", label: `inducted in ${site.inducteesYear}` },
-  { value: "Once a year", label: "inductions open" },
+  { label: "Rooms", value: "Six" },
+  { label: `Inducted in ${site.inducteesYear}`, value: "186" },
+  { label: "Inductions", value: "Once a year" },
+  { label: "Campus", value: site.campusShort },
 ];
 
 export function Society() {
   const light = chapters[1].light;
 
   return (
-    <section id="society" className="relative overflow-hidden pb-[22vh] pt-[24vh]" aria-labelledby="society-line">
+    <section id="society" className="relative overflow-hidden pb-[24vh] pt-[22vh]" aria-labelledby="society-line">
       <Ambient x={light.x} y={light.y} intensity={0.3} />
 
       <div className="relative gutter">
-        <SplitLines
-          as="p"
-          id="society-line"
-          className="mx-auto max-w-[26ch] text-center text-[clamp(1.5rem,2.6vw,2.1rem)] leading-[1.35] text-primary"
-        >
-          We build the software the campus runs on. Fest websites, fest apps, and the tools students open every day.
-        </SplitLines>
+        <h2 className="meta mb-10 text-muted">The Society</h2>
 
-        <Reveal className="mt-20">
-          <p className="voice mx-auto max-w-[20ch] text-center text-[clamp(1.9rem,3.6vw,3.4rem)] text-primary">
-            {site.portLine}
-          </p>
-        </Reveal>
+        <div className="grid-12 items-end gap-y-14">
+          <div className="col-span-12 lg:col-span-7">
+            <SplitLines
+              as="p"
+              id="society-line"
+              className="voice max-w-[17ch] text-[clamp(2rem,4.4vw,4.4rem)] leading-[1.06] text-primary"
+            >
+              Every fest the campus turns up to runs on something built the night before.
+            </SplitLines>
 
-        <Reveal stagger={0.08} className="mono mt-24 flex flex-wrap items-baseline justify-center gap-x-16 gap-y-6 text-muted">
-          {facts.map((f) => (
-            <span key={f.label}>
-              <span className="text-primary">{f.value}</span> {f.label}
-            </span>
-          ))}
-        </Reveal>
+            <p className="body-copy mt-10 max-w-[52ch]">
+              Six rooms, one society: web, app, game, AI and ML, UI and UX, and engine development. We build the fest
+              sites the whole campus registers on, the apps that open on every phone during Waves and Quark, and the
+              small tools that fix a Tuesday. Nobody here is paid and nothing here is a mock-up.
+            </p>
+          </div>
+
+          <Reveal
+            as="dl"
+            stagger={0.07}
+            y={18}
+            className="col-span-12 sm:col-span-8 lg:col-span-4 lg:col-start-8"
+          >
+            {facts.map((f) => (
+              <div key={f.label} className="flex items-baseline justify-between gap-6 border-t border-rule/25 py-4 last:border-b">
+                <dt className="meta text-muted">{f.label}</dt>
+                <dd className="meta text-right text-primary">{f.value}</dd>
+              </div>
+            ))}
+          </Reveal>
+        </div>
       </div>
 
       <WaveDivider fill="var(--surface-raised)" flip />

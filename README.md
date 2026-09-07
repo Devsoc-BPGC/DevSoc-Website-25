@@ -1,6 +1,6 @@
 # DevSoc 2026
 
-The website of the Developers' Society, BITS Pilani K.K. Birla Goa Campus. One night on campus, dusk to dawn: the campus sleeps and six rooms stay lit. A clock in the nav runs 18:42 to 05:58 across seven chapters.
+The website of the Developers' Society, BITS Pilani K.K. Birla Goa Campus. One night on campus, dusk to dawn: the campus sleeps and six rooms stay lit, across seven chapters.
 
 Design spec: `docs/superpowers/specs/2026-09-07-devsoc-night-shift-design.md`. Design system: `DESIGN.md`. Product context: `PRODUCT.md`. Image prompts: `docs/assets/PROMPTS-COPY-PASTE.md` and `docs/assets/HERO-PROMPTS.md`.
 
@@ -59,7 +59,7 @@ The DS mark is `public/images/brand/mark.png`; a vector version would sharpen th
 
 ## Fonts
 
-Archivo (display and body), Bodoni Moda (voice), IBM Plex Mono (technical) and DotGothic16 (timecode) are loaded through `next/font/google` in `src/app/layout.tsx`. To use licensed Wild World, Heming or Disket Mono instead, add the files under `public/fonts`, switch the matching loader to `next/font/local`, and keep the CSS variable names.
+Archivo (display and body), Bodoni Moda (voice), Space Grotesk (metadata) and DotGothic16 (the film timecode in The Log) are loaded through `next/font/google` in `src/app/layout.tsx`. To use a licensed face instead, add the files under `public/fonts`, switch the matching loader to `next/font/local`, and keep the CSS variable names. The metadata face is deliberately not a monospace.
 
 ## Motion rules
 

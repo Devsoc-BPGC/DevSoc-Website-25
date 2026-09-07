@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The Log, 00:40
+ * The Log
  * What the six rooms shipped. Two scroll-driven movements and no buttons.
  * First the fest app film runs under the scrollbar inside a framed window.
  * Then the shelf: the section pins and the projects travel sideways as you
@@ -79,7 +79,7 @@ function ScrubFilm() {
           <span className="pointer-events-none absolute -right-3 -top-3 h-4 w-4 border-r border-t border-rule/70" />
           <span className="pointer-events-none absolute -bottom-3 -left-3 h-4 w-4 border-b border-l border-rule/70" />
           <span className="pointer-events-none absolute -bottom-3 -right-3 h-4 w-4 border-b border-r border-rule/70" />
-          <div className="mono mt-5 flex justify-between text-muted">
+          <div className="meta mt-5 flex justify-between text-muted">
             <span>
               <span className="text-primary">Fest app</span>. Waves and Quark, 2025
             </span>
@@ -129,7 +129,7 @@ export function Log() {
               <h3 className="display text-[clamp(1.4rem,2.4vw,2.4rem)] text-primary [font-variation-settings:'wdth'_110]">
                 {p.title}
               </h3>
-              <p className="mono shrink-0 text-muted">
+              <p className="meta shrink-0 text-muted">
                 {p.year}. {p.vertical}
               </p>
             </div>

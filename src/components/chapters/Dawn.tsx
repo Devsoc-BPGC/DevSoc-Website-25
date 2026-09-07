@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Dawn, 05:58
+ * Dawn
  * The night ends and the door is open. The last chapter is the way in: the
  * list if it is out, the wall of windows you can light, and the questions
  * people actually ask.
@@ -61,7 +61,7 @@ function Wall() {
           );
         })}
       </div>
-      <p className="mono mt-4 text-muted" aria-live="polite">
+      <p className="meta mt-4 text-muted" aria-live="polite">
         {count === 0 ? "Every window is someone who walked in." : `${count} of ${WINDOWS} lit.`}
       </p>
     </div>
@@ -117,13 +117,13 @@ export function Dawn() {
                     {list.length} names. Find yours, or come to DevFest and meet the rest of the room.
                   </p>
                   <label className="mt-8 block">
-                    <span className="mono text-muted">Search by name or BITS ID</span>
+                    <span className="meta text-muted">Search by name or BITS ID</span>
                     <input
                       type="search"
                       value={q}
                       onChange={(e) => setQ(e.target.value)}
                       placeholder="Type a name"
-                      className="mono mt-3 w-full border-b border-rule/50 bg-transparent py-3 text-[1rem] text-primary placeholder:text-muted/70 focus:border-rule focus:outline-none"
+                      className="meta mt-3 w-full border-b border-rule/50 bg-transparent py-3 text-[1rem] text-primary placeholder:text-muted/70 focus:border-rule focus:outline-none"
                       autoComplete="off"
                     />
                   </label>
@@ -131,13 +131,13 @@ export function Dawn() {
                     <ul className="mt-6 divide-y divide-raised">
                       {matches.length ? (
                         matches.map((m) => (
-                          <li key={`${m.name}-${m.id}`} className="mono flex justify-between gap-6 py-3 text-primary">
+                          <li key={`${m.name}-${m.id}`} className="meta flex justify-between gap-6 py-3 text-primary">
                             <span>{m.name}</span>
                             <span className="text-muted">{m.id ?? "ID not given"}</span>
                           </li>
                         ))
                       ) : (
-                        <li className="mono py-3 text-muted">Nothing matches that spelling.</li>
+                        <li className="meta py-3 text-muted">Nothing matches that spelling.</li>
                       )}
                     </ul>
                   ) : null}
@@ -154,7 +154,7 @@ export function Dawn() {
                   </p>
                   <div className="mt-8">
                     <Magnetic>
-                      <a href={`mailto:${site.email}`} className="text-link mono text-primary" data-cursor="Write">
+                      <a href={`mailto:${site.email}`} className="text-link meta text-primary" data-cursor="Write">
                         {site.email}
                       </a>
                     </Magnetic>
@@ -194,7 +194,7 @@ export function Dawn() {
         </Reveal>
         <Reveal className="col-span-12 mt-14 lg:col-span-7 lg:col-start-6">
           <Magnetic>
-            <a href={`mailto:${site.email}`} className="text-link mono text-primary" data-cursor="Write">
+            <a href={`mailto:${site.email}`} className="text-link meta text-primary" data-cursor="Write">
               {site.email}
             </a>
           </Magnetic>

@@ -33,17 +33,17 @@ export function InducteesList() {
   return (
     <div className="gutter mt-12">
       <label className="block max-w-xl">
-        <span className="mono text-muted">Search by name or BITS ID</span>
+        <span className="meta text-muted">Search by name or BITS ID</span>
         <input
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Type a name"
           autoComplete="off"
-          className="mono mt-3 w-full border-b border-rule/50 bg-transparent py-3 text-[1rem] text-primary placeholder:text-muted/70 focus:border-rule focus:outline-none"
+          className="meta mt-3 w-full border-b border-rule/50 bg-transparent py-3 text-[1rem] text-primary placeholder:text-muted/70 focus:border-rule focus:outline-none"
         />
       </label>
-      <p className="mono mt-4 text-muted" aria-live="polite">
+      <p className="meta mt-4 text-muted" aria-live="polite">
         {groups.reduce((n, [, g]) => n + g.length, 0)} of {list.length}
       </p>
 
@@ -67,7 +67,7 @@ export function InducteesList() {
                       data-cursor={p.id ? "Copy" : undefined}
                     >
                       <span className="text-[1.05rem] text-primary">{p.name}</span>
-                      <span className="mono text-muted">
+                      <span className="meta text-muted">
                         {copied === p.id ? "Copied" : (p.id ?? "ID not given")}
                       </span>
                     </button>

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Dusk, 18:42
+ * Dusk
  * The night opens. The facade fills the frame with six windows lit, the
  * wordmark sits over it, and the line hands the reader the six verticals in
  * seven words. The artwork follows the theme: the same wall at night or in
@@ -100,7 +100,7 @@ export function Dusk() {
         aria-hidden="true"
       />
 
-      <div className="absolute inset-x-0 bottom-[10vh] gutter">
+      <div className="absolute inset-x-0 bottom-[max(10vh,7vw)] z-10 gutter">
         <FitText className="display text-primary" innerClassName="leading-[0.86]">
           Devsoc
         </FitText>
@@ -122,7 +122,7 @@ export function Dusk() {
               </TextLink>
             </div>
           </div>
-          <p className="mono col-span-12 mt-8 text-muted lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
+          <p className="meta col-span-12 mt-8 text-muted lg:col-span-4 lg:col-start-9 lg:mt-0 lg:text-right">
             Developers&rsquo; Society
             <br />
             {site.campus}

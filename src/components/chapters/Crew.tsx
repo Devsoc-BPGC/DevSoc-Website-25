@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The Crew, 04:10
+ * The Crew
  * A credits roll that plays itself. As the list travels up the screen the
  * portrait at the right changes to whoever is level with the middle of the
  * viewport, dissolving from one face to the next. Hovering a name takes over
@@ -119,7 +119,7 @@ export function Crew({ all = false }: { all?: boolean }) {
                   >
                     {p.name}
                   </span>
-                  <span className="mono">{p.role}</span>
+                  <span className="meta">{p.role}</span>
                 </a>
               </li>
             ))}
@@ -136,7 +136,7 @@ export function Crew({ all = false }: { all?: boolean }) {
         <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
           <div className="sticky top-[22vh]">
             <LitImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={0.3} simple={mobile} />
-            <p key={people[index].id} className="mono rise-in mt-4 text-muted">
+            <p key={people[index].id} className="meta rise-in mt-4 text-muted">
               <span className="text-primary">{people[index].name}</span>. {people[index].role}
             </p>
           </div>

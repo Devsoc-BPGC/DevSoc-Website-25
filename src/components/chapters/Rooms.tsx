@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The Flywheel, 22:30
+ * The Flywheel
  *
  * Six verticals on one wheel. Scrolling the pinned section turns it a sixth
  * of a revolution per vertical, and whichever spoke reaches the tick at the
@@ -123,11 +123,11 @@ export function Rooms() {
             {verticals.map((v, i) => (
               <li key={v.id} className="w-[78vw] shrink-0 snap-start">
                 <LitImage images={[posters[i]]} index={0} className="aspect-[4/5]" simple />
-                <p className="mono mt-4 text-muted">
+                <p className="meta mt-4 text-muted">
                   {v.index} <span className="text-primary">{v.name}</span>
                 </p>
                 <p className="voice mt-2 text-[1.35rem] text-primary">{v.voice}</p>
-                <p className="mono mt-3 text-muted">
+                <p className="meta mt-3 text-muted">
                   {v.head ?? "Head to be confirmed"}. {v.tools.join(", ")}
                 </p>
               </li>
@@ -149,7 +149,7 @@ export function Rooms() {
           <div className="grid-12 relative h-full items-center gutter">
             {/* the index */}
             <div className="col-span-5 self-center">
-              <h2 id="rooms-title" className="mono mb-8 text-muted">
+              <h2 id="rooms-title" className="meta mb-8 text-muted">
                 The flywheel
               </h2>
 
@@ -159,7 +159,7 @@ export function Rooms() {
                   return (
                     <li key={v.id} className="flex items-baseline gap-5">
                       <span
-                        className={`mono w-6 shrink-0 transition-colors duration-500 ${on ? "text-warm" : "text-muted/50"}`}
+                        className={`meta w-6 shrink-0 transition-colors duration-500 ${on ? "text-warm" : "text-muted/50"}`}
                       >
                         {v.index}
                       </span>
@@ -186,7 +186,7 @@ export function Rooms() {
 
               <div key={room.id} className="rise-in mt-10 max-w-[34ch]">
                 <p className="voice text-[clamp(1.2rem,1.8vw,1.8rem)] text-primary">{room.voice}</p>
-                <p className="mono mt-4 text-muted">
+                <p className="meta mt-4 text-muted">
                   {room.head ? <span className="text-primary">{room.head}</span> : "Head to be confirmed"}
                   {". "}
                   {room.tools.join(", ")}

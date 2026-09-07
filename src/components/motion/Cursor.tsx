@@ -5,7 +5,7 @@
  * A small bone dot that follows the pointer on a 0.18s ease and inverts what
  * it crosses (mix-blend difference). Over anything marked `data-cursor`
  * it grows into a thin brass ring; if the attribute has a value
- * (`data-cursor="Drag"`) that word appears beside it in mono.
+ * (`data-cursor="Drag"`) that word appears beside it in the metadata face.
  *
  * Fine pointers only. Reduced motion: never mounted.
  * Mark interactive elements with data-cursor; nothing else to wire.
@@ -118,7 +118,7 @@ export function Cursor() {
         style={{ transform: "scale(0.4)" }}
       />
       {label ? (
-        <span className="mono absolute left-9 top-9 whitespace-nowrap bg-base px-1.5 py-0.5 text-primary">
+        <span className="meta absolute left-9 top-9 whitespace-nowrap bg-base px-1.5 py-0.5 text-primary">
           {label}
         </span>
       ) : null}

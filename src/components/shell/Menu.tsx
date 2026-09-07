@@ -4,7 +4,7 @@
  * Menu
  * Full-screen overlay. Routes stacked in expanded display type at the left;
  * a LitImage at the right previews whatever is hovered; socials and the
- * email sit in a mono row at the bottom. Opens with a downward wipe.
+ * email sit in a row at the bottom. Opens with a downward wipe.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -108,7 +108,7 @@ export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) 
               <LitImage images={previews} index={hover} className="aspect-[4/5] w-full max-h-[64vh]" simple={mobile} />
             </motion.div>
             <motion.div
-              className="mono col-span-12 flex flex-wrap items-end justify-between gap-6 self-end text-muted"
+              className="meta col-span-12 flex flex-wrap items-end justify-between gap-6 self-end text-muted"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

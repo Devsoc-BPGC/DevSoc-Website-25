@@ -111,13 +111,13 @@ export function Colophon() {
             className="col-span-12 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:col-span-5 lg:col-start-8"
           >
             <nav aria-label="Pages">
-              <h2 className="mono mb-5 text-muted/70">Pages</h2>
+              <h2 className="meta mb-5 text-muted/70">Pages</h2>
               <ul className="flex flex-col gap-3">
                 {routes.map((r) => (
                   <li key={r.href}>
                     <Link
                       href={r.href}
-                      className="mono text-link text-primary/80 hover:text-primary"
+                      className="meta text-link text-primary/80 hover:text-primary"
                       data-cursor="Go"
                     >
                       {r.label}
@@ -128,7 +128,7 @@ export function Colophon() {
             </nav>
 
             <nav aria-label="Elsewhere">
-              <h2 className="mono mb-5 text-muted/70">Elsewhere</h2>
+              <h2 className="meta mb-5 text-muted/70">Elsewhere</h2>
               <ul className="flex flex-col gap-3">
                 {site.socials.map((s) => (
                   <li key={s.href}>
@@ -136,7 +136,7 @@ export function Colophon() {
                       href={s.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="mono text-link text-primary/80 hover:text-primary"
+                      className="meta text-link text-primary/80 hover:text-primary"
                       data-cursor="Open"
                     >
                       {s.label}
@@ -147,8 +147,8 @@ export function Colophon() {
             </nav>
 
             <div className="col-span-2 sm:col-span-1">
-              <h2 className="mono mb-5 text-muted/70">Where</h2>
-              <address className="mono not-italic leading-[1.9] text-muted">
+              <h2 className="meta mb-5 text-muted/70">Where</h2>
+              <address className="meta not-italic leading-[1.9] text-muted">
                 Developers&rsquo; Society
                 <br />
                 BITS Pilani, Goa
@@ -159,12 +159,12 @@ export function Colophon() {
           </Reveal>
         </div>
 
-        <div className="mono mt-[14vh] flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule/25 pt-6 text-muted">
+        <div className="meta mt-[14vh] flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-rule/25 pt-6 text-muted">
           <span>
             Developers&rsquo; Society, {year}. Built by the web room.
           </span>
           <button type="button" onClick={toTop} className="text-link text-primary/80 hover:text-primary" data-cursor="Up">
-            Back to 18:42
+            Back to the top
           </button>
         </div>
       </div>

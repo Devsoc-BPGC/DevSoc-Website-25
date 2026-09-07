@@ -67,7 +67,7 @@
   --font-display: var(--font-archivo), "Arial Black", Impact, sans-serif;
   --font-body: var(--font-archivo), Arial, sans-serif;
   --font-voice: var(--font-bodoni), "Bodoni MT", Didot, Georgia, serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, "Cascadia Mono", monospace;
+  --font-meta: var(--font-grotesk), "Helvetica Neue", Arial, sans-serif;
   --font-hud: var(--font-dotgothic), "Courier New", monospace;
 
   --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
@@ -206,12 +206,14 @@ p {
   letter-spacing: -0.005em;
 }
 
-@utility mono {
-  font-family: var(--font-mono);
+/* The metadata layer: nav, clock, captions, numerals, tables. Tracked out a
+   little so it reads as labelling rather than as small body copy. */
+@utility meta {
+  font-family: var(--font-meta);
   font-weight: 400;
   font-size: 0.8125rem;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
+  line-height: 1.55;
+  letter-spacing: 0.045em;
   font-variant-numeric: tabular-nums;
 }
 

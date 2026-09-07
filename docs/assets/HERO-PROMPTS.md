@@ -78,3 +78,29 @@ Put the four side by side and ask three questions.
 | 4 | `hero/facade-morning-tall.jpg` | 1080 x 1920 | 9:16 |
 
 Drop them at those paths, overwriting what is there, and tell me. I will check the framing against the wordmark and adjust the scrim so the lit windows keep their glow behind the type.
+
+## 5. DevFest, portrait
+
+`public/images/devfest/facade-full-tall.jpg`: **1080 x 1920, 9:16 portrait**
+
+This is the same building again, on the one weekend of the year when the whole
+place is awake. It is the portrait companion to `devfest/facade-full-wide.jpg`,
+which already exists: attach that file as the reference and add "same building,
+same architecture, same window grid, same entrance".
+
+```
+Flat vector illustration of a four storey concrete academic building seen perfectly straight on like an architectural elevation, symmetrical, no perspective. The building fills the entire frame edge to edge and top to bottom, with no sky above it and no empty ground below it. Six bays of tall rectangular windows run across each of the four floors, separated by plain concrete piers, with a flat horizontal ledge line between every floor. In the exact horizontal centre of the building there is a recessed main entrance: a wide dark doorway under a plain flat canopy, with a broad flight of shallow steps below it running down to the bottom edge of the frame. The top of the entrance canopy sits about two thirds of the way down the frame.
+
+Night, and every single window in the building is lit. Each window is filled solid warm amber as if a room full of people is working behind it, and the amber spills onto the concrete piers between them so the whole facade glows. The concrete reads dark blue grey only in the narrow bands between floors. The sky tone behind the roofline is deep indigo. The entrance is open and bright, with warm light pouring down the steps.
+
+Bold flat geometric shapes, limited palette of deep indigo, dark blue grey, near black and warm amber, subtle grain, screen print feel. No photorealism, no 3D render, no text, no signage, no people, no trees, no cars.
+```
+
+Check it against the landscape version side by side: same floor count, same pier
+rhythm, same entrance shape, and every window lit in both. Then drop it at that
+path and tell me. I will wire it in as the portrait source so phones stop
+cropping the building to its middle.
+
+| # | File | Size | Ratio |
+|---|---|---|---|
+| 5 | `devfest/facade-full-tall.jpg` | 1080 x 1920 | 9:16 |

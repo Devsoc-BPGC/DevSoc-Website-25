@@ -11,11 +11,13 @@ Reference teardown: `docs/reference/zainabkabira-design.md`
 
 One night on the BITS Pilani Goa campus, dusk to dawn.
 
-DevSoc builds at night. The site is a single night on campus, and the reader travels through it from last light to first light. Every chapter carries a time, and the clock in the navigation counts through the night as you scroll. The clock is the narrative, not decoration.
+DevSoc builds at night. The site is a single night on campus, and the reader travels through it from last light to first light.
+
+**Revised after build:** the chapters were originally timestamped and a clock in the navigation counted through the night as you scroll. Both are gone. The artwork, the chapter names and the order carry the night on their own, and the clock turned out to be a caption explaining a story the pictures already told. The times below are kept here as the authoring intent behind each chapter's mood, not as anything the page displays.
 
 **Hero line: "The campus sleeps. Six rooms stay lit."**
 
-Seven words that say what the society is and hand over the six verticals in the same breath. The port line survives as the turn in chapter two: Goa has been a port for five hundred years, and we still ship. That pun is the spine of the whole site.
+Seven words that say what the society is and hand over the six verticals in the same breath. **Revised after build:** chapter two originally turned on a pun about Goa having been a port for five hundred years and us still shipping. It was cut for saying nothing true about the society; the chapter now states plainly that every fest the campus turns up to runs on something built the night before.
 
 Voice: declarative, specific, unhurried, first person plural. Short sentences. No marketing verbs. Numbers are data. No em or en dashes anywhere.
 

@@ -79,11 +79,11 @@ export function Rail() {
                 data-cursor="Go"
               >
                 <span
-                  className={`mono whitespace-nowrap transition-opacity duration-500 ${
+                  className={`meta whitespace-nowrap transition-opacity duration-500 ${
                     on ? "text-primary opacity-100" : "text-muted opacity-0 group-hover:opacity-100"
                   }`}
                 >
-                  {c.label} <span className="text-muted/70">{c.time}</span>
+                  {c.label}
                 </span>
                 <span
                   className={`block h-px transition-all duration-700 ease-[var(--ease-out-expo)] ${
@@ -110,7 +110,7 @@ export function ChapterLabel({ className }: { className?: string }) {
   }, []);
   return (
     <span
-      className={`mono text-muted transition-opacity duration-700 ${label ? "opacity-100" : "opacity-0"} ${className ?? ""}`}
+      className={`meta text-muted transition-opacity duration-700 ${label ? "opacity-100" : "opacity-0"} ${className ?? ""}`}
       aria-live="polite"
     >
       {label}

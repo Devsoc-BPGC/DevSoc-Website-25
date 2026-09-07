@@ -5,7 +5,6 @@ export const site = {
   description:
     "The developers' society of BITS Pilani, K.K. Birla Goa Campus. Six verticals, one atelier. Web, app, game, AI and ML, UI and UX, engine development.",
   line: "The campus sleeps. Six rooms stay lit.",
-  portLine: "Goa has been a port for five hundred years. We still ship.",
   campus: "BITS Pilani, K.K. Birla Goa Campus",
   campusShort: "K.K. Birla Goa Campus",
   email: "devsocbpgc@gmail.com",

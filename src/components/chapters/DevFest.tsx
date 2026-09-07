@@ -1,10 +1,10 @@
 "use client";
 
 /**
- * DevFest, 02:00
+ * DevFest
  * Full bleed. The whole building is lit for one weekend a year, and it fills
  * the screen and settles slowly out of a push-in as you scroll. DEVFEST in
- * display, the edition in the serif voice, a mono row of facts. Below, the
+ * display, the edition in the serif voice, a row of facts. Below, the
  * recurring events as a plain table.
  */
 
@@ -67,7 +67,7 @@ export function DevFest() {
                 {devfest.blurb}
               </SplitLines>
             </div>
-            <ul className="mono col-span-12 mt-8 flex flex-col gap-2 text-muted lg:col-span-3 lg:col-start-10 lg:mt-0 lg:text-right">
+            <ul className="meta col-span-12 mt-8 flex flex-col gap-2 text-muted lg:col-span-3 lg:col-start-10 lg:mt-0 lg:text-right">
               {facts.map((f) => (
                 <li key={f}>{f}</li>
               ))}
@@ -80,7 +80,7 @@ export function DevFest() {
         <Reveal as="p" className="body-copy">
           The salon runs all year. The flagship is one weekend of it.
         </Reveal>
-        <table className="mono mt-10 w-full border-collapse text-left text-muted">
+        <table className="meta mt-10 w-full border-collapse text-left text-muted">
           <thead>
             <tr className="border-b border-rule/40 text-primary">
               <th className="py-3 pr-6 font-normal">Event</th>

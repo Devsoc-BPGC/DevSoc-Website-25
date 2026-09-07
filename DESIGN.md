@@ -2,7 +2,7 @@
 
 ## The idea
 
-The site is one night on the Goa campus, dusk to dawn. The campus sleeps and six rooms stay lit, one per vertical. A clock in the nav runs from 18:42 to 05:58 as you scroll, seven chapters carry the night, and the last one hands you the door.
+The site is one night on the Goa campus, dusk to dawn. The campus sleeps and six rooms stay lit, one per vertical. Seven chapters carry the night, named rather than timestamped, and the last one hands you the door.
 
 Everything on the page serves that: the artwork is one building seen at different hours, the accent colour is a lit window, and the only thing the reader is ever asked to click is a wall of dark windows they can light.
 
@@ -39,23 +39,25 @@ Two themes. **Night is the default and is unconditional**: an OS light preferenc
 
 - Display: Archivo variable, wdth 125, wght 800 to 900, uppercase. Wordmark, chapter titles, the flywheel index. Leading 0.86, tracking -0.02em.
 - Voice: Bodoni Moda italic. One line statements over images and pull lines. Never body.
-- Technical: IBM Plex Mono, 400 and 500. Nav, clock, labels, numerals, tables. 13px, tabular numerals.
+- Metadata: Space Grotesk, not a monospace. Nav, labels, numerals, tables, captions. 13px, tracked 0.045em, tabular numerals. A mono here was the loudest thing on quiet pages: even rhythm, wasted width, and it made every caption look like console output.
 - Body: Archivo, wdth 100, wght 400. 17px / 1.6, max 68ch.
 - HUD: DotGothic16, only the film timecode.
 
 ## The seven chapters
 
-| Id | Chapter | Clock | What happens |
-|---|---|---|---|
-| `dusk` | Dusk | 18:42 | The facade fills the frame, six windows lit, the wordmark over it. |
-| `society` | The Society | 20:15 | Who we are, in the fewest words that are true. |
-| `rooms` | The Flywheel | 22:30 | The six verticals on a wheel that scroll turns. |
-| `log` | The Log | 00:40 | The fest app film scrubs, then the shelf of projects pans sideways. |
-| `devfest` | DevFest | 02:00 | The same building with every window lit. |
-| `crew` | The Crew | 04:10 | The credits roll, the portrait follows the scroll. |
-| `dawn` | Dawn | 05:58 | The door is open. The list, the wall of windows, the questions. |
+| Id | Chapter | What happens |
+|---|---|---|
+| `dusk` | Dusk | The facade fills the frame, six windows lit, the wordmark over it. |
+| `society` | The Society | Who we are, in the fewest words that are true. |
+| `rooms` | The Flywheel | The six verticals on a wheel that scroll turns. |
+| `log` | The Log | The fest app film scrubs, then the shelf of projects pans sideways. |
+| `devfest` | DevFest | The same building with every window lit. |
+| `crew` | The Crew | The credits roll, the portrait follows the scroll. |
+| `dawn` | Dawn | The door is open. The list, the wall of windows, the questions. |
 
-`src/content/chapters.ts` is the single source of these ids, times and light positions. The rail, the nav clock and the ambient light all read from it, so a chapter cannot drift out of sync with its own time.
+The night is carried by the artwork, the chapter names and the order, not by a readout. An earlier version ran a clock in the nav from 18:42 to 05:58; it was a caption explaining a story the pictures already tell, so it is gone.
+
+`src/content/chapters.ts` is the single source of these ids, names and light positions. The rail, the nav label and the ambient light all read from it, so a chapter cannot drift out of sequence with itself.
 
 ## Artwork
 

@@ -3,7 +3,7 @@
 /**
  * Carousel
  * A free-drag horizontal rail (Embla) with trackpad wheel support, a brass
- * progress hairline and two mono text buttons. Slides are plain children
+ * progress hairline and two plain text buttons. Slides are plain children
  * wrapped in <CarouselSlide>.
  *
  * <Carousel label="Projects">
@@ -73,7 +73,7 @@ export function Carousel({
             style={{ transform: "scaleX(0.08)" }}
           />
         </div>
-        <div className="mono flex gap-8 text-muted">
+        <div className="meta flex gap-8 text-muted">
           <button type="button" onClick={() => api?.scrollPrev()} className="text-link hover:text-primary">
             Prev
           </button>

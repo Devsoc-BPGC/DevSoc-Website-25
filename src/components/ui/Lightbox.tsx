@@ -65,7 +65,7 @@ export function Lightbox({
         >
           <div className="w-full max-w-[min(92vw,140vh)]" onClick={(e) => e.stopPropagation()}>
             <LitImage images={images} index={i} className="aspect-[3/2] w-full" />
-            <div className="mono mt-4 flex items-center justify-between text-muted">
+            <div className="meta mt-4 flex items-center justify-between text-muted">
               <span>
                 {String(i + 1).padStart(2, "0")} of {String(photos.length).padStart(2, "0")}
               </span>
