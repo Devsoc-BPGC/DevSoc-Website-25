@@ -3,7 +3,8 @@ export type Vertical = {
   index: string;
   name: string;
   short: string;
-  instrument: string;
+  /** The object on this vertical's poster, used for alt text. */
+  object: string;
   voice: string;
   head: string | null;
   tools: string[];
@@ -19,7 +20,7 @@ export const verticals: Vertical[] = [
     index: "01",
     name: "Web Development",
     short: "Web",
-    instrument: "The Loom",
+    object: "an open browser window",
     voice: "Every fest opens in a browser first.",
     head: "Tanay Sheth",
     tools: ["Next.js", "React", "Three.js", "Node"],
@@ -32,7 +33,7 @@ export const verticals: Vertical[] = [
     index: "02",
     name: "App Development",
     short: "App",
-    instrument: "The Chronometer",
+    object: "a phone showing a grid of apps",
     voice: "The timetable lives in a pocket.",
     head: "Satvik Srinivas",
     tools: ["Flutter", "Dart", "Firebase", "Swift"],
@@ -45,7 +46,7 @@ export const verticals: Vertical[] = [
     index: "03",
     name: "Game Development",
     short: "Game",
-    instrument: "The Automaton",
+    object: "a game controller",
     voice: "Frames, physics, and someone's first boss fight.",
     head: "Anvesh Mishra",
     tools: ["Unity", "Unreal", "C#", "Godot"],
@@ -58,7 +59,7 @@ export const verticals: Vertical[] = [
     index: "04",
     name: "AI and ML",
     short: "AI and ML",
-    instrument: "The Orrery",
+    object: "a small network of nodes",
     voice: "Models trained on campus problems.",
     head: "Umang Goel",
     tools: ["Python", "PyTorch", "TensorFlow"],
@@ -71,7 +72,7 @@ export const verticals: Vertical[] = [
     index: "05",
     name: "UI and UX",
     short: "UI and UX",
-    instrument: "The Lens",
+    object: "stacked artboards and a pen",
     voice: "The part people think is the whole thing.",
     head: "Rishika Gupta",
     tools: ["Figma", "Framer", "Blender"],
@@ -84,7 +85,7 @@ export const verticals: Vertical[] = [
     index: "06",
     name: "Engine Development",
     short: "Engine",
-    instrument: "The Movement",
+    object: "a pair of gears",
     voice: "Below the framework. Bare metal, C++, the parts nobody sees.",
     head: null,
     tools: ["C++", "Assembly", "Bare metal"],

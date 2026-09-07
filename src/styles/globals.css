@@ -313,6 +313,20 @@ p {
   pointer-events: none;
 }
 
+/* ------------------------------------------------------------------ flywheel
+   A degree of drift on a long period, on its own layer so it composes with
+   the angle JavaScript writes rather than fighting it. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .wheel-drift {
+    animation: wheel-drift 12s ease-in-out infinite;
+  }
+}
+@keyframes wheel-drift {
+  0%, 100% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+}
+
 /* ------------------------------------------------------------------ grain
    Film grain from the frame-chrome concept. Fixed, non-interactive, faint. */
 

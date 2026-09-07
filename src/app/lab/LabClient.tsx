@@ -15,7 +15,7 @@ import { verticals } from "@/content/verticals";
 
 export function LabClient() {
   const [room, setRoom] = useState(0);
-  const rooms = verticals.map((v) => ({ src: v.image, alt: v.instrument }));
+  const rooms = verticals.map((v) => ({ src: v.image, alt: v.object }));
 
   return (
     <main className="pb-40">
