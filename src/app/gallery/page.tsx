@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archive } from "@/components/chapters/Archive";
+import { GalleryLanes } from "./GalleryLanes";
 import { gallery } from "@/content/gallery";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <main className="pt-[var(--nav-h)]">
-      <Archive photos={gallery} all />
+      <GalleryLanes photos={gallery} />
     </main>
   );
 }

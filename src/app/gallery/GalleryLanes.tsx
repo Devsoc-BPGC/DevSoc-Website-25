@@ -1,11 +1,15 @@
 "use client";
 
 /**
- * The Archive: gallery
+ * GalleryLanes
  * Three lanes of photographs travelling at different speeds under the scroll.
  * Each one arrives graded and lifts into full colour as it reaches the middle
  * of the screen, so the whole wall plays without a single click. Opening one
  * larger is offered, never required.
+ *
+ * This lives on the gallery route alone. The photographs are old and the home
+ * page is one night, so the archive is somewhere you go, not something you
+ * scroll past.
  */
 
 import { useRef, useState } from "react";
@@ -15,12 +19,11 @@ import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
 import { ScrollResolve } from "@/components/motion/ScrollResolve";
 import { Reveal } from "@/components/motion/Reveal";
 import { Lightbox } from "@/components/ui/Lightbox";
-import { TextLink } from "@/components/ui/TextLink";
-import { gallery, type Photo } from "@/content/gallery";
+import { type Photo } from "@/content/gallery";
 
 const SPEEDS = [-5, -13, -2];
 
-export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos?: Photo[]; all?: boolean }) {
+export function GalleryLanes({ photos }: { photos: Photo[] }) {
   const root = useRef<HTMLElement>(null);
   const [open, setOpen] = useState<number | null>(null);
   const reduced = useReducedMotion();
@@ -73,7 +76,7 @@ export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos
   };
 
   return (
-    <section id="archive" ref={root} aria-labelledby="archive-title" className="relative py-[8vh]">
+    <section ref={root} aria-labelledby="archive-title" className="relative py-[8vh]">
       <Reveal className="gutter">
         <h2 id="archive-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
           The archive
@@ -82,7 +85,7 @@ export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos
       </Reveal>
 
       {mobile ? (
-        <div className="gutter mt-10 flex flex-col gap-6">{photos.slice(0, all ? photos.length : 6).map((p) => tile(p))}</div>
+        <div className="gutter mt-10 flex flex-col gap-6">{photos.map((p) => tile(p))}</div>
       ) : (
         <div className="gutter mt-14 grid grid-cols-3 gap-[2vw]">
           {lanes.map((lane, i) => (
@@ -92,14 +95,6 @@ export function Archive({ photos = gallery.slice(0, 12), all = false }: { photos
           ))}
         </div>
       )}
-
-      {!all ? (
-        <div className="gutter mt-12">
-          <TextLink href="/gallery" cursor="Go">
-            Open the archive
-          </TextLink>
-        </div>
-      ) : null}
 
       <Lightbox photos={photos} index={open} onClose={() => setOpen(null)} onChange={setOpen} />
     </section>

@@ -4,10 +4,8 @@ import { Rooms } from "@/components/chapters/Rooms";
 import { Log } from "@/components/chapters/Log";
 import { DevFest } from "@/components/chapters/DevFest";
 import { Crew } from "@/components/chapters/Crew";
-import { Archive } from "@/components/chapters/Archive";
-import { Join } from "@/components/chapters/Join";
+import { Dawn } from "@/components/chapters/Dawn";
 import { Colophon } from "@/components/chapters/Colophon";
-import { Faq } from "@/components/ui/Faq";
 import { Rail } from "@/components/shell/Rail";
 import { WirePath } from "@/components/motion/WirePath";
 
@@ -23,9 +21,7 @@ export default function Home() {
         <Log />
         <DevFest />
         <Crew />
-        <Archive />
-        <Join />
-        <Faq />
+        <Dawn />
       </main>
       <Colophon />
     </>
