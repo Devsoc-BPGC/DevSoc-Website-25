@@ -196,8 +196,8 @@ The details that stop a site reading as a template. Each one is small; together 
 | # | Device | Where | Status |
 |---|---|---|---|
 | 1 | **Pill navigation.** The mark, the links and one call to action inside a single rounded pill, floating rather than sitting on a bar. On scroll it collapses to a compact pill carrying the clock and the chapter. | Every page | Task 7a |
-| 2 | **The pulse.** A short lit segment runs down the wire every sixteen seconds and is gone. Same delight as a shooting star crossing a sky, but on our own motif rather than borrowed from a night scene we no longer have. | Whole page | Built |
-| 3 | **The wire.** A conduit drawn down the entire page with a lit window riding its head, threading every chapter. | Whole page | Built |
+| 2 | **The flow field.** Perlin noise carries a few hundred particles across the footer, leaving thin fading trails. The last thing under the wordmark is air still moving. | Colophon | Built |
+| 3 | ~~**The wire.**~~ A conduit down the whole page with a lit window riding its head. Cut: as a single geometric line down a page of organic curves it read as a stray rule, not as a thread. | Whole page | Cut |
 | 4 | **Tiles that grow.** In the shelf, each project scales up as it approaches the middle of the screen and settles back as it leaves, so the one you are looking at is always the largest. | The Log | Task 7 |
 | 5 | **Wave dividers.** Sections do not meet on a straight edge. The next ground rises into the current one on a soft organic curve, alternating crest and trough so no two transitions repeat. | Every boundary | Built |
 | 6 | **Click to light a window.** At Dawn, a flat facade with dark windows. Each click lights one, warm amber, and it stays lit, with a count of how many. Every window is someone who walked in. | Dawn | Task 8 |

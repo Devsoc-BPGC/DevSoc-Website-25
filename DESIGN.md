@@ -39,7 +39,7 @@ Two themes. **Night is the default and is unconditional**: an OS light preferenc
 
 - Display: Archivo variable, wdth 125, wght 800 to 900, uppercase. Wordmark, chapter titles, the flywheel index. Leading 0.86, tracking -0.02em.
 - Voice: Bodoni Moda italic. One line statements over images and pull lines. Never body.
-- Technical: Martian Mono, wdth 75 to 100, wght 300 to 500. Nav, clock, labels, numerals, tables.
+- Technical: IBM Plex Mono, 400 and 500. Nav, clock, labels, numerals, tables. 13px, tabular numerals.
 - Body: Archivo, wdth 100, wght 400. 17px / 1.6, max 68ch.
 - HUD: DotGothic16, only the film timecode.
 
@@ -77,7 +77,7 @@ Sections do not meet on a straight edge: `WaveDivider` raises the next ground in
 
 Scroll drives the page, and every chapter plays itself. The flywheel turns a sixth of a revolution per vertical and the spoke at the tick is the one you are reading. The shelf of projects pans sideways under vertical scroll and each tile grows as it crosses the middle. Photographs lift out of the grade at the middle of the screen. The credits portrait follows whichever name is level with the middle. The film scrubs. Hover refines what scroll has already shown; clicks are for navigation and for lighting a window.
 
-Two things run on their own clock, and only ever one per viewport: a pulse down the wire every sixteen seconds, and the ambient light field breathing behind each chapter.
+Two things run on their own clock, and only ever one per viewport: the ambient light field breathing behind each chapter, and a Perlin noise flow field drifting behind the footer type. The footer is the one place nothing else is moving, which is why the flow field lives there and nowhere else.
 
 Images never warp. `LitImage` swaps one plate for the next on a grain sweep with both plates perfectly straight, because a lens ripple across a face reads as a defect rather than an effect. What the pointer carries instead is a light: where it falls the grade lifts and the picture warms, which is the same gesture as lighting a window.
 

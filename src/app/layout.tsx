@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bodoni_Moda, Martian_Mono, DotGothic16 } from "next/font/google";
+import { Archivo, Bodoni_Moda, IBM_Plex_Mono, DotGothic16 } from "next/font/google";
 import "@/styles/globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
@@ -28,11 +28,13 @@ const bodoni = Bodoni_Moda({
   display: "swap",
 });
 
-// Technical: a wide monospace grotesque with a width axis (the Heming role).
-const martian = Martian_Mono({
+// Technical: a normal width monospace with an editorial cut, for nav, the
+// clock, labels, numerals and tables. It carries the whole metadata layer, so
+// it has to read at 13px in a table without shouting.
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-martian",
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
   display: "swap",
 });
 
@@ -78,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       data-theme="night"
       suppressHydrationWarning
-      className={`${archivo.variable} ${bodoni.variable} ${martian.variable} ${dotgothic.variable}`}
+      className={`${archivo.variable} ${bodoni.variable} ${plexMono.variable} ${dotgothic.variable}`}
     >
       <head>
         {/* Applies the stored lighting before first paint, so night never flashes. */}

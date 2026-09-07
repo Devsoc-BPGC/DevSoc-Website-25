@@ -7,14 +7,12 @@ import { Crew } from "@/components/chapters/Crew";
 import { Dawn } from "@/components/chapters/Dawn";
 import { Colophon } from "@/components/chapters/Colophon";
 import { Rail } from "@/components/shell/Rail";
-import { WirePath } from "@/components/motion/WirePath";
 
 export default function Home() {
   return (
     <>
       <Rail />
       <main className="relative">
-        <WirePath />
         <Dusk />
         <Society />
         <Rooms />

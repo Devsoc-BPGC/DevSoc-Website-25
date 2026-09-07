@@ -59,7 +59,7 @@ The DS mark is `public/images/brand/mark.png`; a vector version would sharpen th
 
 ## Fonts
 
-Archivo (display and body), Bodoni Moda (voice), Martian Mono (technical) and DotGothic16 (timecode) are loaded through `next/font/google` in `src/app/layout.tsx`. To use licensed Wild World, Heming or Disket Mono instead, add the files under `public/fonts`, switch the matching loader to `next/font/local`, and keep the CSS variable names.
+Archivo (display and body), Bodoni Moda (voice), IBM Plex Mono (technical) and DotGothic16 (timecode) are loaded through `next/font/google` in `src/app/layout.tsx`. To use licensed Wild World, Heming or Disket Mono instead, add the files under `public/fonts`, switch the matching loader to `next/font/local`, and keep the CSS variable names.
 
 ## Motion rules
 

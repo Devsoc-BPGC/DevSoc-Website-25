@@ -20,13 +20,31 @@ export function Rail() {
       .map((c) => document.getElementById(c.id))
       .filter((el): el is HTMLElement => Boolean(el));
     if (!sections.length) return;
+
+    /**
+     * Nothing is in the reading band: either we are still above the first
+     * chapter, or we are past the last one and standing in the footer. Fall
+     * back to the chapter whose top we most recently passed, so the rail never
+     * keeps a stale name and never snaps back to the first chapter.
+     */
+    const settle = () => {
+      if (window.scrollY < window.innerHeight * 0.6) {
+        setActive("");
+        return;
+      }
+      const mid = window.scrollY + window.innerHeight / 2;
+      let best = sections[0];
+      for (const el of sections) if (el.offsetTop <= mid) best = el;
+      setActive(best.id);
+    };
+
     const io = new IntersectionObserver(
       (entries) => {
         const hit = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (hit) setActive(hit.target.id);
-        else if (window.scrollY < window.innerHeight * 0.6) setActive("");
+        else settle();
       },
       { rootMargin: "-40% 0px -40% 0px", threshold: [0, 0.2, 0.5] },
     );

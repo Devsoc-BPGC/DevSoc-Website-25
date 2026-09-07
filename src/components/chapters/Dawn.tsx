@@ -17,6 +17,7 @@ import Image from "next/image";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { SplitLines } from "@/components/motion/SplitLines";
 import { Reveal } from "@/components/motion/Reveal";
+import { WaveDivider } from "@/components/motion/WaveDivider";
 import { TextLink } from "@/components/ui/TextLink";
 import { faq } from "@/content/faq";
 import { site } from "@/content/site";
@@ -199,6 +200,8 @@ export function Dawn() {
           </Magnetic>
         </Reveal>
       </div>
+
+      <WaveDivider fill="var(--surface-raised)" flip />
     </section>
   );
 }
