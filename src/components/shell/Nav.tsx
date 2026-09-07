@@ -28,7 +28,7 @@ export function Nav() {
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 flex items-center justify-between gutter"
+        className="chrome fixed inset-x-0 top-0 flex items-center justify-between gutter"
         style={{ height: "var(--nav-h)", zIndex: "var(--z-nav)" }}
       >
         <Link href="/" className="flex items-center gap-3" aria-label="DevSoc, home" data-cursor="Home">

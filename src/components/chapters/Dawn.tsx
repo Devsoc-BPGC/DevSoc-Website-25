@@ -3,13 +3,7 @@
 /**
  * Dawn
  * The night ends and the door is open. The last chapter is the way in: the
- * list if it is out, the wall of windows you can light, and the questions
- * people actually ask.
- *
- * The wall is the whole story in one object. It starts dark, and every click
- * lights a window for good, because every lit window in this site is somebody
- * who walked in and stayed. It is the only thing on the page that asks to be
- * clicked, and nothing is hidden behind it.
+ * list if it is out, and the questions people actually ask.
  */
 
 import { useMemo, useState } from "react";
@@ -24,49 +18,6 @@ import { site } from "@/content/site";
 import inductees from "@/content/inductees.json";
 
 type Inductee = { name: string; id: string | null };
-
-const WINDOWS = 48;
-
-/** The wall. Dark until somebody lights it, and it never goes back. */
-function Wall() {
-  const [lit, setLit] = useState<number[]>([]);
-  const count = lit.length;
-
-  return (
-    <div>
-      {/* Six across on a phone so a window is still worth tapping, twelve
-          across on a wide screen where it reads as a facade. */}
-      <div className="grid grid-cols-6 items-start gap-1.5 rounded-[2px] bg-raised/60 p-3 md:grid-cols-12 md:gap-[0.6vw] md:p-[1.2vw]">
-        {Array.from({ length: WINDOWS }, (_, i) => {
-          const on = lit.includes(i);
-          return (
-            <button
-              key={i}
-              type="button"
-              disabled={on}
-              aria-pressed={on}
-              aria-label={on ? `Window ${i + 1}, lit` : `Light window ${i + 1}`}
-              onClick={() => setLit((prev) => (prev.includes(i) ? prev : [...prev, i]))}
-              data-cursor={on ? undefined : "Light"}
-              className="aspect-[3/4] rounded-[1px] transition-[background-color,box-shadow] duration-700 ease-[var(--ease-out-expo)] disabled:cursor-default"
-              style={
-                on
-                  ? {
-                      background: "var(--accent-warm)",
-                      boxShadow: "0 0 18px 1px color-mix(in oklch, var(--accent-warm) 45%, transparent)",
-                    }
-                  : { background: "color-mix(in oklch, var(--bg-base) 82%, var(--rule-color))" }
-              }
-            />
-          );
-        })}
-      </div>
-      <p className="meta mt-4 text-muted" aria-live="polite">
-        {count === 0 ? "Every window is someone who walked in." : `${count} of ${WINDOWS} lit.`}
-      </p>
-    </div>
-  );
-}
 
 export function Dawn() {
   const [q, setQ] = useState("");
@@ -164,18 +115,6 @@ export function Dawn() {
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="gutter grid-12 items-center gap-y-10 py-[14vh]">
-        <Reveal className="col-span-12 lg:col-span-4">
-          <h3 className="display text-[clamp(2rem,4vw,4rem)] text-primary">The wall</h3>
-          <p className="body-copy mt-5 max-w-[34ch]">
-            Six rooms stayed lit all night. The wall fills up one person at a time. Light one.
-          </p>
-        </Reveal>
-        <Reveal className="col-span-12 lg:col-span-6 lg:col-start-6">
-          <Wall />
-        </Reveal>
       </div>
 
       <div className="gutter grid-12 py-[10vh]">

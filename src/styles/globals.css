@@ -179,6 +179,29 @@ p {
 
 /* ------------------------------------------------------------------ utilities */
 
+/* The Society inverts the page under the fixed chrome, which would otherwise
+   sit there in the wrong tone, unreadable, for the length of the takeover.
+   Rather than hold it half legible while the flood crosses, the chrome steps
+   out, swaps tone while it is gone, and comes back inverted. Only the role
+   tokens move, so every utility inside follows without knowing why. */
+.chrome {
+  transition:
+    color 600ms var(--ease-out-expo),
+    border-color 600ms var(--ease-out-expo),
+    opacity 450ms var(--ease-out-expo);
+}
+
+[data-ink="cross"] .chrome {
+  opacity: 0;
+}
+
+[data-ink="1"] .chrome {
+  --text-primary: var(--bg-base);
+  --text-muted: color-mix(in oklch, var(--bg-base) 62%, transparent);
+  --rule-color: color-mix(in oklch, var(--bg-base) 55%, transparent);
+  --accent-light: color-mix(in oklch, var(--accent-light) 62%, var(--bg-base));
+}
+
 @utility gutter {
   padding-inline: var(--gutter);
 }

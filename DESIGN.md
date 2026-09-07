@@ -48,7 +48,7 @@ Two themes. **Night is the default and is unconditional**: an OS light preferenc
 | Id | Chapter | What happens |
 |---|---|---|
 | `dusk` | Dusk | The facade fills the frame, six windows lit, the wordmark over it. |
-| `society` | The Society | Who we are, in the fewest words that are true. |
+| `society` | The Society | The one tonal inversion. Ink floods the pinned stage and the page turns over, ground and type, while the board settles. |
 | `rooms` | The Flywheel | The six verticals on a wheel that scroll turns. |
 | `log` | The Log | The fest app film scrubs, then the shelf of projects pans sideways. |
 | `devfest` | DevFest | The same building with every window lit. |
@@ -80,6 +80,8 @@ Sections do not meet on a straight edge: `WaveDivider` raises the next ground in
 The page opens on the wordmark. DEVSOC has six letters and the society has six rooms, so the six letters light one at a time, each with a short warm flash, the way a window does when somebody switches a lamp on. Then the veil wipes up into the hero, where the same six are lit on the face of the building. It runs once per session, about two seconds, and any click or key skips it.
 
 Scroll drives the page, and every chapter plays itself. The flywheel turns a sixth of a revolution per vertical and the spoke at the tick is the one you are reading. The shelf of projects pans sideways under vertical scroll and each tile grows as it crosses the middle. Photographs lift out of the grade at the middle of the screen. The credits portrait follows whichever name is level with the middle. The film scrubs. Hover refines what scroll has already shown; clicks are for navigation and for lighting a window.
+
+One section inverts. The Society pins and ink floods it diagonally through a grainy dissolving edge until ground and type have swapped, which is the thing the copy says: work done in the dark is what the campus sees in daylight. It is the only tonal inversion on the site, and that is what makes it land. The fixed chrome steps out while the flood crosses and returns in the opposite tone, because holding it half legible through a full-screen inversion is worse than hiding it. The board of facts settles like a departure board once the ink has crossed it.
 
 Two things run on their own clock, and only ever one per viewport: the ambient light field breathing behind each chapter, and a Perlin noise flow field drifting behind the footer type. The footer is the one place nothing else is moving, which is why the flow field lives there and nowhere else.
 

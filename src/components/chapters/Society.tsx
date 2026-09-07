@@ -2,19 +2,34 @@
 
 /**
  * The Society
- * A breath between two loud chapters, and the only place that says plainly
- * what this is. One statement, one paragraph that names the six rooms in
- * passing, and the facts as a plain list of rows.
+ * The turn. Everywhere else the night holds; here it gives way.
  *
- * Left aligned on the grid like everything else. The earlier centred version
- * floated in the middle of the page with nothing holding it, and the line it
- * ended on was a pun about Goa being a port, which said nothing true about
- * the society. No artwork here on purpose: the quiet is the point.
+ * The section pins and one thing happens: ink floods the stage diagonally
+ * with a grainy dissolving edge until the whole thing has inverted, ground to
+ * type. It is the only tonal inversion on the site, which is what makes it
+ * land, and it says the thing the copy says. Work done in the dark is what
+ * the campus sees in daylight.
+ *
+ * The board on the right settles like a departure board once the ink has
+ * mostly crossed it. Facts about a society are the one place a split-flap is
+ * honest rather than decorative: they are the numbers on the board.
+ *
+ * The stage is written once and rendered twice, in two tones. Both copies
+ * have identical layout, so the inverted one can sit exactly on top of the
+ * other under the mask and nothing shifts as it arrives. Only the plain copy
+ * is in the accessibility tree.
+ *
+ * A phone and reduced motion both get the plain stage, unpinned and never
+ * inverted, with the board already settled.
  */
 
+import { useRef, useState } from "react";
+import { ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
 import { Ambient } from "@/components/motion/Ambient";
+import { InkBleed, type InkBleedHandle } from "@/components/motion/InkBleed";
 import { Reveal } from "@/components/motion/Reveal";
-import { SplitLines } from "@/components/motion/SplitLines";
+import { SplitFlap } from "@/components/motion/SplitFlap";
 import { WaveDivider } from "@/components/motion/WaveDivider";
 import { chapters } from "@/content/chapters";
 import { site } from "@/content/site";
@@ -26,49 +41,157 @@ const facts = [
   { label: "Campus", value: site.campusShort },
 ];
 
-export function Society() {
-  const light = chapters[1].light;
+/** The two tones the stage is drawn in. Ink is the page turned over. */
+function tones(ink: boolean) {
+  return ink
+    ? {
+        primary: "var(--bg-base)",
+        muted: "color-mix(in oklch, var(--bg-base) 62%, var(--text-primary))",
+        rule: "color-mix(in oklch, var(--bg-base) 40%, transparent)",
+      }
+    : {
+        primary: "var(--text-primary)",
+        muted: "var(--text-muted)",
+        rule: "color-mix(in oklch, var(--rule-color) 30%, transparent)",
+      };
+}
 
+function Stage({ ink = false, flap = false }: { ink?: boolean; flap?: boolean }) {
+  const t = tones(ink);
   return (
-    <section id="society" className="relative overflow-hidden pb-[24vh] pt-[22vh]" aria-labelledby="society-line">
-      <Ambient x={light.x} y={light.y} intensity={0.3} />
-
-      <div className="relative gutter">
-        <h2 className="meta mb-10 text-muted">The Society</h2>
-
-        <div className="grid-12 items-end gap-y-14">
-          <div className="col-span-12 lg:col-span-7">
-            <SplitLines
-              as="p"
-              id="society-line"
-              className="voice max-w-[17ch] text-[clamp(2rem,4.4vw,4.4rem)] leading-[1.06] text-primary"
-            >
-              Every fest the campus turns up to runs on something built the night before.
-            </SplitLines>
-
-            <p className="body-copy mt-10 max-w-[52ch]">
-              Six rooms, one society: web, app, game, AI and ML, UI and UX, and engine development. We build the fest
-              sites the whole campus registers on, the apps that open on every phone during Waves and Quark, and the
-              small tools that fix a Tuesday. Nobody here is paid and nothing here is a mock-up.
-            </p>
-          </div>
-
-          <Reveal
-            as="dl"
-            stagger={0.07}
-            y={18}
-            className="col-span-12 sm:col-span-8 lg:col-span-4 lg:col-start-8"
-          >
-            {facts.map((f) => (
-              <div key={f.label} className="flex items-baseline justify-between gap-6 border-t border-rule/25 py-4 last:border-b">
-                <dt className="meta text-muted">{f.label}</dt>
-                <dd className="meta text-right text-primary">{f.value}</dd>
-              </div>
-            ))}
-          </Reveal>
-        </div>
+    <div className="grid-12 items-start gap-y-12 gutter">
+      <div className="col-span-12 lg:col-span-6">
+        <p className="meta mb-8" style={{ color: t.muted }}>
+          The Society
+        </p>
+        <p
+          className="voice max-w-[15ch] text-[clamp(2rem,4.2vw,4.2rem)] leading-[1.04]"
+          style={{ color: t.primary }}
+          id={ink ? undefined : "society-line"}
+        >
+          Every fest the campus turns up to runs on something built the night before.
+        </p>
+        <p className="body-copy mt-9 max-w-[46ch]" style={{ color: t.muted }}>
+          Six rooms, one society: web, app, game, AI and ML, UI and UX, and engine development. We build the fest sites
+          the whole campus registers on, the apps that open on every phone during Waves and Quark, and the small tools
+          that fix a Tuesday. Nobody here is paid and nothing here is a mock-up.
+        </p>
       </div>
 
+      <dl className="col-span-12 sm:col-span-8 lg:col-span-4 lg:col-start-8">
+        {facts.map((f, i) => (
+          <div
+            key={f.label}
+            className="flex items-baseline justify-between gap-6 border-t py-4 last:border-b"
+            style={{ borderColor: t.rule }}
+          >
+            <dt className="meta" style={{ color: t.muted }}>
+              {f.label}
+            </dt>
+            <dd className="meta text-right" style={{ color: t.primary }}>
+              <SplitFlap text={f.value} play={flap} delay={i * 0.09} />
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+export function Society() {
+  const track = useRef<HTMLDivElement>(null);
+  const ink = useRef<InkBleedHandle>(null);
+  const [flap, setFlap] = useState(false);
+  const reduced = useReducedMotion();
+  const mobile = useIsMobile();
+  /** The stage only pins where it fits: a phone gets the plain layout. */
+  const still = reduced || mobile;
+  const light = chapters[1].light;
+
+  /** The fixed chrome watches this: "" normal, "cross" hidden, "1" inverted. */
+  const setInk = (v: string) => {
+    const el = document.documentElement;
+    if (v) {
+      if (el.dataset.ink !== v) el.dataset.ink = v;
+    } else if (el.dataset.ink) {
+      delete el.dataset.ink;
+    }
+  };
+
+  useGSAP(
+    () => {
+      if (still || !track.current) return;
+      const st = ScrollTrigger.create({
+        trigger: track.current,
+        start: "top top",
+        end: "bottom bottom",
+        onUpdate(self) {
+          // The stage holds for a moment before the ink starts, so the reader
+          // reads the line on the night ground first.
+          const p = (self.progress - 0.16) / 0.7;
+          ink.current?.set(p);
+          if (p > 0.55) setFlap(true);
+          setInk(p < 0.22 ? "" : p < 0.85 ? "cross" : "1");
+        },
+      });
+
+      /**
+       * The pin releases while the flooded stage is still on screen: it has
+       * another viewport of scrolling to do before it clears the top. The
+       * chrome has to stay inverted for all of that, so its lifetime is a
+       * second trigger that runs until the whole track is past.
+       */
+      const hold = ScrollTrigger.create({
+        trigger: track.current,
+        start: "top top",
+        end: "bottom top",
+        onLeave: () => setInk(""),
+        onLeaveBack: () => setInk(""),
+      });
+
+      return () => {
+        st.kill();
+        hold.kill();
+        setInk("");
+      };
+    },
+    { scope: track, dependencies: [still] },
+  );
+
+  if (still) {
+    return (
+      <section id="society" className="relative overflow-hidden py-[18vh]" aria-labelledby="society-line">
+        <Ambient x={light.x} y={light.y} intensity={0.3} />
+        <div className="relative">
+          <Reveal>
+            <Stage flap />
+          </Reveal>
+        </div>
+        <WaveDivider fill="var(--surface-raised)" flip />
+      </section>
+    );
+  }
+
+  return (
+    <section id="society" aria-labelledby="society-line" className="relative">
+      <div ref={track} className="relative h-[220vh]">
+        {/* Both copies are centred in the same full-height box at the same
+            width, so the inverted one lands exactly on the plain one. */}
+        <div className="sticky top-0 flex h-[100dvh] items-center overflow-hidden">
+          <Ambient x={light.x} y={light.y} intensity={0.3} />
+
+          <div className="relative w-full">
+            <Stage />
+          </div>
+
+          <InkBleed ref={ink} className="flex items-center">
+            <div className="absolute inset-0" style={{ background: "var(--text-primary)" }} />
+            <div className="relative w-full">
+              <Stage ink flap={flap} />
+            </div>
+          </InkBleed>
+        </div>
+      </div>
       <WaveDivider fill="var(--surface-raised)" flip />
     </section>
   );

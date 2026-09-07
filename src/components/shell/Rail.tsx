@@ -60,7 +60,7 @@ export function Rail() {
   return (
     <nav
       aria-label="Chapters"
-      className={`fixed right-5 top-1/2 hidden -translate-y-1/2 transition-opacity duration-1000 lg:block ${
+      className={`chrome fixed right-5 top-1/2 hidden -translate-y-1/2 transition-opacity duration-1000 lg:block ${
         active ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
       style={{ zIndex: "var(--z-nav)" }}
