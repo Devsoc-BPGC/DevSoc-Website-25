@@ -14,7 +14,7 @@ Four images of **the same building**. The paragraph describing the building is w
 
 ## 1. Night, landscape
 
-`public/images/hero/facade-night-wide.jpg` — **1920 x 1080, 16:9 landscape**
+`public/images/hero/facade-night-wide.jpg`: **1920 x 1080, 16:9 landscape**
 
 ```
 Flat vector illustration of a four storey concrete academic building seen perfectly straight on like an architectural elevation, symmetrical, no perspective. The building fills the entire frame edge to edge and top to bottom, with no sky above it and no empty ground below it. Fourteen bays of tall rectangular windows run across each of the four floors, separated by plain concrete piers, with a flat horizontal ledge line between every floor. In the exact horizontal centre of the building there is a recessed main entrance: a wide dark doorway under a plain flat canopy, with a broad flight of shallow steps below it running down to the bottom edge of the frame. The top of the entrance canopy sits about two thirds of the way down the frame.
@@ -26,7 +26,7 @@ Bold flat geometric shapes, limited palette of deep indigo, dark blue grey, near
 
 ## 2. Night, portrait
 
-`public/images/hero/facade-night-tall.jpg` — **1080 x 1920, 9:16 portrait**
+`public/images/hero/facade-night-tall.jpg`: **1080 x 1920, 9:16 portrait**
 
 ```
 Flat vector illustration of a four storey concrete academic building seen perfectly straight on like an architectural elevation, symmetrical, no perspective. The building fills the entire frame edge to edge and top to bottom, with no sky above it and no empty ground below it. Six bays of tall rectangular windows run across each of the four floors, separated by plain concrete piers, with a flat horizontal ledge line between every floor. In the exact horizontal centre of the building there is a recessed main entrance: a wide dark doorway under a plain flat canopy, with a broad flight of shallow steps below it running down to the bottom edge of the frame. The top of the entrance canopy sits about two thirds of the way down the frame.
@@ -38,7 +38,7 @@ Bold flat geometric shapes, limited palette of deep indigo, dark blue grey, near
 
 ## 3. Morning, landscape
 
-`public/images/hero/facade-morning-wide.jpg` — **1920 x 1080, 16:9 landscape**
+`public/images/hero/facade-morning-wide.jpg`: **1920 x 1080, 16:9 landscape**
 
 ```
 Flat vector illustration of a four storey concrete academic building seen perfectly straight on like an architectural elevation, symmetrical, no perspective. The building fills the entire frame edge to edge and top to bottom, with no sky above it and no empty ground below it. Fourteen bays of tall rectangular windows run across each of the four floors, separated by plain concrete piers, with a flat horizontal ledge line between every floor. In the exact horizontal centre of the building there is a recessed main entrance: a wide dark doorway under a plain flat canopy, with a broad flight of shallow steps below it running down to the bottom edge of the frame. The top of the entrance canopy sits about two thirds of the way down the frame.
@@ -50,7 +50,7 @@ Bold flat geometric shapes, limited palette of pale sea green, warm pale grey, b
 
 ## 4. Morning, portrait
 
-`public/images/hero/facade-morning-tall.jpg` — **1080 x 1920, 9:16 portrait**
+`public/images/hero/facade-morning-tall.jpg`: **1080 x 1920, 9:16 portrait**
 
 ```
 Flat vector illustration of a four storey concrete academic building seen perfectly straight on like an architectural elevation, symmetrical, no perspective. The building fills the entire frame edge to edge and top to bottom, with no sky above it and no empty ground below it. Six bays of tall rectangular windows run across each of the four floors, separated by plain concrete piers, with a flat horizontal ledge line between every floor. In the exact horizontal centre of the building there is a recessed main entrance: a wide dark doorway under a plain flat canopy, with a broad flight of shallow steps below it running down to the bottom edge of the frame. The top of the entrance canopy sits about two thirds of the way down the frame.

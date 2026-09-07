@@ -180,7 +180,7 @@ Supporting texture: a custom dot cursor, dashed hand-drawn paths, and section-to
 
 | # | Section | Height | Ground | Contents |
 |---|---|---|---|---|
-| 0 | Route curtain | 900 | — | transition veil |
+| 0 | Route curtain | 900 | none | transition veil |
 | 1 | Hero | 900 | painted sky | mono eyebrow with dot, two-line serif display split around a music player, rotated side rail, illustrated horizon |
 | 2 | Story | 821 | cream | one oversized centred paragraph, then one bold statement; plane path enters |
 | 3 | Featured work | 1889 | cream | light Inter heading, small logo marquee, then 2x2 photographic tiles with rounded corners |

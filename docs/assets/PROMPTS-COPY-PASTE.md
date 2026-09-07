@@ -24,7 +24,7 @@ It comes straight from the line the site opens on: the campus sleeps, six rooms 
 
 ## 1. Hero, night, wide
 
-`public/images/hero/facade-night-wide.jpg` — **1920 x 1080, 16:9 landscape**
+`public/images/hero/facade-night-wide.jpg`: **1920 x 1080, 16:9 landscape**
 
 ```
 Flat vector illustration of the front of a long low concrete academic building at night, drawn straight on like an elevation, filling the frame. A regular grid of about forty rectangular windows across four floors. Most windows are dark indigo. Exactly six windows, scattered and not adjacent, are filled solid warm amber as if lit from inside, each with a soft amber glow spilling onto the wall around it. The building itself is a flat near-black shape against a slightly lighter deep indigo ground. A simple flat concrete stair and a horizontal ledge line break the grid. The bottom fifth of the frame is plain dark ground, kept empty for text. Bold geometric shapes, limited palette of deep indigo, near-black and warm amber, subtle grain. Screen print feel. No photorealism, no 3D render, no sky, no stars, no trees, no text, no people.
@@ -32,7 +32,7 @@ Flat vector illustration of the front of a long low concrete academic building a
 
 ## 2. Hero, night, tall
 
-`public/images/hero/facade-night-tall.jpg` — **1080 x 1920, 9:16 portrait**
+`public/images/hero/facade-night-tall.jpg`: **1080 x 1920, 9:16 portrait**
 
 ```
 Flat vector illustration of a tall section of a concrete academic building at night, drawn straight on like an elevation, filling a vertical frame. A regular grid of about eighteen rectangular windows across six floors. Most are dark indigo. Exactly four windows, scattered and not adjacent, are solid warm amber as if lit from inside, each with a soft amber glow on the surrounding wall. The building is a flat near-black shape against a deep indigo ground. The bottom quarter is plain dark ground, kept empty for text. Bold geometric shapes, limited palette of deep indigo, near-black and warm amber, subtle grain. Screen print feel. No photorealism, no 3D render, no sky, no stars, no trees, no text, no people.
@@ -40,7 +40,7 @@ Flat vector illustration of a tall section of a concrete academic building at ni
 
 ## 3. Hero, morning, wide
 
-`public/images/hero/facade-morning-wide.jpg` — **1920 x 1080, 16:9 landscape**
+`public/images/hero/facade-morning-wide.jpg`: **1920 x 1080, 16:9 landscape**
 
 ```
 Flat vector illustration of the front of a long low concrete academic building in flat morning light, drawn straight on like an elevation, filling the frame. The same regular grid of about forty rectangular windows across four floors, now all a flat pale sea green as if reflecting the sky, none of them lit. The building is a soft warm grey shape against a pale sea green ground. A simple flat concrete stair and a horizontal ledge line break the grid, casting one long flat shadow to the right. The bottom fifth of the frame is plain pale ground, kept empty for text. Bold geometric shapes, limited palette of pale sea green, warm grey and bone white, subtle grain. Screen print feel. No photorealism, no 3D render, no sky detail, no trees, no text, no people.
@@ -48,7 +48,7 @@ Flat vector illustration of the front of a long low concrete academic building i
 
 ## 4. Hero, morning, tall
 
-`public/images/hero/facade-morning-tall.jpg` — **1080 x 1920, 9:16 portrait**
+`public/images/hero/facade-morning-tall.jpg`: **1080 x 1920, 9:16 portrait**
 
 ```
 Flat vector illustration of a tall section of a concrete academic building in flat morning light, drawn straight on like an elevation, filling a vertical frame. A grid of about eighteen rectangular windows across six floors, all flat pale sea green as if reflecting the sky, none lit. The building is a soft warm grey shape against a pale sea green ground, with one long flat shadow. The bottom quarter is plain pale ground, kept empty for text. Bold geometric shapes, limited palette of pale sea green, warm grey and bone white, subtle grain. Screen print feel. No photorealism, no 3D render, no sky detail, no trees, no text, no people.
@@ -60,7 +60,7 @@ The next six are posters, one per vertical. Same treatment every time: one flat 
 
 ## 5. Web
 
-`public/images/rooms/01-web.jpg` — **1024 x 1280, 4:5 portrait**
+`public/images/rooms/01-web.jpg`: **1024 x 1280, 4:5 portrait**
 
 ```
 Poster illustration. A flat deep teal background filling the whole frame, no gradient and no scene. Centred slightly high, a single simple browser window drawn as clean flat shapes: a rounded rectangle, a title bar with three small circles, and three plain blocks inside standing in for content. Bone white and warm amber shapes on the teal. A soft dark contact shadow beneath the window. Screen print feel, subtle grain, bold and simple. No photorealism, no 3D render, no readable text, no logos.
@@ -68,7 +68,7 @@ Poster illustration. A flat deep teal background filling the whole frame, no gra
 
 ## 6. App
 
-`public/images/rooms/02-app.jpg` — **1024 x 1280, 4:5 portrait**
+`public/images/rooms/02-app.jpg`: **1024 x 1280, 4:5 portrait**
 
 ```
 Poster illustration. A flat warm amber background filling the whole frame, no gradient and no scene. Centred slightly high, a single modern smartphone seen straight on, drawn as clean flat shapes with a near-black body and a dark screen holding a simple grid of six small rounded app squares in bone white, teal and amber. A soft dark contact shadow beneath the phone. Screen print feel, subtle grain, bold and simple. No photorealism, no 3D render, no readable text, no logos.
@@ -76,7 +76,7 @@ Poster illustration. A flat warm amber background filling the whole frame, no gr
 
 ## 7. Game
 
-`public/images/rooms/03-game.jpg` — **1024 x 1280, 4:5 portrait**
+`public/images/rooms/03-game.jpg`: **1024 x 1280, 4:5 portrait**
 
 ```
 Poster illustration. A flat deep indigo background filling the whole frame, no gradient and no scene. Centred slightly high, a single game controller drawn as clean flat shapes: a rounded body in bone white with two grips, a directional pad, and four small round buttons in warm amber and patina teal. A soft dark contact shadow beneath it. Screen print feel, subtle grain, bold and simple. No photorealism, no 3D render, no text, no logos.
@@ -84,7 +84,7 @@ Poster illustration. A flat deep indigo background filling the whole frame, no g
 
 ## 8. AI and ML
 
-`public/images/rooms/04-ai-ml.jpg` — **1024 x 1280, 4:5 portrait**
+`public/images/rooms/04-ai-ml.jpg`: **1024 x 1280, 4:5 portrait**
 
 ```
 Poster illustration. A flat patina teal background filling the whole frame, no gradient and no scene. Centred slightly high, a simple network of about twelve solid circles joined by thin straight lines, arranged in three loose vertical layers like a small neural network. Circles in bone white and warm amber, lines in a darker teal. A soft dark contact shadow beneath the shape. Screen print feel, subtle grain, bold and simple. No photorealism, no 3D render, no text, no logos.
@@ -92,7 +92,7 @@ Poster illustration. A flat patina teal background filling the whole frame, no g
 
 ## 9. UI and UX
 
-`public/images/rooms/05-ui-ux.jpg` — **1024 x 1280, 4:5 portrait**
+`public/images/rooms/05-ui-ux.jpg`: **1024 x 1280, 4:5 portrait**
 
 ```
 Poster illustration. A flat bone white background filling the whole frame, no gradient and no scene. Centred slightly high, three simple rounded rectangles stacked with a slight offset like layered artboards, in deep indigo, patina teal and warm amber, with a single plain pen shape resting diagonally across the top one. A soft grey contact shadow beneath the stack. Screen print feel, subtle grain, bold and simple. No photorealism, no 3D render, no text, no logos.
@@ -100,7 +100,7 @@ Poster illustration. A flat bone white background filling the whole frame, no gr
 
 ## 10. Engine
 
-`public/images/rooms/06-engine.jpg` — **1024 x 1280, 4:5 portrait**
+`public/images/rooms/06-engine.jpg`: **1024 x 1280, 4:5 portrait**
 
 ```
 Poster illustration. A flat near-black background filling the whole frame, no gradient and no scene. Centred slightly high, a single simple gear wheel drawn as a clean flat shape in brass and warm amber, with a plain circular hole at its centre and even square teeth around the rim. A smaller gear overlapping it at the lower right in patina teal. A soft contact shadow beneath. Screen print feel, subtle grain, bold and simple. No photorealism, no 3D render, no text, no logos.
@@ -110,7 +110,7 @@ Poster illustration. A flat near-black background filling the whole frame, no gr
 
 ## 11. DevFest
 
-`public/images/devfest/facade-full-wide.jpg` — **1920 x 1080, 16:9 landscape**
+`public/images/devfest/facade-full-wide.jpg`: **1920 x 1080, 16:9 landscape**
 
 ```
 Flat vector illustration of the same long low concrete academic building at night, drawn straight on like an elevation, filling the frame. The same regular grid of about forty rectangular windows across four floors, but now every single window is solid warm amber as if the whole building is awake, with a broad soft amber glow washing the wall and the ground in front. The building is a flat near-black shape against a deep indigo ground. The bottom fifth is plain dark ground, kept empty for text. Bold geometric shapes, limited palette of deep indigo, near-black and warm amber, subtle grain. Screen print feel. No photorealism, no 3D render, no sky, no stars, no trees, no text, no people.
@@ -118,7 +118,7 @@ Flat vector illustration of the same long low concrete academic building at nigh
 
 ## 12. Dawn, wide
 
-`public/images/dawn/door-wide.jpg` — **1920 x 1080, 16:9 landscape**
+`public/images/dawn/door-wide.jpg`: **1920 x 1080, 16:9 landscape**
 
 ```
 Flat vector illustration of the ground floor of a concrete academic building at first light, drawn straight on like an elevation, filling the frame. A row of rectangular windows, all dark and empty now. At the centre left, one open doorway, a plain rectangle of pale warm light, with a long flat trapezoid of that same pale light falling from it across the ground toward the viewer. The wall is a flat warm grey against a pale sea green ground. Bold geometric shapes, limited palette of pale sea green, warm grey and pale warm light, subtle grain. Screen print feel. No photorealism, no 3D render, no sky detail, no trees, no text, no people.
@@ -126,7 +126,7 @@ Flat vector illustration of the ground floor of a concrete academic building at 
 
 ## 13. Dawn, tall
 
-`public/images/dawn/door-tall.jpg` — **1080 x 1920, 9:16 portrait**
+`public/images/dawn/door-tall.jpg`: **1080 x 1920, 9:16 portrait**
 
 ```
 Flat vector illustration of the ground floor of a concrete academic building at first light, drawn straight on like an elevation, in a vertical frame. A few dark rectangular windows above, and at the centre one open doorway, a plain rectangle of pale warm light, with a long flat trapezoid of that light falling from it across the ground toward the viewer. Flat warm grey wall against a pale sea green ground. Bold geometric shapes, limited palette, subtle grain. Screen print feel. No photorealism, no 3D render, no sky detail, no trees, no text, no people.
@@ -134,7 +134,7 @@ Flat vector illustration of the ground floor of a concrete academic building at 
 
 ## 14. The lit window
 
-`public/images/brand/window.png` — **512 x 512, 1:1 square, transparent background**
+`public/images/brand/window.png`: **512 x 512, 1:1 square, transparent background**
 
 ```
 Flat vector illustration of a single tall rectangular window filled with solid warm amber light, with a simple two bar frame across it in near-black and a soft amber glow bleeding outward, on a fully transparent background. Nothing else in the frame. No wall, no building, no scene, no text.

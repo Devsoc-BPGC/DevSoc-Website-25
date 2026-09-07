@@ -1,8 +1,8 @@
 # DevSoc 2026
 
-The website of the Developers' Society, BITS Pilani K.K. Birla Goa Campus. An atelier of instruments in an obsidian room: six verticals, one flagship, the people, the archive, the door.
+The website of the Developers' Society, BITS Pilani K.K. Birla Goa Campus. One night on campus, dusk to dawn: the campus sleeps and six rooms stay lit. A clock in the nav runs 18:42 to 05:58 across seven chapters.
 
-Design spec: `docs/superpowers/specs/2026-09-05-devsoc-website-design.md`. Design system: `DESIGN.md`. Product context: `PRODUCT.md`. Image prompts: `docs/assets/image-prompts.md`.
+Design spec: `docs/superpowers/specs/2026-09-07-devsoc-night-shift-design.md`. Design system: `DESIGN.md`. Product context: `PRODUCT.md`. Image prompts: `docs/assets/PROMPTS-COPY-PASTE.md` and `docs/assets/HERO-PROMPTS.md`.
 
 ## Run
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The motion tools have a demo page at `/lab` (development only).
+Open http://localhost:3000, or whatever port it reports. The motion tools have a demo page at `/lab` (development only).
 
 ```bash
 npm run build      # production build, all routes static
@@ -28,12 +28,12 @@ Next.js 16 (App Router, Turbopack), React 19, TypeScript, Tailwind v4 with token
 
 ```
 src/app/                routes: /, /projects, /team, /gallery, /inductees, /lab
-src/components/chapters home page chapters in order: Hero, Manifesto, Rooms, Work, DevFest, Credits, Archive, Join, Colophon
+src/components/chapters the seven chapters in order: Dusk, Society, Rooms (the flywheel), Log, DevFest, Crew, Dawn, then Colophon
 src/components/shell    Nav, Menu, Rail (right-edge ticks), Overture, Timecode
 src/components/motion   reusable motion tools, documented in motion/README.md
-src/components/ui       FitText, TextLink, Lightbox, Faq
+src/components/ui       FitText, TextLink, Lightbox
 src/content             all copy and lists: site.ts, verticals.ts, projects.ts, people.ts, events.ts, faq.ts, gallery.ts, inductees.json
-public/images           hero, rooms, devfest, atelier, join, texture, people, work, gallery, brand
+public/images           hero, rooms, devfest, dawn, people, work, gallery, brand
 ```
 
 Every word on the site comes from `src/content`. Edit there, not in components.
@@ -42,19 +42,18 @@ Every word on the site comes from `src/content`. Edit there, not in components.
 
 Set in `src/content/site.ts` and `src/content/events.ts`:
 
-- `foundedYear` (renders "since {year}" in the atelier line when set)
+- `foundedYear` (renders "since {year}" in the society line when set)
 - `inducteesLive` (turns the inductees moment on the home page on or off)
 - DevFest `when` and `sponsor`
 - Engine Development head in `src/content/verticals.ts` (currently `null`)
 
 ## Images
 
-Generated instrument photography lives in `public/images/**` as compressed JPGs. The raw PNGs are in `assets-src/` (gitignored). Two are still placeholders, generated from the prompts in `docs/assets/image-prompts.md`:
+Artwork lives in `public/images/**`. The set is one building through one night (four hero facades, DevFest with every window lit, Dawn with the door open) plus six posters, one per vertical. Every prompt, with its exact pixel size and ratio, is in `docs/assets/PROMPTS-COPY-PASTE.md` and `docs/assets/HERO-PROMPTS.md`. Drop a new file at the same path and it is picked up.
 
-- `public/images/rooms/04-ai-ml.jpg` (the Orrery, R4)
-- `public/images/devfest/sunburst-tall.jpg` (F1, portrait crop for phones)
+The four hero facades must stay the same building: same floor count, same pier rhythm, same entrance. `next.config.ts` serves WebP and not AVIF on purpose, because the AVIF encoder crushed the amber windows in the night facade to black.
 
-Drop a new file at the same path and it is picked up. The hero sphere is keyed out of its black studio into `armillary-wide-cut.webp` and `armillary-tall-cut.webp`; regenerate them with the snippet in the commit history if the hero image changes.
+Photographic assets are capped at 2400px on the long edge; screenshots and portraits are JPEG, not PNG. Anything over 400 KB gets a progressive re-encode.
 
 The DS mark is `public/images/brand/mark.png`; a vector version would sharpen the nav and the point field.
 

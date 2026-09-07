@@ -1037,7 +1037,7 @@ for f in glob.glob('public/images/**/*.jpg', recursive=True):
 - [ ] **Step 5: Confirm no banned patterns crept in**
 
 ```bash
-grep -rn "—\|–" src/ DESIGN.md PRODUCT.md README.md docs/superpowers/specs/2026-09-07-devsoc-night-shift-design.md
+grep -rnP "\x{2014}|\x{2013}" src/ DESIGN.md PRODUCT.md README.md docs/superpowers/specs/2026-09-07-devsoc-night-shift-design.md
 grep -rn "backdrop-blur\|backdrop-filter" src/
 grep -rn "cream\|beige\|#fff9\|paper-bg" src/
 ```

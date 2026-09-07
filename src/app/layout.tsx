@@ -55,9 +55,15 @@ export const metadata: Metadata = {
     siteName: site.fullName,
     type: "website",
     locale: "en_IN",
+    images: [{ url: "/images/hero/facade-night-wide.jpg", width: 1672, height: 941, alt: site.line }],
   },
-  twitter: { card: "summary_large_image", title: "DevSoc", description: site.line },
-  icons: { icon: "/images/brand/mark.png" },
+  twitter: {
+    card: "summary_large_image",
+    title: "DevSoc",
+    description: site.line,
+    images: ["/images/hero/facade-night-wide.jpg"],
+  },
+  icons: { icon: "/images/brand/mark.png", apple: "/images/brand/window.png" },
 };
 
 export const viewport: Viewport = {

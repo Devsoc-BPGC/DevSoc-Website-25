@@ -3,8 +3,9 @@
 /**
  * NightClock
  * The narrative device. The site is one night on campus, and this counts
- * through it as you scroll: 18:42 at the top, 05:58 at the bottom. The time
- * is interpolated between the surrounding chapters so it advances smoothly
+ * through it as you scroll: 18:42 at the top, 05:58 at the bottom. A chapter
+ * reads its own time exactly as its top reaches the top of the screen, and
+ * between two chapters the time is interpolated, so it advances smoothly
  * rather than jumping at each section boundary.
  *
  * Falls back to the first chapter's time when no chapter sections are on the
@@ -33,7 +34,9 @@ export function NightClock({ className }: { className?: string }) {
         return;
       }
 
-      const mark = window.scrollY + window.innerHeight * 0.4;
+      // The reading position is the top of the viewport, so the first
+      // chapter reads its own time before anything has scrolled.
+      const mark = window.scrollY;
       let i = 0;
       for (let k = 0; k < tops.length; k++) {
         const t = tops[k];

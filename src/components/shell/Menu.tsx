@@ -17,12 +17,13 @@ import { routes, site } from "@/content/site";
 import { EASE_OUT_ARR } from "@/lib/easings";
 import { useIsMobile } from "@/lib/useMedia";
 
+// One per route, in the order the routes are listed.
 const previews = [
-  { src: "/images/hero/armillary-wide.jpg", alt: "The armillary sphere" },
-  { src: "/images/rooms/01-web.jpg", alt: "The Loom" },
-  { src: "/images/rooms/06-engine.jpg", alt: "The Movement" },
+  { src: "/images/hero/facade-night-wide.jpg", alt: "The building at night with six windows lit" },
+  { src: "/images/work/waves-web.jpg", alt: "A fest website" },
+  { src: "/images/people/utkarsh.jpg", alt: "A member of the crew" },
   { src: "/images/gallery/g11.jpg", alt: "Members on campus" },
-  { src: "/images/join/key.jpg", alt: "The key" },
+  { src: "/images/dawn/door-wide.jpg", alt: "The building in the morning with the door open" },
 ];
 
 export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) {

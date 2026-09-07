@@ -24,9 +24,7 @@ import inductees from "@/content/inductees.json";
 
 type Inductee = { name: string; id: string | null };
 
-const COLS = 12;
-const ROWS = 4;
-const WINDOWS = COLS * ROWS;
+const WINDOWS = 48;
 
 /** The wall. Dark until somebody lights it, and it never goes back. */
 function Wall() {
@@ -35,10 +33,9 @@ function Wall() {
 
   return (
     <div>
-      <div
-        className="grid items-start gap-[0.6vw] rounded-[2px] bg-raised/60 p-[1.2vw]"
-        style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
-      >
+      {/* Six across on a phone so a window is still worth tapping, twelve
+          across on a wide screen where it reads as a facade. */}
+      <div className="grid grid-cols-6 items-start gap-1.5 rounded-[2px] bg-raised/60 p-3 md:grid-cols-12 md:gap-[0.6vw] md:p-[1.2vw]">
         {Array.from({ length: WINDOWS }, (_, i) => {
           const on = lit.includes(i);
           return (
