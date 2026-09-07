@@ -15,10 +15,17 @@
  * owned by gsap.matchMedia, which tears its spacer down cleanly on resize.
  */
 
-import { useRef, type ReactNode } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { createContext, useContext, useRef, useState, type ReactNode } from "react";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 
 const PIN_QUERY = "(min-width: 64rem) and (prefers-reduced-motion: no-preference)";
+
+/**
+ * The sideways tween, handed down so an item can measure itself against the
+ * travel instead of reading its own rectangle every frame. It is null on the
+ * swipe layout, which is what tells an item to stay at its plain size.
+ */
+const PanTween = createContext<gsap.core.Tween | null>(null);
 
 export function HorizontalPan({
   children,
@@ -39,6 +46,7 @@ export function HorizontalPan({
   const wrap = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLDivElement>(null);
+  const [pan, setPan] = useState<gsap.core.Tween | null>(null);
 
   useGSAP(
     () => {
@@ -49,7 +57,7 @@ export function HorizontalPan({
         if (!w || !t) return;
         const distance = () => Math.max(0, t.scrollWidth - window.innerWidth);
 
-        gsap.to(t, {
+        const travel = gsap.to(t, {
           x: () => -distance(),
           ease: "none",
           scrollTrigger: {
@@ -64,6 +72,9 @@ export function HorizontalPan({
             },
           },
         });
+
+        setPan(travel);
+        return () => setPan(null);
       });
       return () => mm.revert();
     },
@@ -71,6 +82,7 @@ export function HorizontalPan({
   );
 
   return (
+    <PanTween.Provider value={pan}>
     <div ref={wrap} className={`relative ${className ?? ""}`}>
       <div className="lg:flex lg:h-[100dvh] lg:flex-col lg:justify-center lg:overflow-hidden lg:motion-reduce:block lg:motion-reduce:h-auto">
         <div
@@ -95,9 +107,53 @@ export function HorizontalPan({
         ) : null}
       </div>
     </div>
+    </PanTween.Provider>
   );
 }
 
-export function PanItem({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={`shrink-0 snap-start ${className ?? ""}`}>{children}</div>;
+/**
+ * One tile on the shelf. With `grow` it is slightly smaller at the edges of
+ * the screen and reaches full size as it passes the middle, so the shelf has
+ * a focus rather than a row of equal cards. On the swipe layout there is no
+ * pan tween, so the tile simply stays at full size.
+ */
+export function PanItem({
+  children,
+  className,
+  grow = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  grow?: boolean;
+}) {
+  const el = useRef<HTMLDivElement>(null);
+  const pan = useContext(PanTween);
+
+  useGSAP(
+    () => {
+      if (!grow || !pan || !el.current) return;
+      const node = el.current;
+      const st = ScrollTrigger.create({
+        trigger: node,
+        containerAnimation: pan,
+        start: "left right",
+        end: "right left",
+        onUpdate(self) {
+          // Peaks when the tile is level with the middle of the screen.
+          node.style.scale = String(0.93 + 0.07 * Math.sin(self.progress * Math.PI));
+        },
+      });
+      return () => {
+        st.kill();
+        node.style.scale = "";
+      };
+    },
+    { dependencies: [grow, pan] },
+  );
+
+  return (
+    <div ref={el} className={`shrink-0 snap-start will-change-transform ${className ?? ""}`}>
+      {children}
+    </div>
+  );
 }

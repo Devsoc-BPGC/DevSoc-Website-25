@@ -1,9 +1,9 @@
 import { Dusk } from "@/components/chapters/Dusk";
 import { Society } from "@/components/chapters/Society";
 import { Rooms } from "@/components/chapters/Rooms";
-import { Work } from "@/components/chapters/Work";
+import { Log } from "@/components/chapters/Log";
 import { DevFest } from "@/components/chapters/DevFest";
-import { Credits } from "@/components/chapters/Credits";
+import { Crew } from "@/components/chapters/Crew";
 import { Archive } from "@/components/chapters/Archive";
 import { Join } from "@/components/chapters/Join";
 import { Colophon } from "@/components/chapters/Colophon";
@@ -20,9 +20,9 @@ export default function Home() {
         <Dusk />
         <Society />
         <Rooms />
-        <Work />
+        <Log />
         <DevFest />
-        <Credits />
+        <Crew />
         <Archive />
         <Join />
         <Faq />

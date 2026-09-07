@@ -1,11 +1,12 @@
 "use client";
 
 /**
- * The Ledger: what we shipped
- * Two scroll-driven movements and no buttons. First the fest app film runs
- * under the scrollbar inside a framed window. Then the shelf: the section
- * pins and the projects travel sideways as you keep scrolling down, each one
- * lifting out of its grade as it crosses the middle of the screen.
+ * The Log, 00:40
+ * What the six rooms shipped. Two scroll-driven movements and no buttons.
+ * First the fest app film runs under the scrollbar inside a framed window.
+ * Then the shelf: the section pins and the projects travel sideways as you
+ * keep scrolling down, each one growing and lifting out of its grade as it
+ * crosses the middle of the screen.
  */
 
 import { useRef } from "react";
@@ -95,12 +96,12 @@ function ScrubFilm() {
 // Widths alternate so the shelf has rhythm instead of a row of equal cards.
 const WIDTHS = ["w-[86vw] lg:w-[54vw]", "w-[78vw] lg:w-[34vw]", "w-[86vw] lg:w-[44vw]"];
 
-export function Work() {
+export function Log() {
   return (
     <section id="log" aria-labelledby="log-title" className="relative py-[12vh]">
       <Reveal className="gutter">
         <h2 id="log-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
-          The ledger
+          The log
         </h2>
         <p className="body-copy mt-6">
           Fest websites the whole campus registers on. Apps that open on every phone during Waves and Quark. Tools that
@@ -113,7 +114,7 @@ export function Work() {
       <HorizontalPan label="Projects" className="mt-[14vh]">
         <div className="w-[var(--gutter)] shrink-0" aria-hidden="true" />
         {projects.map((p, i) => (
-          <PanItem key={p.id} className={WIDTHS[i % WIDTHS.length]}>
+          <PanItem key={p.id} grow className={WIDTHS[i % WIDTHS.length]}>
             <ScrollResolve to={0.72} className="aspect-[16/10] w-full">
               <Image
                 src={p.image}

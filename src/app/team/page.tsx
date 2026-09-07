@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Credits } from "@/components/chapters/Credits";
+import { Crew } from "@/components/chapters/Crew";
 
 export const metadata: Metadata = {
   title: "The makers",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function TeamPage() {
   return (
     <main className="pt-[var(--nav-h)]">
-      <Credits all />
+      <Crew all />
     </main>
   );
 }

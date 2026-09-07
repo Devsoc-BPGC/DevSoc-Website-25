@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The Makers: credits
+ * The Crew, 04:10
  * A credits roll that plays itself. As the list travels up the screen the
  * portrait at the right changes to whoever is level with the middle of the
  * viewport, melting from one face to the next. Hovering a name takes over
@@ -17,7 +17,7 @@ import { people } from "@/content/people";
 
 const portraits = people.map((p) => ({ src: p.image, alt: p.name }));
 
-export function Credits({ all = false }: { all?: boolean }) {
+export function Crew({ all = false }: { all?: boolean }) {
   const root = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(0);
   const [hover, setHover] = useState<number | null>(null);
@@ -89,7 +89,7 @@ export function Credits({ all = false }: { all?: boolean }) {
       <div className="gutter grid-12">
         <div className="col-span-12 lg:col-span-7">
           <h2 id="crew-title" className="display text-[clamp(2.4rem,6vw,6rem)] text-primary">
-            The makers
+            The crew
           </h2>
           <p className="body-copy mt-6">The coordinators for this year. Every room has a head; the heads answer to two.</p>
 

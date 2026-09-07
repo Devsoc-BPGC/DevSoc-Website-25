@@ -1,10 +1,11 @@
 "use client";
 
 /**
- * The Salon: DevFest
- * Full bleed. The brass sunburst photograph fills the screen and turns a few
- * degrees as you scroll. DEVFEST in display, the edition in the serif voice,
- * a mono row of facts. Below, the recurring events as a plain table.
+ * DevFest, 02:00
+ * Full bleed. The whole building is lit for one weekend a year, and it fills
+ * the screen and settles slowly out of a push-in as you scroll. DEVFEST in
+ * display, the edition in the serif voice, a mono row of facts. Below, the
+ * recurring events as a plain table.
  */
 
 import { useRef } from "react";
@@ -23,11 +24,11 @@ export function DevFest() {
   useGSAP(
     () => {
       if (reduced || !art.current) return;
+      // A slow settle, not a rotation. The building stands straight.
       gsap.fromTo(
         art.current,
-        { rotate: -2.5, scale: 1.12 },
+        { scale: 1.08 },
         {
-          rotate: 2.5,
           scale: 1.0,
           ease: "none",
           scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: 1.4 },
@@ -46,18 +47,11 @@ export function DevFest() {
       <div className="relative min-h-[100dvh] overflow-hidden">
         <div ref={art} className="absolute inset-0 will-change-transform">
           <Image
-            src="/images/devfest/sunburst-wide.jpg"
-            alt="An Art Deco sunburst of brass rays around a chrome sphere"
+            src="/images/devfest/facade-full-wide.jpg"
+            alt="The face of the campus building with every window lit"
             fill
             sizes="100vw"
-            className="hidden object-cover md:block"
-          />
-          <Image
-            src="/images/devfest/sunburst-tall.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover md:hidden"
+            className="object-cover object-center"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-base/40 via-transparent to-base" />
