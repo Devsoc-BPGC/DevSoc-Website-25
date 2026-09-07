@@ -77,6 +77,8 @@ Sections do not meet on a straight edge: `WaveDivider` raises the next ground in
 
 ## Motion
 
+The page opens on the wordmark. DEVSOC has six letters and the society has six rooms, so the six letters light one at a time, each with a short warm flash, the way a window does when somebody switches a lamp on. Then the veil wipes up into the hero, where the same six are lit on the face of the building. It runs once per session, about two seconds, and any click or key skips it.
+
 Scroll drives the page, and every chapter plays itself. The flywheel turns a sixth of a revolution per vertical and the spoke at the tick is the one you are reading. The shelf of projects pans sideways under vertical scroll and each tile grows as it crosses the middle. Photographs lift out of the grade at the middle of the screen. The credits portrait follows whichever name is level with the middle. The film scrubs. Hover refines what scroll has already shown; clicks are for navigation and for lighting a window.
 
 Two things run on their own clock, and only ever one per viewport: the ambient light field breathing behind each chapter, and a Perlin noise flow field drifting behind the footer type. The footer is the one place nothing else is moving, which is why the flow field lives there and nowhere else.

@@ -29,7 +29,7 @@ Next.js 16 (App Router, Turbopack), React 19, TypeScript, Tailwind v4 with token
 ```
 src/app/                routes: /, /projects, /team, /gallery, /inductees, /lab
 src/components/chapters the seven chapters in order: Dusk, Society, Rooms (the flywheel), Log, DevFest, Crew, Dawn, then Colophon
-src/components/shell    Nav, Menu, Rail (right-edge ticks), Overture, Timecode
+src/components/shell    Nav, Menu, Rail (right-edge ticks), Overture (the wordmark reveal), ThemeToggle
 src/components/motion   reusable motion tools, documented in motion/README.md
 src/components/ui       FitText, TextLink, Lightbox
 src/content             all copy and lists: site.ts, verticals.ts, projects.ts, people.ts, events.ts, faq.ts, gallery.ts, inductees.json
