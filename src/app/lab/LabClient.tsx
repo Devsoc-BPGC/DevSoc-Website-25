@@ -8,7 +8,7 @@ import { MaskReveal } from "@/components/motion/MaskReveal";
 import { Carousel, CarouselSlide } from "@/components/motion/Carousel";
 import { ParticleText } from "@/components/motion/ParticleText";
 import { FrameChrome } from "@/components/motion/FrameChrome";
-import { SplitLines } from "@/components/motion/SplitLines";
+import { RevealWords } from "@/components/motion/text";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { gallery } from "@/content/gallery";
 import { verticals } from "@/content/verticals";
@@ -24,10 +24,10 @@ export function LabClient() {
       <section className="gutter relative min-h-[100dvh] py-32">
         <PointField image="/images/brand/mark.png" className="absolute inset-0" />
         <div className="relative">
-          <p className="meta text-muted">Lab · PointField, SplitLines, Magnetic</p>
-          <SplitLines as="h1" className="voice mt-8 max-w-4xl text-[clamp(2.5rem,5vw,4.5rem)]">
+          <p className="meta text-muted">Lab · PointField, RevealWords, Magnetic</p>
+          <RevealWords as="h1" className="voice mt-8 max-w-4xl text-[clamp(2.5rem,5vw,4.5rem)]">
             The campus sleeps. Six rooms stay lit.
-          </SplitLines>
+          </RevealWords>
           <Magnetic className="mt-10">
             <a href="#lit" className="text-link meta text-primary" data-cursor="Go">
               Next tool

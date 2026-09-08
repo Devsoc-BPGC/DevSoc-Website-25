@@ -2,16 +2,16 @@
 
 /**
  * Nav
- * The mark at the left, the night clock, the theme switch and the word
- * "Menu" at the right.
+ * The mark at the left, turning at whatever speed you are scrolling, and the
+ * chapter name and the word "Menu" at the right.
  * No bar, no blur, no border: the composition is the navigation.
  */
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu } from "./Menu";
 import { ChapterLabel } from "./Rail";
+import { VelocityMark } from "./VelocityMark";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -31,7 +31,7 @@ export function Nav() {
         style={{ height: "var(--nav-h)", zIndex: "var(--z-nav)" }}
       >
         <Link href="/" className="flex items-center gap-3" aria-label="DevSoc, home" data-cursor="Home">
-          <Image src="/images/brand/mark.png" alt="" width={28} height={28} priority className="h-[28px] w-[28px]" />
+          <VelocityMark size={28} />
           <span className="meta text-primary">DevSoc</span>
         </Link>
         <div className="flex items-center gap-6 md:gap-8">

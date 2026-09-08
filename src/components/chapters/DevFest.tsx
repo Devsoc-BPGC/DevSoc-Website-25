@@ -12,7 +12,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useReducedMotion } from "@/lib/useMedia";
-import { SplitLines } from "@/components/motion/SplitLines";
+import { RevealLines } from "@/components/motion/text";
 import { Reveal } from "@/components/motion/Reveal";
 import { devfest, events } from "@/content/events";
 
@@ -72,9 +72,9 @@ export function DevFest() {
                 <span className="display text-[clamp(3rem,11vw,11rem)] text-primary">DevFest</span>
                 <span className="voice text-[clamp(2rem,6vw,6rem)] text-warm">{devfest.edition}</span>
               </h2>
-              <SplitLines as="p" className="body-copy mt-6 max-w-[52ch]">
+              <RevealLines as="p" className="body-copy mt-6 max-w-[52ch]">
                 {devfest.blurb}
-              </SplitLines>
+              </RevealLines>
             </div>
             <ul className="meta col-span-12 mt-8 flex flex-col gap-2 text-muted lg:col-span-3 lg:col-start-10 lg:mt-0 lg:text-right">
               {facts.map((f) => (

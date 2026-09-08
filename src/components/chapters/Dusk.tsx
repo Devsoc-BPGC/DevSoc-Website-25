@@ -11,7 +11,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useFinePointer, useReducedMotion } from "@/lib/useMedia";
-import { SplitLines } from "@/components/motion/SplitLines";
+import { RevealWords } from "@/components/motion/text";
 import { WaveDivider } from "@/components/motion/WaveDivider";
 import { FitText } from "@/components/ui/FitText";
 import { TextLink } from "@/components/ui/TextLink";
@@ -95,7 +95,7 @@ export function Dusk() {
 
         <div ref={foot} className="grid-12 mt-8 items-end">
           <div className="col-span-12 lg:col-span-7">
-            <SplitLines
+            <RevealWords
               as="h1"
               id="dusk-line"
               className="voice max-w-[18ch] text-[clamp(1.6rem,2.8vw,2.75rem)] text-primary"
@@ -103,7 +103,7 @@ export function Dusk() {
               delay={overturePending() ? 1.9 : 0.9}
             >
               {site.line}
-            </SplitLines>
+            </RevealWords>
             <div className="mt-6">
               <TextLink href="/#rooms" cursor="Go">
                 Walk through the rooms

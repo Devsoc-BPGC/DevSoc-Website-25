@@ -2,7 +2,7 @@
 
 /**
  * HorizontalPan
- * A carousel that has no buttons. On a wide screen the section pins and the
+ * A carousel that has no buttons. On a wide screen the stage sticks and the
  * track travels sideways exactly as far as the page scrolls, so scrolling
  * down moves you along the shelf; a brass hairline reports how far along you
  * are. Narrow screens and reduced motion get the same shelf as a scroll-snap
@@ -11,12 +11,18 @@
  * <HorizontalPan label="Projects">{tiles}</HorizontalPan>
  *
  * The two layouts are chosen in CSS, never in JavaScript, so there is no
- * first-render flash and no pin is ever built on a phone. The pin itself is
- * owned by gsap.matchMedia, which tears its spacer down cleanly on resize.
+ * first-render flash and nothing is ever built on a phone.
+ *
+ * There is no GSAP pin here. The stage is `position: sticky` over a track whose
+ * height is measured and written in JavaScript, which is how every other
+ * scroll-driven section on this site works. The tween handed down through
+ * context is unchanged either way: containerAnimation needs an `ease: none`
+ * tween inside an overflow-hidden ancestor, not a pin.
  */
 
 import { createContext, useContext, useRef, useState, type ReactNode } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { EASE, SCRUB } from "@/lib/easings";
 
 const PIN_QUERY = "(min-width: 64rem) and (prefers-reduced-motion: no-preference)";
 
@@ -57,24 +63,47 @@ export function HorizontalPan({
         if (!w || !t) return;
         const distance = () => Math.max(0, t.scrollWidth - window.innerWidth);
 
+        /**
+         * The spacer. A pin would have created this for us; a sticky stage
+         * needs it authored, because the height is what encodes how far the
+         * page must scroll for the track to finish travelling.
+         *
+         * It has to be set in onRefreshInit rather than onRefresh: containerAnimation
+         * resolves each item's position from this tween's start and end, so if
+         * the first refresh measures a stale spacer, every tile lands in the
+         * wrong place and only a resize fixes it.
+         */
+        const measure = () => {
+          w.style.height = `${Math.round(window.innerHeight + distance() + window.innerHeight * tail)}px`;
+        };
+        measure();
+
         const travel = gsap.to(t, {
           x: () => -distance(),
-          ease: "none",
+          ease: EASE.none,
           scrollTrigger: {
             trigger: w,
             start: "top top",
-            end: () => `+=${distance() + window.innerHeight * tail}`,
-            pin: true,
-            scrub: 1,
+            end: "bottom bottom",
+            scrub: SCRUB.tight,
             invalidateOnRefresh: true,
+            onRefreshInit: measure,
             onUpdate(self) {
               if (bar.current) bar.current.style.transform = `scaleX(${0.04 + 0.96 * self.progress})`;
+            },
+            // Promote only while the shelf is actually moving.
+            onToggle(self) {
+              t.style.willChange = self.isActive ? "transform" : "";
             },
           },
         });
 
         setPan(travel);
-        return () => setPan(null);
+        return () => {
+          setPan(null);
+          w.style.height = "";
+          t.style.willChange = "";
+        };
       });
       return () => mm.revert();
     },
@@ -84,12 +113,12 @@ export function HorizontalPan({
   return (
     <PanTween.Provider value={pan}>
     <div ref={wrap} className={`relative ${className ?? ""}`}>
-      <div className="lg:flex lg:h-[100dvh] lg:flex-col lg:justify-center lg:overflow-hidden lg:motion-reduce:block lg:motion-reduce:h-auto">
+      <div className="lg:sticky lg:top-0 lg:flex lg:h-[100dvh] lg:flex-col lg:justify-center lg:overflow-hidden lg:motion-reduce:static lg:motion-reduce:block lg:motion-reduce:h-auto">
         <div
           ref={track}
           role="region"
           aria-label={label}
-          className="flex snap-x snap-mandatory items-stretch overflow-x-auto pb-4 [scrollbar-width:none] lg:w-max lg:snap-none lg:overflow-visible lg:pb-0 lg:will-change-transform lg:motion-reduce:w-auto lg:motion-reduce:snap-x lg:motion-reduce:overflow-x-auto [&::-webkit-scrollbar]:hidden"
+          className="flex snap-x snap-mandatory items-stretch overflow-x-auto pb-4 [scrollbar-width:none] lg:w-max lg:snap-none lg:overflow-visible lg:pb-0 lg:motion-reduce:w-auto lg:motion-reduce:snap-x lg:motion-reduce:overflow-x-auto [&::-webkit-scrollbar]:hidden"
           style={{ gap }}
         >
           {children}
@@ -142,17 +171,22 @@ export function PanItem({
           // Peaks when the tile is level with the middle of the screen.
           node.style.scale = String(0.93 + 0.07 * Math.sin(self.progress * Math.PI));
         },
+        // Promoted only while it is crossing, not for the life of the page.
+        onToggle(self) {
+          node.style.willChange = self.isActive ? "transform" : "";
+        },
       });
       return () => {
         st.kill();
         node.style.scale = "";
+        node.style.willChange = "";
       };
     },
     { dependencies: [grow, pan] },
   );
 
   return (
-    <div ref={el} className={`shrink-0 snap-start will-change-transform ${className ?? ""}`}>
+    <div ref={el} className={`shrink-0 snap-start ${className ?? ""}`}>
       {children}
     </div>
   );

@@ -9,7 +9,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Magnetic } from "@/components/motion/Magnetic";
-import { SplitLines } from "@/components/motion/SplitLines";
+import { RevealWords } from "@/components/motion/text";
 import { Reveal } from "@/components/motion/Reveal";
 import { WaveDivider } from "@/components/motion/WaveDivider";
 import { TextLink } from "@/components/ui/TextLink";
@@ -51,13 +51,13 @@ export function Dawn() {
           <div className="grid-12 items-end gap-y-10">
             <div className="col-span-12 lg:col-span-6">
               {site.inducteesLive ? (
-                <SplitLines as="h2" id="dawn-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
+                <RevealWords as="h2" id="dawn-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
                   {`The ${site.inducteesYear} list is out.`}
-                </SplitLines>
+                </RevealWords>
               ) : (
-                <SplitLines as="h2" id="dawn-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
+                <RevealWords as="h2" id="dawn-title" className="voice text-[clamp(2rem,4.2vw,4.25rem)] text-primary">
                   Inductions open once a year. Until then, come to DevFest.
-                </SplitLines>
+                </RevealWords>
               )}
             </div>
 
