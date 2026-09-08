@@ -31,7 +31,7 @@ export function Nav() {
         style={{ height: "var(--nav-h)", zIndex: "var(--z-nav)" }}
       >
         <Link href="/" className="flex items-center gap-3" aria-label="DevSoc, home" data-cursor="Home">
-          <Image src="/images/brand/mark.png" alt="" width={34} height={26} priority className="h-[26px] w-auto" />
+          <Image src="/images/brand/mark.png" alt="" width={28} height={28} priority className="h-[28px] w-[28px]" />
           <span className="meta text-primary">DevSoc</span>
         </Link>
         <div className="flex items-center gap-6 md:gap-8">

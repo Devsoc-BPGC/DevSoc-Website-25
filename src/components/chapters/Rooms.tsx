@@ -122,7 +122,7 @@ export function Rooms() {
             <li className="w-[calc(var(--gutter)-1.25rem)] shrink-0" aria-hidden="true" />
             {verticals.map((v, i) => (
               <li key={v.id} className="w-[78vw] shrink-0 snap-start">
-                <LitImage images={[posters[i]]} index={0} className="aspect-[4/5]" simple />
+                <LitImage images={[posters[i]]} index={0} className="aspect-[3/2]" simple />
                 <p className="meta mt-4 text-muted">
                   {v.index} <span className="text-primary">{v.name}</span>
                 </p>

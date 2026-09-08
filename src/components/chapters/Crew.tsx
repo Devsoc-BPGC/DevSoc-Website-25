@@ -7,9 +7,11 @@
  * viewport, dissolving from one face to the next. Hovering a name takes over
  * for as long as the pointer stays there; otherwise scroll has the wheel.
  *
- * The portrait is graded lightly, not heavily: these are real faces and a
- * deep duotone turned them to mud. Moving the pointer over one lifts the
- * grade where the light falls.
+ * The portraits are illustrated plates in the same flat language as the rest
+ * of the artwork, lit from one side by the same amber. They are square, so the
+ * box is square: a 4:5 box would crop a shoulder off one side and a hand off
+ * the other. The grade sits light on them, and the pointer lifts it where the
+ * light falls.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -135,7 +137,7 @@ export function Crew({ all = false }: { all?: boolean }) {
 
         <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
           <div className="sticky top-[22vh]">
-            <LitImage images={portraits} index={index} className="aspect-[4/5] w-full" tint={0.3} simple={mobile} />
+            <LitImage images={portraits} index={index} className="aspect-square w-full" tint={0.3} simple={mobile} />
             <p key={people[index].id} className="meta rise-in mt-4 text-muted">
               <span className="text-primary">{people[index].name}</span>. {people[index].role}
             </p>
