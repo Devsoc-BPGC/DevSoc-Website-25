@@ -23,7 +23,7 @@ const previews = [
   { src: "/images/work/waves-web.jpg", alt: "A fest website" },
   { src: "/images/people/utkarsh.jpg", alt: "A member of the crew" },
   { src: "/images/gallery/g11.jpg", alt: "Members on campus" },
-  { src: "/images/dawn/door-wide.jpg", alt: "The building in the morning with the door open" },
+  { src: "/images/dawn/door-wide.jpg", alt: "The building at dawn with the door open" },
 ];
 
 export function Menu({ open, onClose }: { open: boolean; onClose: () => void }) {

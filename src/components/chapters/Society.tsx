@@ -130,7 +130,9 @@ export function Society() {
           // reads the line on the night ground first.
           const p = (self.progress - 0.16) / 0.7;
           ink.current?.set(p);
-          if (p > 0.55) setFlap(true);
+          // A dead band, not a threshold. Without it, a reader scrubbing at the
+          // boundary fires setState every frame and the board chatters.
+          setFlap((on) => (on ? p > 0.48 : p > 0.55));
           setInk(p < 0.22 ? "" : p < 0.85 ? "cross" : "1");
         },
       });

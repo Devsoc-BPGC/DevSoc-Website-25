@@ -10,9 +10,9 @@
  * where nothing else is moving, and the last thing under the wordmark should
  * be the night still drifting after the reader has stopped scrolling.
  *
- * Colours are read from the theme tokens and re-read when the theme changes,
- * so it is bone over obsidian at night and ink over haze in the morning, with
- * a few strands in the warm accent. Trails are erased with destination-out,
+ * Colours are read from the role tokens rather than hardcoded, so the strands
+ * follow the palette: bone over obsidian with a few in the warm accent.
+ * Trails are erased with destination-out,
  * never painted over, so the canvas stays transparent and the footer ground
  * shows through.
  *
@@ -213,15 +213,11 @@ export function FlowField({ className }: { className?: string }) {
     });
     ro.observe(host);
 
-    const themes = new MutationObserver(readInks);
-    themes.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-
     raf = requestAnimationFrame(loop);
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
       ro.disconnect();
-      themes.disconnect();
     };
   }, [reduced]);
 

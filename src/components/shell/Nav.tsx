@@ -12,7 +12,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "./Menu";
 import { ChapterLabel } from "./Rail";
-import { ThemeToggle } from "./ThemeToggle";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
@@ -37,7 +36,6 @@ export function Nav() {
         </Link>
         <div className="flex items-center gap-6 md:gap-8">
           <ChapterLabel className="hidden lg:inline" />
-          <ThemeToggle />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

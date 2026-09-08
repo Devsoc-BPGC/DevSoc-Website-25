@@ -34,7 +34,7 @@ export function Dawn() {
         <div className="absolute inset-0">
           <Image
             src="/images/dawn/door-wide.jpg"
-            alt="The same building in the morning, one door open with light falling out of it onto the path"
+            alt="The same building at dawn, one door open with light falling out of it onto the path"
             fill
             sizes="100vw"
             className="hidden object-cover md:block"

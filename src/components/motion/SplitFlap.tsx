@@ -12,11 +12,12 @@
  *
  * <SplitFlap text="Once a year" play={inView} />
  *
- * Nothing happens until `play` turns true, and it only ever plays once.
- * Reduced motion renders the finished string and never flaps.
+ * `play` drives it both ways: true riffles the characters into place, false
+ * unsettles them right to left, the mirror of the arrival. Reduced motion
+ * renders the finished string and never flaps.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useReducedMotion } from "@/lib/useMedia";
 
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -41,7 +42,6 @@ export function SplitFlap({
 }) {
   const live = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
-  const [done, setDone] = useState(false);
 
   useEffect(() => {
     const el = live.current;
@@ -50,13 +50,20 @@ export function SplitFlap({
     // resolves a beat after mount, so a reader on reduced motion can start
     // flapping and then be told to stop, and the last scrambled string would
     // otherwise stay in the DOM for good.
-    if (!play || done || reduced) {
+    if (reduced) {
       el.textContent = text;
       return;
     }
     const chars = [...text];
+    const settling = play;
     // Every character gets its own settle time and its own number of flaps.
-    const settle = chars.map((c, i) => (c === " " ? 0 : delay * 1000 + i * STEP + (4 + (i % 3)) * FLAP));
+    // Arriving, characters settle left to right. Leaving, they unsettle right
+    // to left, so the row empties from the far end.
+    const settle = chars.map((c, i) => {
+      if (c === " ") return 0;
+      const order = settling ? i : chars.length - 1 - i;
+      return delay * 1000 + order * STEP + (4 + (i % 3)) * FLAP;
+    });
     const end = Math.max(...settle, 0);
     const start = performance.now();
     let raf = 0;
@@ -64,30 +71,33 @@ export function SplitFlap({
     const frame = (now: number) => {
       const t = now - start;
       el.textContent = chars
-        .map((c, i) => (c === " " || t >= settle[i] ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0]))
+        .map((c, i) => {
+          if (c === " ") return c;
+          // Settled characters show the real glyph; the rest riffle. Leaving
+          // inverts which side of the schedule counts as settled.
+          const at = settling ? t >= settle[i] : t < settle[i];
+          return at ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        })
         .join("");
       if (t < end) raf = requestAnimationFrame(frame);
-      else {
-        el.textContent = text;
-        setDone(true);
-      }
+      else el.textContent = settling ? text : "";
     };
     raf = requestAnimationFrame(frame);
     return () => {
       cancelAnimationFrame(raf);
       el.textContent = text;
     };
-  }, [play, done, reduced, text, delay]);
+  }, [play, reduced, text, delay]);
 
   return (
     <span className={`inline-grid ${className ?? ""}`} style={style}>
-      {/* Holds the box open at the finished width. */}
-      <span className="invisible col-start-1 row-start-1" aria-hidden="true">
-        {text}
-      </span>
+      {/* Holds the box open at the finished width, and carries the accessible
+          name. The live span below is scrambled and sometimes emptied by the
+          animation, so it must never be the thing a screen reader reads. */}
+      <span className="invisible col-start-1 row-start-1">{text}</span>
       {/* Always rendered settled. The loop scrambles it in place, so there is
           never a frame where the value is missing. */}
-      <span ref={live} className="col-start-1 row-start-1">
+      <span ref={live} className="col-start-1 row-start-1" aria-hidden="true">
         {text}
       </span>
     </span>

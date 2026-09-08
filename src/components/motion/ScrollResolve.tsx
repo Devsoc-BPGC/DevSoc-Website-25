@@ -2,9 +2,9 @@
 
 /**
  * ScrollResolve
- * A photograph that arrives graded into the room's verdigris and resolves to
- * full colour as it climbs to the middle of the viewport. Scroll does all of
- * it: nothing to hover, nothing to click. Once resolved it stays resolved.
+ * A photograph that arrives graded and resolves to full colour as it climbs to
+ * the middle of the viewport. Scroll does all of it: nothing to hover, nothing
+ * to click, and it grades back down on the way up.
  *
  * <ScrollResolve className="aspect-[3/4]"><Image ... /></ScrollResolve>
  * <ScrollResolve to={0.72}>...</ScrollResolve>   // stops short of full colour
@@ -13,7 +13,8 @@
  */
 
 import { useRef, type ReactNode } from "react";
-import { ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { EASE, SCRUB } from "@/lib/easings";
 import { useReducedMotion } from "@/lib/useMedia";
 
 export function ScrollResolve({
@@ -42,21 +43,23 @@ export function ScrollResolve({
         el.style.setProperty("--resolve", String(to));
         return;
       }
-      el.style.setProperty("--resolve", "0");
-      let peak = 0;
-      const st = ScrollTrigger.create({
-        trigger: el,
-        start,
-        end,
-        scrub: true,
-        onUpdate(self) {
-          // hold the highest point reached, so a photo never falls back to grade
-          if (self.progress <= peak) return;
-          peak = self.progress;
-          el.style.setProperty("--resolve", String(peak * to));
+      // GSAP tweens custom properties natively, and letting it own the scrub
+      // buys smoothing for free. Writing --resolve from a raw onUpdate steps
+      // visibly on a fast scrub, because every write re-triggers the filter
+      // and blend composite that .resolve sets up in globals.css.
+      const tween = gsap.fromTo(
+        el,
+        { "--resolve": 0 },
+        {
+          "--resolve": to,
+          ease: EASE.none,
+          scrollTrigger: { trigger: el, start, end, scrub: SCRUB.normal, invalidateOnRefresh: true },
         },
-      });
-      return () => st.kill();
+      );
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      };
     },
     { scope: box, dependencies: [reduced, to] },
   );

@@ -4,15 +4,13 @@
  * Dusk
  * The night opens. The facade fills the frame with six windows lit, the
  * wordmark sits over it, and the line hands the reader the six verticals in
- * seven words. The artwork follows the theme: the same wall at night or in
- * the morning.
+ * seven words.
  */
 
 import { useRef } from "react";
 import Image from "next/image";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { useFinePointer, useReducedMotion } from "@/lib/useMedia";
-import { useTheme } from "@/components/shell/ThemeProvider";
 import { SplitLines } from "@/components/motion/SplitLines";
 import { WaveDivider } from "@/components/motion/WaveDivider";
 import { FitText } from "@/components/ui/FitText";
@@ -24,10 +22,8 @@ export function Dusk() {
   const root = useRef<HTMLElement>(null);
   const art = useRef<HTMLDivElement>(null);
   const foot = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
   const reduced = useReducedMotion();
   const fine = useFinePointer();
-  const variant = theme === "night" ? "night" : "morning";
 
   // Entrance, held until the overture lifts.
   useGSAP(
@@ -68,27 +64,19 @@ export function Dusk() {
     <section id="dusk" ref={root} className="relative min-h-[100dvh] overflow-hidden" aria-labelledby="dusk-line">
       <div ref={art} className="absolute inset-0 will-change-transform">
         <Image
-          key={`${variant}-wide`}
-          src={`/images/hero/facade-${variant}-wide.jpg`}
-          alt={
-            variant === "night"
-              ? "The face of a campus building at night, a grid of windows with six of them lit"
-              : "The face of a campus building in morning light, none of the windows lit"
-          }
+          src="/images/hero/facade-night-wide.jpg"
+          alt="The face of a campus building at night, a grid of windows with six of them lit"
           fill
           priority
           sizes="100vw"
-          style={variant === "morning" ? { scale: "1.09" } : undefined}
           className="hidden object-cover md:block"
         />
         <Image
-          key={`${variant}-tall`}
-          src={`/images/hero/facade-${variant}-tall.jpg`}
+          src="/images/hero/facade-night-tall.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
-          style={variant === "morning" ? { scale: "1.09" } : undefined}
           className="object-cover md:hidden"
         />
       </div>

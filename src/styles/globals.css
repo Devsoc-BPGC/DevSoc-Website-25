@@ -2,7 +2,7 @@
 
 /* ------------------------------------------------------------------
    DevSoc 2026 · tokens
-   Obsidian ground, bone type, verdigris light, brass hairlines.
+   Obsidian ground, bone type, acid light, amber windows, brass hairlines.
    ------------------------------------------------------------------ */
 
 /* Tier 1: palette. Raw values, never referenced directly by a component. */
@@ -11,43 +11,32 @@
   --c-soot: oklch(0.2 0.008 60);
   --c-bone: oklch(0.93 0.02 85);
   --c-ash: oklch(0.66 0.015 80);
-  --c-verdigris: oklch(0.72 0.11 185);
-  --c-verdigris-deep: oklch(0.45 0.08 190);
+  --c-acid: oklch(0.93 0.19 118);
   --c-ember: oklch(0.7 0.17 50);
   --c-brass: oklch(0.78 0.09 85);
-  --c-haze: oklch(0.94 0.012 170);
-  --c-haze-2: oklch(0.9 0.016 170);
-  --c-ink: oklch(0.22 0.02 200);
-  --c-slate: oklch(0.5 0.02 200);
+  --c-verdigris-deep: oklch(0.45 0.08 190);
 }
 
 /* Tier 2: semantic roles. Components only ever speak in these.
-   The theme swaps this layer and nothing else. */
-:root,
-[data-theme="night"] {
+
+   There is one theme. An earlier build carried a second, morning, and the
+   theme toggle that went with it. Both are gone: the site is one night, the
+   artwork is drawn for one night, and a second ground meant every effect had
+   to be designed twice and the chrome had two masters. What is left of that
+   system is the tier separation, which still earns its keep because the
+   section tone system overrides these role tokens locally.
+   ------------------------------------------------------------------ */
+:root {
   --bg-base: var(--c-obsidian);
   --surface-raised: var(--c-soot);
   --text-primary: var(--c-bone);
   --text-muted: var(--c-ash);
-  --accent-light: var(--c-verdigris);
+  --accent-light: var(--c-acid);
   --accent-warm: var(--c-ember);
   --rule-color: var(--c-brass);
   --scrim: color-mix(in oklch, var(--c-obsidian) 70%, transparent);
   --grade: var(--c-verdigris-deep);
   color-scheme: dark;
-}
-
-[data-theme="morning"] {
-  --bg-base: var(--c-haze);
-  --surface-raised: var(--c-haze-2);
-  --text-primary: var(--c-ink);
-  --text-muted: var(--c-slate);
-  --accent-light: var(--c-verdigris);
-  --accent-warm: var(--c-ember);
-  --rule-color: var(--c-ink);
-  --scrim: color-mix(in oklch, var(--c-haze) 70%, transparent);
-  --grade: var(--c-verdigris-deep);
-  color-scheme: light;
 }
 
 @theme inline {
