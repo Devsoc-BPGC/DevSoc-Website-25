@@ -78,17 +78,40 @@ four similar pictures.
 
 # A. The mark
 
-## 1. `public/images/brand/mark.svg` — vector, 512 x 512 source
+## 1. `public/images/brand/mark.svg` — vector, square canvas
 
-Not a generation job. The existing `mark.png` (777 x 587) is a raster and it will
-alias visibly once it is rotating continuously in the corner of every page.
+The existing `mark.png` is 777 x 587 and it will alias visibly once it is
+rotating continuously in the corner of every page. It needs to be a vector, and
+it needs a **square** canvas, because it spins about the centre of its own box:
+on a 777 x 587 canvas it would wobble rather than turn.
 
-Trace it to SVG in Figma or Illustrator: the interlocking D and S inside curly
-braces. Two colours plus transparent. Keep the artboard square with the mark
-centred on its own optical centre, because it spins about that point.
+### The best route: trace it
 
-If you would rather not trace it by hand, run the PNG through a vectoriser and
-clean up the curve on the S. It only has to survive at 32px.
+Open `mark.png` in Figma or Illustrator, image trace, clean up the two curves on
+the S, and export SVG on a 512 x 512 artboard with the mark centred on its
+optical centre. Two flat colours plus transparent. It only has to survive at
+32px, so do not fuss over the corners.
+
+### If you would rather generate it
+
+Attach `public/images/brand/mark.png` as the reference image. This will not give
+you an SVG, it gives you a clean high resolution raster you can trace in one
+click instead of cleaning up a 777px source. Ask for **2048 x 2048, square,
+transparent background**.
+
+```
+Recreate the attached logo exactly, as a clean flat vector graphic on a fully transparent background. It is a monogram: a large letter D and a large letter S interlocking in the centre, with a tall curly brace to the left of them and a matching tall curly brace to the right, both braces the full height of the mark. Keep the two colours exactly as they are in the reference: the left brace and the S in dark slate teal, the right brace and the D in bright teal. Keep every proportion, every corner radius and the exact way the D and the S overlap.
+
+Centre the mark inside a square canvas with equal margin on all four sides, so that it can be rotated about the centre of the canvas without appearing to wobble. Crisp hard edges, flat colour fill, no gradients, no shadows, no grain, no texture, no outline, no background, no text.
+```
+
+Then trace the result and export SVG.
+
+**One thing to decide.** The mark's teal is the old club teal and it no longer
+appears anywhere in the palette, which is now near black, bone, amber and acid
+green. Right now the mark is the only teal on the site. Options: leave it (a
+brand mark is allowed to be its own colour), or reissue it in acid green and
+bone. Tell me which and I will wire it either way.
 
 ---
 
