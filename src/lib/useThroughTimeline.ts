@@ -32,6 +32,7 @@ import { useRef } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { EASE, DUR } from "@/lib/easings";
 import { useReducedMotion } from "@/lib/useMedia";
+import { stageTime, useStage } from "@/components/motion/stageContext";
 
 export type Pose = "before" | "rest" | "after";
 
@@ -68,6 +69,8 @@ export function useThroughTimeline(
   { build, enter = "top 88%", exit = "top 6%", immediate = false, delay = 0, deps = [] }: ThroughOptions,
 ) {
   const reduced = useReducedMotion();
+  /** Inside a sticky stage, the playhead follows the stage. See stageContext. */
+  const stage = useStage();
   /**
    * Normalised playhead, kept outside the timeline so a rebuild can restore it.
    * Without this, resizing while a headline is mid exit snaps it back to pose
@@ -118,6 +121,18 @@ export function useThroughTimeline(
         };
       }
 
+      if (stage) {
+        const unsub = stage.subscribe((p) => {
+          const t = stageTime(p, restAt, tl.duration());
+          tl.time(t);
+          held.current = tl.duration() ? t / tl.duration() : 0;
+        });
+        return () => {
+          unsub();
+          tl.kill();
+        };
+      }
+
       /** The lower edge: arriving from below, and leaving back down. */
       const lower = ScrollTrigger.create({
         trigger: el,
@@ -145,6 +160,6 @@ export function useThroughTimeline(
         tl.kill();
       };
     },
-    { dependencies: [reduced, immediate, delay, enter, exit, ...deps] },
+    { dependencies: [reduced, immediate, delay, enter, exit, stage, ...deps] },
   );
 }

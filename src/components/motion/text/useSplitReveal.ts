@@ -23,12 +23,18 @@
  * SplitText measures line breaks against whatever face is loaded, so a split
  * that runs before the display font arrives breaks the lines in the wrong
  * places. `autoSplit` handles that by re-splitting on `fonts.ready`.
+ *
+ * Inside a sticky stage, pass an `exit` that points at the end of the track.
+ * A sticky element reports its unstuck position to ScrollTrigger, which is the
+ * top of the track, so the default exit fires the instant the stage starts
+ * sticking and the heading leaves before the section has even begun.
  */
 
 import { useRef, type RefObject } from "react";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 import { DUR, EASE } from "@/lib/easings";
 import { useReducedMotion } from "@/lib/useMedia";
+import { stageTime, useStage } from "../stageContext";
 
 export type ExitMode = "mirror" | "rewind";
 
@@ -72,6 +78,11 @@ export function useSplitReveal(
   }: SplitRevealOptions,
 ) {
   const reduced = useReducedMotion();
+  /**
+   * Inside a sticky stage, the playhead is driven by the stage's progress
+   * rather than by triggers of our own. See stageContext for why.
+   */
+  const stage = useStage();
   /** Normalised playhead, carried across a re-split. */
   const held = useRef(0);
 
@@ -120,9 +131,16 @@ export function useSplitReveal(
           let lower: ScrollTrigger | null = null;
           let upper: ScrollTrigger | null = null;
           let call: gsap.core.Tween | null = null;
+          let unsub: (() => void) | null = null;
 
           if (immediate) {
             call = gsap.delayedCall(delay, () => to(restAt, restAt));
+          } else if (stage) {
+            unsub = stage.subscribe((p) => {
+              const t = stageTime(p, restAt, tl.duration());
+              tl.time(t);
+              held.current = tl.duration() ? t / tl.duration() : 0;
+            });
           } else {
             lower = ScrollTrigger.create({
               trigger: el,
@@ -145,6 +163,7 @@ export function useSplitReveal(
             lower?.kill();
             upper?.kill();
             call?.kill();
+            unsub?.();
             gsap.killTweensOf(tl);
           };
           return tl;
@@ -160,6 +179,6 @@ export function useSplitReveal(
         split.revert();
       };
     },
-    { scope: ref, dependencies: [reduced, immediate, delay, enter, exit] },
+    { scope: ref, dependencies: [reduced, immediate, delay, enter, exit, stage] },
   );
 }
