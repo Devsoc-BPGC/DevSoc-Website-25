@@ -1,5 +1,24 @@
 # The plates
 
+## Read this first, it is where the last batch went wrong
+
+**Save to the exact path given.** Every plate in the last batch landed in
+`public/images/devfest/` regardless of what it was. I moved them, but the paths
+in this file are the real ones.
+
+**PNG is fine, I convert them.** Do not spend effort on format.
+
+**The ratio in the table is not a suggestion.** A set that mixes 3:2 and 2:3
+does not read as a set, and that was the one thing you asked for. The room
+posters are now locked to **1536 x 1024, 3:2 landscape**, because four of the
+six already came back that way and the objects suit it. Two need redoing at that
+size: `02-app` and `06-game-engine`.
+
+**The empty chair is gone.** There is no vacant room. The sixth vertical is
+Game Engine Development and it sits under the game room.
+
+---
+
 Every image on this site belongs to one family. That is the whole brief. A viewer
 should be able to tell that the hero facade, a room poster and a portrait were
 drawn by the same hand for the same site, without being told.
@@ -46,16 +65,14 @@ four similar pictures.
 
 ## Order of work
 
-If you generate nothing else, generate 1, 2 and 4. Those three are blocking:
-without them the site has a continuity error you can see while scrolling.
-
-| Batch | Plates | Why this order |
+| Batch | Plates | State |
 |---|---|---|
-| First | 1, 2, 4 | Blocking. The mark aliases when it spins; the DevFest and Dawn buildings are visibly not the hero building. |
-| Second | 3, 5 | Their portrait companions, so phones stop cropping the building to its middle. |
-| Third | 17 to 24 | The portraits and the empty chair. The most visible weakness on the site after the buildings. |
-| Fourth | 6 to 11 | The six room posters, reissued on one ground. |
-| Fifth | 12 to 16 | The corridor and the process plates. New sections, so nothing regresses if they are late. |
+| Done | 2, 3, 4, 5 | The four facades. All four match the hero building. Moved, converted, compressed, in. |
+| Done | 6, 8, 9, 10 | `01-web`, `03-game`, `04-ai-ml`, `05-ui-ux`. Exactly on family. In. |
+| **Next** | 7, 11 | `02-app` and `06-game-engine`, both at **1536 x 1024**, so the six finally match each other. |
+| **Next** | 17 to 23 | The seven portraits. The most visible weakness on the site now that the buildings are fixed. |
+| Then | 1 | The vector mark. Not a generation job, see section A. |
+| Then | 12 to 16 | The corridor and the four process plates. New sections, so nothing regresses if they are late. |
 
 ---
 
@@ -149,14 +166,18 @@ All six replace files that exist. The objects are right; the grounds are wrong.
 Today they sit on deep petrol, light mint, cream and near black, so the six do
 not read as one set when the wheel turns.
 
-**Every one of these six is 1024 x 1280, 4:5 portrait, on the same near-black
+**Every one of these six is 1536 x 1024, 3:2 landscape, on the same near-black
 ground.** The only thing that changes between them is the object and which
 accent it carries.
+
+Already correct and done: `01-web`, `03-game`, `04-ai-ml`, `05-ui-ux`.
+**Still to redo at 1536 x 1024:** `02-app` came back 2:3 portrait, and
+`06-game-engine` is still the old plate on the wrong ground.
 
 The shared opening sentence, copied into all six:
 
 ```
-A single object centred on a flat near black field, seen straight on, filling about sixty percent of the frame. One warm amber light falls from the upper left. A soft dark contact shadow sits directly under the object.
+A single object centred on a flat near black field, seen straight on, filling about sixty percent of the frame width. One warm amber light falls from the upper left. A soft dark contact shadow sits directly under the object. Landscape format, three by two.
 ```
 
 ## 6. `public/images/rooms/01-web.jpg`
@@ -212,7 +233,7 @@ The object is three rectangular artboards stacked at slight angles, as if fanned
 Note: the current file is a stack of *notebooks with a pen*. Artboards is what
 the section is about, so this one is a change of subject, not just of ground.
 
-## 11. `public/images/rooms/06-engine.jpg`
+## 11. `public/images/rooms/06-game-engine.jpg`
 
 ```
 [paste the shared opening sentence]
@@ -276,22 +297,6 @@ change if the filenames stay.
 **Check:** put all seven in a row. The light must come from the same side in
 every one, the crop must sit at the same height, and the backgrounds must be
 indistinguishable. If one person is lit from the right, regenerate that one.
-
-## 24. `public/images/crew/empty-chair.jpg` — 1024 x 1280, 4:5 portrait
-
-The eighth frame in the crew grid. Engine Development has no head this year, and
-rather than hide that, the site makes it the invitation. This plate fills the
-empty slot.
-
-Uses the standard recipe block, not the portrait one.
-
-```
-A single empty chair centred on a flat near black field, seen straight on at the same scale and crop as a seated portrait, filling about half the frame height. A plain office chair, no desk, no laptop, nothing else in frame. One warm amber light falls from the upper left, catching the edge of the backrest and the seat. A soft dark contact shadow sits under it. The chair is empty and clearly waiting.
-
-[paste the recipe block]
-```
-
----
 
 # E. The corridor and the process plates
 

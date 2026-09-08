@@ -51,7 +51,16 @@ export function DevFest() {
             alt="The face of the campus building with every window lit"
             fill
             sizes="100vw"
-            className="object-cover object-center"
+            className="hidden object-cover object-center md:block"
+          />
+          {/* A phone cropped the landscape plate to its middle and lost both
+              ends of the building. Same building, drawn for the tall frame. */}
+          <Image
+            src="/images/devfest/facade-full-tall.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center md:hidden"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-base/40 via-transparent to-base" />

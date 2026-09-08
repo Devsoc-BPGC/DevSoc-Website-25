@@ -128,7 +128,8 @@ export function Rooms() {
                 </p>
                 <p className="voice mt-2 text-[1.35rem] text-primary">{v.voice}</p>
                 <p className="meta mt-3 text-muted">
-                  {v.head ?? "Head to be confirmed"}. {v.tools.join(", ")}
+                  {v.head ? `${v.head}. ` : ""}
+                  {v.tools.join(", ")}
                 </p>
               </li>
             ))}
@@ -187,8 +188,12 @@ export function Rooms() {
               <div key={room.id} className="rise-in mt-10 max-w-[34ch]">
                 <p className="voice text-[clamp(1.2rem,1.8vw,1.8rem)] text-primary">{room.voice}</p>
                 <p className="meta mt-4 text-muted">
-                  {room.head ? <span className="text-primary">{room.head}</span> : "Head to be confirmed"}
-                  {". "}
+                  {room.head ? (
+                    <>
+                      <span className="text-primary">{room.head}</span>
+                      {". "}
+                    </>
+                  ) : null}
                   {room.tools.join(", ")}
                 </p>
               </div>
