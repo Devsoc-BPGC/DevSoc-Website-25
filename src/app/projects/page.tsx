@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ProjectsGrid } from "./ProjectsGrid";
+import { ScrubFilm } from "./ScrubFilm";
 
 export const metadata: Metadata = {
   title: "The log",
@@ -14,7 +15,11 @@ export default function ProjectsPage() {
         <p className="body-copy mt-6">
           Every build with a name. Fest websites, fest apps, tools that fix a Tuesday, and work for clients off campus.
         </p>
+        <p className="meta mt-6 text-muted">
+          No live links here. These are screenshots of things that shipped, not a portfolio. Ask a room head for a demo.
+        </p>
       </div>
+      <ScrubFilm />
       <ProjectsGrid />
     </main>
   );
