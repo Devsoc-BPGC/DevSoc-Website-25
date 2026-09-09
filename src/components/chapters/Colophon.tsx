@@ -8,8 +8,18 @@
  * its own raised surface, a closing line big enough to be the reason you
  * scrolled this far, the links in real columns, and the wordmark set at full
  * page width and cropped by the bottom edge, so the page ends on the name
- * rather than trailing off. Under the wordmark the ground warms: the night is
- * over and the first light is coming up behind the letters.
+ * rather than trailing off.
+ *
+ * This used to read the other way. The ground warmed under the wordmark and the
+ * letters rose into it, on the idea that the night was over and the first light
+ * was coming up behind the name. That was written before the door: the site now
+ * spends its last chapter walking *into* the light and then away from it, so
+ * ending on a sunrise would be the story running backwards in its final frame.
+ *
+ * The night closes instead. What is left low behind the letters is not dawn
+ * coming, it is the door you came through, a long way back and still open, and
+ * the name sinks into the dark at the crop rather than lifting out of it. The
+ * page ends where it started, which is the whole point of the shape.
  *
  * The one moving thing is a Perlin flow field drifting behind the type. It
  * is masked away at the top and bottom so it never crowds the links or the
@@ -61,7 +71,7 @@ export function Colophon() {
       ref={root}
       aria-label="Colophon"
       className="relative overflow-hidden bg-raised"
-      style={{ ["--footer-lift" as string]: "color-mix(in oklch, var(--accent-warm) 14%, transparent)" }}
+      style={{ ["--footer-lift" as string]: "color-mix(in oklch, var(--accent-warm) 7%, transparent)" }}
     >
       {/* Air still moving over the page after the reader has stopped. */}
       <div
@@ -75,7 +85,7 @@ export function Colophon() {
         <FlowField className="h-full w-full" />
       </div>
 
-      {/* First light, low and wide behind the wordmark. */}
+      {/* Not first light. The door, far behind you, still open. */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[46vh]"
         style={{ background: "radial-gradient(120% 100% at 50% 118%, var(--footer-lift), transparent 62%)" }}
@@ -169,15 +179,15 @@ export function Colophon() {
         </div>
       </div>
 
-      {/* The name, full width, cropped by the bottom of the page. Dawn comes
-          up through the letters: bone at the top, warm where they are cut. */}
+      {/* The name, full width, cropped by the bottom of the page. The night
+          takes it: bone at the top, going out where the letters are cut. */}
       <div
         ref={mark}
         className="relative mt-8 will-change-transform"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "linear-gradient(to bottom, var(--text-primary) 38%, color-mix(in oklch, var(--accent-warm) 78%, var(--text-primary)) 100%)",
+            "linear-gradient(to bottom, var(--text-primary) 34%, color-mix(in oklch, var(--bg-base) 72%, var(--text-primary)) 100%)",
           WebkitBackgroundClip: "text",
           backgroundClip: "text",
           color: "transparent",

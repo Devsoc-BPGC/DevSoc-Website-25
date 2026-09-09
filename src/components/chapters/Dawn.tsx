@@ -11,7 +11,8 @@ import { Magnetic } from "@/components/motion/Magnetic";
 import { RevealWords } from "@/components/motion/text";
 import { Reveal } from "@/components/motion/Reveal";
 import { DoorLight } from "@/components/chapters/DoorLight";
-import { useInkOver } from "@/lib/useInk";
+import { DoorBehind, LIGHT_LEAVES_CHROME } from "@/components/chapters/DoorBehind";
+import { useInkSpan } from "@/lib/useInk";
 import { TextLink } from "@/components/ui/TextLink";
 import { QuestionDoors } from "@/components/ui/QuestionDoors";
 import { faq } from "@/content/faq";
@@ -22,9 +23,14 @@ type Inductee = { name: string; id: string | null };
 
 export function Dawn() {
   const [q, setQ] = useState("");
-  /** The questions stand on the dawn light, so the chrome has to invert over them. */
+  /**
+   * The questions stand on the dawn light and that light carries on into the
+   * section below, so the inverted chrome is one span across two sections and
+   * gets one owner. See useInkSpan for why splitting it does not work.
+   */
   const litRef = useRef<HTMLDivElement>(null);
-  useInkOver(litRef);
+  const recedeRef = useRef<HTMLDivElement>(null);
+  useInkSpan(litRef, recedeRef, LIGHT_LEAVES_CHROME);
   const list = inductees as Inductee[];
   const matches = useMemo(() => {
     const t = q.trim().toLowerCase();
@@ -134,7 +140,8 @@ export function Dawn() {
         </Reveal>
       </div>
 
-
+      {/* Keep walking. The door is behind you now, and the night closes over. */}
+      <DoorBehind trackRef={recedeRef} />
     </section>
   );
 }
