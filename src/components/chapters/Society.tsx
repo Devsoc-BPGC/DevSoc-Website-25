@@ -2,17 +2,30 @@
 
 /**
  * The Society
- * The turn. Everywhere else the night holds; here it gives way.
+ * The turn. Everywhere else the night holds; here it gives way, and then takes
+ * itself back.
  *
- * The section pins and one thing happens: ink floods the stage diagonally
- * with a grainy dissolving edge until the whole thing has inverted, ground to
- * type. It is the only tonal inversion on the site, which is what makes it
- * land, and it says the thing the copy says. Work done in the dark is what
- * the campus sees in daylight.
+ * One thing happens. Daylight crosses the stage, bay by bay along a wall of
+ * windows, until the whole thing has inverted, ground to type. Then it keeps
+ * going and leaves the same way, and the night closes over the section again.
+ * It says what the copy says: what the campus sees in daylight was made in the
+ * dark, and the dark is still there underneath it.
  *
- * The board on the right settles like a departure board once the ink has
- * mostly crossed it. Facts about a society are the one place a split-flap is
- * honest rather than decorative: they are the numbers on the board.
+ * The light used to arrive as a grainy diagonal ink flood. That was a good
+ * effect and the wrong one. It spoke print, ink soaking into paper, while the
+ * rest of the site speaks light through an opening: windows that are lit or
+ * not, a door that opens, an aperture that closes. A building whose entire
+ * argument is which of its windows are on should not change state by being
+ * spilled on.
+ *
+ * The section also used to end inverted and hand a bright stage straight to a
+ * night one, papered over with a wave divider. Crossing the light back off
+ * again means there is nothing to paper over: it leaves the way it came, which
+ * is the rule the whole site is built on anyway.
+ *
+ * The board on the right settles like a departure board while the light is
+ * full on it. Facts about a society are the one place a split-flap is honest
+ * rather than decorative: they are the numbers on the board.
  *
  * The stage is written once and rendered twice, in two tones. Both copies
  * have identical layout, so the inverted one can sit exactly on top of the
@@ -27,10 +40,9 @@ import { useRef, useState } from "react";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { useIsMobile, useReducedMotion } from "@/lib/useMedia";
 import { Ambient } from "@/components/motion/Ambient";
-import { InkBleed, type InkBleedHandle } from "@/components/motion/InkBleed";
+import { WindowWipe, type WindowWipeHandle } from "@/components/motion/WindowWipe";
 import { Reveal } from "@/components/motion/Reveal";
 import { SplitFlap } from "@/components/motion/SplitFlap";
-import { WaveDivider } from "@/components/motion/WaveDivider";
 import { chapters } from "@/content/chapters";
 import { site } from "@/content/site";
 
@@ -100,7 +112,7 @@ function Stage({ ink = false, flap = false }: { ink?: boolean; flap?: boolean })
 
 export function Society() {
   const track = useRef<HTMLDivElement>(null);
-  const ink = useRef<InkBleedHandle>(null);
+  const wipe = useRef<WindowWipeHandle>(null);
   const [flap, setFlap] = useState(false);
   const reduced = useReducedMotion();
   const mobile = useIsMobile();
@@ -126,14 +138,16 @@ export function Society() {
         start: "top top",
         end: "bottom bottom",
         onUpdate(self) {
-          // The stage holds for a moment before the ink starts, so the reader
-          // reads the line on the night ground first.
-          const p = (self.progress - 0.16) / 0.7;
-          ink.current?.set(p);
+          // The wipe owns its own timing: it holds on night at the start so the
+          // line gets read, crosses, sits, and crosses off.
+          const p = self.progress;
+          wipe.current?.set(p);
           // A dead band, not a threshold. Without it, a reader scrubbing at the
           // boundary fires setState every frame and the board chatters.
-          setFlap((on) => (on ? p > 0.48 : p > 0.55));
-          setInk(p < 0.22 ? "" : p < 0.85 ? "cross" : "1");
+          setFlap((on) => (on ? p > 0.55 : p > 0.62));
+          // Hidden while the light is moving across, because the chrome would
+          // be crossing bays of opposite tone and legible over neither.
+          setInk(p < 0.22 ? "" : p < 0.58 ? "cross" : p < 0.78 ? "1" : p < 0.99 ? "cross" : "");
         },
       });
 
@@ -169,14 +183,13 @@ export function Society() {
             <Stage flap />
           </Reveal>
         </div>
-        <WaveDivider fill="var(--surface-raised)" flip />
       </section>
     );
   }
 
   return (
     <section id="society" aria-labelledby="society-line" className="relative">
-      <div ref={track} className="relative h-[220vh]">
+      <div ref={track} className="relative h-[300vh]">
         {/* Both copies are centred in the same full-height box at the same
             width, so the inverted one lands exactly on the plain one. */}
         <div className="sticky top-0 flex h-[100dvh] items-center overflow-hidden">
@@ -186,15 +199,14 @@ export function Society() {
             <Stage />
           </div>
 
-          <InkBleed ref={ink} className="flex items-center">
+          <WindowWipe ref={wipe} className="flex items-center">
             <div className="absolute inset-0" style={{ background: "var(--text-primary)" }} />
             <div className="relative w-full">
               <Stage ink flap={flap} />
             </div>
-          </InkBleed>
+          </WindowWipe>
         </div>
       </div>
-      <WaveDivider fill="var(--surface-raised)" flip />
     </section>
   );
 }
