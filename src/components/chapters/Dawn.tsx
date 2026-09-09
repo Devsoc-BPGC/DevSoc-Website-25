@@ -6,13 +6,14 @@
  * list if it is out, and the questions people actually ask.
  */
 
-import { useMemo, useState } from "react";
-import Image from "next/image";
+import { useMemo, useRef, useState } from "react";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { RevealWords } from "@/components/motion/text";
 import { Reveal } from "@/components/motion/Reveal";
-import { WaveDivider } from "@/components/motion/WaveDivider";
+import { DoorLight } from "@/components/chapters/DoorLight";
+import { useInkOver } from "@/lib/useInk";
 import { TextLink } from "@/components/ui/TextLink";
+import { QuestionDoors } from "@/components/ui/QuestionDoors";
 import { faq } from "@/content/faq";
 import { site } from "@/content/site";
 import inductees from "@/content/inductees.json";
@@ -21,6 +22,9 @@ type Inductee = { name: string; id: string | null };
 
 export function Dawn() {
   const [q, setQ] = useState("");
+  /** The questions stand on the dawn light, so the chrome has to invert over them. */
+  const litRef = useRef<HTMLDivElement>(null);
+  useInkOver(litRef);
   const list = inductees as Inductee[];
   const matches = useMemo(() => {
     const t = q.trim().toLowerCase();
@@ -30,24 +34,10 @@ export function Dawn() {
 
   return (
     <section id="dawn" aria-labelledby="dawn-title" className="relative">
-      <div className="relative min-h-[100dvh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/dawn/door-wide.jpg"
-            alt="The same building at dawn, one door open with light falling out of it onto the path"
-            fill
-            sizes="100vw"
-            className="hidden object-cover md:block"
-          />
-          <Image src="/images/dawn/door-tall.jpg" alt="" fill sizes="100vw" className="object-cover md:hidden" />
-        </div>
-        <div
-          className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, var(--scrim) 4%, transparent 34%, var(--scrim) 88%)" }}
-          aria-hidden="true"
-        />
-
-        <div className="relative flex min-h-[100dvh] flex-col justify-end gutter pb-[12vh] pt-[26vh]">
+      {/* One door. The plate, the chapter written on it, and the walk into it are
+          the same shot, so they are the same component. */}
+      <DoorLight>
+        <div className="gutter w-full pb-[14vh]">
           <div className="grid-12 items-end gap-y-10">
             <div className="col-span-12 lg:col-span-6">
               {site.inducteesLive ? (
@@ -115,32 +105,36 @@ export function Dawn() {
             </div>
           </div>
         </div>
+      </DoorLight>
+
+      <div ref={litRef} className="lit gutter grid-12 py-[16vh]">
+        {/* The heading stays with you while you work down the corridor. */}
+        <div className="col-span-12 lg:col-span-4">
+          <div className="lg:sticky lg:top-[22vh]">
+            <Reveal>
+              <h3 id="faq-title" className="display text-[clamp(2rem,4vw,4rem)] leading-[0.95] text-primary">
+                Questions
+              </h3>
+              <p className="body-copy mt-6 max-w-[34ch]">
+                Everything people actually ask, and the answers we give them in person.
+              </p>
+            </Reveal>
+            <Reveal className="mt-10">
+              <Magnetic>
+                <a href={`mailto:${site.email}`} className="text-link meta text-primary" data-cursor="Write">
+                  {site.email}
+                </a>
+              </Magnetic>
+            </Reveal>
+          </div>
+        </div>
+
+        <Reveal className="col-span-12 mt-12 lg:col-span-7 lg:col-start-6 lg:mt-2">
+          <QuestionDoors items={faq} />
+        </Reveal>
       </div>
 
-      <div className="gutter grid-12 py-[10vh]">
-        <Reveal className="col-span-12 lg:col-span-4">
-          <h3 id="faq-title" className="display text-[clamp(2rem,4vw,4rem)] text-primary">
-            Questions
-          </h3>
-        </Reveal>
-        <Reveal as="dl" stagger={0.05} className="col-span-12 mt-10 lg:col-span-7 lg:col-start-6 lg:mt-2">
-          {faq.map((f) => (
-            <div key={f.q} className="border-t border-rule/25 py-6 last:border-b">
-              <dt className="text-[1.05rem] text-primary">{f.q}</dt>
-              <dd className="body-copy mt-2 text-[1rem]">{f.a}</dd>
-            </div>
-          ))}
-        </Reveal>
-        <Reveal className="col-span-12 mt-14 lg:col-span-7 lg:col-start-6">
-          <Magnetic>
-            <a href={`mailto:${site.email}`} className="text-link meta text-primary" data-cursor="Write">
-              {site.email}
-            </a>
-          </Magnetic>
-        </Reveal>
-      </div>
 
-      <WaveDivider fill="var(--surface-raised)" flip />
     </section>
   );
 }

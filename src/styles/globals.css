@@ -15,6 +15,17 @@
   --c-ember: oklch(0.7 0.17 50);
   --c-brass: oklch(0.78 0.09 85);
   --c-verdigris-deep: oklch(0.45 0.08 190);
+  /* What comes through the open door at the end of the night.
+
+     Sampled from door-wide.jpg rather than picked, because the light in the
+     plate and the ground it becomes have to be the same colour: the scroll
+     pushes into that doorway and the light grows until it *is* the page. Any
+     gap between the two shows up as a seam at exactly the moment the whole
+     transition is asking you to believe it is one continuous light. The mean of
+     the bright warm pixels inside the opening is #edb455 and its core is
+     #fdd77d, which is this. */
+  --c-dawn: #fdd77d;
+  --c-dawn-ink: oklch(0.24 0.035 62);
 }
 
 /* Tier 2: semantic roles. Components only ever speak in these.
@@ -37,6 +48,30 @@
   --scrim: color-mix(in oklch, var(--c-obsidian) 70%, transparent);
   --grade: var(--c-verdigris-deep);
   color-scheme: dark;
+}
+
+/* The dawn light.
+
+   The one place the night gives way. The door in the last chapter opens, the
+   scroll pushes into it, its light takes the whole frame, and the questions get
+   answered standing in it. That is the payoff the whole site is walking toward:
+   dusk to dawn, and the only way out is through the lit door.
+
+   It redefines the role tokens rather than recolouring elements one at a time,
+   which is the same mechanism the inverted chrome uses, so anything dropped
+   inside it inverts correctly without knowing it has been inverted.
+   ------------------------------------------------------------------ */
+.lit {
+  --bg-base: var(--c-dawn);
+  --surface-raised: color-mix(in oklch, var(--c-dawn) 92%, var(--c-dawn-ink));
+  --text-primary: var(--c-dawn-ink);
+  --text-muted: color-mix(in oklch, var(--c-dawn-ink) 58%, transparent);
+  --rule-color: color-mix(in oklch, var(--c-dawn-ink) 34%, transparent);
+  --accent-warm: oklch(0.48 0.15 52);
+  --accent-light: oklch(0.42 0.13 128);
+  --scrim: color-mix(in oklch, var(--c-dawn) 70%, transparent);
+  background: var(--bg-base);
+  color: var(--text-primary);
 }
 
 @theme inline {

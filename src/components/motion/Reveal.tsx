@@ -28,6 +28,8 @@ export function Reveal({
   delay = 0,
   duration = DUR.reveal,
   immediate = false,
+  enter,
+  exit,
 }: {
   children: ReactNode;
   className?: string;
@@ -39,12 +41,17 @@ export function Reveal({
   duration?: number;
   /** Play on mount instead of waiting for scroll. */
   immediate?: boolean;
+  /** Overrides for where this arrives and leaves. ScrollTrigger `start` syntax. */
+  enter?: string;
+  exit?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
 
   useThroughTimeline(ref, {
     immediate,
     delay,
+    enter,
+    exit,
     deps: [stagger, y, duration],
     build(tl) {
       const el = ref.current;

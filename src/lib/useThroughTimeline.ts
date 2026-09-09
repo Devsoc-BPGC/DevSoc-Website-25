@@ -45,7 +45,14 @@ export type ThroughOptions = {
   build: (tl: gsap.core.Timeline) => void;
   /** Where the element arrives. ScrollTrigger `start` syntax. */
   enter?: string;
-  /** Where it leaves out of the top. ScrollTrigger `start` syntax. */
+  /**
+   * Where it leaves out of the top. ScrollTrigger `start` syntax, or "auto".
+   *
+   * "auto" keys the exit to the bottom edge for anything taller than the
+   * viewport and to the top edge otherwise. A compact heading should leave when
+   * its top goes off screen, but a block of eight questions would then fade out
+   * while you are still reading the middle of it.
+   */
   exit?: string;
   /** Play straight through to rest on mount instead of waiting for scroll. */
   immediate?: boolean;
@@ -66,7 +73,7 @@ const REST = "rest";
  */
 export function useThroughTimeline(
   ref: React.RefObject<HTMLElement | null>,
-  { build, enter = "top 88%", exit = "top 6%", immediate = false, delay = 0, deps = [] }: ThroughOptions,
+  { build, enter = "top 88%", exit = "auto", immediate = false, delay = 0, deps = [] }: ThroughOptions,
 ) {
   const reduced = useReducedMotion();
   /** Inside a sticky stage, the playhead follows the stage. See stageContext. */
@@ -145,9 +152,16 @@ export function useThroughTimeline(
       });
 
       /** The upper edge: leaving out of the top, and coming back down into rest. */
+      // Resolved as a function so it is re-evaluated on every refresh, after a
+      // resize has changed which side of the viewport height the element is on.
+      const exitStart =
+        exit === "auto"
+          ? () => (el.offsetHeight > window.innerHeight * 0.9 ? "bottom 6%" : "top 6%")
+          : exit;
+
       const upper = ScrollTrigger.create({
         trigger: el,
-        start: exit,
+        start: exitStart,
         onEnter: () => to(tl.duration(), DUR.exit),
         onLeaveBack: () => to(restAt, DUR.exit),
         fastScrollEnd: 2500,
