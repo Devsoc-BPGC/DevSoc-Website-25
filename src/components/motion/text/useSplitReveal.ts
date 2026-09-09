@@ -59,6 +59,8 @@ export type SplitRevealOptions = {
   exit?: string;
   immediate?: boolean;
   exitMode?: ExitMode;
+  /** Inside a stage, settle and stay settled for the rest of the section. */
+  hold?: boolean;
 };
 
 export function useSplitReveal(
@@ -75,6 +77,7 @@ export function useSplitReveal(
     enter = "top 88%",
     exit = "top 6%",
     immediate = false,
+    hold = false,
   }: SplitRevealOptions,
 ) {
   const reduced = useReducedMotion();
@@ -137,7 +140,7 @@ export function useSplitReveal(
             call = gsap.delayedCall(delay, () => to(restAt, restAt));
           } else if (stage) {
             unsub = stage.subscribe((p) => {
-              const t = stageTime(p, restAt, tl.duration());
+              const t = stageTime(p, restAt, tl.duration(), hold);
               tl.time(t);
               held.current = tl.duration() ? t / tl.duration() : 0;
             });
@@ -179,6 +182,6 @@ export function useSplitReveal(
         split.revert();
       };
     },
-    { scope: ref, dependencies: [reduced, immediate, delay, enter, exit, stage] },
+    { scope: ref, dependencies: [reduced, immediate, delay, enter, exit, stage, hold] },
   );
 }

@@ -32,6 +32,11 @@ export type RevealProps = {
   exit?: string;
   /** Play on mount rather than waiting for scroll. */
   immediate?: boolean;
+  /**
+   * Inside a sticky stage, arrive and then stay. For a running head that is
+   * meant to caption the whole section rather than pass through it.
+   */
+  hold?: boolean;
 };
 
 export function RevealLines({

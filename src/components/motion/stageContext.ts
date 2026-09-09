@@ -54,9 +54,12 @@ export const REVEAL_OUT = 0.86;
  * last staggered characters permanently short of their settled pose, which
  * looks like a broken reveal rather than a mistimed one.
  */
-export function stageTime(p: number, restAt: number, duration: number) {
+export function stageTime(p: number, restAt: number, duration: number, hold = false) {
   if (p <= REVEAL_IN) return (Math.max(0, p) / REVEAL_IN) * restAt;
-  if (p < REVEAL_OUT) return restAt;
+  // A running head belongs to the whole stage, not to a moment in it. Letting
+  // it take the normal exit means it turns away while the last of the section
+  // is still being read, which looks like a bug rather than like a departure.
+  if (hold || p < REVEAL_OUT) return restAt;
   const out = Math.min(1, (p - REVEAL_OUT) / (1 - REVEAL_OUT));
   return restAt + out * (duration - restAt);
 }
