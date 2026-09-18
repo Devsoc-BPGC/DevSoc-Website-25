@@ -47,3 +47,6 @@ next-env.d.ts
 
 # reference captures of a third-party site: kept locally for design study, not published
 /docs/reference/zainabkabira/
+
+# design references: kept locally, not published
+/new inspo/
