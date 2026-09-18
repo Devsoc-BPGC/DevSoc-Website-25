@@ -1,4 +1,5 @@
 import { Dusk } from "@/components/scenes/Dusk";
+import { Society } from "@/components/scenes/Society";
 import { Pending } from "@/components/scenes/Pending";
 
 /**
@@ -9,7 +10,7 @@ export default function Home() {
   return (
     <main className="relative">
       <Dusk />
-      <Pending id="society" name="The Society" />
+      <Society />
       <Pending id="rooms" name="The flywheel" />
       <Pending id="nightshift" name="The Night Shift" />
       <Pending id="log" name="The log" />

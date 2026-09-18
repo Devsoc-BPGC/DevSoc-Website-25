@@ -518,6 +518,28 @@
   }
 }
 
+/* ------------------------------------------------------------------ room modules
+   A room cut from the plan. Blueprint ink, a hairline in blue, and a lamp that
+   goes acid when the room is lit. Its size is a token so Society and Rooms
+   draw the same module and the handoff between them does not jump. */
+
+:root {
+  --mod-w: clamp(7.5rem, 10.5vw, 10.5rem);
+  --mod-h: calc(var(--mod-w) * 0.62);
+}
+.room-module {
+  width: var(--mod-w);
+  height: var(--mod-h);
+  background: #141826;
+  outline: 1px solid color-mix(in srgb, var(--c-blue) calc(45% + var(--on, 0) * 55%), transparent);
+  outline-offset: -1px;
+  box-shadow: var(--shadow-paper);
+}
+.room-lamp {
+  background: color-mix(in srgb, var(--c-acid) calc(var(--on, 0) * 100%), #2a2e36);
+  box-shadow: 0 0 calc(var(--on, 0) * 10px) color-mix(in srgb, var(--c-acid) calc(var(--on, 0) * 70%), transparent);
+}
+
 /* ------------------------------------------------------------------ reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
