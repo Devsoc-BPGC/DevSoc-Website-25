@@ -8,8 +8,11 @@
  * a fixed layer; a tiled PNG costs one decode. It is also seeded, so the grain
  * is identical on every build and a diff of public/ stays quiet.
  *
- *   grain.png   128 x 128   luminance noise with alpha, tiled over the whole page
- *   paper.jpg   384 x 384   soft fibre and mottling, multiplied onto every sheet
+ *   grain.png         128 x 128   luminance noise with alpha, tiled over the whole page
+ *   paper.jpg         384 x 384   soft fibre and mottling, multiplied onto every sheet
+ *   paper-quiet.jpg   384 x 384   the same fibre on bone, washed back, for long sheets
+ *   feed.png           64 x 64    one feed hole of continuous printer paper
+ *   pin.png            16 x 16    one dot-matrix pin, a mask tile for printed names
  *
  * Both are kept small on purpose: noise does not compress, so the only lever
  * is the tile size, and a 128px grain tile is invisible as a repeat at 3.5%
@@ -102,6 +105,61 @@ async function paper() {
     .toFile(join(out, "paper.jpg"));
 }
 
+/**
+ * The paper for sheets long enough that the camera travels down them: the
+ * fibre tile already multiplied onto bone and washed most of the way back
+ * toward it. Baked, because doing the same in CSS takes a gradient layer and
+ * a blend mode on an element thousands of pixels tall, which some GPUs simply
+ * decline to paint.
+ */
+async function paperQuiet() {
+  const { data, info } = await sharp(join(out, "paper.jpg")).raw().toBuffer({ resolveWithObject: true });
+  const bone = [240, 236, 226];
+  const px = Buffer.alloc(info.width * info.height * 3);
+  for (let i = 0; i < info.width * info.height; i++) {
+    const t = data[i * info.channels] / 255;
+    for (let c = 0; c < 3; c++) {
+      const multiplied = bone[c] * t;
+      px[i * 3 + c] = Math.round(bone[c] * 0.7 + multiplied * 0.3);
+    }
+  }
+  await sharp(px, { raw: { width: info.width, height: info.height, channels: 3 } })
+    .jpeg({ quality: 82, mozjpeg: true })
+    .toFile(join(out, "paper-quiet.jpg"));
+}
+
+/** A round, anti-aliased dot on transparent, `size` square, for tiling. */
+async function dot(file, size, radius, rgb) {
+  const px = Buffer.alloc(size * size * 4);
+  const c = size / 2;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      // Coverage by 4x4 supersampling, so the edge is soft at any scale.
+      let cover = 0;
+      for (let sy = 0; sy < 4; sy++) {
+        for (let sx = 0; sx < 4; sx++) {
+          const dx = x + (sx + 0.5) / 4 - c;
+          const dy = y + (sy + 0.5) / 4 - c;
+          if (dx * dx + dy * dy <= radius * radius) cover++;
+        }
+      }
+      const i = (y * size + x) * 4;
+      px[i] = rgb[0];
+      px[i + 1] = rgb[1];
+      px[i + 2] = rgb[2];
+      px[i + 3] = Math.round((cover / 16) * 255);
+    }
+  }
+  await sharp(px, { raw: { width: size, height: size, channels: 4 } })
+    .png({ compressionLevel: 9 })
+    .toFile(join(out, file));
+}
+
 await grain();
 await paper();
+await paperQuiet();
+// A feed hole in continuous printer paper: ink, because a hole shows the night.
+await dot("feed.png", 64, 12.5, [13, 14, 12]);
+// One pin of a dot-matrix print head, used as a mask tile.
+await dot("pin.png", 16, 7.2, [0, 0, 0]);
 console.log("textures written to", out);

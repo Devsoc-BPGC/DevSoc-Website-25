@@ -337,58 +337,39 @@
   background-blend-mode: normal, normal, multiply;
 }
 
+/* Dot-matrix print: the letters are made of the head's pins. The pin is a
+   baked tile used as a mask, the same idea as the LED sign's dots. A gradient
+   here would be hundreds of thousands of tiles over the roll of names. */
+.dotmatrix {
+  mask-image: url("/textures/pin.png");
+  mask-size: 2px 2px;
+}
+
 /* Paper with the fibre washed back, for a sheet the camera goes right into:
-   magnified, the full-strength texture reads as dirt. */
+   magnified, the full-strength texture reads as dirt. Baked onto bone, so it
+   is one image layer with no blending. */
 .paper--quiet {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--paper) 70%, transparent), color-mix(in srgb, var(--paper) 70%, transparent)),
-    url("/textures/paper.jpg");
-  background-size:
-    auto,
-    384px 384px;
-  background-blend-mode: normal, multiply;
+  background-image: url("/textures/paper-quiet.jpg");
+  background-size: 384px 384px;
+  background-blend-mode: normal;
 }
 
 /* Continuous printer paper: the first month's schedule and the roll of names
-   are one printout. Feed holes run down both edges (they are ink, because the
-   holes show what is behind the sheet), each strip set off by a perforation.
-   The fibre is washed back: across a sheet this long the texture's tile would
-   otherwise repeat as blotches. The holes start at the top of the element, so
-   two pieces cut at a fold line continue each other exactly. */
+   are one printout. Feed holes run down both edges (they are ink, because a
+   hole shows what is behind the sheet), each strip set off by a perforation.
+
+   Everything here is a baked tile repeated, never a gradient or a blend: the
+   sheet is thousands of pixels tall, and a background built from repeated
+   gradient tiles at that size is one some GPUs decline to paint at all. The
+   holes start at the top of the element, so two pieces cut at a fold line
+   continue each other exactly. */
 .fanfold {
   --feed: 2.6rem;
   --pitch: 1.6rem;
   position: relative;
-  background-color: var(--paper);
-  background-image:
-    radial-gradient(circle, var(--c-ink) calc(var(--pitch) * 0.19), transparent calc(var(--pitch) * 0.21)),
-    radial-gradient(circle, var(--c-ink) calc(var(--pitch) * 0.19), transparent calc(var(--pitch) * 0.21)),
-    linear-gradient(color-mix(in srgb, var(--paper) 70%, transparent), color-mix(in srgb, var(--paper) 70%, transparent)),
-    url("/textures/paper.jpg");
-  background-size:
-    var(--feed) var(--pitch),
-    var(--feed) var(--pitch),
-    auto,
-    384px 384px;
-  background-position:
-    0 calc(var(--pitch) / 2),
-    100% calc(var(--pitch) / 2),
-    0 0,
-    0 0;
-  background-repeat: repeat-y, repeat-y, no-repeat, repeat;
-  background-blend-mode: normal, normal, normal, multiply;
+  background: var(--paper) url("/textures/paper-quiet.jpg") 0 0 / 384px 384px repeat;
   color: var(--ink-on-paper);
-  box-shadow: var(--shadow-lifted);
-}
-.fanfold::before,
-.fanfold::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  border-left: 1px dashed color-mix(in srgb, var(--c-ink) 22%, transparent);
-  pointer-events: none;
+  box-shadow: var(--shadow-paper);
 }
 @media (max-width: 47.98rem) {
   .fanfold {
@@ -396,11 +377,23 @@
     --pitch: 1.15rem;
   }
 }
+.fanfold::before,
+.fanfold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--feed);
+  background: url("/textures/feed.png") 50% 0 / var(--pitch) var(--pitch) repeat-y;
+  pointer-events: none;
+}
 .fanfold::before {
-  left: var(--feed);
+  left: 0;
+  border-right: 1px dashed color-mix(in srgb, var(--c-ink) 22%, transparent);
 }
 .fanfold::after {
-  right: var(--feed);
+  right: 0;
+  border-left: 1px dashed color-mix(in srgb, var(--c-ink) 22%, transparent);
 }
 
 /* Printed halftone for plates: a dot screen used as a mask, never as a pattern

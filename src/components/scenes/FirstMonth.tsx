@@ -307,8 +307,9 @@ function Schedule({
       </div>
 
       {/* The fold, and under it the next scene's paper: the roll of names is
-          printed on the same run, and starts here. */}
-      <div ref={foldRef} aria-hidden="true" className="h-[100vh] border-t-2 border-dashed border-[var(--c-ink)]/40" />
+          printed on the same run, and starts here. It restarts the feed holes
+          at the fold, as the roll's own sheet does, so the two line up. */}
+      <div ref={foldRef} aria-hidden="true" className="fanfold z-[1] h-[100vh] border-t-2 border-dashed border-[var(--c-ink)]/40 shadow-none!" />
     </div>
   );
 }

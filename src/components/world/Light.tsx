@@ -119,6 +119,27 @@ export function Light({
 
   const d = useMemo(() => buildPath(points, size.w, size.h, kind, sag), [points, size.w, size.h, kind, sag]);
   const s = STROKES[kind];
+  /**
+   * The blur only has to cover the route, not the whole host. On a long wall
+   * or a tall sheet the host is thousands of pixels, and a blur region that
+   * size is re-rendered every time the drawn length changes.
+   */
+  const region = useMemo(() => {
+    if (!points.length) return { x: 0, y: 0, w: 0, h: 0 };
+    const xs = points.map(([x]) => x * size.w);
+    const ys = points.map(([, y]) => y * size.h);
+    let span = 0;
+    for (let i = 1; i < points.length; i++) span = Math.max(span, Math.hypot(xs[i] - xs[i - 1], ys[i] - ys[i - 1]));
+    const pad = s.halo * 2 + 20;
+    const x0 = Math.min(...xs) - pad;
+    const y0 = Math.min(...ys) - pad;
+    return {
+      x: x0,
+      y: y0,
+      w: Math.max(...xs) + pad - x0,
+      h: Math.max(...ys) + pad + (kind === "cable" ? span * sag : 0) - y0,
+    };
+  }, [points, size.w, size.h, s.halo, kind, sag]);
 
   useGSAP(
     () => {
@@ -176,7 +197,7 @@ export function Light({
       {size.w > 0 && d ? (
         <svg width={size.w} height={size.h} viewBox={`0 0 ${size.w} ${size.h}`} className="absolute inset-0 overflow-visible">
           <defs>
-            <filter id={fid} filterUnits="userSpaceOnUse" x={-60} y={-60} width={size.w + 120} height={size.h + 120}>
+            <filter id={fid} filterUnits="userSpaceOnUse" x={region.x} y={region.y} width={region.w} height={region.h}>
               <feGaussianBlur stdDeviation={s.halo / 3} />
             </filter>
           </defs>
