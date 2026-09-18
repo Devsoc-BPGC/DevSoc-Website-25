@@ -9,11 +9,17 @@ import { site } from "@/content/site";
 // Display: condensed civic signage. Everything that should read as a sign, a
 // stamp or a poster. The optical size axis lets the same family stay open at
 // label sizes and tighten at poster sizes.
+//
+// Loaded blocking, not swapped. The rooftop sign is sized from this face's own
+// proportions, and Next has no fallback metrics for it, so a swap would draw
+// the sign first in a stand-in face at the wrong width and then jump. It is
+// self-hosted and preloaded, so the block is short.
 const shoulders = Big_Shoulders({
   subsets: ["latin"],
   axes: ["opsz"],
   variable: "--font-shoulders",
-  display: "swap",
+  display: "block",
+  adjustFontFallback: false,
 });
 
 // Body and data: a newspaper grotesk built for long reading. There is no mono

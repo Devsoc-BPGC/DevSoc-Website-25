@@ -5,12 +5,15 @@
  * The opening shot. The building at night, six rooms lit, the name standing on
  * the roof like a sign.
  *
- * DEVSOC sits behind the roofline, so the building occludes the bottom of every
- * letter and the name reads as something mounted on top of it rather than
- * printed over it. Where the letters cross the facade a second copy is drawn in
- * outline only, the move from the reference where a word passes behind its
- * subject and survives as a stroke. It is the one place the page uses outline
- * type, and it earns it by being about depth.
+ * DEVSOC is a sign on the roof. Channel letters on a steel frame, mounted on
+ * the building rather than laid over the picture: the frame shows between the
+ * letters and through their counters, its legs run down behind the parapet,
+ * and the parapet hides the feet of the letters. It leans back a few degrees,
+ * the way a rooftop sign does when you look up at it, and you see the returns
+ * under each letter for the same reason. Because it is mounted, it rides the
+ * camera with the building: when the camera pushes in and the facade tips
+ * back, the sign goes with it. One typographic treatment, carried by its
+ * physical construction rather than by a second decorative copy of the word.
  *
  * The rooms come on one at a time as the page opens, each with a starter's
  * stutter, and the tube around one of them strikes with its window. That tube
@@ -89,6 +92,88 @@ function useTubeDraw(route: ReturnType<typeof tubeRoute>) {
   );
 }
 
+/**
+ * The sign on the roof.
+ *
+ * Built the way a real one is: a steel frame first, then the letters on it.
+ * The letters are two layers of the same word, exactly aligned. The back layer
+ * is their depth, a stack of steel toned offsets that reads as the return of a
+ * channel letter seen from below. The front layer is the face, bone with the
+ * grain of painted metal in it. Two layers because a face filled through
+ * `background-clip: text` sits underneath its own text shadow, so depth put on
+ * the face would bury it.
+ *
+ * It is positioned at the roofline of the camera layer and drawn before the
+ * facade, so the parapet in the drawing covers the feet of every letter and
+ * the legs of the frame.
+ */
+function RoofSign({ word }: { word: string }) {
+  const legs = [7, 24, 41, 58, 75, 92];
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-full left-1/2"
+      style={{
+        fontSize: "var(--wm)",
+        // Centred, and dropped so the feet of the letters sit behind the parapet.
+        translate: "-50% calc(var(--wm) * 0.8 * 0.14)",
+      }}
+    >
+      <div
+        className="relative"
+        style={{
+          transformOrigin: "50% 100%",
+          transform: "perspective(1100px) rotateX(9deg)",
+          filter: "drop-shadow(0 0.03em 0.05em rgb(0 0 0 / 0.45))",
+        }}
+      >
+        {/* The frame: two rails behind the letters, legs down to the roof. */}
+        <span className="absolute inset-x-[3%] top-[30%] h-[0.012em] bg-[#34352f]" />
+        <span className="absolute inset-x-[3%] top-[66%] h-[0.012em] bg-[#34352f]" />
+        {legs.map((l) => (
+          <span key={l} className="absolute -bottom-[40%] top-[26%] w-[0.014em] bg-[#2c2d28]" style={{ left: `${l}%` }} />
+        ))}
+
+        {/* Depth: the returns of the letters, seen from below. */}
+        <span
+          className="display relative block whitespace-nowrap leading-[0.8] tracking-[0.005em] text-[#3d3c37]"
+          style={{
+            textShadow:
+              "0 0.004em 0 #6b6962, 0 0.008em 0 #5f5d57, 0 0.012em 0 #53524c, 0 0.016em 0 #474641, 0 0.02em 0 #3d3c37",
+          }}
+        >
+          {word}
+        </span>
+
+        {/* Face: bone, with the grain of painted metal.
+
+            The glyphs are taller than the 0.8em line box and overflow it, and
+            background-clip: text only paints inside the box, so the tops of
+            the letters had no face and the steel depth layer showed through as
+            a dark rim. The box is stretched past the glyphs and padded back by
+            the same amount, so the paint covers every letter and nothing
+            moves. */}
+        <span
+          className="display absolute inset-x-0 block whitespace-nowrap leading-[0.8] tracking-[0.005em] text-transparent"
+          style={{
+            top: "-0.2em",
+            bottom: "-0.2em",
+            paddingTop: "0.2em",
+            backgroundColor: "var(--c-bone)",
+            backgroundImage: "url('/textures/paper.jpg')",
+            backgroundSize: "384px 384px",
+            backgroundBlendMode: "multiply",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+          }}
+        >
+          {word}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function Dusk() {
   const root = useRef<HTMLDivElement>(null);
   const band = useRef<HTMLDivElement>(null);
@@ -139,15 +224,15 @@ export function Dusk() {
     <Scene id="dusk" vh={220} vhMobile={170} settled={0} depth onProgress={onProgress} aria-labelledby="dusk-line">
       <div
         ref={root}
-        className="absolute inset-0 [perspective:1600px]"
+        className="dusk-root absolute inset-0 [perspective:1600px]"
         style={{
-          // The name is sized by whichever runs out first, the width of the
-          // frame or 44% of its height ("DEVSOC" is 2.77em wide in this face),
-          // and the roofline is derived from it: 78% of the name stands above
-          // the roof, so the building always starts just under the letters on
-          // any screen shape, and what passes behind it is only the cornice.
-          ["--wm" as string]: "min(calc((100vw - 2 * var(--gutter)) / 2.77), 44vh)",
-          ["--roof" as string]: "calc(var(--nav-h) + 2.5vh + var(--wm) * 0.8 * 0.78)",
+          // The sign is sized by whichever runs out first, the width of the
+          // frame or 42% of its height ("DEVSOC" is 2.77em wide in this face),
+          // and the roofline is derived from it: 86% of each letter stands
+          // above the parapet, so the building always starts just under the
+          // sign on any screen shape.
+          ["--wm" as string]: "min(calc((100vw - var(--gutter)) / 2.77), 42vh)",
+          ["--roof" as string]: "calc(var(--nav-h) + 2.5vh + var(--wm) * 0.8 * 0.86)",
           ["--wx-s" as string]: tall.center[0],
           ["--wy-s" as string]: tall.center[1],
           ["--bh-s" as string]: `${((facadeTall.h / facadeTall.w) * 100).toFixed(3)}vw`,
@@ -169,26 +254,12 @@ export function Dusk() {
           }}
         />
 
-        {/* The name, standing behind the roof. */}
-        <div
-          className="display pointer-events-none absolute inset-x-0 z-10 text-center leading-[0.8] tracking-[0.005em] text-[var(--c-bone)]"
-          style={{
-            top: "var(--roof)",
-            fontSize: "var(--wm)",
-            transform: "translateY(calc(-78% - var(--push, 0) * 34vh))",
-            translate: "calc(var(--mx) * -5px) calc(var(--my) * -3px)",
-            opacity: "calc(1 - var(--push, 0) * 2.4)",
-          }}
-          aria-hidden="true"
-        >
-          {hero.wordmark}
-        </div>
-
         {/* The building, on the camera. */}
         <div
           className="facade-cam absolute inset-x-0 z-20"
           style={{ top: "var(--roof)", translate: "calc(var(--mx) * -12px) calc(var(--my) * -7px)" }}
         >
+          <RoofSign word={hero.wordmark} />
           <Facade plate={facadeWide} order={hero.lightingOrder} priority className="hidden md:block">
             <Light points={wide.points} draw={drawWide} flicker flickerDelay={strikeAt(facadeWide)} />
           </Facade>
@@ -197,51 +268,32 @@ export function Dusk() {
           </Facade>
         </div>
 
-        {/* Where the name crosses the building it survives as a stroke. */}
-        <div
-          className="display pointer-events-none absolute inset-x-0 z-30 text-center leading-[0.8] tracking-[0.005em] text-transparent [-webkit-text-stroke:1.25px_var(--c-bone)]"
-          style={{
-            top: "var(--roof)",
-            fontSize: "var(--wm)",
-            transform: "translateY(calc(-78% - var(--push, 0) * 34vh))",
-            translate: "calc(var(--mx) * -5px) calc(var(--my) * -3px)",
-            opacity: "calc(1 - var(--push, 0) * 2.4)",
-            clipPath: "inset(78% 0 0 0)",
-          }}
-          aria-hidden="true"
-        >
-          {hero.wordmark}
-        </div>
-
-        {/* The ground line, and the title strip under it.
-
-            An elevation drawing ends on a ground line with a thin strip of
-            titling beneath it, and that is what this is: the building stands on
-            a hairline, and the copy sits quietly under it instead of competing
-            with the name in a block of its own. No scrim reaches up into the
-            building, so nothing dims the rooms. */}
+        {/* The copy stands on the lower floors, just under the lit rooms,
+            in a fade from transparent to ink that starts below the windows.
+            The building stays visible behind it and no room is dimmed. */}
         <div
           ref={band}
-          className="absolute inset-x-0 bottom-0 z-40 h-[var(--strip)] bg-[var(--c-ink)] [--strip:24vh] md:[--strip:11vh]"
-          style={{ opacity: "var(--hold, 1)" }}
+          className="absolute inset-x-0 bottom-0 z-40"
+          style={{ top: "var(--below)", opacity: "var(--hold, 1)" }}
         >
-          <div className="absolute inset-x-0 top-0 h-px bg-[var(--c-steel)]" aria-hidden="true" />
-          <div className="flex h-full flex-col justify-center gap-5 gutter md:flex-row md:items-center md:justify-between md:gap-10">
+          <div
+            className="pointer-events-none absolute inset-0"
+            aria-hidden="true"
+            style={{ background: "linear-gradient(to bottom, transparent 0%, rgb(13 14 12 / 0.72) 38%, var(--c-ink) 100%)" }}
+          />
+          <div className="relative flex flex-col gap-6 gutter pt-[2.5vh] md:flex-row md:items-end md:justify-between">
             <RevealWords
               as="p"
               id="dusk-line"
               immediate
               delay={1.7}
-              className="voice text-[clamp(1.2rem,1.55vw,1.55rem)] text-[var(--c-bone)] [text-wrap:balance]"
+              className="voice max-w-[19ch] text-[clamp(1.45rem,2.1vw,2.1rem)] text-[var(--c-bone)] [text-wrap:balance]"
             >
               {hero.line}
             </RevealWords>
-            <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-10">
-              <p className="meta text-[var(--c-gray)]">{hero.plaque.join(", ")}</p>
-              <ActionLink href={hero.link.href} className="text-[0.95rem] text-[var(--c-bone)]">
-                {hero.link.label}
-              </ActionLink>
-            </div>
+            <ActionLink href={hero.link.href} className="text-[1rem] text-[var(--c-bone)] md:pb-1.5">
+              {hero.link.label}
+            </ActionLink>
           </div>
         </div>
       </div>

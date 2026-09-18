@@ -504,6 +504,20 @@
   }
 }
 
+/* Where the hero's copy hangs: just under the lowest row of lit rooms, so the
+   copy can sit on the building without ever crossing or dimming a room. On a
+   wide plate that row ends at 45% of the drawing; on the tall plate the rooms
+   run a floor lower, and a phone has room to spare, so the copy never rides
+   higher than 72% of the screen there. */
+.dusk-root {
+  --below: max(calc(var(--roof) + var(--bh-s) * 0.57), 72vh);
+}
+@media (min-width: 48rem) {
+  .dusk-root {
+    --below: calc(var(--roof) + var(--bh-l) * 0.482);
+  }
+}
+
 /* ------------------------------------------------------------------ reduced motion */
 
 @media (prefers-reduced-motion: reduce) {

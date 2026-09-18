@@ -9,8 +9,10 @@
  * into a lobby directory board that opens over the page, where each entry
  * carries what you will find there, the way a directory lists a floor.
  *
- * It sits in `.chrome`, so a scene that puts a light ground under it flips its
- * tone through `data-ink` and it never has to know which scene it is over.
+ * It is drawn in difference mode, so its bone type inverts against whatever
+ * passes under it: bone over the night, ink over the lit sign on the roof as
+ * the camera pushes into it, ink again over the dawn ground. No scene has to
+ * tell it what is underneath, and it is never illegible in between.
  *
  * On the home page the destinations are plain hash links so the smooth scroll
  * layer can carry you there; anywhere else they are absolute, so they route
@@ -37,8 +39,11 @@ export function Directory() {
   const href = (h: string) => (home && h.startsWith("/#") ? h.slice(1) : h);
 
   return (
-    <header className="chrome fixed inset-x-0 top-0 flex h-[var(--nav-h)] items-center justify-between gutter" style={{ zIndex: "var(--z-chrome)" }}>
-      <Link href="/" className="display text-[1.35rem] leading-none tracking-[0.02em] text-primary" data-cursor="Home">
+    <header
+      className="fixed inset-x-0 top-0 flex h-[var(--nav-h)] items-center justify-between text-[var(--c-bone)] mix-blend-difference gutter"
+      style={{ zIndex: "var(--z-chrome)" }}
+    >
+      <Link href="/" className="display text-[1.35rem] leading-none tracking-[0.02em]" data-cursor="Home">
         Devsoc
       </Link>
 
@@ -46,7 +51,7 @@ export function Directory() {
         <ul className="flex items-center gap-7">
           {directory.map((d) => (
             <li key={d.label}>
-              <a href={href(d.href)} className="meta text-primary/70 transition-colors duration-500 hover:text-primary">
+              <a href={href(d.href)} className="meta opacity-75 transition-opacity duration-500 hover:opacity-100">
                 {d.label}
               </a>
             </li>
@@ -56,7 +61,7 @@ export function Directory() {
 
       <button
         type="button"
-        className="meta text-primary md:hidden"
+        className="meta md:hidden"
         onClick={() => dialog.current?.showModal()}
         aria-haspopup="dialog"
       >
