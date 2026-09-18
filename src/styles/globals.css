@@ -544,6 +544,19 @@
   box-shadow: 0 0 calc(var(--on, 0) * 10px) color-mix(in srgb, var(--c-acid) calc(var(--on, 0) * 70%), transparent);
 }
 
+/* The LED sign's pitch. The unlit dots are the housing's own background, and
+   the lit ones are the same grid used as a mask, so a letter can only ever
+   light whole dots. */
+.led {
+  --led-pitch: 4px;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--c-bone) 8%, transparent) 1.1px, transparent 1.5px);
+  background-size: var(--led-pitch) var(--led-pitch);
+}
+.led-dots {
+  mask-image: radial-gradient(circle, #000 1.1px, transparent 1.5px);
+  mask-size: var(--led-pitch) var(--led-pitch);
+}
+
 /* A terminal cursor. The only thing on the site that blinks, because it is the
    only thing that is waiting for input. */
 @media (prefers-reduced-motion: no-preference) {

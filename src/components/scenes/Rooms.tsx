@@ -32,7 +32,7 @@ import { useLenis } from "lenis/react";
 import { Scene } from "@/components/world/Scene";
 import { RoomModule } from "@/components/world/RoomModule";
 import { Light, span, type LightPoint } from "@/components/world/Light";
-import { MonitorScreen, screenFit } from "@/components/world/MonitorScreen";
+import { MonitorScreen, dolly, screenFit } from "@/components/world/MonitorScreen";
 import { ringFrame, RING_N } from "@/components/world/ring";
 import { rooms, roomsCopy, beats } from "@/content/home";
 
@@ -208,24 +208,13 @@ export function Rooms() {
     }
     // The push is a camera move: the whole table is scaled about the glass
     // until the glass is the frame, so the bezel, the stand and the cards all
-    // travel out past the edges together. Scale runs exponentially, which is
-    // how a dolly reads (the same apparent speed all the way in), and the
-    // glass's centre travels to the frame's centre in step with it.
-    const x0 = cx - mw / 2 + mw * 0.05 + fit.x;
-    const y0 = cy - mh - stand + mw * 0.05 + fit.y;
-    const z1 = 1 / fit.s;
-    const z = Math.pow(z1, push);
-    const q = z1 > 1 ? (z - 1) / (z1 - 1) : 1;
-    const c0x = x0 + (W * fit.s) / 2;
-    const c0y = y0 + (H * fit.s) / 2;
-    const tx = c0x + (W / 2 - c0x) * q - z * c0x;
-    const ty = c0y + (H / 2 - c0y) * q - z * c0y;
-    el.style.transform = push > 0 ? `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${z.toFixed(5)})` : "";
+    // travel out past the edges together.
+    const move = dolly(push, { x: cx - mw / 2 + mw * 0.05, y: cy - mh - stand + mw * 0.05 }, fit, W, H);
+    el.style.transform = push > 0 ? move.layer : "";
     if (screen.current) {
       // The glass itself is drawn again on top at its own size, riding the
       // same move, so the screen stays sharp however far the camera goes in.
-      const s = z * fit.s;
-      screen.current.style.transform = `translate3d(${(tx + z * x0).toFixed(2)}px, ${(ty + z * y0).toFixed(2)}px, 0) scale(${s.toFixed(5)})`;
+      screen.current.style.transform = move.picture;
       screen.current.style.visibility = push > 0 ? "visible" : "hidden";
     }
   }, []);
