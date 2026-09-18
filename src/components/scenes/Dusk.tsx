@@ -226,12 +226,17 @@ export function Dusk() {
         ref={root}
         className="dusk-root absolute inset-0 [perspective:1600px]"
         style={{
-          // The sign is sized by whichever runs out first, the width of the
-          // frame or 42% of its height ("DEVSOC" is 2.77em wide in this face),
-          // and the roofline is derived from it: 86% of each letter stands
-          // above the parapet, so the building always starts just under the
-          // sign on any screen shape.
-          ["--wm" as string]: "min(calc((100vw - var(--gutter)) / 2.77), 42vh)",
+          // The sign is the smallest of three limits: the width of the frame
+          // ("DEVSOC" is 2.77em wide in this face), 42% of its height, and
+          // whatever height is left once the two lit floors and the copy under
+          // them have their room. The third one matters on wide, short
+          // windows, where the building is drawn taller than the screen and a
+          // full size sign would push the copy off the bottom. The roofline is
+          // derived from the result: 86% of each letter stands above the
+          // parapet (0.8 line box times 0.86 is the 0.688 below), so the
+          // building always starts just under the sign.
+          ["--wm" as string]:
+            "min(calc((100vw - var(--gutter)) / 2.77), 42vh, calc((100vh - var(--nav-h) - 15.5vh - var(--bh-l) * 0.462) / 0.688))",
           ["--roof" as string]: "calc(var(--nav-h) + 2.5vh + var(--wm) * 0.8 * 0.86)",
           ["--wx-s" as string]: tall.center[0],
           ["--wy-s" as string]: tall.center[1],
