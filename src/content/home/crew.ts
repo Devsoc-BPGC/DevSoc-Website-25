@@ -33,4 +33,8 @@ export const crewCopy = {
   title: "The coordinators",
   line: "The coordinators for this year. Every room has a head; the heads answer to two.",
   sheet: "Call sheet",
+  /** The link to each coordinator's own page. */
+  profile: "Profile",
+  /** Printed before a head's room numbers. */
+  heads: "Heads",
 };
