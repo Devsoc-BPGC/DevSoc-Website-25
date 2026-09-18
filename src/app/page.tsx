@@ -7,7 +7,8 @@ import { FirstMonth } from "@/components/scenes/FirstMonth";
 import { Roll } from "@/components/scenes/Roll";
 import { DevFest } from "@/components/scenes/DevFest";
 import { Coordinators } from "@/components/scenes/Coordinators";
-import { Pending } from "@/components/scenes/Pending";
+import { Dawn } from "@/components/scenes/Dawn";
+import { Colophon } from "@/components/scenes/Colophon";
 
 /**
  * One night, eleven chapters, one continuous camera. Each scene hands a
@@ -25,8 +26,8 @@ export default function Home() {
       <Roll />
       <DevFest />
       <Coordinators />
-      <Pending id="dawn" name="Dawn" />
-      <Pending id="colophon" name="Colophon" />
+      <Dawn />
+      <Colophon />
     </main>
   );
 }
