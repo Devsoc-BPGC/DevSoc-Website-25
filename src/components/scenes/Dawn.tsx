@@ -83,10 +83,10 @@ function Questions() {
                           fill="none"
                           stroke="var(--c-blue)"
                           strokeWidth={2.4}
-                          strokeLinecap="round"
+                          strokeLinecap="butt"
                           vectorEffect="non-scaling-stroke"
                           className="transition-[stroke-dashoffset] duration-700 ease-[var(--ease-out-expo)]"
-                          style={{ strokeDasharray: 1, strokeDashoffset: isOpen ? 0 : 1 }}
+                          style={{ strokeDasharray: 1, strokeDashoffset: isOpen ? 0 : 1, opacity: isOpen ? 1 : 0 }}
                         />
                       </svg>
                     </span>
@@ -113,10 +113,10 @@ function Questions() {
                           fill="none"
                           stroke="var(--c-blue)"
                           strokeWidth={2.4}
-                          strokeLinecap="round"
+                          strokeLinecap="butt"
                           vectorEffect="non-scaling-stroke"
                           className="transition-[stroke-dashoffset] delay-150 duration-1000 ease-[var(--ease-out-expo)]"
-                          style={{ strokeDasharray: 1, strokeDashoffset: isOpen ? 0 : 1 }}
+                          style={{ strokeDasharray: 1, strokeDashoffset: isOpen ? 0 : 1, opacity: isOpen ? 1 : 0 }}
                         />
                       </svg>
                       <p className="max-w-[52ch] text-[clamp(1rem,1.2vw,1.15rem)] leading-[1.6] text-[var(--c-ink)]/85">{f.a}</p>

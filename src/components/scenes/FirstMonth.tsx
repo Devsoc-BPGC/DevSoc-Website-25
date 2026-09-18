@@ -37,9 +37,19 @@ const READ_FROM = 0.4;
 const READ_STEP = 0.088;
 const readAt = (i: number) => READ_FROM + i * READ_STEP;
 
-/** A marker stroke, drawn off a CSS number: `from` and `to` are the stretch of it the stroke takes. */
-function Marker({ d, from = 0, to = 1, width = 2.4, variable }: { d: string; from?: number; to?: number; width?: number; variable: string }) {
+/**
+ * A marker stroke, drawn off a CSS number: `from` and `to` are the stretch of
+ * it the stroke takes. Width is in the drawing's own units.
+ *
+ * Nothing shows until its stretch begins. A dashed stroke with its offset at
+ * the full length still paints a dot at its start when the ends are round, and
+ * a non-scaling stroke ignores the unit path length, so both are avoided: butt
+ * ends, scaling strokes, and the whole stroke held at zero opacity until it is
+ * meant to be there.
+ */
+function Marker({ d, from = 0, to = 1, width = 1.6, variable }: { d: string; from?: number; to?: number; width?: number; variable: string }) {
   const k = 1 / (to - from);
+  const t = `(var(${variable}, 1) - ${from}) * ${k.toFixed(3)}`;
   return (
     <path
       d={d}
@@ -47,10 +57,9 @@ function Marker({ d, from = 0, to = 1, width = 2.4, variable }: { d: string; fro
       fill="none"
       stroke="var(--c-blue)"
       strokeWidth={width}
-      strokeLinecap="round"
+      strokeLinecap="butt"
       strokeLinejoin="round"
-      vectorEffect="non-scaling-stroke"
-      style={{ strokeDasharray: 1, strokeDashoffset: `calc(1 - clamp(0, (var(${variable}, 1) - ${from}) * ${k.toFixed(3)}, 1))` }}
+      style={{ strokeDasharray: 1, strokeDashoffset: `calc(1 - clamp(0, ${t}, 1))`, opacity: `clamp(0, ${t} * 1000, 1)` }}
     />
   );
 }
@@ -66,7 +75,7 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
             <span aria-hidden="true" className="relative block h-[3cqw] w-[3cqw] shrink-0 border border-[var(--c-ink)]/60">
               {k === 2 ? (
                 <svg viewBox="0 0 20 20" className="absolute -left-[0.6cqw] -top-[1.6cqw] h-[5cqw] w-[5cqw] overflow-visible">
-                  <Marker d="M3 11 L8 16 L19 1" variable={v} />
+                  <Marker d="M3 11 L8 16 L19 1" width={1.8} variable={v} />
                 </svg>
               ) : null}
             </span>
@@ -85,7 +94,7 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
             {r.number}
             {k === 0 ? (
               <svg aria-hidden="true" viewBox="0 0 100 60" preserveAspectRatio="none" className="absolute -inset-[1.6cqw] h-[calc(100%+3.2cqw)] w-[calc(100%+3.2cqw)] overflow-visible">
-                <Marker d="M58 4 C 20 2, 2 16, 4 32 C 6 50, 40 58, 70 55 C 94 52, 99 34, 94 20 C 88 7, 66 2, 44 6" variable={v} />
+                <Marker d="M58 4 C 20 2, 2 16, 4 32 C 6 50, 40 58, 70 55 C 94 52, 99 34, 94 20 C 88 7, 66 2, 44 6" width={1.6} variable={v} />
               </svg>
             ) : null}
           </span>
@@ -114,7 +123,7 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
         <span className="relative whitespace-pre text-[2.8cqw] text-[var(--c-ink)]/80">
           {firstMonth.reviewCode[3].trim()}
           <svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" className="absolute inset-x-0 top-1/2 h-[1.4cqw] w-full -translate-y-1/2 overflow-visible">
-            <Marker d="M0 6 L100 4" to={0.6} variable={v} />
+            <Marker d="M0 6 L100 4" to={0.6} width={4} variable={v} />
           </svg>
         </span>
         <span className="display text-[3.4cqw] leading-none text-[var(--c-blue)]" style={{ opacity: `clamp(0, (var(${v}, 1) - 0.5) * 4, 1)` }}>
