@@ -29,7 +29,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { Scene } from "@/components/world/Scene";
 import { Facade } from "@/components/world/Facade";
 import { Light, span, type LightPoint } from "@/components/world/Light";
-import { Plaque } from "@/components/world/Label";
+import { ActionLink } from "@/components/world/ActionLink";
 import { facadeTall, facadeWide, windowBox, type Plate } from "@/components/world/building";
 import { RevealWords } from "@/components/motion/text";
 import { useReducedMotion } from "@/lib/useMedia";
@@ -156,6 +156,8 @@ export function Dusk() {
           ["--bh-l" as string]: `${((facadeWide.h / facadeWide.w) * 100).toFixed(3)}vw`,
         }}
       >
+        <h1 className="sr-only">DevSoc, the Developers&apos; Society of BITS Pilani Goa</h1>
+
         {/* The sky. Darker overhead, a little light held low where the town
             is, the way a night sky actually sits behind a roofline. */}
         <div
@@ -211,37 +213,35 @@ export function Dusk() {
           {hero.wordmark}
         </div>
 
-        {/* The ground. The lower floors fall into the dark, and the copy
-            stands on it. */}
+        {/* The ground line, and the title strip under it.
+
+            An elevation drawing ends on a ground line with a thin strip of
+            titling beneath it, and that is what this is: the building stands on
+            a hairline, and the copy sits quietly under it instead of competing
+            with the name in a block of its own. No scrim reaches up into the
+            building, so nothing dims the rooms. */}
         <div
           ref={band}
-          className="absolute inset-x-0 bottom-0 z-40"
+          className="absolute inset-x-0 bottom-0 z-40 h-[var(--strip)] bg-[var(--c-ink)] [--strip:24vh] md:[--strip:11vh]"
           style={{ opacity: "var(--hold, 1)" }}
         >
-          {/* Only as tall as the floors below the rooms: any higher and it
-              dims the second floor's lit windows, which are rooms. */}
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[23vh]"
-            aria-hidden="true"
-            style={{ background: "linear-gradient(to top, var(--c-ink) 0%, var(--c-ink) 42%, transparent 100%)" }}
-          />
-          <div className="relative flex flex-wrap items-end justify-between gap-x-10 gap-y-5 gutter pb-[5vh]">
-            <div>
-              <h1 className="sr-only">DevSoc</h1>
-              <RevealWords
-                as="p"
-                id="dusk-line"
-                immediate
-                delay={1.7}
-                className="voice max-w-[24ch] text-[clamp(1.35rem,2.1vw,2rem)] text-[var(--c-bone)] [text-wrap:balance]"
-              >
-                {hero.line}
-              </RevealWords>
-              <a href={hero.link.href} className="meta text-link mt-4 inline-block text-[var(--c-bone)]">
+          <div className="absolute inset-x-0 top-0 h-px bg-[var(--c-steel)]" aria-hidden="true" />
+          <div className="flex h-full flex-col justify-center gap-5 gutter md:flex-row md:items-center md:justify-between md:gap-10">
+            <RevealWords
+              as="p"
+              id="dusk-line"
+              immediate
+              delay={1.7}
+              className="voice text-[clamp(1.2rem,1.55vw,1.55rem)] text-[var(--c-bone)] [text-wrap:balance]"
+            >
+              {hero.line}
+            </RevealWords>
+            <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-10">
+              <p className="meta text-[var(--c-gray)]">{hero.plaque.join(", ")}</p>
+              <ActionLink href={hero.link.href} className="text-[0.95rem] text-[var(--c-bone)]">
                 {hero.link.label}
-              </a>
+              </ActionLink>
             </div>
-            <Plaque lines={hero.plaque} className="min-w-[14rem]" />
           </div>
         </div>
       </div>

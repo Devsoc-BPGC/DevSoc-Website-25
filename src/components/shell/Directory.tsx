@@ -46,7 +46,7 @@ export function Directory() {
         <ul className="flex items-center gap-7">
           {directory.map((d) => (
             <li key={d.label}>
-              <a href={href(d.href)} className="meta text-link text-primary/80 hover:text-primary">
+              <a href={href(d.href)} className="meta text-primary/70 transition-colors duration-500 hover:text-primary">
                 {d.label}
               </a>
             </li>
@@ -56,7 +56,7 @@ export function Directory() {
 
       <button
         type="button"
-        className="meta text-link text-primary md:hidden"
+        className="meta text-primary md:hidden"
         onClick={() => dialog.current?.showModal()}
         aria-haspopup="dialog"
       >
@@ -71,7 +71,7 @@ export function Directory() {
         <div className="flex h-full flex-col gutter pb-10 pt-6">
           <div className="flex items-center justify-between">
             <span className="display text-[1.35rem] leading-none">Devsoc</span>
-            <button type="button" className="meta text-link" onClick={() => dialog.current?.close()}>
+            <button type="button" className="meta" onClick={() => dialog.current?.close()}>
               Close
             </button>
           </div>
