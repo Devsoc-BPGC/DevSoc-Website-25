@@ -13,6 +13,8 @@
  *   paper-quiet.jpg   384 x 384   the same fibre on bone, washed back, for long sheets
  *   feed.png           64 x 64    one feed hole of continuous printer paper
  *   pin.png            16 x 16    one dot-matrix pin, a mask tile for printed names
+ *   halftone.png       32 x 256   a riso dot screen ramping from speck to solid
+ *   ink.png           128 x 128   riso ink: solid, with the specks the drum missed
  *
  * Both are kept small on purpose: noise does not compress, so the only lever
  * is the tile size, and a 128px grain tile is invisible as a repeat at 3.5%
@@ -155,8 +157,76 @@ async function dot(file, size, radius, rgb) {
     .toFile(join(out, file));
 }
 
+/**
+ * A risograph halftone ramp: a 45 degree dot screen whose dots grow from a
+ * speck at the top to nearly touching at the bottom. Used as a mask, it prints
+ * a solid shape the way a riso prints a gradient: in dots.
+ */
+async function halftoneRamp() {
+  const w = 32;
+  const h = 256;
+  const pitch = 8;
+  const px = Buffer.alloc(w * h * 2);
+  const rows = h / pitch;
+  // Is the point inside any dot? Checks the dots of this row and the rows
+  // either side, since the big dots at the bottom reach into their neighbours.
+  const inside = (px0, py0) => {
+    const row = Math.floor(py0 / pitch);
+    for (let rr = row - 1; rr <= row + 1; rr++) {
+      if (rr < 0 || rr >= rows) continue;
+      const ox = rr % 2 ? pitch / 2 : 0;
+      const cy = rr * pitch + pitch / 2;
+      const radius = 0.4 + Math.pow(cy / h, 1.3) * 4.8;
+      const base = Math.floor((px0 - ox) / pitch) * pitch + pitch / 2 + ox;
+      for (const cx of [base - pitch, base, base + pitch]) {
+        // Wrap horizontally so the tile repeats without a seam.
+        const dx = ((px0 - cx + w * 1.5) % w) - w / 2;
+        const dy = py0 - cy;
+        if (dx * dx + dy * dy <= radius * radius) return true;
+      }
+    }
+    return false;
+  };
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      let cover = 0;
+      for (let sy = 0; sy < 4; sy++) {
+        for (let sx = 0; sx < 4; sx++) {
+          if (inside(x + (sx + 0.5) / 4, y + (sy + 0.5) / 4)) cover++;
+        }
+      }
+      const i = (y * w + x) * 2;
+      px[i] = 0;
+      px[i + 1] = Math.round((cover / 16) * 255);
+    }
+  }
+  await sharp(px, { raw: { width: w, height: h, channels: 2 } })
+    .png({ compressionLevel: 9 })
+    .toFile(join(out, "halftone.png"));
+}
+
+/**
+ * Riso ink: solid, with the specks where the drum did not quite lay ink
+ * down. A mask over everything printed on the DevFest poster.
+ */
+async function risoInk() {
+  const size = 128;
+  const r = rng(41);
+  const px = Buffer.alloc(size * size * 2);
+  for (let i = 0; i < size * size; i++) {
+    px[i * 2] = 0;
+    const v = r();
+    px[i * 2 + 1] = v < 0.05 ? Math.round(40 + r() * 120) : v < 0.12 ? 215 : 255;
+  }
+  await sharp(px, { raw: { width: size, height: size, channels: 2 } })
+    .png({ compressionLevel: 9 })
+    .toFile(join(out, "ink.png"));
+}
+
 await grain();
 await paper();
+await halftoneRamp();
+await risoInk();
 await paperQuiet();
 // A feed hole in continuous printer paper: ink, because a hole shows the night.
 await dot("feed.png", 64, 12.5, [13, 14, 12]);

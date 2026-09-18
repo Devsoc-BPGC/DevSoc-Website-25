@@ -252,12 +252,16 @@ const OBJECTS: Record<Pinned, () => ReactNode> = {
   review: ReviewObject,
 };
 
-/** Where each week's thing is pinned on the wall, on a wide frame: centre, as shares of the frame, and scale. */
-const PINNED: Record<Pinned, { x: number; y: number; s: number }> = {
-  form: { x: 0.14, y: 0.26, s: 0.78 },
-  sign: { x: 0.135, y: 0.57, s: 0.7 },
-  ticket: { x: 0.82, y: 0.85, s: 0.66 },
-  review: { x: 0.14, y: 0.86, s: 0.64 },
+/**
+ * Where each week's thing is pinned on a wide frame: which side of the
+ * calendar, how far down, and its width in rem (to fit it to that side).
+ * The readout takes the left of the wall, so most things go to the right.
+ */
+const PINNED: Record<Pinned, { side: "left" | "right"; y: number; rem: number }> = {
+  form: { side: "right", y: 0.24, rem: 22 },
+  sign: { side: "right", y: 0.5, rem: 24 },
+  ticket: { side: "left", y: 0.85, rem: 23 },
+  review: { side: "right", y: 0.78, rem: 26 },
 };
 
 /** The calendar ruled onto the page: days, weeks, and everything the month writes on it. */
@@ -398,18 +402,34 @@ function MovingFirstMonth() {
       pg.style.setProperty("top", `${r.cy - r.h / 2}px`);
       pg.style.setProperty("width", `${r.w}px`);
       pg.style.setProperty("height", `${r.h}px`);
-      // On a phone the readout goes under the calendar.
-      if (readout.current) readout.current.style.setProperty("top", narrow ? `${r.cy + r.h / 2 + H * 0.03}px` : "20vh");
+      // The wall either side of the calendar.
+      const gutter = Math.min(64, Math.max(20, W * 0.04));
+      const gap = W * 0.025;
+      const leftZone = { from: gutter, to: r.cx - r.w / 2 - gap };
+      const rightZone = { from: r.cx + r.w / 2 + gap, to: W - gutter };
 
-      // The things each week pins up: round the calendar on a wide frame, and
-      // on a phone one at a time over the foot of the page.
+      // The readout: the left of the wall on a wide frame, under the calendar on a phone.
+      const ro = readout.current;
+      if (ro) {
+        ro.style.setProperty("left", `${narrow ? gutter : leftZone.from}px`);
+        ro.style.setProperty("width", `${narrow ? W - gutter * 2 : leftZone.to - leftZone.from}px`);
+        ro.style.setProperty("top", narrow ? `${r.cy + r.h / 2 + H * 0.03}px` : "18vh");
+      }
+
+      // The things each week pins up, fitted to their side of the wall; on a
+      // phone, one at a time over the foot of the page.
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
       PINNED_KINDS.forEach((k, i) => {
         const n = pinned.current[i];
         if (!n) return;
-        const at = narrow ? { x: 0.7, y: (r.cy + r.h * 0.34) / H, s: 0.5 } : PINNED[k];
-        n.style.setProperty("left", `${at.x * 100}%`);
-        n.style.setProperty("top", `${at.y * 100}%`);
-        n.style.setProperty("scale", String(at.s));
+        const spec = PINNED[k];
+        const zone = spec.side === "left" ? leftZone : rightZone;
+        const x = narrow ? W * 0.7 : (zone.from + zone.to) / 2;
+        const y = narrow ? r.cy + r.h * 0.34 : H * spec.y;
+        const s = narrow ? 0.5 : Math.min(0.74, (zone.to - zone.from) / (spec.rem * rem));
+        n.style.setProperty("left", `${x}px`);
+        n.style.setProperty("top", `${y}px`);
+        n.style.setProperty("scale", s.toFixed(3));
       });
 
       // The wire the calendar hangs from, across the wall to its pin.
@@ -532,7 +552,7 @@ function MovingFirstMonth() {
         </div>
 
         {/* The readout, beside the calendar on a wide frame and under it on a phone. */}
-        <div ref={readout} className="absolute left-[var(--gutter)] right-[var(--gutter)] top-[20vh] md:left-[67vw] md:right-[4vw]">
+        <div ref={readout} className="absolute top-[18vh]">
           <div ref={intro} className="absolute inset-x-0 top-0" style={{ opacity: 0 }}>
             <p className="meta text-[0.85rem] text-[var(--c-gray)]">{firstMonth.line}</p>
           </div>

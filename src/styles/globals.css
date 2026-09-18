@@ -345,6 +345,18 @@
   mask-size: 2px 2px;
 }
 
+/* Risograph: everything the drum prints carries its specks, and a tone is
+   printed as a dot screen running from speck to solid. Both are baked tiles. */
+.riso {
+  mask-image: url("/textures/ink.png");
+  mask-size: 128px 128px;
+}
+.halftone-ramp {
+  mask-image: url("/textures/halftone.png");
+  mask-size: auto 100%;
+  mask-repeat: repeat-x;
+}
+
 /* Paper with the fibre washed back, for a sheet the camera goes right into:
    magnified, the full-strength texture reads as dirt. Baked onto bone, so it
    is one image layer with no blending. */

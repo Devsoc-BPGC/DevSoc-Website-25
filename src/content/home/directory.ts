@@ -7,6 +7,6 @@
 export const directory = [
   { label: "Rooms", href: "/#rooms" },
   { label: "Work", href: "/#log" },
-  { label: "Crew", href: "/#crew" },
+  { label: "Coordinators", href: "/#crew" },
   { label: "Inductees", href: "/inductees" },
 ];

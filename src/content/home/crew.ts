@@ -1,7 +1,7 @@
 /**
- * The Crew. This year's call sheet.
+ * The coordinators. This year's call sheet.
  *
- * Two coordinators and five room heads. Game Engine Development sits under the
+ * Seven people: the chief and sub-coordinator, and five room heads. Game Engine Development sits under the
  * game room, so its head carries two room numbers.
  */
 
@@ -30,7 +30,7 @@ export const crew: CrewMember[] = people.map((p) => ({
 }));
 
 export const crewCopy = {
-  title: "The crew",
+  title: "The coordinators",
   line: "The coordinators for this year. Every room has a head; the heads answer to two.",
   sheet: "Call sheet",
 };

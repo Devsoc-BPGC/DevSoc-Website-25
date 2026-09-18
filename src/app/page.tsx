@@ -5,6 +5,7 @@ import { NightShift } from "@/components/scenes/NightShift";
 import { Log } from "@/components/scenes/Log";
 import { FirstMonth } from "@/components/scenes/FirstMonth";
 import { Roll } from "@/components/scenes/Roll";
+import { DevFest } from "@/components/scenes/DevFest";
 import { Pending } from "@/components/scenes/Pending";
 
 /**
@@ -21,7 +22,7 @@ export default function Home() {
       <Log />
       <FirstMonth />
       <Roll />
-      <Pending id="devfest" name="DevFest" />
+      <DevFest />
       <Pending id="crew" name="The crew" />
       <Pending id="dawn" name="Dawn" />
       <Pending id="colophon" name="Colophon" />

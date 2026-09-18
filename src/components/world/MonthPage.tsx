@@ -23,9 +23,11 @@ export function monthPageRect(W: number, H: number) {
     const h = w * PAGE_RATIO;
     return { cx: W / 2, cy: H * 0.085 + h / 2, w, h };
   }
-  const h = H * 0.8;
-  const w = h / PAGE_RATIO;
-  return { cx: W * 0.44, cy: H * 0.54, w, h };
+  // Centred, and narrow enough to leave the wall either side of it for the
+  // week being read and the things the month pins up.
+  const w = Math.min((H * 0.8) / PAGE_RATIO, W * 0.34);
+  const h = w * PAGE_RATIO;
+  return { cx: W / 2, cy: H * 0.54, w, h };
 }
 
 /** The page's slight tilt on its pin. */

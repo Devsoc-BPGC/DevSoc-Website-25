@@ -28,7 +28,7 @@ import { directory } from "@/content/home/directory";
 const holds: Record<string, string> = {
   Rooms: "R-01 to R-06",
   Work: "The log",
-  Crew: "Call sheet",
+  Coordinators: "Call sheet",
   Inductees: "This year's list",
 };
 
