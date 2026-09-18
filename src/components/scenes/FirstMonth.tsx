@@ -2,27 +2,28 @@
 
 /**
  * 06 Your first month
- * The production schedule for your first four weeks, as one long printed sheet.
+ * Your first five weeks, as a calendar on the wall that fills up.
  *
- * The log ended with the camera inside a folded sheet, on blank paper; this
- * scene starts on that paper and pulls back until it is a schedule pinned to
- * the dark, then walks down it one week at a time. The week numbers stand in
- * the dark beside the sheet, threaded on the light, which runs down the margin
- * as far as you have read.
+ * The log ended by taking its folded sheet down and bringing it forward; this
+ * scene starts on that frame, with the sheet hung on a wire, and the calendar
+ * rules itself onto it. Then the month runs: a marker crosses off the days one
+ * by one and circles today, each week's name is written into its row, and each
+ * week pins its own thing to the wall around the calendar and leaves it there,
+ * so by week four the wall is full. The induction form, the room directory with
+ * a room circled, the build ticket, the first review marked up in blue, and on
+ * the last row, the stamp.
  *
- * Every week has its own thing fixed to the schedule, and each goes up as its
- * week comes into view: the induction form, clipped on, with one box ticked;
- * the room directory with a room circled in marker; the build ticket; the
- * first review, a printout marked up in blue; and the stamp. The marker lines
- * are drawn by a single number per week, so scrolling back up takes them off
- * the page again.
+ * The week being read is set large beside the calendar. Every mark on the
+ * calendar is drawn off one number (the days gone), so scrolling back up takes
+ * them off again, in order.
  *
- * The sheet ends on a perforation, and what is under it is the next scene's
- * paper: fan-fold, with the feed holes down both edges.
+ * The calendar hangs on the same wall as the roll of names below it; when the
+ * month is done the camera carries on down to it.
  *
  * Progress:
- *   0.00 - 0.07   pull back off the paper
- *   0.04 - 0.97   down the schedule
+ *   0.00 - 0.08   the calendar rules itself onto the sheet; the wire lights
+ *   0.10 - 0.90   five weeks, a fifth each
+ *   0.90 - 1.00   the coda
  */
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
@@ -31,34 +32,42 @@ import { Light, span, type LightPoint } from "@/components/world/Light";
 import { Paper } from "@/components/world/Paper";
 import { Tape } from "@/components/world/Tape";
 import { RoomPlate, Stamp } from "@/components/world/Label";
+import { MonthCover, PAGE_TILT, monthPageRect } from "@/components/world/MonthPage";
 import { useReducedMotion } from "@/lib/useMedia";
 import { firstMonth, rooms, weeks, type WeekKind } from "@/content/home";
 
-const ease = (t: number) => t * t * (3 - 2 * t);
+const GRID_TO = 0.08;
+const WEEK_FROM = 0.1;
+const WEEK_LEN = 0.16;
+const CODA_FROM = 0.9;
+const DAYS = 35;
+const DAY_NAMES = ["M", "T", "W", "T", "F", "S", "S"];
 
-const PULL_TO = 0.07;
-const TRAVEL_FROM = 0.04;
-const TRAVEL_TO = 0.97;
-/** How far into the paper the camera starts, matching where the log left it. */
-const ZOOM = 7;
-
-type SheetLayout = { H: number; sheetH: number; top: number; fold: number };
-
-/** Where the fold sits on the frame at the end, and where the roll's paper starts. */
-export const FOLD_AT = 0.06;
-
-/** How far the sheet has travelled up the frame at progress `p`: until the fold is at the top. */
-function travelAt(p: number, L: SheetLayout) {
-  const end = L.top + L.fold - L.H * FOLD_AT;
-  return ease(span(p, TRAVEL_FROM, TRAVEL_TO)) * end;
-}
+const weekStart = (i: number) => WEEK_FROM + i * WEEK_LEN;
+/** Days gone, continuously, so the marker crosses each off as you scroll. */
+const daysAt = (p: number) => Math.max(0, Math.min(DAYS, ((p - WEEK_FROM) / (WEEK_LEN * 5)) * DAYS));
 
 /**
- * A marker stroke. It draws as its week comes up: `from` and `to` are the
- * stretch of the week's progress (`--t`) it takes, done in CSS off that one
- * number with a unit path length, so there is nothing to measure.
+ * A marker stroke, drawn off a CSS number rather than measured: `from` and
+ * `to` are the stretch of the variable it takes, with a unit path length.
  */
-function Marker({ d, from, to, width = 3, className }: { d: string; from: number; to: number; width?: number; className?: string }) {
+function Marker({
+  d,
+  from,
+  to,
+  width = 3,
+  variable = "--t",
+  scales = false,
+}: {
+  d: string;
+  from: number;
+  to: number;
+  width?: number;
+  variable?: string;
+  /** Stroke width in the drawing's own units. Needed on tiny drawings, where
+   *  a non-scaling stroke throws the unit path length off. */
+  scales?: boolean;
+}) {
   const k = 1 / (to - from);
   return (
     <path
@@ -69,25 +78,24 @@ function Marker({ d, from, to, width = 3, className }: { d: string; from: number
       strokeWidth={width}
       strokeLinecap="round"
       strokeLinejoin="round"
-      vectorEffect="non-scaling-stroke"
-      className={className}
+      vectorEffect={scales ? undefined : "non-scaling-stroke"}
       style={{
         strokeDasharray: 1,
-        strokeDashoffset: `calc(1 - clamp(0, (var(--t, 1) - ${from}) * ${k.toFixed(3)}, 1))`,
+        strokeDashoffset: `calc(1 - clamp(0, (var(${variable}, 1) - ${from}) * ${k.toFixed(3)}, 1))`,
       }}
     />
   );
 }
 
-/** Goes up as its week comes into view: from a little lower and less square, onto the sheet. */
+/** Goes up as its week begins: from a little lower and less square, onto the wall. */
 function Affixed({ children, rotate, className, style }: { children: ReactNode; rotate: number; className?: string; style?: CSSProperties }) {
   return (
     <div
       className={`relative ${className ?? ""}`}
       style={{
-        translate: "0 calc((1 - clamp(0, var(--t, 1) * 2.4, 1)) * 48px)",
-        rotate: `calc(${rotate}deg + (1 - clamp(0, var(--t, 1) * 2.4, 1)) * ${rotate < 0 ? -5 : 5}deg)`,
-        opacity: "clamp(0, var(--t, 1) * 3.2, 1)",
+        translate: "0 calc((1 - clamp(0, var(--t, 1) * 3, 1)) * 48px)",
+        rotate: `calc(${rotate}deg + (1 - clamp(0, var(--t, 1) * 3, 1)) * ${rotate < 0 ? -6 : 6}deg)`,
+        opacity: "clamp(0, var(--t, 1) * 4, 1)",
         ...style,
       }}
     >
@@ -98,8 +106,7 @@ function Affixed({ children, rotate, className, style }: { children: ReactNode; 
 
 function FormObject() {
   return (
-    <Affixed rotate={-1.8} className="w-[min(100%,24rem)]">
-      {/* The clip. */}
+    <Affixed rotate={-2.6} className="w-[22rem]">
       <span aria-hidden="true" className="absolute left-1/2 top-[-0.9rem] z-10 h-[1.6rem] w-[5.5rem] -translate-x-1/2 bg-[linear-gradient(#3a3c40,#1d1f22)] [clip-path:polygon(8%_0,92%_0,100%_100%,0_100%)]" />
       <Paper tone="warm" className="px-6 pb-7 pt-8">
         <p className="display text-[1.7rem] leading-none text-[var(--c-ink)]">{weeks[0].title}</p>
@@ -109,7 +116,7 @@ function FormObject() {
               <span aria-hidden="true" className="relative mb-0.5 block h-4 w-4 shrink-0 border border-[var(--c-ink)]/60">
                 {i === 2 ? (
                   <svg viewBox="0 0 20 20" className="absolute -left-1 -top-2 h-7 w-7 overflow-visible">
-                    <Marker d="M3 11 L8 16 L19 1" from={0.5} to={0.75} width={3.2} />
+                    <Marker d="M3 11 L8 16 L19 1" from={0.35} to={0.55} width={3.2} />
                   </svg>
                 ) : null}
               </span>
@@ -125,23 +132,18 @@ function FormObject() {
 
 function SignObject() {
   return (
-    <Affixed rotate={1.2} className="w-[min(100%,26rem)]">
-      <div className="relative bg-[var(--c-ink-2)] p-4 shadow-[var(--shadow-paper)]">
-        {[
-          "left-1.5 top-1.5",
-          "right-1.5 top-1.5",
-          "left-1.5 bottom-1.5",
-          "right-1.5 bottom-1.5",
-        ].map((pos) => (
+    <Affixed rotate={1.6} className="w-[24rem]">
+      <div className="relative bg-[var(--c-ink-2)] p-4 shadow-[var(--shadow-paper)] outline outline-1 outline-[var(--c-steel)]/40">
+        {["left-1.5 top-1.5", "right-1.5 top-1.5", "left-1.5 bottom-1.5", "right-1.5 bottom-1.5"].map((pos) => (
           <span key={pos} aria-hidden="true" className={`absolute ${pos} h-1.5 w-1.5 rounded-full bg-[var(--c-steel)]`} />
         ))}
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="grid grid-cols-3 gap-2">
           {rooms.map((r, i) => (
             <div key={r.id} className="relative">
-              <RoomPlate number={r.number} name={r.name} className="w-full" />
+              <RoomPlate number={r.number} name={r.name} className="h-full w-full" />
               {i === 0 ? (
                 <svg aria-hidden="true" viewBox="0 0 100 60" preserveAspectRatio="none" className="pointer-events-none absolute -inset-x-3 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+1.5rem)] overflow-visible">
-                  <Marker d="M58 4 C 20 2, 2 16, 4 32 C 6 50, 40 58, 70 55 C 94 52, 99 34, 94 20 C 88 7, 66 2, 44 6" from={0.45} to={0.8} width={3} />
+                  <Marker d="M58 4 C 20 2, 2 16, 4 32 C 6 50, 40 58, 70 55 C 94 52, 99 34, 94 20 C 88 7, 66 2, 44 6" from={0.3} to={0.6} width={3} />
                 </svg>
               ) : null}
             </div>
@@ -158,7 +160,7 @@ function TicketObject() {
   const notch =
     "radial-gradient(circle at calc(100% - 5.5rem) 0, transparent 0.55rem, #000 0.6rem) top / 100% 51% no-repeat, radial-gradient(circle at calc(100% - 5.5rem) 100%, transparent 0.55rem, #000 0.6rem) bottom / 100% 51% no-repeat";
   return (
-    <Affixed rotate={-2.4} className="w-[min(100%,25rem)]">
+    <Affixed rotate={-3.2} className="w-[23rem]">
       <div className="relative" style={{ filter: "drop-shadow(0 1px 1px rgb(13 14 12 / 0.4)) drop-shadow(0 8px 12px rgb(13 14 12 / 0.3))" }}>
         <div className="paper paper--warm flex shadow-none!" style={{ WebkitMask: notch, mask: notch }}>
           <div className="flex-1 px-5 py-5">
@@ -182,15 +184,15 @@ function ReviewObject() {
   const [why, name, ship] = firstMonth.reviewNotes;
   /** Which printed line each note is about, and when in the week it is written. */
   const notes: Record<number, { text: string; at: number; tick?: boolean }> = {
-    3: { text: why, at: 0.4 },
-    4: { text: name, at: 0.56 },
-    7: { text: ship, at: 0.74, tick: true },
+    3: { text: why, at: 0.3 },
+    4: { text: name, at: 0.45 },
+    7: { text: ship, at: 0.6, tick: true },
   };
   return (
-    <Affixed rotate={1.6} className="w-[min(100%,28rem)]">
+    <Affixed rotate={2.2} className="w-[26rem]">
       <Paper tone="bone" className="py-5 pl-5 pr-[40%]">
         <Tape className="-top-2.5 left-8" rotate={-4} />
-        <div className="text-[0.72rem] leading-[1.9] text-[var(--c-ink)]/85 sm:text-[0.8rem]">
+        <div className="text-[0.8rem] leading-[1.9] text-[var(--c-ink)]/85">
           {firstMonth.reviewCode.map((l, i) => {
             const note = notes[i];
             return (
@@ -198,23 +200,20 @@ function ReviewObject() {
                 {l}
                 {i === 3 ? (
                   <svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" className="absolute left-[0.4em] top-1/2 h-2 w-[calc(100%-0.4em)] -translate-y-1/2 overflow-visible">
-                    <Marker d="M0 6 L100 4" from={0.34} to={0.42} width={2.4} />
+                    <Marker d="M0 6 L100 4" from={0.24} to={0.32} width={2.4} />
                   </svg>
                 ) : null}
                 {i === 4 ? (
                   <svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" className="absolute bottom-[0.1em] left-[3.3em] h-2 w-[0.9em] overflow-visible">
-                    <Marker d="M0 5 L100 6" from={0.5} to={0.58} width={2.4} />
+                    <Marker d="M0 5 L100 6" from={0.4} to={0.47} width={2.4} />
                   </svg>
                 ) : null}
                 {note ? (
                   <span className="absolute left-[calc(100%+0.6rem)] top-1/2 flex -translate-y-1/2 items-center gap-1.5 whitespace-nowrap">
-                    <svg aria-hidden="true" viewBox="0 0 24 12" className="h-3 w-4 shrink-0 overflow-visible sm:w-6">
+                    <svg aria-hidden="true" viewBox="0 0 24 12" className="h-3 w-6 shrink-0 overflow-visible">
                       <Marker d={note.tick ? "M3 6 L9 11 L22 0" : "M0 7 C 8 4, 16 8, 24 6"} from={note.at} to={note.at + 0.06} width={2.4} />
                     </svg>
-                    <span
-                      className="display text-[0.86rem] leading-none text-[var(--c-blue)] sm:text-[1.02rem]"
-                      style={{ opacity: `clamp(0, (var(--t, 1) - ${note.at + 0.04}) * 10, 1)` }}
-                    >
+                    <span className="display text-[1.02rem] leading-none text-[var(--c-blue)]" style={{ opacity: `clamp(0, (var(--t, 1) - ${note.at + 0.04}) * 10, 1)` }}>
                       {note.text}
                     </span>
                   </span>
@@ -231,207 +230,353 @@ function ReviewObject() {
 function StampObject() {
   return (
     <div
-      className="flex h-full items-center justify-center py-6"
       style={{
-        scale: "calc(1 + (1 - clamp(0, (var(--t, 1) - 0.42) * 12, 1)) * 0.5)",
-        opacity: "clamp(0, (var(--t, 1) - 0.42) * 12, 1)",
+        scale: "calc(1 + (1 - clamp(0, (var(--t, 1) - 0.3) * 12, 1)) * 0.6)",
+        opacity: "clamp(0, (var(--t, 1) - 0.3) * 12, 1)",
       }}
     >
-      <Stamp rotate={-9} className="border-[5px] px-5 py-2 text-[clamp(3.4rem,7vw,6rem)]">
+      <Stamp rotate={-8} className="border-[0.9cqw] px-[2.4cqw] py-[0.6cqw] text-[13cqw]">
         {firstMonth.stamp}
       </Stamp>
     </div>
   );
 }
 
-const OBJECTS: Record<WeekKind, () => ReactNode> = {
+type Pinned = Exclude<WeekKind, "stamp">;
+const PINNED_KINDS: Pinned[] = ["form", "sign", "ticket", "review"];
+
+const OBJECTS: Record<Pinned, () => ReactNode> = {
   form: FormObject,
   sign: SignObject,
   ticket: TicketObject,
   review: ReviewObject,
-  stamp: StampObject,
 };
 
-/** The schedule itself. Laid out in normal flow, so the still version is the same sheet. */
-function Schedule({
-  rowRef,
-  foldRef,
+/** Where each week's thing is pinned on the wall, on a wide frame: centre, as shares of the frame, and scale. */
+const PINNED: Record<Pinned, { x: number; y: number; s: number }> = {
+  form: { x: 0.14, y: 0.26, s: 0.78 },
+  sign: { x: 0.135, y: 0.57, s: 0.7 },
+  ticket: { x: 0.82, y: 0.85, s: 0.66 },
+  review: { x: 0.14, y: 0.86, s: 0.64 },
+};
+
+/** The calendar ruled onto the page: days, weeks, and everything the month writes on it. */
+function Calendar({
+  gridRef,
+  stampRef,
+  ringRef,
 }: {
-  rowRef?: (i: number) => (n: HTMLDivElement | null) => void;
-  foldRef?: (n: HTMLDivElement | null) => void;
+  gridRef?: (n: HTMLDivElement | null) => void;
+  stampRef?: (n: HTMLDivElement | null) => void;
+  ringRef?: (n: HTMLSpanElement | null) => void;
 }) {
   return (
-    <div className="fanfold">
-      <div className="px-[max(7%,3.6rem)] pb-[7vh] pt-[10vh]">
-        <p className="meta text-[0.8rem] text-[var(--c-ink)]/65">{firstMonth.line}</p>
-        <h2 id="first-month-title" className="display mt-4 max-w-[13ch] text-[clamp(2.8rem,6vw,6rem)] leading-[0.86] text-[var(--c-ink)]">
-          {firstMonth.title}
-        </h2>
-        <div className="meta mt-[6vh] grid grid-cols-[6rem_1fr] border-b border-[var(--c-ink)]/30 pb-2 text-[0.75rem] text-[var(--c-ink)]/60 max-md:hidden">
-          <span>{firstMonth.columns[0]}</span>
-          <span>{firstMonth.columns[1]}</span>
-        </div>
-      </div>
-
-      {weeks.map((w, i) => {
-        const Obj = OBJECTS[w.kind];
-        return (
-          <div
-            key={w.label}
-            ref={rowRef?.(i)}
-            className="relative grid items-center gap-10 border-t border-[var(--c-ink)]/15 px-[max(7%,3.6rem)] py-[9vh] md:min-h-[78vh] md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:gap-[4vw]"
-          >
-            {/* The week's number, standing in the dark beside the sheet. */}
-            <span
-              aria-hidden="true"
-              className="display pointer-events-none absolute right-[calc(100%+7vw)] top-[8vh] hidden text-[clamp(8rem,16vw,16rem)] leading-[0.8] text-[var(--c-bone)] md:block"
-              style={{ opacity: "clamp(0.18, var(--t, 1) * 2, 1)" }}
-            >
-              {i}
+    <div ref={gridRef} className="absolute bottom-[7cqw] left-[7cqw] right-[6cqw] top-[40cqw]" style={{ opacity: "var(--grid, 1)" }}>
+      <div className="grid h-full grid-cols-[7cqw_repeat(7,minmax(0,1fr))] grid-rows-[4.5cqw_repeat(5,minmax(0,1fr))] border-b border-r border-[var(--c-ink)]/25">
+        <span />
+        {DAY_NAMES.map((d, i) => (
+          <span key={i} className="meta flex items-center justify-center border-l border-t border-[var(--c-ink)]/25 text-[2.2cqw] text-[var(--c-ink)]/60">
+            {d}
+          </span>
+        ))}
+        {weeks.map((w, row) => (
+          <div key={w.label} className="contents">
+            <span className="display flex items-start justify-center border-t border-[var(--c-ink)]/25 pt-[1.2cqw] text-[3cqw] leading-none text-[var(--c-ink)]">
+              {`W${row}`}
             </span>
-            <div>
-              <p className="display text-[3.2rem] leading-[0.8] text-[var(--c-blue)] md:hidden">{i}</p>
-              <p className="meta mt-3 text-[0.8rem] text-[var(--c-ink)]/65 md:mt-0">{w.label}</p>
-              <h3 className="display mt-2 text-[clamp(2.2rem,3.6vw,3.4rem)] leading-[0.88] text-[var(--c-ink)]">{w.title}</h3>
-              <p className="mt-4 max-w-[38ch] text-[1.02rem] leading-[1.6] text-[var(--c-ink)]/85">{w.body}</p>
-            </div>
-            <div className="flex justify-center md:justify-end">
-              <Obj />
-            </div>
+            {DAY_NAMES.map((_, col) => {
+              const n = row * 7 + col;
+              return (
+                <span key={col} className="relative border-l border-t border-[var(--c-ink)]/25" style={{ ["--x" as string]: `calc(var(--day, 0) - ${n})` } as CSSProperties}>
+                  <span className="meta absolute left-[0.8cqw] top-[0.5cqw] text-[1.9cqw] leading-none text-[var(--c-ink)]/55">{n + 1}</span>
+                  {/* Crossed off once the day has gone. */}
+                  <svg aria-hidden="true" viewBox="0 0 10 10" preserveAspectRatio="none" className="absolute inset-[18%] h-[64%] w-[64%] overflow-visible">
+                    <Marker d="M1 1 L9 9" from={0} to={0.5} width={0.55} variable="--x" scales />
+                    <Marker d="M9 1 L1 9" from={0.5} to={1} width={0.55} variable="--x" scales />
+                  </svg>
+                </span>
+              );
+            })}
           </div>
-        );
-      })}
-
-      <div className="border-t border-[var(--c-ink)]/15 px-[max(7%,3.6rem)] py-[12vh]">
-        <p className="display max-w-[18ch] text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[0.9] text-[var(--c-ink)]">{firstMonth.coda}</p>
+        ))}
       </div>
 
-      {/* The fold, and under it the next scene's paper: the roll of names is
-          printed on the same run, and starts here. It restarts the feed holes
-          at the fold, as the roll's own sheet does, so the two line up. */}
-      <div ref={foldRef} aria-hidden="true" className="fanfold z-[1] h-[100vh] border-t-2 border-dashed border-[var(--c-ink)]/40 shadow-none!" />
+      {/* Each week's name, written into its row in marker. */}
+      {weeks.map((w, row) => (
+        <p
+          key={w.label}
+          className="display pointer-events-none absolute left-[9cqw] -translate-y-1/2 text-[5.4cqw] leading-none text-[var(--c-blue)]"
+          style={{
+            top: `calc(4.5cqw + (100% - 4.5cqw) * ${(row + 0.62) / 5})`,
+            rotate: "-2deg",
+            opacity: `var(--wk${row}, 1)`,
+          }}
+        >
+          {w.title}
+        </p>
+      ))}
+
+      {/* Today, circled. */}
+      <span
+        ref={ringRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute"
+        style={{
+          width: "calc((100% - 7cqw) / 7)",
+          height: "calc((100% - 4.5cqw) / 5)",
+          left: "calc(7cqw + (100% - 7cqw) / 7 * var(--col, 6))",
+          top: "calc(4.5cqw + (100% - 4.5cqw) / 5 * var(--row, 4))",
+          opacity: "var(--today, 0)",
+        }}
+      >
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute -inset-[8%] h-[116%] w-[116%] overflow-visible">
+          <ellipse cx="50" cy="50" rx="46" ry="44" fill="none" stroke="var(--c-blue)" strokeWidth={2.2} vectorEffect="non-scaling-stroke" />
+        </svg>
+      </span>
+
+      {/* Week four: the stamp, across the last row. */}
+      <div
+        ref={stampRef}
+        className="pointer-events-none absolute left-[55%] -translate-x-1/2 -translate-y-1/2"
+        style={{ top: `calc(4.5cqw + (100% - 4.5cqw) * ${4.5 / 5})` }}
+      >
+        <StampObject />
+      </div>
     </div>
+  );
+}
+
+/** The week being read, set large beside the calendar. */
+function Readout({ i }: { i: number }) {
+  const w = weeks[i];
+  return (
+    <>
+      <p aria-hidden="true" className="display text-[clamp(6rem,11vw,11rem)] leading-[0.8] text-[var(--c-bone)] max-md:hidden">
+        {i}
+      </p>
+      <p className="meta mt-4 text-[0.85rem] text-[var(--c-gray)] max-md:mt-0">{w.label}</p>
+      <h3 className="display mt-2 text-[clamp(2rem,3.4vw,3.4rem)] leading-[0.88] text-[var(--c-bone)]">{w.title}</h3>
+      <p className="mt-3 max-w-[36ch] text-[clamp(0.95rem,1.15vw,1.1rem)] leading-[1.6] text-[var(--c-bone)]/85">{w.body}</p>
+    </>
   );
 }
 
 export function FirstMonth() {
   const reduced = useReducedMotion();
-  if (reduced) {
-    return (
-      <Scene id="first-month" aria-labelledby="first-month-title" stageClassName="px-[var(--gutter)] py-[10vh]">
-        <div className="mx-auto max-w-[72rem]">
-          <Schedule />
-        </div>
-      </Scene>
-    );
-  }
+  if (reduced) return <StillFirstMonth />;
   return <MovingFirstMonth />;
 }
 
 function MovingFirstMonth() {
-  const camera = useRef<HTMLDivElement>(null);
-  const sheet = useRef<HTMLDivElement>(null);
-  const rows = useRef<(HTMLDivElement | null)[]>([]);
-  const layout = useRef({ W: 1, H: 1, sheetH: 1, top: 0, fold: 1, rows: [] as number[], zx: 0, zy: 0 });
-  const fold = useRef<HTMLDivElement>(null);
+  const root = useRef<HTMLDivElement>(null);
+  const page = useRef<HTMLDivElement>(null);
+  const grid = useRef<HTMLDivElement | null>(null);
+  const ring = useRef<HTMLSpanElement | null>(null);
+  const stamp = useRef<HTMLDivElement | null>(null);
+  const pinned = useRef<(HTMLDivElement | null)[]>([]);
+  const reads = useRef<(HTMLDivElement | null)[]>([]);
+  const readout = useRef<HTMLDivElement>(null);
+  const intro = useRef<HTMLDivElement>(null);
+  const coda = useRef<HTMLDivElement>(null);
+  const frame = useRef({ W: 1, H: 1, narrow: false });
   const last = useRef(0);
+  const shownDay = useRef(-1);
   const apply = useRef<(p: number) => void>(() => {});
-  const [thread, setThread] = useState<LightPoint[]>([]);
+  const [wire, setWire] = useState<LightPoint[]>([]);
 
   useEffect(() => {
     const measure = () => {
-      const c = camera.current;
-      const s = sheet.current;
-      if (!c || !s) return;
-      const W = c.offsetWidth;
-      const H = c.offsetHeight;
+      const el = root.current;
+      const pg = page.current;
+      if (!el || !pg) return;
+      const W = el.offsetWidth;
+      const H = el.offsetHeight;
       const narrow = W < 768;
-      layout.current = {
-        W,
-        H,
-        sheetH: s.offsetHeight,
-        top: s.offsetTop,
-        fold: fold.current?.offsetTop ?? s.offsetHeight,
-        rows: rows.current.map((r) => r?.offsetTop ?? 0),
-        // A blank patch of paper to start inside: right of the title on a wide
-        // frame, under the header's words on a phone.
-        zx: narrow ? W * 0.8 : W * 0.86,
-        zy: narrow ? H * 0.06 + s.offsetTop : H * 0.3,
-      };
-      setThread([
-        [0.5, 0],
-        [0.5, 1],
+      frame.current = { W, H, narrow };
+      const r = monthPageRect(W, H);
+      pg.style.setProperty("left", `${r.cx - r.w / 2}px`);
+      pg.style.setProperty("top", `${r.cy - r.h / 2}px`);
+      pg.style.setProperty("width", `${r.w}px`);
+      pg.style.setProperty("height", `${r.h}px`);
+      // On a phone the readout goes under the calendar.
+      if (readout.current) readout.current.style.setProperty("top", narrow ? `${r.cy + r.h / 2 + H * 0.03}px` : "20vh");
+
+      // The things each week pins up: round the calendar on a wide frame, and
+      // on a phone one at a time over the foot of the page.
+      PINNED_KINDS.forEach((k, i) => {
+        const n = pinned.current[i];
+        if (!n) return;
+        const at = narrow ? { x: 0.7, y: (r.cy + r.h * 0.34) / H, s: 0.5 } : PINNED[k];
+        n.style.setProperty("left", `${at.x * 100}%`);
+        n.style.setProperty("top", `${at.y * 100}%`);
+        n.style.setProperty("scale", String(at.s));
+      });
+
+      // The wire the calendar hangs from, across the wall to its pin.
+      const pinY = (r.cy - r.h / 2 + r.w * 0.04) / H;
+      setWire([
+        [0, Math.max(0.05, pinY - 0.06)],
+        [r.cx / W, pinY],
+        [1, Math.max(0.05, pinY - 0.06)],
       ]);
+      shownDay.current = -1;
       requestAnimationFrame(() => apply.current(last.current));
     };
     measure();
     document.fonts?.ready.then(measure);
-    const ro = new ResizeObserver(measure);
-    if (sheet.current) ro.observe(sheet.current);
     window.addEventListener("resize", measure);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", measure);
-    };
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
   const onProgress = useCallback((p: number) => {
     last.current = p;
-    const c = camera.current;
-    const s = sheet.current;
-    if (!c || !s) return;
-    const L = layout.current;
+    const el = root.current;
+    const g = grid.current;
+    if (!el || !g) return;
+    const { narrow } = frame.current;
 
-    const travel = travelAt(p, L);
-    s.style.setProperty("transform", `translate3d(0, ${(-travel).toFixed(1)}px, 0)`);
+    // The calendar rules itself onto the sheet, and the creases flatten.
+    const ruled = span(p, 0.01, GRID_TO);
+    el.style.setProperty("--grid", ruled.toFixed(3));
+    el.style.setProperty("--creases", (1 - ruled * 0.7).toFixed(3));
 
-    // Off the paper: the camera starts deep in a blank patch and pulls back.
-    const pull = 1 - ease(span(p, 0, PULL_TO));
-    const z = Math.pow(ZOOM, pull);
-    c.style.setProperty("transform-origin", `${L.zx.toFixed(1)}px ${L.zy.toFixed(1)}px`);
-    c.style.setProperty("transform", pull > 0 ? `scale(${z.toFixed(4)})` : "none");
+    // The days: one number for every cross on the calendar.
+    const days = daysAt(p);
+    g.style.setProperty("--day", days.toFixed(3));
+    const today = Math.min(DAYS - 1, Math.floor(days));
+    if (today !== shownDay.current && ring.current) {
+      shownDay.current = today;
+      ring.current.style.setProperty("--row", String(Math.floor(today / 7)));
+      ring.current.style.setProperty("--col", String(today % 7));
+    }
+    ring.current?.style.setProperty("--today", (span(p, WEEK_FROM - 0.01, WEEK_FROM + 0.01) * (1 - span(p, CODA_FROM, CODA_FROM + 0.02))).toFixed(3));
 
-    // Each week's own progress: 0 as it comes up the bottom of the frame, 1
-    // once it is well in.
-    rows.current.forEach((r, i) => {
-      if (!r) return;
-      const y = L.top + L.rows[i] - travel;
-      const t = Math.min(1, Math.max(0, (L.H * 0.92 - y) / (L.H * 0.72)));
-      r.style.setProperty("--t", t.toFixed(3));
+    weeks.forEach((w, i) => {
+      const start = weekStart(i);
+      // Its name, written in as the week begins.
+      g.style.setProperty(`--wk${i}`, span(p, start + 0.005, start + 0.035).toFixed(3));
+      // Its thing, going up, and on a phone giving way to the next week's.
+      const t = span(p, start - 0.02, start + 0.14);
+      if (w.kind === "stamp") {
+        stamp.current?.style.setProperty("--t", t.toFixed(3));
+        return;
+      }
+      const n = pinned.current[i];
+      if (!n) return;
+      n.style.setProperty("--t", t.toFixed(3));
+      n.style.setProperty("visibility", t > 0 ? "visible" : "hidden");
+      const gone = narrow && i < weeks.length - 1 ? span(p, weekStart(i + 1) - 0.01, weekStart(i + 1) + 0.02) : 0;
+      n.style.setProperty("opacity", (1 - gone).toFixed(3));
     });
+
+    // The readout: the week being read, then the coda.
+    const k = (p - WEEK_FROM) / WEEK_LEN;
+    reads.current.forEach((r, i) => {
+      if (!r) return;
+      const wgt = Math.max(0, Math.min(1, (0.6 - Math.abs(k - i - 0.5)) * 6)) * (1 - span(p, CODA_FROM - 0.01, CODA_FROM + 0.02));
+      r.style.setProperty("opacity", wgt.toFixed(3));
+      r.style.setProperty("translate", `0 ${((k - i - 0.5) * -14).toFixed(1)}px`);
+      r.style.setProperty("visibility", wgt > 0 ? "visible" : "hidden");
+    });
+    intro.current?.style.setProperty("opacity", (span(p, 0.02, 0.05) * (1 - span(p, WEEK_FROM - 0.02, WEEK_FROM + 0.005))).toFixed(3));
+    coda.current?.style.setProperty("opacity", span(p, CODA_FROM + 0.01, CODA_FROM + 0.05).toFixed(3));
   }, []);
 
   useEffect(() => {
     apply.current = onProgress;
   }, [onProgress]);
 
-  /** The thread is lit down to wherever the reading line is on the sheet. */
-  const drawThread = useCallback((p: number) => {
-    const L = layout.current;
-    const read = travelAt(p, L) + L.H * 0.62 - L.top;
-    return [0, Math.min(L.fold / L.sheetH, Math.max(0, read / L.sheetH))] as const;
-  }, []);
-  const threadIntensity = useCallback((p: number) => span(p, PULL_TO * 0.6, PULL_TO + 0.03), []);
+  const drawWire = useCallback((p: number) => [0, span(p, 0, GRID_TO + 0.02)] as const, []);
 
   return (
-    <Scene id="first-month" vh={680} vhMobile={760} settled={0.3} onProgress={onProgress} aria-labelledby="first-month-title">
-      <div ref={camera} className="absolute inset-0">
-        <div
-          ref={sheet}
-          className="absolute left-[4vw] right-[4vw] top-[5vh] will-change-transform md:left-[30vw] md:right-[6vw]"
-        >
-          {/* The thread down the margin, in the dark beside the sheet. */}
-          <div aria-hidden="true" className="absolute inset-y-0 right-[calc(100%+3.2vw)] hidden w-8 md:block">
-            {thread.length ? <Light points={thread} kind="cable" sag={0} draw={drawThread} intensity={threadIntensity} /> : null}
+    <Scene id="first-month" vh={620} vhMobile={520} settled={weekStart(2) + 0.08} onProgress={onProgress} aria-labelledby="first-month-title">
+      <div ref={root} className="absolute inset-0">
+        {wire.length ? <Light points={wire} kind="cable" sag={0.02} draw={drawWire} /> : null}
+
+        {/* What each week pins up, round the calendar. */}
+        {PINNED_KINDS.map((k, i) => {
+          const Obj = OBJECTS[k];
+          return (
+            <div
+              key={k}
+              ref={(n) => {
+                pinned.current[i] = n;
+              }}
+              aria-hidden="true"
+              className="absolute z-[2] -translate-x-1/2 -translate-y-1/2"
+              style={{ visibility: "hidden" }}
+            >
+              <Obj />
+            </div>
+          );
+        })}
+
+        {/* The calendar, hung where the log's sheet came to rest. */}
+        <div ref={page} className="absolute z-[1]" style={{ rotate: `${PAGE_TILT}deg` }}>
+          <MonthCover creases="var(--creases, 1)">
+            <h2 id="first-month-title" className="sr-only">
+              {firstMonth.title}
+            </h2>
+            <Calendar
+              gridRef={(n) => {
+                grid.current = n;
+              }}
+              ringRef={(n) => {
+                ring.current = n;
+              }}
+              stampRef={(n) => {
+                stamp.current = n;
+              }}
+            />
+          </MonthCover>
+        </div>
+
+        {/* The readout, beside the calendar on a wide frame and under it on a phone. */}
+        <div ref={readout} className="absolute left-[var(--gutter)] right-[var(--gutter)] top-[20vh] md:left-[67vw] md:right-[4vw]">
+          <div ref={intro} className="absolute inset-x-0 top-0" style={{ opacity: 0 }}>
+            <p className="meta text-[0.85rem] text-[var(--c-gray)]">{firstMonth.line}</p>
           </div>
-          <Schedule
-            rowRef={(i) => (n) => {
-              rows.current[i] = n;
-            }}
-            foldRef={(n) => {
-              fold.current = n;
-            }}
-          />
+          {weeks.map((w, i) => (
+            <div
+              key={w.label}
+              ref={(n) => {
+                reads.current[i] = n;
+              }}
+              className="absolute inset-x-0 top-0"
+              style={{ opacity: 0, visibility: "hidden" }}
+            >
+              <Readout i={i} />
+            </div>
+          ))}
+          <div ref={coda} className="absolute inset-x-0 top-0" style={{ opacity: 0 }}>
+            <p className="display text-[clamp(2.2rem,3.6vw,3.8rem)] leading-[0.9] text-[var(--c-bone)]">{firstMonth.coda}</p>
+          </div>
+        </div>
+      </div>
+    </Scene>
+  );
+}
+
+/** Reduced motion: the calendar with the month already written on it, and every week read out. */
+function StillFirstMonth() {
+  return (
+    <Scene id="first-month" aria-labelledby="first-month-title" stageClassName="px-[var(--gutter)] py-[12vh]">
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
+        <div className="relative mx-auto aspect-[1/1.32] w-full max-w-[34rem]" style={{ ["--day" as string]: DAYS } as CSSProperties}>
+          <MonthCover creases={0.3}>
+            <h2 id="first-month-title" className="sr-only">
+              {firstMonth.title}
+            </h2>
+            <Calendar />
+          </MonthCover>
+        </div>
+        <div className="space-y-12">
+          {weeks.map((w, i) => (
+            <div key={w.label}>
+              <Readout i={i} />
+            </div>
+          ))}
+          <p className="display text-[clamp(2rem,3.4vw,3.4rem)] leading-[0.9] text-[var(--c-bone)]">{firstMonth.coda}</p>
         </div>
       </div>
     </Scene>

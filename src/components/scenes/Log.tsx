@@ -15,9 +15,9 @@
  * card's own button, or scrolling on puts it back where it was. It is the same
  * sheet the whole time, moved, not a copy in a modal.
  *
- * At the end of the wall a folded sheet is pinned up: the schedule for your
- * first month. The camera goes into it until the paper is the frame, and the
- * next scene unfolds it.
+ * At the end of the wall a folded sheet is pinned up: your first month. It is
+ * taken down and brought forward to where the next scene hangs it as a
+ * calendar, while the rest of the wall falls back into the dark.
  *
  * Positions are in wall units (`u`), a share of the frame's height capped by
  * its width, so the wall is the same wall on a phone, only smaller.
@@ -25,7 +25,7 @@
  * Progress:
  *   0.00 - 0.05   the lights come up
  *   0.10 - 0.88   the camera tracks along the wall
- *   0.90 - 1.00   into the folded sheet
+ *   0.90 - 1.00   the folded sheet comes forward
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -34,13 +34,13 @@ import { useLenis } from "lenis/react";
 import { gsap } from "@/lib/gsap";
 import { Scene } from "@/components/world/Scene";
 import { Light, span, type LightPoint } from "@/components/world/Light";
-import { dolly } from "@/components/world/MonitorScreen";
+import { MonthCover, PAGE_RATIO, PAGE_TILT, monthPageRect } from "@/components/world/MonthPage";
 import { Paper } from "@/components/world/Paper";
 import { Tape } from "@/components/world/Tape";
 import { ActionLink } from "@/components/world/ActionLink";
 import type { TearSides } from "@/components/world/tornEdge";
 import { useReducedMotion } from "@/lib/useMedia";
-import { firstMonth, log, projects, rooms, type Project } from "@/content/home";
+import { log, projects, rooms, type Project } from "@/content/home";
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 
@@ -100,6 +100,7 @@ function MovingLog() {
   const wall = useRef<HTMLDivElement>(null);
   const back = useRef<HTMLDivElement>(null);
   const shade = useRef<HTMLDivElement>(null);
+  const recede = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const putBackButton = useRef<HTMLButtonElement>(null);
   const lifts = useRef<(HTMLDivElement | null)[]>([]);
@@ -138,7 +139,7 @@ function MovingLog() {
         pts.push([(pin.x * u) / wallW, top / H]);
       });
       pts.push([(TAB.x * u) / wallW, 0.3]);
-      pts.push([(FOLDED.x * u) / wallW, (FOLDED.y * H - FOLDED.w * 0.66 * u + u * 1.2) / H]);
+      pts.push([(FOLDED.x * u) / wallW, (FOLDED.y * H - (FOLDED.w * PAGE_RATIO * u) / 2 + FOLDED.w * 0.04 * u) / H]);
       setCable(pts);
       requestAnimationFrame(() => apply.current(last.current));
     };
@@ -238,19 +239,21 @@ function MovingLog() {
       if (back.current) back.current.style.transform = `translate3d(${(-travel * 0.55).toFixed(1)}px, 0, 0)`;
       c.style.opacity = span(p, 0, 0.05).toFixed(3);
 
-      // Into the folded sheet: its lower panel, which is blank paper, grows
-      // until it covers the frame.
+      // The folded sheet is taken down and brought forward to where the
+      // calendar hangs; the rest of the wall falls back into the dark. It ends
+      // exactly on the next scene's first frame.
       const push = ease(span(p, PUSH_FROM, 1));
+      recede.current?.style.setProperty("opacity", push.toFixed(3));
+      back.current?.style.setProperty("opacity", (1 - push).toFixed(3));
       if (push > 0) {
-        const fw = FOLDED.w * u;
-        const fh = FOLDED.w * 1.32 * u;
-        const rcx = FOLDED.x * u - travel;
-        const rcy = FOLDED.y * H + fh * 0.3;
-        const rw = fw * 0.6;
-        const rh = fh * 0.22;
-        const s = Math.min(rw / W, rh / H);
-        const move = dolly(push, { x: rcx - (W * s) / 2, y: rcy - (H * s) / 2 }, { s, x: 0, y: 0 }, W, H);
-        c.style.transform = move.layer;
+        const fh = FOLDED.w * PAGE_RATIO * u;
+        const cx = FOLDED.x * u - travel;
+        const cy = FOLDED.y * H;
+        const target = monthPageRect(W, H);
+        const z = Math.pow(target.h / fh, push);
+        const tx = cx + (target.cx - cx) * push - z * cx;
+        const ty = cy + (target.cy - cy) * push - z * cy;
+        c.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${z.toFixed(5)})`;
       } else {
         c.style.transform = "";
       }
@@ -400,28 +403,23 @@ function MovingLog() {
             </Paper>
           </div>
 
+          {/* When the folded sheet is brought forward, the wall falls back behind it. */}
+          <div ref={recede} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[var(--c-ink)]" style={{ opacity: 0, zIndex: 25 }} />
+
           {/* The first month, folded in three and pinned up last. */}
           <div
             aria-hidden="true"
             className="absolute"
             style={{
               left: `calc(var(--u) * ${FOLDED.x - FOLDED.w / 2})`,
-              top: `calc(${FOLDED.y * 100}% - var(--u) * ${FOLDED.w * 0.66})`,
+              top: `calc(${FOLDED.y * 100}% - var(--u) * ${(FOLDED.w * PAGE_RATIO) / 2})`,
               width: `calc(var(--u) * ${FOLDED.w})`,
-              height: `calc(var(--u) * ${FOLDED.w * 1.32})`,
-              zIndex: 20,
+              height: `calc(var(--u) * ${FOLDED.w * PAGE_RATIO})`,
+              rotate: `${PAGE_TILT}deg`,
+              zIndex: 30,
             }}
           >
-            <Paper tone="bone" rotate={0.8} className="paper--quiet h-full w-full px-[8%] pt-[12%]">
-              <p className="display text-[calc(var(--u)*3.6)] leading-[0.88] text-[var(--c-ink)]">{firstMonth.title}</p>
-              {/* The folds: each crease is a hairline with the panel below it a shade darker. */}
-              <span className="pointer-events-none absolute inset-x-0 top-1/3 h-1/3 border-t border-[var(--c-ink)]/10 bg-[linear-gradient(rgb(13_14_12/0.07),transparent_40%)]" />
-              <span className="pointer-events-none absolute inset-x-0 top-2/3 h-1/3 border-t border-[var(--c-ink)]/10 bg-[linear-gradient(rgb(13_14_12/0.05),transparent_40%)]" />
-            </Paper>
-            <span
-              className="absolute left-1/2 top-[calc(var(--u)*1.2)] block h-[calc(var(--u)*1.1)] w-[calc(var(--u)*1.1)] -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{ background: "radial-gradient(circle at 35% 30%, #d8d6d0, #777872 55%, #3a3b38)", boxShadow: "0 2px 3px rgb(13 14 12 / 0.6)" }}
-            />
+            <MonthCover />
           </div>
 
           {/* Behind a sheet that has been taken down, the wall goes dim. */}
