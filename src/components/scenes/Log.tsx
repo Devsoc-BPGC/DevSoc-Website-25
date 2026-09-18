@@ -4,8 +4,10 @@
  * 05 The Log
  * Six things that shipped, printed and pinned to a wall.
  *
- * The night shift ended with the camera inside a screen gone dark; the lights
- * come up on an archive wall. Every project is a real screenshot printed on
+ * The night shift ended with the camera inside a screen showing the site it
+ * had just shipped. The log opens on that same picture, printed: the first
+ * sheet on an archive wall, which the camera pulls back from. Every project is
+ * a real screenshot printed on
  * grid paper, torn off the pad and pinned, with an index card stuck to it that
  * says what it is and which room made it. One lit cable runs pin to pin along
  * the wall, and it lights ahead of you as the camera tracks along.
@@ -23,7 +25,7 @@
  * its width, so the wall is the same wall on a phone, only smaller.
  *
  * Progress:
- *   0.00 - 0.05   the lights come up
+ *   0.00 - 0.10   back out of the first print to the wall
  *   0.10 - 0.88   the camera tracks along the wall
  *   0.90 - 1.00   the folded sheet comes forward
  */
@@ -68,6 +70,11 @@ const sheets = PINS.map((pin) => {
   const project = projects.find((p) => p.id === pin.id) as Project;
   return { pin, project, room: roomFor(project.vertical) };
 });
+
+/** The picture the night shift's screen ends on: the first sheet on the wall, before it is printed. */
+export const FIRST_PRINT = sheets[0].project.image;
+/** The camera starts inside that print and pulls back to the wall by here. */
+const ZOOM_TO = 0.1;
 
 function roomFor(vertical: string) {
   return rooms.find((r) => r.name.toLowerCase().startsWith(vertical.toLowerCase()));
@@ -241,7 +248,8 @@ function MovingLog() {
       const travel = travelAt(p, u, W);
       wl.style.transform = `translate3d(${(-travel).toFixed(1)}px, 0, 0)`;
       if (back.current) back.current.style.transform = `translate3d(${(-travel * 0.55).toFixed(1)}px, 0, 0)`;
-      c.style.opacity = span(p, 0, 0.05).toFixed(3);
+      // The first print, as it was on the screen, before the ink settles on the paper.
+      wl.style.setProperty("--raw", (1 - span(p, 0.004, 0.035)).toFixed(3));
 
       // The folded sheet is taken down and brought forward to where the
       // calendar hangs; the rest of the wall falls back into the dark. It ends
@@ -258,6 +266,21 @@ function MovingLog() {
         const tx = cx + (target.cx - cx) * push - z * cx;
         const ty = cy + (target.cy - cy) * push - z * cy;
         c.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${z.toFixed(5)})`;
+      } else if (p < ZOOM_TO) {
+        // Out of the first print: it starts filling the frame, squared to the
+        // camera as the screen was, and the camera pulls back to the wall.
+        const zin = 1 - ease(span(p, 0, ZOOM_TO));
+        const { pin, project } = sheets[0];
+        const pw = pin.w * (1 - MARGIN * 2) * u;
+        const ph = (pw * project.height) / project.width;
+        const cx = pin.x * u - travel;
+        const cy = pin.y * H;
+        const Z = Math.max(W / pw, H / ph);
+        const z = Math.pow(Z, zin);
+        const q = Z > 1 ? (z - 1) / (Z - 1) : 1;
+        const fx = W / 2 + (cx - W / 2) * q;
+        const fy = H / 2 + (cy - H / 2) * q;
+        c.style.transform = `translate(${(W / 2).toFixed(2)}px, ${(H / 2).toFixed(2)}px) rotate(${(-pin.r * zin).toFixed(3)}deg) scale(${z.toFixed(5)}) translate(${(-fx).toFixed(2)}px, ${(-fy).toFixed(2)}px)`;
       } else {
         c.style.transform = "";
       }
@@ -291,7 +314,7 @@ function MovingLog() {
 
   return (
     <Scene continues id="log" vh={520} vhMobile={420} settled={0.2} onProgress={onProgress} aria-labelledby="log-title">
-      <div ref={camera} className="absolute inset-0 origin-top-left" style={{ opacity: 0 }}>
+      <div ref={camera} className="absolute inset-0 origin-top-left">
         {/* The wall behind: a faint pinboard grid, further away, so slower. */}
         <div
           ref={back}
@@ -364,6 +387,10 @@ function MovingLog() {
                             sizes="(max-width: 768px) 90vw, 60vw"
                             className="object-cover mix-blend-multiply contrast-[0.96]"
                           />
+                          {i === 0 ? (
+                            // On the screen a moment ago: unprinted, until the camera is back out.
+                            <Image src={project.image} alt="" fill sizes="100vw" className="object-cover" style={{ opacity: "var(--raw, 0)" }} />
+                          ) : null}
                         </div>
                       </Paper>
                       {/* The pin. */}

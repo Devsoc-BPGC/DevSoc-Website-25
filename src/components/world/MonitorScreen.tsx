@@ -34,8 +34,9 @@ export function MonitorScreen({
       <div data-readout className="relative text-[var(--count,var(--c-acid))]">
         <span
           data-count
-          className="display block leading-[0.8]"
-          style={{ fontSize: "min(118vw, 84vh)", fontVariantNumeric: "tabular-nums" }}
+          className="display block whitespace-nowrap leading-[0.8]"
+          // Longer readings are set smaller, so a room number fits as well as a count.
+          style={{ fontSize: "min(118vw, 84vh, calc(190vw / var(--len, 2)))", fontVariantNumeric: "tabular-nums" }}
         >
           {value}
         </span>
@@ -95,4 +96,56 @@ export function dolly(
     layer: `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${z.toFixed(5)})`,
     picture: `translate3d(${(tx + z * x0).toFixed(2)}px, ${(ty + z * y0).toFixed(2)}px, 0) scale(${(z * fit.s).toFixed(5)})`,
   };
+}
+
+/** The parts of a screen that get written to, found once per element. */
+const parts = new WeakMap<HTMLElement, { count: HTMLElement | null; unit: HTMLElement | null; shown: string }>();
+
+/**
+ * Writes a reading onto a screen (the one in the room and the sharp copy
+ * alike): only when it has changed, and with its length, so it is sized to fit.
+ */
+export function setScreen(host: HTMLElement | null, value: string, unit: string) {
+  if (!host) return;
+  let p = parts.get(host);
+  if (!p) {
+    p = { count: host.querySelector<HTMLElement>("[data-count]"), unit: host.querySelector<HTMLElement>("[data-unit]"), shown: "" };
+    parts.set(host, p);
+  }
+  const key = `${value}|${unit}`;
+  if (p.shown === key) return;
+  p.shown = key;
+  if (p.count) {
+    p.count.textContent = value;
+    p.count.style.setProperty("--len", String(Math.max(2, value.length)));
+  }
+  if (p.unit) p.unit.textContent = unit;
+}
+
+const GLYPHS = "0123456789#%&*+=/<>";
+
+/**
+ * One reading turning into another, the way a screen decodes: each place runs
+ * through random glyphs and then settles, left to right. `t` runs 0 to 1 and
+ * the glyphs are picked from it, so the same `t` always shows the same frame
+ * and scrolling back runs it in reverse.
+ */
+export function decipher(from: string, to: string, t: number) {
+  if (t <= 0) return from;
+  if (t >= 1) return to;
+  const len = Math.round(from.length + (to.length - from.length) * Math.min(1, t * 1.6));
+  const tick = Math.floor(t * 28);
+  let out = "";
+  for (let i = 0; i < len; i++) {
+    const settle = 0.45 + 0.4 * (i / Math.max(1, len));
+    if (t >= settle && i < to.length) {
+      out += to[i];
+    } else if (t < 0.12 && i < from.length) {
+      out += from[i];
+    } else {
+      const h = Math.sin((i + 1) * 12.9898 + tick * 78.233) * 43758.5453;
+      out += GLYPHS[Math.floor((h - Math.floor(h)) * GLYPHS.length)];
+    }
+  }
+  return out;
 }

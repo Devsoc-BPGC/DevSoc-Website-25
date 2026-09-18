@@ -125,9 +125,13 @@ export function Scene({
       const scenes = Array.from(document.querySelectorAll<HTMLElement>("[data-scene]"));
       t.style.zIndex = String(scenes.length - scenes.indexOf(t));
       const handsOver = t.nextElementSibling?.hasAttribute("data-continues") ?? false;
+      // Opacity rather than visibility: a child that sets itself visible
+      // (the sharp copy of a screen, say) would show through a hidden parent.
       const place = (progress: number, isActive: boolean) => {
         if (!handsOver) return;
-        s.style.visibility = progress >= 1 && !isActive ? "hidden" : "";
+        const gone = progress >= 1 && !isActive;
+        s.style.opacity = gone ? "0" : "";
+        s.style.pointerEvents = gone ? "none" : "";
       };
 
       const st = ScrollTrigger.create({
@@ -169,7 +173,8 @@ export function Scene({
         st.kill();
         off?.();
         s.style.willChange = "";
-        s.style.visibility = "";
+        s.style.opacity = "";
+        s.style.pointerEvents = "";
         t.style.zIndex = "";
       };
     },

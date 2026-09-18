@@ -32,7 +32,7 @@ import { useLenis } from "lenis/react";
 import { Scene } from "@/components/world/Scene";
 import { RoomModule } from "@/components/world/RoomModule";
 import { Light, span, type LightPoint } from "@/components/world/Light";
-import { MonitorScreen, dolly, screenFit } from "@/components/world/MonitorScreen";
+import { MonitorScreen, decipher, dolly, screenFit, setScreen } from "@/components/world/MonitorScreen";
 import { ringFrame, RING_N } from "@/components/world/ring";
 import { rooms, roomsCopy, beats } from "@/content/home";
 
@@ -217,6 +217,15 @@ export function Rooms() {
       screen.current.style.transform = move.picture;
       screen.current.style.visibility = push > 0 ? "visible" : "hidden";
     }
+
+    // The hub's screen shows whichever room is at the front. On the push in
+    // it decodes, place by place, into the countdown the night shift opens on.
+    const front = rooms[Math.min(rooms.length - 1, Math.max(0, Math.round(k)))];
+    const decode = span(p, PUSH_FROM - 0.01, 0.97);
+    const value = decipher(front.number, days, decode);
+    const unit = decipher(front.short, "days", span(decode, 0.25, 0.9));
+    setScreen(glass.current, value, unit);
+    setScreen(screen.current, value, unit);
   }, []);
 
   useEffect(() => {
@@ -246,7 +255,7 @@ export function Rooms() {
           <div className="border border-[var(--c-steel)]/60 bg-[var(--bezel)] p-[5%] shadow-[var(--shadow-paper)]">
             <div ref={glassBox} className="relative overflow-hidden bg-[var(--screen)]" style={{ aspectRatio: "1 / 0.64" }}>
               <div ref={glass} className="absolute left-0 top-0 origin-top-left">
-                <MonitorScreen value={days} unit="days" />
+                <MonitorScreen value={rooms[0].number} unit={rooms[0].short} />
               </div>
             </div>
           </div>
@@ -318,7 +327,7 @@ export function Rooms() {
         style={{ visibility: "hidden" }}
         aria-hidden="true"
       >
-        <MonitorScreen value={days} unit="days" />
+        <MonitorScreen value={rooms[0].number} unit={rooms[0].short} />
       </div>
     </Scene>
   );

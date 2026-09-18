@@ -18,7 +18,8 @@
  * turns to the alarm colour, the one place on the site that colour appears.
  *
  * At T-0 the notes square up into two neat stacks, the terminal prints on the
- * screen, and the camera pushes into it.
+ * screen, and then what shipped loads on it: the site itself. The camera goes
+ * into it, and the log opens on that same picture, printed and pinned.
  *
  * Everything is a pure function of progress, so scrolling back up runs the
  * night backwards: the notes come down, the count climbs, the room gets tidy.
@@ -35,6 +36,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Scene } from "@/components/world/Scene";
 import { Light, span, type LightPoint } from "@/components/world/Light";
 import { MonitorScreen, dolly, screenFit } from "@/components/world/MonitorScreen";
@@ -43,6 +45,7 @@ import { Paper } from "@/components/world/Paper";
 import { Tape } from "@/components/world/Tape";
 import { useReducedMotion } from "@/lib/useMedia";
 import { beats, nightShift, shipLines, type Beat } from "@/content/home";
+import { FIRST_PRINT } from "@/components/scenes/Log";
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 const settleOut = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -58,6 +61,8 @@ const SQUARE_TO = T0 + 0.08;
 const TYPE_FROM = T0 + 0.04;
 const TYPE_TO = T0 + 0.15;
 const PUSH_FROM = 0.88;
+/** When what shipped loads on the screen, just before the camera goes in. */
+const SITE_FROM = 0.865;
 const ALARM = beats.findIndex((b) => b.hours === 3);
 /**
  * How close the camera has to be before the sharp copy of the screen takes
@@ -138,6 +143,7 @@ type ScreenParts = {
   count: Element | null;
   unit: Element | null;
   terminal: HTMLElement | null;
+  site: HTMLElement | null;
   lines: HTMLElement[];
 };
 const screenCache = new WeakMap<HTMLElement, ScreenParts>();
@@ -149,6 +155,7 @@ function screenParts(host: HTMLElement) {
       count: host.querySelector("[data-count]"),
       unit: host.querySelector("[data-unit]"),
       terminal: host.querySelector<HTMLElement>("[data-terminal]"),
+      site: host.querySelector<HTMLElement>("[data-site]"),
       lines: Array.from(host.querySelectorAll<HTMLElement>("[data-line]")),
     };
     screenCache.set(host, parts);
@@ -237,6 +244,15 @@ function Cover() {
       </h2>
       <p className="mt-4 text-[0.95rem] leading-[1.5] text-[var(--c-ink)]/80">{nightShift.line}</p>
     </Paper>
+  );
+}
+
+/** What shipped, loaded on the screen once the terminal is done: the log's first sheet, before it is printed. */
+function Shipped() {
+  return (
+    <div data-site aria-hidden="true" className="absolute inset-0" style={{ opacity: 0 }}>
+      <Image src={FIRST_PRINT} alt="" fill sizes="100vw" className="object-cover" />
+    </div>
   );
 }
 
@@ -395,7 +411,10 @@ function MovingNightShift() {
     const valueChanged = s.value !== r.value || s.unit !== r.unit;
     const linesChanged = lines.some((c, i) => c !== s.lines[i]);
     const readoutOpacity = (1 - span(p, TYPE_FROM - 0.03, TYPE_FROM)).toFixed(3);
-    const terminalOpacity = (span(p, TYPE_FROM - 0.01, TYPE_FROM + 0.005) * (1 - span(p, 0.95, 1))).toFixed(3);
+    const terminalOpacity = span(p, TYPE_FROM - 0.01, TYPE_FROM + 0.005).toFixed(3);
+    // Then what shipped loads on the screen: the site itself, which is what
+    // the camera goes into and what the log opens on, printed.
+    const siteOpacity = span(p, SITE_FROM, SITE_FROM + 0.035).toFixed(3);
     for (const host of [glass.current, screen.current]) {
       if (!host) continue;
       const sc = screenParts(host);
@@ -406,6 +425,7 @@ function MovingNightShift() {
         if (sc.unit) sc.unit.textContent = r.unit;
       }
       if (sc.terminal) sc.terminal.style.opacity = terminalOpacity;
+      sc.site?.style.setProperty("opacity", siteOpacity);
       if (linesChanged) {
         sc.lines.forEach((ln, i) => {
           const n = shipLines[i].text.length;
@@ -522,6 +542,7 @@ function MovingNightShift() {
             <div ref={glass} className="absolute left-0 top-0 origin-top-left">
               <MonitorScreen value={first.value} unit={first.unit}>
                 <Terminal />
+                <Shipped />
               </MonitorScreen>
             </div>
           </div>
@@ -549,6 +570,7 @@ function MovingNightShift() {
       <div ref={screen} aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-full w-full origin-top-left" style={{ visibility: "hidden", zIndex: 40 }}>
         <MonitorScreen value={first.value} unit={first.unit}>
           <Terminal />
+                <Shipped />
         </MonitorScreen>
       </div>
 
