@@ -106,7 +106,11 @@ function buildFixture(points: readonly LightPoint[], w: number, h: number) {
 
 /** Whether the page's opening is still covering it; lights wait for it to open. */
 function overtureOpen(start: () => void) {
-  if (typeof document === "undefined" || !document.querySelector(".overture:not([data-open])")) {
+  if (
+    typeof document === "undefined" ||
+    document.documentElement.classList.contains("overture-seen") ||
+    !document.querySelector(".overture:not([data-open])")
+  ) {
     start();
     return () => {};
   }

@@ -593,6 +593,32 @@
   }
 }
 
+/* The overture. While it is up, everything else that animates by itself
+   waits: paused animations do not run their delays either, so the hero's
+   windows come on as the dark opens, not behind it. If scripts never run it
+   fades itself out, so it cannot leave the page covered. */
+html:not(.overture-seen):has(.overture:not([data-open])) *:not(.overture, .overture *) {
+  animation-play-state: paused !important;
+}
+/* Already seen this visit: never painted at all. */
+html.overture-seen .overture {
+  display: none;
+}
+.overture {
+  animation: overture-fallback 0.8s ease 6s forwards;
+}
+@keyframes overture-fallback {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .overture {
+    display: none;
+  }
+}
+
 /* The hero's line comes up after the windows do, a sentence at a time. It is
    visible by default and only animates where motion is allowed, so it can
    never be left hidden. */

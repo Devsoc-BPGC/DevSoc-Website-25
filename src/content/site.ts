@@ -3,7 +3,7 @@ export const site = {
   fullName: "Developers' Society, BITS Pilani Goa",
   url: "https://devsoc.club",
   description:
-    "The developers' society of BITS Pilani, K.K. Birla Goa Campus. Six rooms: Web, App, Game, AI and ML, Design, and Game Engine Development. We build the fest sites and apps the campus runs on.",
+    "The Developers' Society of BITS Pilani, K.K. Birla Goa Campus. We build the websites and apps the campus runs on: the fest sites for Waves and Quark, DevFest, and the tools in between.",
   line: "The campus sleeps. Some rooms stay lit.",
   campus: "BITS Pilani, K.K. Birla Goa Campus",
   campusShort: "K.K. Birla Goa Campus",

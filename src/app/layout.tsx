@@ -30,26 +30,46 @@ const schibsted = Schibsted_Grotesk({
   display: "swap",
 });
 
+// Icons and the share image are files in this folder (favicon.ico, icon.png,
+// apple-icon.png, opengraph-image.jpg, twitter-image.jpg), which Next picks
+// up by name; scripts/make-og.py draws the share image.
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "DevSoc", template: "%s. DevSoc" },
+  title: { default: "DevSoc, Developers' Society of BITS Pilani Goa", template: "%s. DevSoc" },
   description: site.description,
+  applicationName: site.name,
+  keywords: [
+    "DevSoc",
+    "Developers' Society",
+    "BITS Pilani Goa",
+    "BITS Goa",
+    "K.K. Birla Goa Campus",
+    "student developers",
+    "DevFest",
+    "Waves",
+    "Quark",
+    "hackathon",
+  ],
+  authors: [{ name: site.fullName, url: site.url }],
+  creator: site.fullName,
+  publisher: site.fullName,
+  category: "technology",
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  formatDetection: { telephone: false, email: false, address: false },
   openGraph: {
     title: "DevSoc",
-    description: site.line,
+    description: site.description,
     url: site.url,
     siteName: site.fullName,
     type: "website",
     locale: "en_IN",
-    images: [{ url: "/images/graded/hero-facade-night-wide.jpg", width: 1672, height: 941, alt: site.line }],
   },
   twitter: {
     card: "summary_large_image",
     title: "DevSoc",
-    description: site.line,
-    images: ["/images/graded/hero-facade-night-wide.jpg"],
+    description: site.description,
   },
-  icons: { icon: "/images/brand/mark.png", apple: "/images/brand/window.png" },
 };
 
 export const viewport: Viewport = {
@@ -60,7 +80,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${shoulders.variable} ${schibsted.variable}`}>
+    // The overture's early script marks <html> before hydration on a visit that
+    // has already seen it; that one class is expected to differ.
+    <html lang="en" className={`${shoulders.variable} ${schibsted.variable}`} suppressHydrationWarning>
       <body>
         <SmoothScroll>
           <Directory />

@@ -9,6 +9,7 @@ import { DevFest } from "@/components/scenes/DevFest";
 import { Coordinators } from "@/components/scenes/Coordinators";
 import { Dawn } from "@/components/scenes/Dawn";
 import { Colophon } from "@/components/scenes/Colophon";
+import { Overture } from "@/components/scenes/Overture";
 
 /**
  * One night, eleven chapters, one continuous camera. Each scene hands a
@@ -17,6 +18,7 @@ import { Colophon } from "@/components/scenes/Colophon";
 export default function Home() {
   return (
     <main className="relative">
+      <Overture />
       <Dusk />
       <Society />
       <Rooms />
