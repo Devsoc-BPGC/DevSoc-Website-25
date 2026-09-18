@@ -24,4 +24,23 @@ export const firstMonth = {
   formFields: ["Name", "What have you built", "What do you want to build"],
   /** Written in the margin of the review printout, in marker. */
   reviewNotes: ["why is this here", "name this better", "good. ship it"],
+  /**
+   * The printout the review marks up. An illustration of a first review, not
+   * anybody's real code: a small handler with the two things a first review
+   * always finds.
+   */
+  reviewCode: [
+    "function register(form) {",
+    "  const data = parse(form);",
+    "  if (!data.email) return;",
+    "  const t = Date.now();",
+    "  const x = save(data);",
+    "  notify(data.email);",
+    "  return x;",
+    "}",
+  ],
+  /** Printed on the Week 2 build ticket. */
+  ticket: { heading: "Build ticket", due: "Due Friday", owner: "Owner", you: "You" },
+  /** The schedule's column heads. */
+  columns: ["Week", "What happens"],
 };

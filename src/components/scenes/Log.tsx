@@ -412,7 +412,7 @@ function MovingLog() {
               zIndex: 20,
             }}
           >
-            <Paper tone="bone" rotate={0.8} className="h-full w-full px-[8%] pt-[12%]">
+            <Paper tone="bone" rotate={0.8} className="paper--quiet h-full w-full px-[8%] pt-[12%]">
               <p className="display text-[calc(var(--u)*3.6)] leading-[0.88] text-[var(--c-ink)]">{firstMonth.title}</p>
               {/* The folds: each crease is a hairline with the panel below it a shade darker. */}
               <span className="pointer-events-none absolute inset-x-0 top-1/3 h-1/3 border-t border-[var(--c-ink)]/10 bg-[linear-gradient(rgb(13_14_12/0.07),transparent_40%)]" />

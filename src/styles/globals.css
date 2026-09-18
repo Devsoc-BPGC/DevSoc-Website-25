@@ -337,6 +337,72 @@
   background-blend-mode: normal, normal, multiply;
 }
 
+/* Paper with the fibre washed back, for a sheet the camera goes right into:
+   magnified, the full-strength texture reads as dirt. */
+.paper--quiet {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--paper) 70%, transparent), color-mix(in srgb, var(--paper) 70%, transparent)),
+    url("/textures/paper.jpg");
+  background-size:
+    auto,
+    384px 384px;
+  background-blend-mode: normal, multiply;
+}
+
+/* Continuous printer paper: the first month's schedule and the roll of names
+   are one printout. Feed holes run down both edges (they are ink, because the
+   holes show what is behind the sheet), each strip set off by a perforation.
+   The fibre is washed back: across a sheet this long the texture's tile would
+   otherwise repeat as blotches. The holes start at the top of the element, so
+   two pieces cut at a fold line continue each other exactly. */
+.fanfold {
+  --feed: 2.6rem;
+  --pitch: 1.6rem;
+  position: relative;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle, var(--c-ink) calc(var(--pitch) * 0.19), transparent calc(var(--pitch) * 0.21)),
+    radial-gradient(circle, var(--c-ink) calc(var(--pitch) * 0.19), transparent calc(var(--pitch) * 0.21)),
+    linear-gradient(color-mix(in srgb, var(--paper) 70%, transparent), color-mix(in srgb, var(--paper) 70%, transparent)),
+    url("/textures/paper.jpg");
+  background-size:
+    var(--feed) var(--pitch),
+    var(--feed) var(--pitch),
+    auto,
+    384px 384px;
+  background-position:
+    0 calc(var(--pitch) / 2),
+    100% calc(var(--pitch) / 2),
+    0 0,
+    0 0;
+  background-repeat: repeat-y, repeat-y, no-repeat, repeat;
+  background-blend-mode: normal, normal, normal, multiply;
+  color: var(--ink-on-paper);
+  box-shadow: var(--shadow-lifted);
+}
+.fanfold::before,
+.fanfold::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed color-mix(in srgb, var(--c-ink) 22%, transparent);
+  pointer-events: none;
+}
+@media (max-width: 47.98rem) {
+  .fanfold {
+    --feed: 1.5rem;
+    --pitch: 1.15rem;
+  }
+}
+.fanfold::before {
+  left: var(--feed);
+}
+.fanfold::after {
+  right: var(--feed);
+}
+
 /* Printed halftone for plates: a dot screen used as a mask, never as a pattern
    on the page. */
 .halftone {
