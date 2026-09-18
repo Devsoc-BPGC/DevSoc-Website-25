@@ -18,6 +18,10 @@ import { gsap } from "@/lib/gsap";
 import { useFinePointer, useReducedMotion } from "@/lib/useMedia";
 import { DUR } from "@/lib/easings";
 
+/** A hairline of ink round the bone marks, built from four tight shadows. */
+const OUTLINE =
+  "drop-shadow(1px 0 0 rgb(13 14 12 / 0.85)) drop-shadow(-1px 0 0 rgb(13 14 12 / 0.85)) drop-shadow(0 1px 0 rgb(13 14 12 / 0.85)) drop-shadow(0 -1px 0 rgb(13 14 12 / 0.85))";
+
 export function Cursor() {
   const fine = useFinePointer();
   const reduced = useReducedMotion();
@@ -110,7 +114,10 @@ export function Cursor() {
       style={{ zIndex: "var(--z-cursor)" }}
     >
       {/* The mark. */}
-      <div ref={dot} className="absolute -left-[9px] -top-[9px] h-[18px] w-[18px]" style={{ mixBlendMode: "difference" }}>
+      {/* Bone with a hairline of ink round it, so it reads on the night and on
+          the morning ground alike. A blend mode cannot do this here: the
+          cursor is its own stacking context, so it would only blend with itself. */}
+      <div ref={dot} className="absolute -left-[9px] -top-[9px] h-[18px] w-[18px]" style={{ filter: OUTLINE }}>
         <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--c-bone)]" />
         <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--c-bone)]" />
         <span className="absolute left-1/2 top-1/2 h-[8px] w-[8px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--c-bone)]" />
@@ -119,7 +126,7 @@ export function Cursor() {
       <div
         ref={ring}
         className="absolute -left-[18px] -top-[18px] h-9 w-9 opacity-0"
-        style={{ transform: "scale(0.4)", mixBlendMode: "difference" }}
+        style={{ transform: "scale(0.4)", filter: OUTLINE }}
       >
         <span className="absolute left-0 top-0 h-2 w-2 border-l border-t border-[var(--c-bone)]" />
         <span className="absolute right-0 top-0 h-2 w-2 border-r border-t border-[var(--c-bone)]" />

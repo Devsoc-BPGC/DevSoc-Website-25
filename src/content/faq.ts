@@ -3,7 +3,7 @@ export type Faq = { q: string; a: string };
 export const faq: Faq[] = [
   {
     q: "What is DevSoc?",
-    a: "The Developers' Society of BITS Pilani, Goa. Six rooms: Web Development, App Development, Game Development, AI and ML, UI and UX, and Game Engine Development. We build the software the campus runs on.",
+    a: "The Developers' Society of BITS Pilani, Goa. Six rooms: Web Development, App Development, Game Development, AI and ML, Design, and Game Engine Development. We build the software the campus runs on.",
   },
   {
     q: "Who can join?",

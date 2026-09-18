@@ -236,7 +236,7 @@ export function Rooms() {
   };
 
   return (
-    <Scene id="rooms" vh={480} vhMobile={380} settled={progressFor(0)} onProgress={onProgress} aria-labelledby="rooms-title">
+    <Scene continues id="rooms" vh={480} vhMobile={380} settled={progressFor(0)} onProgress={onProgress} aria-labelledby="rooms-title">
       <div ref={root} className="absolute inset-0 origin-top-left">
         {/* The tube round the rim. */}
         {rim.length ? <Light points={rim} draw={drawRim} intensity={rimIntensity} /> : null}

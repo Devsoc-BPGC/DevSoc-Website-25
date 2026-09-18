@@ -2,7 +2,7 @@
 
 /**
  * 10 Dawn
- * The night gives way. The list is out, and the questions get answered.
+ * The night gives way, and the questions get answered.
  *
  * The coordinators ended with the light laid flat along the bottom of the
  * frame; this scene starts on it. It rises, and the sky comes up behind it:
@@ -11,16 +11,15 @@
  * than a switch, and it is continuous, so scrolling back up puts the night
  * back.
  *
- * When the sky is light the news is set in it, with the way to the full list
- * printed on a strip torn off the roll. Then the page carries on down, on the
- * paper-coloured ground, into the questions: numbered, because they are a
- * list, one open at a time, each answer a note with a marker bracket, and the
- * open one's number circled the way the calendar circles today.
+ * When the sky is light the questions' title is set in it, and the page carries
+ * on down, on the paper-coloured ground, into the questions themselves:
+ * numbered, because they are a list, one open at a time, each answer a note
+ * with a marker bracket, and the open one's number circled in marker.
  *
  * Progress (the sunrise):
  *   0.00 - 0.70   the light rises and the sky comes up
- *   0.45 - 0.75   the news
- *   0.62 - 0.80   the light burns off, leaving the horizon as a rule
+ *   0.45 - 0.75   the title
+ *   0.62 - 0.80   the light burns off
  */
 
 import { useCallback, useId, useRef, useState } from "react";
@@ -39,43 +38,14 @@ const HORIZON: LightPoint[] = [
   [1, HORIZON_AT],
 ];
 
-/** The way to the full list, on a strip torn off the roll: feed holes, dot-matrix, a ragged tear either end. */
-function RollStrip() {
-  return (
-    <a
-      href={dawn.link.href}
-      data-cursor="Go"
-      className="group relative inline-block -rotate-2 transition-transform duration-700 ease-[var(--ease-out-expo)] hover:-rotate-1 focus-visible:-rotate-1"
-      style={{ filter: "drop-shadow(0 1px 1px rgb(13 14 12 / 0.35)) drop-shadow(0 8px 12px rgb(13 14 12 / 0.22))" }}
-    >
-      <span
-        className="fanfold block px-[3.6rem] py-4 shadow-none!"
-        style={{
-          clipPath:
-            "polygon(0 6%, 2% 0, 5% 9%, 8% 1%, 11% 7%, 14% 0, 100% 0, 98% 8%, 100% 16%, 97% 30%, 100% 44%, 98% 58%, 100% 72%, 97% 86%, 100% 100%, 86% 94%, 83% 100%, 0 100%, 2% 88%, 0 74%, 3% 60%, 0 46%, 2% 32%, 0 18%)",
-        }}
-      >
-        <span className="dotmatrix flex items-center gap-4 whitespace-nowrap text-[1.05rem] font-semibold uppercase tracking-[0.04em] text-[var(--c-ink)]">
-          {dawn.link.label}
-          <span aria-hidden="true" className="relative block h-px w-9 bg-current transition-[width] duration-700 ease-[var(--ease-out-expo)] group-hover:w-14">
-            <span className="absolute -right-px top-1/2 block h-[7px] w-[7px] -translate-y-1/2 rotate-45 border-r border-t border-current" />
-          </span>
-        </span>
-      </span>
-    </a>
-  );
-}
-
-function News() {
+/** The title, set in the sky once it is light. */
+function Title({ id }: { id: string }) {
   return (
     <div className="text-center">
-      <h2 id="dawn-title" className="display mx-auto max-w-[16ch] text-[clamp(3rem,7.2vw,7rem)] leading-[0.86] text-[var(--c-ink)]">
-        {dawn.headline}
+      <h2 id={id} className="display text-[clamp(3.4rem,min(9vw,15vh),9rem)] leading-[0.84] text-[var(--c-ink)]">
+        {dawn.questions.title}
       </h2>
-      <p className="mx-auto mt-5 max-w-[44ch] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.55] text-[var(--c-ink)]/80">{dawn.line}</p>
-      <div className="mt-8">
-        <RollStrip />
-      </div>
+      <p className="mx-auto mt-5 max-w-[40ch] text-[clamp(1rem,1.25vw,1.2rem)] leading-[1.55] text-[var(--c-ink)]/80">{dawn.questions.line}</p>
     </div>
   );
 }
@@ -85,16 +55,11 @@ function Questions() {
   const [open, setOpen] = useState<number | null>(0);
   const id = useId();
   return (
-    <section aria-labelledby={`${id}-title`} className="lit relative px-[var(--gutter)] pb-[16vh] pt-[10vh]">
-      <div className="mx-auto grid max-w-[80rem] gap-12 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-[6vw]">
-        <div className="lg:sticky lg:top-[14vh] lg:self-start">
-          <h2 id={`${id}-title`} className="display text-[clamp(3.2rem,7vw,6.5rem)] leading-[0.84] text-[var(--c-ink)]">
-            {dawn.questions.title}
-          </h2>
-          <p className="mt-5 max-w-[34ch] text-[1.05rem] leading-[1.6] text-[var(--c-ink)]/80">{dawn.questions.line}</p>
-        </div>
-
-        <ol className="border-t border-[var(--c-ink)]/25">
+    // Pulled up under the title, over the empty ground at the foot of the
+    // sunrise, so the first question follows the title rather than a gap.
+    <section aria-labelledby="dawn-title" className="lit relative z-[20] -mt-[28vh] px-[var(--gutter)] pb-[16vh] pt-[2vh] motion-reduce:mt-0">
+      <div className="mx-auto max-w-[56rem]">
+        <ol>
           {faq.map((f, i) => {
             const isOpen = open === i;
             return (
@@ -173,7 +138,7 @@ export function Dawn() {
     <>
       {reduced ? (
         <Scene id="dawn" aria-labelledby="dawn-title" stageClassName="lit grid place-items-center px-[var(--gutter)] py-[14vh]">
-          <News />
+          <Title id="dawn-title" />
         </Scene>
       ) : (
         <MovingDawn />
@@ -205,13 +170,12 @@ function MovingDawn() {
     const n = span(p, 0.45, 0.72);
     news.current?.style.setProperty("opacity", n.toFixed(3));
     news.current?.style.setProperty("transform", `translate3d(0, ${((1 - ease(n)) * 24).toFixed(1)}px, 0)`);
-    el.style.setProperty("--rule", span(p, 0.6, 0.78).toFixed(3));
   }, []);
 
   const lightOn = useCallback((p: number) => 1 - span(p, 0.62, 0.8), []);
 
   return (
-    <Scene id="dawn" vh={300} vhMobile={240} settled={0.9} onProgress={onProgress} aria-labelledby="dawn-title">
+    <Scene continues id="dawn" vh={300} vhMobile={240} settled={0.9} onProgress={onProgress} aria-labelledby="dawn-title">
       <div
         ref={root}
         className="absolute inset-0"
@@ -231,19 +195,13 @@ function MovingDawn() {
             background: "color-mix(in oklab, var(--c-bone) calc(var(--day, 0) * 100%), color-mix(in oklab, var(--c-steel) calc(var(--glow, 0) * 45%), var(--c-ink)))",
           }}
         />
-        {/* The horizon itself, once the light has burnt off: a rule. */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-[var(--gutter)] h-px bg-[var(--c-ink)]"
-          style={{ top: "var(--horizon, 90%)", opacity: "calc(var(--rule, 0) * 0.35)" }}
-        />
         <div ref={rise} className="absolute inset-0">
           <Light points={HORIZON} kind="horizon" intensity={lightOn} />
         </div>
 
-        {/* The news, set in the sky. */}
+        {/* The questions' title, set in the sky. */}
         <div ref={news} className="absolute inset-x-[var(--gutter)] bottom-[calc(100%-var(--horizon,90%)+6vh)]" style={{ opacity: 0 }}>
-          <News />
+          <Title id="dawn-title" />
         </div>
       </div>
     </Scene>

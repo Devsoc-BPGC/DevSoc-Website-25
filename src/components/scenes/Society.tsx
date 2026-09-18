@@ -133,7 +133,7 @@ export function Society() {
   );
 
   return (
-    <Scene id="society" vh={300} vhMobile={240} settled={0.42} onProgress={onProgress} aria-labelledby="society-line">
+    <Scene continues id="society" vh={300} vhMobile={240} settled={0.42} onProgress={onProgress} aria-labelledby="society-line">
       <div ref={root} className="absolute inset-0 [perspective:1600px]">
         {/* The drawing, on the camera. */}
         <div

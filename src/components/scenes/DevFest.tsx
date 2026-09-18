@@ -275,7 +275,8 @@ function MovingDevFest() {
     // The stage comes up as each tube catches; the other posters only get the spill.
     const lit = STRIKE.reduce((sum, at) => sum + tube(p, at), 0) / STRIKE.length;
     const out = lightsOut(p);
-    dim.current?.style.setProperty("opacity", Math.max(0, 1 - lit * out).toFixed(3));
+    // Never quite black: before the tubes strike, the poster is just made out in the dark.
+    dim.current?.style.setProperty("opacity", (0.82 * Math.max(0, 1 - lit * out)).toFixed(3));
     spill.current?.style.setProperty("opacity", (1 - lit * out * 0.62).toFixed(3));
     cones.current.forEach((c, i) => c?.style.setProperty("opacity", (tube(p, STRIKE[i]) * out).toFixed(3)));
     // When the tubes go out the wall goes with them, leaving only what is stencilled on it.
@@ -378,7 +379,7 @@ function MovingDevFest() {
           >
             <DevFestPoster />
             {/* Unlit: the dark of the stage over the paper, lifting as the tubes catch. */}
-            <div ref={dim} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[var(--c-ink)]" style={{ opacity: 1 }} />
+            <div ref={dim} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[var(--c-ink)]" style={{ opacity: 0.82 }} />
             {/* Tape is laid along its own length: the clip is on a box turned
                 to the tape's angle, so it reveals end to end. */}
             {[

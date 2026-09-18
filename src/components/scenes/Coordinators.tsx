@@ -230,7 +230,7 @@ function MovingCoordinators() {
   };
 
   return (
-    <Scene id="crew" vh={620} vhMobile={520} settled={progressFor(0)} onProgress={onProgress} aria-labelledby="coordinators-title">
+    <Scene continues id="crew" vh={620} vhMobile={520} settled={progressFor(0)} onProgress={onProgress} aria-labelledby="coordinators-title">
       <div ref={root} className="absolute inset-0">
         {/* Where the last scene left it. */}
         <div

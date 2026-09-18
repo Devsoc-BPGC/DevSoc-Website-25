@@ -62,6 +62,16 @@ function cutOf(plate: Plate) {
   return below ? Math.round((plate.rows[lowest][1] + below[0]) / 2) : plate.h;
 }
 
+/** The sign's height as a share of the building's width: letters, then legs. */
+const SIGN = 0.14 * 0.78 + 0.02;
+
+/** Height over width of the sign and the building together, so it can be sized to fit under the line. */
+function tallness(plate: Plate) {
+  const left = plate.cols[0][0] - 40;
+  const right = plate.cols[plate.cols.length - 1][1] + 40;
+  return (cutOf(plate) - roofOf(plate) + 24) / (right - left) + SIGN;
+}
+
 /** The building, drawn flat from the plate's measured grid. */
 function Building({ plate, lampRefs }: { plate: Plate; lampRefs?: (id: string) => (n: SVGGElement | null) => void }) {
   const roof = roofOf(plate);
@@ -100,10 +110,10 @@ function Building({ plate, lampRefs }: { plate: Plate; lampRefs?: (id: string) =
 function RoofSign() {
   return (
     <div aria-hidden="true" className="relative mx-auto w-fit">
-      <p className="display text-center text-[clamp(4.5rem,13vw,12rem)] leading-[0.78] text-[var(--c-ink)]">{hero.wordmark}</p>
-      <div className="mx-[6%] flex h-[clamp(0.8rem,2vw,1.6rem)] justify-between">
+      <p className="display text-center text-[14cqw] leading-[0.78] text-[var(--c-ink)]">{hero.wordmark}</p>
+      <div className="mx-[6%] flex h-[2cqw] justify-between">
         {[0, 1, 2, 3, 4, 5].map((k) => (
-          <span key={k} className="block h-full w-[0.35vw] min-w-[3px] bg-[var(--c-ink)]" />
+          <span key={k} className="block h-full w-[0.35cqw] min-w-[3px] bg-[var(--c-ink)]" />
         ))}
       </div>
     </div>
@@ -255,14 +265,20 @@ export function Colophon() {
             className="absolute inset-x-[var(--gutter)] top-[13vh] text-center max-md:top-[12vh]"
             style={{ opacity: "var(--line, 1)", translate: "0 calc((1 - var(--line, 1)) * 18px)" }}
           >
-            <h2 id="colophon-line" className="display mx-auto max-w-[20ch] text-[clamp(2.4rem,5.2vw,5.2rem)] leading-[0.88] text-[var(--c-ink)]">
+            {/* In blueprint blue, so it stays clear of the ink sign under it. */}
+            <h2 id="colophon-line" className="display mx-auto max-w-[20ch] text-[clamp(2.2rem,min(5.2vw,8.5vh),5.2rem)] leading-[0.88] text-[var(--c-blue)]">
               {colophon.line}
             </h2>
           </div>
 
           {/* The building: its sign, its top floors, and below the frame its
               ground floor, which is the directory under this scene. */}
-          <div className="absolute inset-x-[4vw] bottom-0">
+          {/* Sized to the frame's height as well as its width, so on a short,
+              wide window the sign never reaches up into the line. */}
+          <div
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 [container-type:inline-size]"
+            style={{ width: `min(92vw, ${(56 / tallness(plate)).toFixed(1)}vh)` }}
+          >
             <RoofSign />
             <div ref={frame}>
               <Building

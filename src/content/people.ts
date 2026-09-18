@@ -57,7 +57,7 @@ export const people: Person[] = [
   {
     id: "rishika",
     name: "Rishika Gupta",
-    role: "UI and UX",
+    role: "Design",
     image: "/images/people/rishika.jpg",
     link: "https://www.linkedin.com/in/rishika-gupta-05858b2b5/",
     room: "ui-ux",

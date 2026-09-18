@@ -80,8 +80,8 @@ export const verticals: Vertical[] = [
   {
     id: "ui-ux",
     index: "05",
-    name: "UI and UX",
-    short: "UI and UX",
+    name: "Design",
+    short: "Design",
     object: "stacked artboards and a pen",
     voice: "The part people think is the whole thing.",
     head: "Rishika Gupta",

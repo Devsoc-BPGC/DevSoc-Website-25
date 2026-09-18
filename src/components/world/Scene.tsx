@@ -47,6 +47,13 @@ export type SceneProps = {
   settled?: number;
   /** Carry the pointer on the stage for depth layers. */
   depth?: boolean;
+  /**
+   * This scene starts on the last frame of the one before it. Its track is
+   * pulled up by one screen so its stage takes over at the exact scroll
+   * position the previous stage lets go; otherwise the shared frame would be
+   * seen twice, the old copy sliding out as the new one slides in.
+   */
+  continues?: boolean;
   className?: string;
   stageClassName?: string;
   "aria-labelledby"?: string;
@@ -61,6 +68,7 @@ export function Scene({
   onProgress,
   settled = 1,
   depth = false,
+  continues = false,
   className,
   stageClassName,
   ...rest
@@ -108,18 +116,39 @@ export function Scene({
 
       write(0);
       let active = false;
+
+      // Handing over to a scene that continues from this one. The next track
+      // is pulled up a screen, so its stage is already in place underneath
+      // this one: this scene is layered above it while it plays, and drops
+      // out of view at the exact point it has finished, which is the frame
+      // the next one starts on. Scrolling back brings it back over.
+      const scenes = Array.from(document.querySelectorAll<HTMLElement>("[data-scene]"));
+      t.style.zIndex = String(scenes.length - scenes.indexOf(t));
+      const handsOver = t.nextElementSibling?.hasAttribute("data-continues") ?? false;
+      const place = (progress: number, isActive: boolean) => {
+        if (!handsOver) return;
+        s.style.visibility = progress >= 1 && !isActive ? "hidden" : "";
+      };
+
       const st = ScrollTrigger.create({
         trigger: t,
         start: "top top",
         end: "bottom bottom",
         scrub: SCRUB.normal,
         invalidateOnRefresh: true,
-        onUpdate: (self) => write(self.progress),
+        onUpdate: (self) => {
+          write(self.progress);
+          // A jump right past the scene updates it without toggling it.
+          place(self.progress, self.isActive);
+        },
         onToggle: (self) => {
           active = self.isActive;
           s.style.willChange = self.isActive ? "transform" : "";
+          place(self.progress, self.isActive);
         },
+        onRefresh: (self) => place(self.progress, self.isActive),
       });
+      place(st.progress, st.isActive);
 
       // Pointer depth, eased so layers drift after the hand rather than
       // snapping to it. quickTo reuses one tween per axis.
@@ -140,6 +169,8 @@ export function Scene({
         st.kill();
         off?.();
         s.style.willChange = "";
+        s.style.visibility = "";
+        t.style.zIndex = "";
       };
     },
     { dependencies: [reduced, settled, height, onProgress, depth] },
@@ -150,7 +181,9 @@ export function Scene({
       <section
         ref={track}
         id={id}
-        className={`relative ${className ?? ""}`}
+        data-scene=""
+        data-continues={continues && !reduced ? "" : undefined}
+        className={`relative ${continues && !reduced ? "-mt-[100dvh]" : ""} ${className ?? ""}`}
         style={reduced ? undefined : { height: `${height}vh` }}
         {...rest}
       >
@@ -161,7 +194,8 @@ export function Scene({
           className={
             reduced
               ? `relative min-h-[100dvh] overflow-hidden ${stageClassName ?? ""}`
-              : `sticky top-0 h-[100dvh] overflow-hidden ${stageClassName ?? ""}`
+              : // Opaque, so the stage it takes over from never shows through it.
+                `sticky top-0 h-[100dvh] overflow-hidden bg-[var(--c-ink)] ${stageClassName ?? ""}`
           }
           style={{ ["--mx" as string]: 0, ["--my" as string]: 0 }}
         >

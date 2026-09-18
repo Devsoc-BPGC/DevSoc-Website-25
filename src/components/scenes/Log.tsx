@@ -15,9 +15,9 @@
  * card's own button, or scrolling on puts it back where it was. It is the same
  * sheet the whole time, moved, not a copy in a modal.
  *
- * At the end of the wall a folded sheet is pinned up: your first month. It is
- * taken down and brought forward to where the next scene hangs it as a
- * calendar, while the rest of the wall falls back into the dark.
+ * At the end of the wall a folded leaflet is pinned up: your first month. It is
+ * taken down and brought forward to where the next scene unfolds it, while the
+ * rest of the wall falls back into the dark.
  *
  * Positions are in wall units (`u`), a share of the frame's height capped by
  * its width, so the wall is the same wall on a phone, only smaller.
@@ -34,7 +34,7 @@ import { useLenis } from "lenis/react";
 import { gsap } from "@/lib/gsap";
 import { Scene } from "@/components/world/Scene";
 import { Light, span, type LightPoint } from "@/components/world/Light";
-import { MonthCover, PAGE_RATIO, PAGE_TILT, monthPageRect } from "@/components/world/MonthPage";
+import { MonthCover, PAGE_TILT, monthPageRect } from "@/components/world/MonthPage";
 import { Paper } from "@/components/world/Paper";
 import { Tape } from "@/components/world/Tape";
 import { ActionLink } from "@/components/world/ActionLink";
@@ -110,6 +110,7 @@ function MovingLog() {
   const lenis = useLenis();
 
   const [cable, setCable] = useState<LightPoint[]>([]);
+  const [opens, setOpens] = useState<"side" | "foot">("side");
   const [held, setHeld] = useState<number | null>(null);
   const heldRef = useRef<number | null>(null);
   const heldAt = useRef(0);
@@ -139,7 +140,10 @@ function MovingLog() {
         pts.push([(pin.x * u) / wallW, top / H]);
       });
       pts.push([(TAB.x * u) / wallW, 0.3]);
-      pts.push([(FOLDED.x * u) / wallW, (FOLDED.y * H - (FOLDED.w * PAGE_RATIO * u) / 2 + FOLDED.w * 0.04 * u) / H]);
+      const leaflet = monthPageRect(W, H);
+      wall.current?.style.setProperty("--ratio", String(leaflet.ratio));
+      setOpens(leaflet.wide ? "side" : "foot");
+      pts.push([(FOLDED.x * u) / wallW, (FOLDED.y * H - (FOLDED.w * leaflet.ratio * u) / 2 + FOLDED.w * 0.045 * u) / H]);
       setCable(pts);
       requestAnimationFrame(() => apply.current(last.current));
     };
@@ -246,10 +250,10 @@ function MovingLog() {
       recede.current?.style.setProperty("opacity", push.toFixed(3));
       back.current?.style.setProperty("opacity", (1 - push).toFixed(3));
       if (push > 0) {
-        const fh = FOLDED.w * PAGE_RATIO * u;
+        const target = monthPageRect(W, H);
+        const fh = FOLDED.w * target.ratio * u;
         const cx = FOLDED.x * u - travel;
         const cy = FOLDED.y * H;
-        const target = monthPageRect(W, H);
         const z = Math.pow(target.h / fh, push);
         const tx = cx + (target.cx - cx) * push - z * cx;
         const ty = cy + (target.cy - cy) * push - z * cy;
@@ -286,7 +290,7 @@ function MovingLog() {
   const current = held !== null ? sheets[held] : null;
 
   return (
-    <Scene id="log" vh={520} vhMobile={420} settled={0.2} onProgress={onProgress} aria-labelledby="log-title">
+    <Scene continues id="log" vh={520} vhMobile={420} settled={0.2} onProgress={onProgress} aria-labelledby="log-title">
       <div ref={camera} className="absolute inset-0 origin-top-left" style={{ opacity: 0 }}>
         {/* The wall behind: a faint pinboard grid, further away, so slower. */}
         <div
@@ -412,14 +416,14 @@ function MovingLog() {
             className="absolute"
             style={{
               left: `calc(var(--u) * ${FOLDED.x - FOLDED.w / 2})`,
-              top: `calc(${FOLDED.y * 100}% - var(--u) * ${(FOLDED.w * PAGE_RATIO) / 2})`,
+              top: `calc(${FOLDED.y * 100}% - var(--u) * ${FOLDED.w / 2} * var(--ratio, 1.32))`,
               width: `calc(var(--u) * ${FOLDED.w})`,
-              height: `calc(var(--u) * ${FOLDED.w * PAGE_RATIO})`,
+              height: `calc(var(--u) * ${FOLDED.w} * var(--ratio, 1.32))`,
               rotate: `${PAGE_TILT}deg`,
               zIndex: 30,
             }}
           >
-            <MonthCover />
+            <MonthCover opens={opens} />
           </div>
 
           {/* Behind a sheet that has been taken down, the wall goes dim. */}

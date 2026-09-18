@@ -491,7 +491,7 @@ function MovingNightShift() {
   const first = readout(beats[0].hours);
 
   return (
-    <Scene id="nightshift" vh={560} vhMobile={420} settled={arrive(0)} onProgress={onProgress} aria-labelledby="nightshift-title">
+    <Scene continues id="nightshift" vh={560} vhMobile={420} settled={arrive(0)} onProgress={onProgress} aria-labelledby="nightshift-title">
       <div ref={root} className="absolute inset-0 origin-top-left">
         {/* The light the tube throws on the wall. */}
         <div

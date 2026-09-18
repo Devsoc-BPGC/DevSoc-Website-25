@@ -1,36 +1,34 @@
 /**
  * MonthPage
- * The first month's page: pinned up folded at the end of the log, then hung as
- * the calendar in the next scene.
+ * The first month, as a folded leaflet: pinned up at the end of the log, then
+ * unfolded in the next scene.
  *
- * The log's camera brings the folded sheet forward until it sits exactly where
- * the calendar hangs, and the calendar starts from that frame. Both scenes
- * draw the page with `MonthCover` and place it with `monthPageRect`, and every
- * size on the page is a share of its own width (cqw), so the same page drawn
- * at two sizes is the same picture.
+ * The log's camera brings the leaflet forward until it sits exactly where the
+ * next scene unfolds it, and that scene starts from that frame. Both draw the
+ * cover with `MonthCover` and place it with `monthPageRect`, and every size on
+ * the leaflet is a share of its own width (cqw), so the same cover drawn at two
+ * sizes is the same picture.
+ *
+ * On a wide frame it is a tri-fold that opens sideways into three panels; on a
+ * narrow one it opens downwards. The cover is always the panel that is folded
+ * over the middle one, so the folded leaflet sits where the middle panel will.
  */
 
 import type { CSSProperties, ReactNode } from "react";
 import { firstMonth } from "@/content/home";
 
-/** Portrait, the shape of a sheet of paper. */
-export const PAGE_RATIO = 1.32;
-
-/** Where the calendar hangs on a frame of `W` by `H`: its centre and size, in pixels. */
+/** Where the leaflet's middle panel sits on a frame of `W` by `H`, and which way it opens. */
 export function monthPageRect(W: number, H: number) {
-  if (W < 768) {
-    const w = W * 0.86;
-    const h = w * PAGE_RATIO;
-    return { cx: W / 2, cy: H * 0.085 + h / 2, w, h };
+  const panel = Math.min(W * 0.3, H * 0.6);
+  if (W / H >= 1.2 && panel >= 380) {
+    return { wide: true, cx: W / 2, cy: H * 0.54, w: panel, h: panel * 1.32, ratio: 1.32 };
   }
-  // Centred, and narrow enough to leave the wall either side of it for the
-  // week being read and the things the month pins up.
-  const w = Math.min((H * 0.8) / PAGE_RATIO, W * 0.34);
-  const h = w * PAGE_RATIO;
-  return { cx: W / 2, cy: H * 0.54, w, h };
+  const ratio = 1.5;
+  const w = Math.min(W * 0.86, 520, (H * 0.84) / ratio);
+  return { wide: false, cx: W / 2, cy: H * 0.52, w, h: w * ratio, ratio };
 }
 
-/** The page's slight tilt on its pin. */
+/** The leaflet's slight tilt on its pin. */
 export const PAGE_TILT = 0.8;
 
 /** A round pin head, for anything pinned to the wall. */
@@ -49,35 +47,34 @@ export function Pin({ className, style }: { className?: string; style?: CSSPrope
 }
 
 /**
- * The page itself: the title across the top, the creases it was folded
- * along, and its pin. Whatever the calendar adds goes in `children`.
+ * The cover: the title, and at the open edge the edges of the panels folded in
+ * behind it, which is what makes it read as folded rather than as one sheet.
  */
-export function MonthCover({ children, creases = 1, className }: { children?: ReactNode; creases?: number | string; className?: string }) {
+export function MonthCover({ opens, children }: { opens: "side" | "foot"; children?: ReactNode }) {
+  const edges =
+    opens === "side"
+      ? ["right-[-0.9cqw] inset-y-[0.6cqw] w-[1.2cqw]", "right-[-1.8cqw] inset-y-[1.2cqw] w-[1.2cqw]"]
+      : ["bottom-[-0.9cqw] inset-x-[0.6cqw] h-[1.2cqw]", "bottom-[-1.8cqw] inset-x-[1.2cqw] h-[1.2cqw]"];
   return (
-    <div className={`paper paper--quiet relative h-full w-full [container-type:inline-size] ${className ?? ""}`}>
-      {/* Big Shoulders has an optical size axis, so the same title set at two
-          sizes would wrap differently. Pinned to one design, it scales as a
-          picture does, and the log's small page and the calendar's large one
-          break the title on the same word. */}
-      <p
-        className="display px-[8cqw] pt-[11cqw] text-[12cqw] leading-[0.88] text-[var(--c-ink)]"
-        style={{ fontOpticalSizing: "none", fontVariationSettings: '"opsz" 72' }}
-      >
-        {firstMonth.title}
-      </p>
-      {/* The folds: each crease a hairline with the panel below it a shade darker. */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-1/3 h-1/3 border-t border-[var(--c-ink)]/10 bg-[linear-gradient(rgb(13_14_12/0.07),transparent_40%)]"
-        style={{ opacity: creases }}
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-2/3 h-1/3 border-t border-[var(--c-ink)]/10 bg-[linear-gradient(rgb(13_14_12/0.05),transparent_40%)]"
-        style={{ opacity: creases }}
-      />
-      {children}
-      <Pin className="left-1/2 top-[4cqw] h-[3.6cqw] w-[3.6cqw]" />
+    <div className="relative h-full w-full [container-type:inline-size]">
+      {edges.map((e, i) => (
+        <span key={e} aria-hidden="true" className={`paper paper--quiet absolute ${e}`} style={{ filter: `brightness(${0.94 - i * 0.05})`, boxShadow: "none" }} />
+      ))}
+      <div className="paper paper--quiet relative h-full w-full">
+        {/* Big Shoulders has an optical size axis, so the same title set at two
+            sizes would wrap differently. Pinned to one design, it scales as a
+            picture does, and the small leaflet on the wall and the large one
+            break the title on the same word. */}
+        <p
+          className="display px-[8cqw] pt-[13cqw] text-[13cqw] leading-[0.86] text-[var(--c-ink)]"
+          style={{ fontOpticalSizing: "none", fontVariationSettings: '"opsz" 72' }}
+        >
+          {firstMonth.title}
+        </p>
+        <p className="meta absolute bottom-[8cqw] left-[8cqw] right-[8cqw] text-[3.2cqw] text-[var(--c-ink)]/60">{firstMonth.line}</p>
+        {children}
+        <Pin className="left-1/2 top-[4.5cqw] h-[4cqw] w-[4cqw]" />
+      </div>
     </div>
   );
 }
