@@ -16,7 +16,7 @@ export const colophon = {
   ],
   elsewhere: site.socials,
   where: ["Developers' Society", "BITS Pilani, Goa", "Zuarinagar 403726"],
-  credit: (year: number) => `Developers' Society, ${year}. Built by the web room.`,
+  credit: (year: number) => `Developers' Society, ${year}. This site, Manan Bafna and Rohan Suresh.`,
   backToTop: "Back to the top",
   headings: { pages: "Pages", elsewhere: "Elsewhere", where: "Where" },
 };
