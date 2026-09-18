@@ -1,5 +1,6 @@
 import { Dusk } from "@/components/scenes/Dusk";
 import { Society } from "@/components/scenes/Society";
+import { Rooms } from "@/components/scenes/Rooms";
 import { Pending } from "@/components/scenes/Pending";
 
 /**
@@ -11,7 +12,7 @@ export default function Home() {
     <main className="relative">
       <Dusk />
       <Society />
-      <Pending id="rooms" name="The flywheel" />
+      <Rooms />
       <Pending id="nightshift" name="The Night Shift" />
       <Pending id="log" name="The log" />
       <Pending id="first-month" name="Your first month" />

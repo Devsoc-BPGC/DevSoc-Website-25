@@ -47,6 +47,10 @@
   --alarm: var(--c-orange);
   --light-core: #fbf8f0;
   --light-halo: color-mix(in srgb, var(--c-blue) 55%, var(--c-bone));
+  /* A monitor's glass: a shade under ink and a touch colder, so a screen in
+     the frame reads as a screen and not as a hole in the night. */
+  --screen: #0a0c0f;
+  --bezel: #1b1d20;
 
   color-scheme: dark;
 }
@@ -538,6 +542,19 @@
 .room-lamp {
   background: color-mix(in srgb, var(--c-acid) calc(var(--on, 0) * 100%), #2a2e36);
   box-shadow: 0 0 calc(var(--on, 0) * 10px) color-mix(in srgb, var(--c-acid) calc(var(--on, 0) * 70%), transparent);
+}
+
+/* A terminal cursor. The only thing on the site that blinks, because it is the
+   only thing that is waiting for input. */
+@media (prefers-reduced-motion: no-preference) {
+  .screen-cursor {
+    animation: cursor-blink 1.06s steps(1) infinite;
+  }
+}
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ------------------------------------------------------------------ reduced motion */
