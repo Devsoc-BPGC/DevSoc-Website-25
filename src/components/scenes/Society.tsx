@@ -64,10 +64,19 @@ const RUN_TO = 0.72;
 const GATHER_FROM = 0.76;
 const GATHER_TO = 0.97;
 
+/** How much of the light's route is the drop from the top of the frame to the corridor. */
+const DROP_SHARE = DROP / (DROP + RUN);
+/** When the head of the light turns into the corridor. */
+const TURN_AT = RUN_FROM + DROP_SHARE * (RUN_TO - RUN_FROM);
+
 function drawCorridor(p: number) {
   const b = span(p, RUN_FROM, RUN_TO);
-  const a = b * span(p, GATHER_FROM, 0.92);
-  return [a, b] as const;
+  // Once it has turned into the corridor, the drop behind it is pulled in
+  // after it, so the lit line lies along the corridor and never across the
+  // words above the building.
+  const tail = DROP_SHARE * span(p, TURN_AT, TURN_AT + 0.08);
+  const a = Math.max(tail, b * span(p, GATHER_FROM, 0.92));
+  return [Math.min(a, b), b] as const;
 }
 
 function lightIntensity(p: number) {
@@ -105,8 +114,9 @@ export function Society() {
 
       pl.style.transform = `translate3d(${px.toFixed(1)}px, 0, 0) rotateX(${tilt.toFixed(2)}deg)`;
       el.style.setProperty("--plan", (1 - g * 0.86).toFixed(3));
-      el.style.setProperty("--copy", (span(p, 0.05, 0.12) * (1 - span(p, 0.64, 0.72))).toFixed(3));
-      el.style.setProperty("--note", (span(p, 0.18, 0.26) * (1 - span(p, 0.64, 0.72))).toFixed(3));
+      // The words come up once the light is down in the corridor and clear of them.
+      el.style.setProperty("--copy", (span(p, TURN_AT + 0.04, TURN_AT + 0.11) * (1 - span(p, 0.64, 0.72))).toFixed(3));
+      el.style.setProperty("--note", (span(p, TURN_AT + 0.08, TURN_AT + 0.15) * (1 - span(p, 0.64, 0.72))).toFixed(3));
       el.style.setProperty("--block", span(p, 0.08, 0.16).toFixed(3));
 
       // Each room lights as the light reaches its door.
