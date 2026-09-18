@@ -4,10 +4,10 @@
  * 05 The Log
  * Six things that shipped, printed and pinned to a wall.
  *
- * The night shift ended with the camera inside a screen showing the site it
- * had just shipped. The log opens on that same picture, printed: the first
- * sheet on an archive wall, which the camera pulls back from. Every project is
- * a real screenshot printed on
+ * The night shift ended with its screen switched off, folded to a single line
+ * of light across the dark. The log picks that line up: the archive wall comes
+ * up around it and it hands over to the lit cable that runs pin to pin along
+ * the wall. Every project is a real screenshot printed on
  * grid paper, torn off the pad and pinned, with an index card stuck to it that
  * says what it is and which room made it. One lit cable runs pin to pin along
  * the wall, and it lights ahead of you as the camera tracks along.
@@ -25,7 +25,7 @@
  * its width, so the wall is the same wall on a phone, only smaller.
  *
  * Progress:
- *   0.00 - 0.10   back out of the first print to the wall
+ *   0.00 - 0.09   the wall comes up around the line
  *   0.10 - 0.88   the camera tracks along the wall
  *   0.90 - 1.00   the folded sheet comes forward
  */
@@ -36,6 +36,7 @@ import { useLenis } from "lenis/react";
 import { gsap } from "@/lib/gsap";
 import { Scene } from "@/components/world/Scene";
 import { Light, span, type LightPoint } from "@/components/world/Light";
+import { SWITCHED_OFF } from "@/components/scenes/NightShift";
 import { MonthCover, PAGE_TILT, monthPageRect } from "@/components/world/MonthPage";
 import { Paper } from "@/components/world/Paper";
 import { Tape } from "@/components/world/Tape";
@@ -71,11 +72,6 @@ const sheets = PINS.map((pin) => {
   return { pin, project, room: roomFor(project.vertical) };
 });
 
-/** The picture the night shift's screen ends on: the first sheet on the wall, before it is printed. */
-export const FIRST_PRINT = sheets[0].project.image;
-/** The camera starts inside that print and pulls back to the wall by here. */
-const ZOOM_TO = 0.1;
-
 function roomFor(vertical: string) {
   return rooms.find((r) => r.name.toLowerCase().startsWith(vertical.toLowerCase()));
 }
@@ -108,6 +104,7 @@ function MovingLog() {
   const back = useRef<HTMLDivElement>(null);
   const shade = useRef<HTMLDivElement>(null);
   const recede = useRef<HTMLDivElement>(null);
+  const cableLayer = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const putBackButton = useRef<HTMLButtonElement>(null);
   const lifts = useRef<(HTMLDivElement | null)[]>([]);
@@ -139,6 +136,7 @@ function MovingLog() {
         wall.current.style.setProperty("--u", `${u}px`);
       }
       if (back.current) back.current.style.width = `${wallW}px`;
+      if (cableLayer.current) cableLayer.current.style.width = `${wallW}px`;
 
       // The cable, pin to pin, from the wall's left edge to the folded sheet.
       const pts: LightPoint[] = [[0, 0.16]];
@@ -247,9 +245,10 @@ function MovingLog() {
 
       const travel = travelAt(p, u, W);
       wl.style.transform = `translate3d(${(-travel).toFixed(1)}px, 0, 0)`;
+      cableLayer.current?.style.setProperty("transform", wl.style.transform);
       if (back.current) back.current.style.transform = `translate3d(${(-travel * 0.55).toFixed(1)}px, 0, 0)`;
-      // The first print, as it was on the screen, before the ink settles on the paper.
-      wl.style.setProperty("--raw", (1 - span(p, 0.004, 0.035)).toFixed(3));
+      // The wall comes up around the line the night shift's screen left.
+      c.style.opacity = span(p, 0.015, 0.08).toFixed(3);
 
       // The folded sheet is taken down and brought forward to where the
       // calendar hangs; the rest of the wall falls back into the dark. It ends
@@ -266,21 +265,6 @@ function MovingLog() {
         const tx = cx + (target.cx - cx) * push - z * cx;
         const ty = cy + (target.cy - cy) * push - z * cy;
         c.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${z.toFixed(5)})`;
-      } else if (p < ZOOM_TO) {
-        // Out of the first print: it starts filling the frame, squared to the
-        // camera as the screen was, and the camera pulls back to the wall.
-        const zin = 1 - ease(span(p, 0, ZOOM_TO));
-        const { pin, project } = sheets[0];
-        const pw = pin.w * (1 - MARGIN * 2) * u;
-        const ph = (pw * project.height) / project.width;
-        const cx = pin.x * u - travel;
-        const cy = pin.y * H;
-        const Z = Math.max(W / pw, H / ph);
-        const z = Math.pow(Z, zin);
-        const q = Z > 1 ? (z - 1) / (Z - 1) : 1;
-        const fx = W / 2 + (cx - W / 2) * q;
-        const fy = H / 2 + (cy - H / 2) * q;
-        c.style.transform = `translate(${(W / 2).toFixed(2)}px, ${(H / 2).toFixed(2)}px) rotate(${(-pin.r * zin).toFixed(3)}deg) scale(${z.toFixed(5)}) translate(${(-fx).toFixed(2)}px, ${(-fy).toFixed(2)}px)`;
       } else {
         c.style.transform = "";
       }
@@ -293,6 +277,7 @@ function MovingLog() {
   }, [onProgress]);
 
   const drawCable = useCallback((p: number) => [0, Math.min(1, 0.22 + span(p, TRACK_FROM, TRACK_TO) * 0.86)] as const, []);
+  const lineOff = useCallback((p: number) => 1 - span(p, 0.03, 0.09), []);
   const cableIntensity = useCallback((p: number) => span(p, 0.02, 0.07) * (1 - span(p, PUSH_FROM, 0.96)), []);
 
   /** Tabbing to a sheet that is off the frame brings the wall round to it. */
@@ -314,12 +299,12 @@ function MovingLog() {
 
   return (
     <Scene continues id="log" vh={520} vhMobile={420} settled={0.2} onProgress={onProgress} aria-labelledby="log-title">
-      <div ref={camera} className="absolute inset-0 origin-top-left">
+      <div ref={camera} className="absolute inset-0 origin-top-left" style={{ opacity: 0 }}>
         {/* The wall behind: a faint pinboard grid, further away, so slower. */}
         <div
           ref={back}
           aria-hidden="true"
-          className="absolute inset-y-0 left-0"
+          className="absolute inset-y-0 left-0 will-change-transform"
           style={{
             backgroundImage:
               "linear-gradient(color-mix(in srgb, var(--c-blue) 9%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--c-blue) 9%, transparent) 1px, transparent 1px)",
@@ -329,7 +314,14 @@ function MovingLog() {
           }}
         />
 
-        <div ref={wall} className="absolute inset-y-0 left-0">
+        {/* The cable, on its own layer: it redraws as the camera moves, and on
+            the wall's layer it would make the wall repaint every sheet, blend
+            and torn shadow on every frame. Moved in step with the wall. */}
+        <div ref={cableLayer} aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 will-change-transform">
+        </div>
+
+        {/* The wall: painted once and slid by the compositor. */}
+        <div ref={wall} className="absolute inset-y-0 left-0 will-change-transform">
           <div className="absolute left-[calc(var(--u)*8)] top-[13vh] w-[calc(var(--u)*34)] max-md:top-[11vh]">
             <h2 id="log-title" className="display text-[calc(var(--u)*17)] leading-[0.8] text-[var(--c-bone)]">
               {log.title}
@@ -387,10 +379,6 @@ function MovingLog() {
                             sizes="(max-width: 768px) 90vw, 60vw"
                             className="object-cover mix-blend-multiply contrast-[0.96]"
                           />
-                          {i === 0 ? (
-                            // On the screen a moment ago: unprinted, until the camera is back out.
-                            <Image src={project.image} alt="" fill sizes="100vw" className="object-cover" style={{ opacity: "var(--raw, 0)" }} />
-                          ) : null}
                         </div>
                       </Paper>
                       {/* The pin. */}
@@ -464,6 +452,9 @@ function MovingLog() {
         </div>
 
       </div>
+
+      {/* The line the night shift's screen folded into, handing over to the cable. */}
+      <Light points={SWITCHED_OFF} intensity={lineOff} />
 
       {/* The card of the sheet in hand. */}
       <div

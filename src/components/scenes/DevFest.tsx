@@ -39,7 +39,7 @@ import { Light, span, type LightPoint } from "@/components/world/Light";
 import { PrintedTape, Tape } from "@/components/world/Tape";
 import { CrewTitle, crewTitleAt } from "@/components/world/CrewTitle";
 import { useReducedMotion } from "@/lib/useMedia";
-import { devfest, devfestCopy, events, type Event } from "@/content/home";
+import { colophon, devfest, devfestCopy, events, hero, type Event } from "@/content/home";
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 
@@ -80,11 +80,33 @@ function tubesFor(w: number): LightPoint[][] {
 }
 
 /** A poster's paper and ink. Posters are sized in their own width (cqw), so they print the same at any size. */
-function Sheet({ tone, ink, children }: { tone: "bone" | "warm"; ink: "blue" | "ink"; children: ReactNode }) {
+function Sheet({ tone, ink, foot = true, children }: { tone: "bone" | "warm"; ink: "blue" | "ink"; foot?: boolean; children: ReactNode }) {
   return (
     <div className={`paper ${tone === "warm" ? "paper--warm" : ""} relative h-full w-full overflow-hidden [container-type:inline-size]`}>
-      <div className={`riso absolute inset-0 flex flex-col ${ink === "blue" ? "text-[var(--c-blue)]" : "text-[var(--c-ink)]"}`}>{children}</div>
+      <div className={`riso absolute inset-0 flex flex-col ${ink === "blue" ? "text-[var(--c-blue)]" : "text-[var(--c-ink)]"}`}>
+        {children}
+        {/* The printer's registration marks, in two corners. */}
+        <Register className="right-[2.2cqw] top-[2.2cqw]" />
+        <Register className="bottom-[2.2cqw] left-[2.2cqw]" />
+        {/* Who printed it and where, along the foot. */}
+        {foot ? (
+          <div className="absolute inset-x-[6cqw] bottom-[3.2cqw] flex items-end justify-between border-t-[0.35cqw] border-current pt-[1.6cqw]">
+            <span className="display text-[3.6cqw] leading-none">{hero.wordmark}</span>
+            <span className="meta text-[2.1cqw] leading-none">{colophon.where[1]}</span>
+          </div>
+        ) : null}
+      </div>
     </div>
+  );
+}
+
+/** A registration mark: the crosshair a printer lines the passes up on. */
+function Register({ className }: { className: string }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" className={`absolute h-[3.4cqw] w-[3.4cqw] opacity-70 ${className}`}>
+      <circle cx="10" cy="10" r="5.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M10 0 V20 M0 10 H20" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
   );
 }
 
@@ -92,7 +114,7 @@ function Sheet({ tone, ink, children }: { tone: "bone" | "warm"; ink: "blue" | "
 function DevFestPoster() {
   const facts = [devfest.when, devfest.sponsor].filter((f): f is string => Boolean(f));
   return (
-    <Sheet tone="bone" ink="blue">
+    <Sheet tone="bone" ink="blue" foot={false}>
       <div className="flex h-full flex-col px-[6cqw] pt-[5cqw]">
         <div className="meta flex justify-between gap-4 text-[2.2cqw] leading-tight">
           <span>{devfest.venue}</span>
@@ -140,9 +162,9 @@ function EventPoster({ event, index }: { event: Event; index: number }) {
     // Quark: the name up the side, the rest beside it.
     return (
       <Sheet tone="bone" ink="blue">
-        <div className="flex h-full">
+        <div className="flex h-full pb-[10cqw]">
           <p className="display shrink-0 rotate-180 px-[3cqw] text-[34cqw] leading-[0.8] [writing-mode:vertical-rl]">{event.name}</p>
-          <div className="flex min-w-0 flex-1 flex-col justify-between py-[7cqw] pl-[2cqw] pr-[6cqw]">
+          <div className="flex min-w-0 flex-1 flex-col justify-between pb-[13cqw] pl-[2cqw] pr-[6cqw] pt-[7cqw]">
             <p className="meta text-[4.4cqw] leading-tight">{event.kind}</p>
             <span aria-hidden="true" className="halftone-ramp mx-auto block aspect-square w-[80%] rounded-full bg-current" />
             <div>
@@ -158,7 +180,7 @@ function EventPoster({ event, index }: { event: Event; index: number }) {
     // Waves: the name across the top, a tone falling away under it.
     return (
       <Sheet tone="warm" ink="ink">
-        <div className="flex h-full flex-col p-[6cqw]">
+        <div className="flex h-full flex-col px-[6cqw] pb-[12cqw] pt-[6cqw]">
           <p className="display text-[34cqw] leading-[0.78]">{event.name}</p>
           <div aria-hidden="true" className="halftone-ramp mt-[4cqw] h-[34cqw] rotate-180 bg-current" />
           <div className="mt-auto flex items-end justify-between gap-[4cqw]">
@@ -174,7 +196,7 @@ function EventPoster({ event, index }: { event: Event; index: number }) {
     // Workshops: the list of rooms is the poster.
     return (
       <Sheet tone="warm" ink="blue">
-        <div className="flex h-full flex-col p-[6cqw]">
+        <div className="flex h-full flex-col px-[6cqw] pb-[12cqw] pt-[6cqw]">
           <p className="meta text-[4.4cqw]">{event.kind}</p>
           <p className="display mt-[2cqw] text-[19cqw] leading-[0.8]">{event.name}</p>
           <p className="display mt-auto text-[13cqw] leading-[0.88]">{event.note}</p>
@@ -186,7 +208,7 @@ function EventPoster({ event, index }: { event: Event; index: number }) {
   // Inductions: a notice, set plainly.
   return (
     <Sheet tone="bone" ink="ink">
-      <div className="flex h-full flex-col p-[6cqw]">
+      <div className="flex h-full flex-col px-[6cqw] pb-[12cqw] pt-[6cqw]">
         <p className="display border-b-[1.2cqw] border-current pb-[2cqw] text-[17cqw] leading-[0.8]">{event.name}</p>
         <p className="meta mt-[4cqw] text-[4.4cqw]">{event.kind}</p>
         <p className="display mt-auto text-[16cqw] leading-[0.86]">{event.note}</p>
@@ -202,10 +224,10 @@ function EventPoster({ event, index }: { event: Event; index: number }) {
  * pushed out to the edges, so only their edges show round the flagship.
  */
 const PASTED = [
-  { x: 0.17, y: 0.33, h: 0.5, r: -2.2, narrowX: -0.04 },
-  { x: 0.2, y: 0.8, h: 0.44, r: 1.6, narrowX: -0.08 },
-  { x: 0.83, y: 0.34, h: 0.5, r: 2, narrowX: 1.04 },
-  { x: 0.8, y: 0.8, h: 0.42, r: -1.4, narrowX: 1.08 },
+  { x: 0.17, y: 0.33, h: 0.47, r: -2.2, narrowX: -0.04 },
+  { x: 0.2, y: 0.755, h: 0.4, r: 1.6, narrowX: -0.08 },
+  { x: 0.83, y: 0.335, h: 0.48, r: 2, narrowX: 1.04 },
+  { x: 0.8, y: 0.765, h: 0.39, r: -1.4, narrowX: 1.08 },
 ];
 const others = events.filter((e) => e.name !== devfest.name);
 
@@ -216,7 +238,9 @@ export function DevFest() {
       <Scene id="devfest" aria-labelledby="devfest-title" stageClassName="px-[var(--gutter)] py-[10vh]">
         <div className="relative mx-auto aspect-[1/1.414] w-[min(62vh,88vw)]">
           <DevFestPoster />
-          <PrintedTape words={devfestCopy.tape} className="-left-[9%] top-[1.5%] h-[2.1rem] w-[52%]" rotate={-10} />
+          <div className="absolute -left-[7%] top-[1.5%]" style={{ rotate: "-10deg" }}>
+            <PrintedTape words={devfestCopy.tape.slice(0, 2)} repeat={1} flow rotate={0} />
+          </div>
         </div>
         <div className="mx-auto mt-12 grid max-w-[64rem] grid-cols-2 gap-8 md:grid-cols-4">
           {others.map((e, i) => (
@@ -236,6 +260,8 @@ function MovingDevFest() {
   const poster = useRef<HTMLDivElement>(null);
   const dim = useRef<HTMLDivElement>(null);
   const spill = useRef<HTMLDivElement>(null);
+  const board = useRef<HTMLDivElement>(null);
+  const title = useRef<HTMLDivElement>(null);
   const tapes = useRef<(HTMLDivElement | null)[]>([]);
   const cones = useRef<(HTMLDivElement | null)[]>([]);
   const pasted = useRef<(HTMLDivElement | null)[]>([]);
@@ -281,6 +307,10 @@ function MovingDevFest() {
     cones.current.forEach((c, i) => c?.style.setProperty("opacity", (tube(p, STRIKE[i]) * out).toFixed(3)));
     // When the tubes go out the wall goes with them, leaving only what is stencilled on it.
     pasted.current.forEach((n) => n?.style.setProperty("opacity", out.toFixed(3)));
+    board.current?.style.setProperty("opacity", out.toFixed(3));
+    // What is stencilled behind the flagship only shows once it is coming down,
+    // so nothing of the next scene is given away round its edges before then.
+    title.current?.style.setProperty("opacity", span(p, FALL_FROM + 0.05, 0.93).toFixed(3));
 
     // The camera comes in on the flagship.
     const near = ease(span(p, 0.12, 0.62));
@@ -343,15 +373,40 @@ function MovingDevFest() {
 
         {/* Stencilled on the wall behind the flagship. */}
         <div
+          ref={title}
           aria-hidden="true"
           className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${titleAt.x * 100}%`, top: `${titleAt.y * 100}%` }}
+          style={{ left: `${titleAt.x * 100}%`, top: `${titleAt.y * 100}%`, opacity: 0 }}
         >
           <CrewTitle />
         </div>
 
         <div ref={camera} className="absolute inset-0 origin-[50%_55%]">
-          {/* The rest of the year, pasted up round it. */}
+          {/* The notice board: a painted board in a steel frame, bolted at the
+              corners, that everything is pinned to. */}
+          <div
+            ref={board}
+            aria-hidden="true"
+            className="absolute inset-x-[2.5vw] bottom-[2.5vh] top-[6.5vh] max-md:inset-x-[1.5vw]"
+            style={{
+              backgroundColor: "#16181a",
+              // The board's painted texture, knocked well back.
+              backgroundImage: "linear-gradient(rgb(22 24 26 / 0.86), rgb(22 24 26 / 0.86)), url('/textures/grain.png')",
+              backgroundSize: "auto, 128px 128px",
+              boxShadow:
+                "inset 0 0 0 1px rgb(255 255 255 / 0.04), inset 0 30px 60px -30px rgb(0 0 0 / 0.8), 0 0 0 10px #232528, 0 0 0 11px color-mix(in srgb, var(--c-steel) 45%, transparent), 0 40px 80px -30px rgb(0 0 0 / 0.9)",
+            }}
+          >
+            {["-left-[6px] -top-[6px]", "-right-[6px] -top-[6px]", "-bottom-[6px] -left-[6px]", "-bottom-[6px] -right-[6px]"].map((pos) => (
+              <span
+                key={pos}
+                className={`absolute ${pos} block h-[7px] w-[7px] rounded-full`}
+                style={{ background: "radial-gradient(circle at 35% 30%, #c9c7c0, #6d6e69 60%, #33342f)" }}
+              />
+            ))}
+          </div>
+
+          {/* The rest of the year, pinned up round it. */}
           {others.map((e, i) => (
             <div
               key={e.name}
@@ -383,8 +438,8 @@ function MovingDevFest() {
             {/* Tape is laid along its own length: the clip is on a box turned
                 to the tape's angle, so it reveals end to end. */}
             {[
-              { className: "-left-[9%] top-[1.5%] h-[2.1rem] w-[52%]", rotate: -10 },
-              { className: "-right-[10%] top-[55%] h-[2.1rem] w-[50%]", rotate: 7 },
+              { className: "-left-[7%] -top-[0.5%]", rotate: -10, words: devfestCopy.tape.slice(0, 2) },
+              { className: "-right-[8%] top-[68.5%]", rotate: 6, words: devfestCopy.tape.slice(2) },
             ].map((t, i) => (
               <div
                 key={i}
@@ -395,14 +450,14 @@ function MovingDevFest() {
                 className={`absolute ${t.className}`}
                 style={{ rotate: `${t.rotate}deg`, clipPath: "inset(0 100% 0 0)" }}
               >
-                <PrintedTape words={devfestCopy.tape} className="inset-0 h-full w-full" rotate={0} />
+                <PrintedTape words={t.words} repeat={1} flow rotate={0} />
               </div>
             ))}
           </div>
         </div>
 
         {lights.map((pts, i) => (
-          <Light key={i} points={pts} intensity={intensities[i]} />
+          <Light key={i} kind="fixture" points={pts} intensity={intensities[i]} />
         ))}
       </div>
     </Scene>

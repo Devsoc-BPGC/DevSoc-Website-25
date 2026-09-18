@@ -18,8 +18,9 @@
  * turns to the alarm colour, the one place on the site that colour appears.
  *
  * At T-0 the notes square up into two neat stacks, the terminal prints on the
- * screen, and then what shipped loads on it: the site itself. The camera goes
- * into it, and the log opens on that same picture, printed and pinned.
+ * screen, and the camera goes up to it. Then the monitor is switched off: the
+ * picture folds to a single line of light across the dark, the way a tube
+ * screen goes, and that line is the light the log's wall comes up around.
  *
  * Everything is a pure function of progress, so scrolling back up runs the
  * night backwards: the notes come down, the count climbs, the room gets tidy.
@@ -36,7 +37,6 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { Scene } from "@/components/world/Scene";
 import { Light, span, type LightPoint } from "@/components/world/Light";
 import { MonitorScreen, dolly, screenFit } from "@/components/world/MonitorScreen";
@@ -45,7 +45,6 @@ import { Paper } from "@/components/world/Paper";
 import { Tape } from "@/components/world/Tape";
 import { useReducedMotion } from "@/lib/useMedia";
 import { beats, nightShift, shipLines, type Beat } from "@/content/home";
-import { FIRST_PRINT } from "@/components/scenes/Log";
 
 const ease = (t: number) => t * t * (3 - 2 * t);
 const settleOut = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -60,9 +59,16 @@ const SQUARE_FROM = T0 + 0.01;
 const SQUARE_TO = T0 + 0.08;
 const TYPE_FROM = T0 + 0.04;
 const TYPE_TO = T0 + 0.15;
-const PUSH_FROM = 0.88;
-/** When what shipped loads on the screen, just before the camera goes in. */
-const SITE_FROM = 0.865;
+const PUSH_FROM = 0.86;
+/** The screen switching off: its picture collapses to a line of light. */
+const OFF_FROM = 0.945;
+const OFF_TO = 0.975;
+/** The line it leaves, straight across the middle of the frame, where the log picks it up. */
+export const SWITCHED_OFF: LightPoint[] = [
+  [0, 0.5],
+  [1, 0.5],
+];
+const LINE = SWITCHED_OFF;
 const ALARM = beats.findIndex((b) => b.hours === 3);
 /**
  * How close the camera has to be before the sharp copy of the screen takes
@@ -143,7 +149,6 @@ type ScreenParts = {
   count: Element | null;
   unit: Element | null;
   terminal: HTMLElement | null;
-  site: HTMLElement | null;
   lines: HTMLElement[];
 };
 const screenCache = new WeakMap<HTMLElement, ScreenParts>();
@@ -155,7 +160,6 @@ function screenParts(host: HTMLElement) {
       count: host.querySelector("[data-count]"),
       unit: host.querySelector("[data-unit]"),
       terminal: host.querySelector<HTMLElement>("[data-terminal]"),
-      site: host.querySelector<HTMLElement>("[data-site]"),
       lines: Array.from(host.querySelectorAll<HTMLElement>("[data-line]")),
     };
     screenCache.set(host, parts);
@@ -244,15 +248,6 @@ function Cover() {
       </h2>
       <p className="mt-4 text-[0.95rem] leading-[1.5] text-[var(--c-ink)]/80">{nightShift.line}</p>
     </Paper>
-  );
-}
-
-/** What shipped, loaded on the screen once the terminal is done: the log's first sheet, before it is printed. */
-function Shipped() {
-  return (
-    <div data-site aria-hidden="true" className="absolute inset-0" style={{ opacity: 0 }}>
-      <Image src={FIRST_PRINT} alt="" fill sizes="100vw" className="object-cover" />
-    </div>
   );
 }
 
@@ -387,13 +382,25 @@ function MovingNightShift() {
 
     // The camera: out of the screen at the start, back into it at the end.
     const pull = 1 - ease(span(p, 0, PULL_TO));
-    const push = ease(span(p, PUSH_FROM, 1));
+    const push = ease(span(p, PUSH_FROM, 0.93));
     const d = Math.max(pull, push);
     const move = dolly(d, L.glass, L.fit, W, H);
     el.style.transform = d > 0 ? move.layer : "";
     if (screen.current) {
       screen.current.style.transform = move.picture;
       screen.current.style.visibility = d > SHARP_FROM ? "visible" : "hidden";
+      // Shipped, and the monitor is switched off the way a tube screen goes:
+      // the picture folds to a line through its middle, burning brighter as
+      // it goes, and the line is all that is left of the night.
+      const off = ease(span(p, OFF_FROM, OFF_TO));
+      const tube = screen.current.querySelector<HTMLElement>("[data-tube]");
+      const flash = screen.current.querySelector<HTMLElement>("[data-flash]");
+      tube?.style.setProperty("transform", off > 0 ? `scaleY(${(1 - off * 0.994).toFixed(4)})` : "");
+      flash?.style.setProperty("opacity", (off * 0.92).toFixed(3));
+      screen.current.style.setProperty("opacity", (1 - span(p, OFF_TO, OFF_TO + 0.015)).toFixed(3));
+      // The room behind is the same picture at the same size; it goes with the
+      // switch, or it would stay lit behind the folding copy.
+      el.style.setProperty("opacity", off > 0 ? "0" : "");
     }
 
     // What the screens say. Both copies, the one in the room and the sharp
@@ -412,9 +419,6 @@ function MovingNightShift() {
     const linesChanged = lines.some((c, i) => c !== s.lines[i]);
     const readoutOpacity = (1 - span(p, TYPE_FROM - 0.03, TYPE_FROM)).toFixed(3);
     const terminalOpacity = span(p, TYPE_FROM - 0.01, TYPE_FROM + 0.005).toFixed(3);
-    // Then what shipped loads on the screen: the site itself, which is what
-    // the camera goes into and what the log opens on, printed.
-    const siteOpacity = span(p, SITE_FROM, SITE_FROM + 0.035).toFixed(3);
     for (const host of [glass.current, screen.current]) {
       if (!host) continue;
       const sc = screenParts(host);
@@ -425,7 +429,6 @@ function MovingNightShift() {
         if (sc.unit) sc.unit.textContent = r.unit;
       }
       if (sc.terminal) sc.terminal.style.opacity = terminalOpacity;
-      sc.site?.style.setProperty("opacity", siteOpacity);
       if (linesChanged) {
         sc.lines.forEach((ln, i) => {
           const n = shipLines[i].text.length;
@@ -507,6 +510,7 @@ function MovingNightShift() {
     apply.current = onProgress;
   }, [onProgress]);
 
+  const lineOn = useCallback((p: number) => span(p, OFF_TO - 0.012, OFF_TO + 0.006), []);
   const tubeIntensity = useCallback((p: number) => stutter(p) * (1 - span(p, PUSH_FROM, 0.95)), []);
   const first = readout(beats[0].hours);
 
@@ -520,7 +524,7 @@ function MovingNightShift() {
           className="pointer-events-none absolute inset-x-0 h-[70vh]"
           style={{ background: "radial-gradient(48% 62% at 50% 0%, color-mix(in srgb, var(--c-bone) 9%, transparent), transparent 72%)" }}
         />
-        {tube.length ? <Light points={tube} intensity={tubeIntensity} /> : null}
+        {tube.length ? <Light kind="fixture" points={tube} intensity={tubeIntensity} /> : null}
 
         {/* The desk: a top edge catching the tube, then the front. */}
         <div ref={desk} aria-hidden="true" className="absolute inset-x-0 bottom-0 bg-[#111310]">
@@ -542,7 +546,6 @@ function MovingNightShift() {
             <div ref={glass} className="absolute left-0 top-0 origin-top-left">
               <MonitorScreen value={first.value} unit={first.unit}>
                 <Terminal />
-                <Shipped />
               </MonitorScreen>
             </div>
           </div>
@@ -568,10 +571,18 @@ function MovingNightShift() {
 
       {/* The screen again, sharp, riding the camera while it is close. */}
       <div ref={screen} aria-hidden="true" className="pointer-events-none absolute left-0 top-0 h-full w-full origin-top-left" style={{ visibility: "hidden", zIndex: 40 }}>
-        <MonitorScreen value={first.value} unit={first.unit}>
-          <Terminal />
-                <Shipped />
-        </MonitorScreen>
+        <div data-tube className="absolute inset-0">
+          <MonitorScreen value={first.value} unit={first.unit}>
+            <Terminal />
+          </MonitorScreen>
+          {/* The flash of a tube screen going off: the picture burns white as it folds. */}
+          <div data-flash className="absolute inset-0 bg-[var(--light-core)]" style={{ opacity: 0 }} />
+        </div>
+      </div>
+
+      {/* What the screen folds into when it is switched off. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ zIndex: 41 }}>
+        <Light points={LINE} intensity={lineOn} />
       </div>
 
       <p className="sr-only">{shipLines[shipLines.length - 1].text}</p>

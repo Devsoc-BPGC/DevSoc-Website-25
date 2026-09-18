@@ -51,17 +51,23 @@ export function PrintedTape({
   className,
   style,
   rotate = -6,
+  repeat = 3,
+  flow = false,
 }: {
-  words: string[];
+  words: readonly string[];
   className?: string;
   style?: CSSProperties;
   rotate?: number;
+  /** How many times the words run along it. One gives a strip cut to whole words. */
+  repeat?: number;
+  /** In the flow, sized by its words, rather than laid over something. */
+  flow?: boolean;
 }) {
-  const run = [...words, ...words, ...words];
+  const run = Array.from({ length: repeat }, () => words).flat();
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute flex items-center overflow-hidden whitespace-nowrap ${className ?? ""}`}
+      className={`pointer-events-none ${flow ? "relative w-max" : "absolute"} flex items-center overflow-hidden whitespace-nowrap ${className ?? ""}`}
       style={{
         rotate: `${rotate}deg`,
         background: "var(--c-blue)",
@@ -70,10 +76,12 @@ export function PrintedTape({
         ...style,
       }}
     >
+      {/* A separating square between words, not after the last: the strip
+          is cut where the words end. */}
       {run.map((w, i) => (
-        <span key={`${w}-${i}`} className="display flex items-center gap-4 px-4 text-[1.05rem] tracking-[0.04em]">
+        <span key={`${w}-${i}`} className="display flex items-center gap-4 py-1.5 pl-4 text-[1.05rem] tracking-[0.04em] last:pr-4">
+          {i > 0 ? <span className="inline-block h-[0.4em] w-[0.4em] bg-current" /> : null}
           {w}
-          <span className="inline-block h-[0.4em] w-[0.4em] bg-current" />
         </span>
       ))}
     </div>

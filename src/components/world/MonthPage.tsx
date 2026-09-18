@@ -47,31 +47,59 @@ export function Pin({ className, style }: { className?: string; style?: CSSPrope
 }
 
 /**
- * The cover: the title, and at the open edge the edges of the panels folded in
- * behind it, which is what makes it read as folded rather than as one sheet.
+ * The cover, printed like the DevFest poster: one ink, electric blue, on bone.
+ * A solid block of blue with the title knocked out of it in paper, a halftone
+ * falling away under it, and the leaflet's contents as a row of five tabs,
+ * one per week, the way a printed programme lists what is inside. At the
+ * open edge, the edges of the panels folded in behind it, which is what makes
+ * it read as folded rather than as one sheet.
  */
 export function MonthCover({ opens, children }: { opens: "side" | "foot"; children?: ReactNode }) {
   const edges =
     opens === "side"
       ? ["right-[-0.9cqw] inset-y-[0.6cqw] w-[1.2cqw]", "right-[-1.8cqw] inset-y-[1.2cqw] w-[1.2cqw]"]
       : ["bottom-[-0.9cqw] inset-x-[0.6cqw] h-[1.2cqw]", "bottom-[-1.8cqw] inset-x-[1.2cqw] h-[1.2cqw]"];
+  const words = firstMonth.title.toUpperCase().split(" ");
   return (
     <div className="relative h-full w-full [container-type:inline-size]">
       {edges.map((e, i) => (
         <span key={e} aria-hidden="true" className={`paper paper--quiet absolute ${e}`} style={{ filter: `brightness(${0.94 - i * 0.05})`, boxShadow: "none" }} />
       ))}
-      <div className="paper paper--quiet relative h-full w-full">
-        {/* Big Shoulders has an optical size axis, so the same title set at two
-            sizes would wrap differently. Pinned to one design, it scales as a
-            picture does, and the small leaflet on the wall and the large one
-            break the title on the same word. */}
-        <p
-          className="display px-[8cqw] pt-[13cqw] text-[13cqw] leading-[0.86] text-[var(--c-ink)]"
-          style={{ fontOpticalSizing: "none", fontVariationSettings: '"opsz" 72' }}
-        >
-          {firstMonth.title}
-        </p>
-        <p className="meta absolute bottom-[8cqw] left-[8cqw] right-[8cqw] text-[3.2cqw] text-[var(--c-ink)]/60">{firstMonth.line}</p>
+      <div className="paper paper--quiet relative flex h-full w-full flex-col overflow-hidden">
+        <div className="riso flex flex-1 flex-col text-[var(--c-blue)]">
+          {/* The block, with the title knocked out of it. */}
+          <div className="relative bg-current px-[7cqw] pb-[7cqw] pt-[12cqw]">
+            {/* Big Shoulders has an optical size axis, so the same title set at
+                two sizes would wrap differently. Pinned to one design, it
+                scales as a picture does, and the small leaflet on the wall and
+                the large one break the title on the same word. */}
+            <p
+              className="display text-[17.5cqw] leading-[0.82] text-[var(--paper)]"
+              style={{ fontOpticalSizing: "none", fontVariationSettings: '"opsz" 72' }}
+            >
+              <span className="block">{words.slice(0, 2).join(" ")}</span>
+              <span className="block">{words.slice(2, 3).join(" ")}</span>
+              {/* The last word in outline: printed as the paper showing through a stroke of ink. */}
+              <span className="block text-transparent [-webkit-text-stroke:0.45cqw_var(--paper)]">{words.slice(3).join(" ")}</span>
+            </p>
+          </div>
+          {/* The tone falling away under it. */}
+          <div aria-hidden="true" className="halftone-ramp h-[16cqw] rotate-180 bg-current" />
+
+          {/* What is inside, one tab a week. */}
+          <ol className="mx-[7cqw] mt-auto grid grid-cols-5 border-t-[0.5cqw] border-current">
+            {[0, 1, 2, 3, 4].map((w) => (
+              <li key={w} className="border-l border-current/40 px-[1.4cqw] pb-[2cqw] pt-[1.6cqw] first:border-l-0 first:pl-0">
+                <span className="display block text-[9cqw] leading-[0.8]">{w}</span>
+                <span className="meta mt-[1cqw] block text-[2.1cqw] leading-tight">{`Week ${w}`}</span>
+              </li>
+            ))}
+          </ol>
+          <div className="mx-[7cqw] mb-[6cqw] mt-[3cqw] flex items-end justify-between gap-[4cqw]">
+            <p className="meta max-w-[60%] text-[2.6cqw] leading-snug text-[var(--c-ink)]/70">{firstMonth.line}</p>
+            <p className="display text-[4.2cqw] leading-none">DEVSOC</p>
+          </div>
+        </div>
         {children}
         <Pin className="left-1/2 top-[4.5cqw] h-[4cqw] w-[4cqw]" />
       </div>
