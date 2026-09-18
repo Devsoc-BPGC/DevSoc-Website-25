@@ -350,9 +350,9 @@ function MovingNightShift() {
       if (desk.current) desk.current.style.top = `${deskY}px`;
       if (led.current) {
         led.current.style.display = L.wide ? "" : "none";
-        led.current.style.top = `${deskY + H * 0.05}px`;
-        led.current.style.height = `${Math.round(H * 0.052)}px`;
-        led.current.style.fontSize = `${Math.round(H * 0.036)}px`;
+        led.current.style.top = `${deskY + H * 0.036}px`;
+        led.current.style.height = `${Math.round(H * 0.082)}px`;
+        led.current.style.fontSize = `${Math.round(H * 0.058)}px`;
       }
       if (pool.current) pool.current.style.top = `${L.tubeY}px`;
 

@@ -58,11 +58,16 @@ export function LedSign({
   return (
     <div
       aria-hidden="true"
-      className={`led relative overflow-hidden border border-[var(--c-steel)]/35 bg-[#070807] ${className ?? ""}`}
+      className={`led relative overflow-hidden bg-[#050605] ${className ?? ""}`}
+      // A steel housing with the panel set into it.
+      style={{
+        boxShadow:
+          "0 0 0 3px #1d1f21, 0 0 0 4px color-mix(in srgb, var(--c-steel) 55%, transparent), inset 0 2px 6px rgb(0 0 0 / 0.8), 0 18px 40px -12px color-mix(in srgb, var(--light-core) 18%, transparent)",
+      }}
     >
       <div ref={rails} className="absolute inset-0">
         {/* A faint copy outside the dots, blurred, reads as the glow off them. */}
-        <div data-rail className="display absolute inset-y-0 left-0 flex w-max items-center whitespace-nowrap text-[var(--light-core)] opacity-30 blur-[4px] will-change-transform">
+        <div data-rail className="display absolute inset-y-0 left-0 flex w-max items-center whitespace-nowrap text-[var(--light-core)] opacity-60 blur-[7px] will-change-transform">
           {line}
         </div>
         <div className="led-dots absolute inset-0">

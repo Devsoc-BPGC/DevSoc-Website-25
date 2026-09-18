@@ -34,7 +34,6 @@ import { Facade } from "@/components/world/Facade";
 import { Light, span, type LightPoint } from "@/components/world/Light";
 import { ActionLink } from "@/components/world/ActionLink";
 import { facadeTall, facadeWide, windowBox, type Plate } from "@/components/world/building";
-import { RevealWords } from "@/components/motion/text";
 import { useReducedMotion } from "@/lib/useMedia";
 import { hero } from "@/content/home";
 
@@ -174,6 +173,12 @@ function RoofSign({ word }: { word: string }) {
   );
 }
 
+/** The line in its two sentences: the campus, and the rooms. */
+const [asleep, lit] = (() => {
+  const i = hero.line.indexOf(". ");
+  return i < 0 ? [hero.line, ""] : [hero.line.slice(0, i + 1), hero.line.slice(i + 2)];
+})();
+
 export function Dusk() {
   const root = useRef<HTMLDivElement>(null);
   const band = useRef<HTMLDivElement>(null);
@@ -236,8 +241,8 @@ export function Dusk() {
           // parapet (0.8 line box times 0.86 is the 0.688 below), so the
           // building always starts just under the sign.
           ["--wm" as string]:
-            "min(calc((100vw - var(--gutter)) / 2.77), 42vh, calc((100vh - var(--nav-h) - 15.5vh - var(--bh-l) * 0.462) / 0.688))",
-          ["--roof" as string]: "calc(var(--nav-h) + 2.5vh + var(--wm) * 0.8 * 0.86)",
+            "min(calc((100vw - var(--gutter) * 2) / 2.77), 52vh, calc((100vh - var(--nav-h) - 11vh - var(--bh-l) * 0.462) / 0.688))",
+          ["--roof" as string]: "calc(var(--nav-h) + 1.5vh + var(--wm) * 0.8 * 0.86)",
           ["--wx-s" as string]: tall.center[0],
           ["--wy-s" as string]: tall.center[1],
           ["--bh-s" as string]: `${((facadeTall.h / facadeTall.w) * 100).toFixed(3)}vw`,
@@ -286,17 +291,24 @@ export function Dusk() {
             aria-hidden="true"
             style={{ background: "linear-gradient(to bottom, transparent 0%, rgb(13 14 12 / 0.72) 38%, var(--c-ink) 100%)" }}
           />
-          <div className="relative flex flex-col gap-6 gutter pt-[2.5vh] md:flex-row md:items-end md:justify-between">
-            <RevealWords
-              as="p"
-              id="dusk-line"
-              immediate
-              delay={1.7}
-              className="voice max-w-[19ch] text-[clamp(1.45rem,2.1vw,2.1rem)] text-[var(--c-bone)] [text-wrap:balance]"
-            >
-              {hero.line}
-            </RevealWords>
-            <ActionLink href={hero.link.href} className="text-[1rem] text-[var(--c-bone)] md:pb-1.5">
+          {/* One line, set like the sign: what the night is, then the part of
+              it that is lit, glowing the way the windows do. */}
+          <div className="relative flex flex-col gap-5 gutter pt-[2vh] md:flex-row md:items-center md:justify-between md:gap-10">
+            <p id="dusk-line" className="display text-[clamp(1.9rem,3.1vw,3.3rem)] leading-[0.9] text-[var(--c-bone)] md:whitespace-nowrap">
+              <span className="dusk-rise inline-block" style={{ animationDelay: "1.7s" }}>
+                {asleep}
+              </span>{" "}
+              <span
+                className="dusk-rise inline-block text-[var(--light-core)]"
+                style={{
+                  animationDelay: "2.1s",
+                  textShadow: "0 0 26px rgb(126 146 255 / 0.6), 0 0 8px rgb(251 248 240 / 0.45)",
+                }}
+              >
+                {lit}
+              </span>
+            </p>
+            <ActionLink href={hero.link.href} className="shrink-0 text-[1.05rem] text-[var(--c-bone)]">
               {hero.link.label}
             </ActionLink>
           </div>

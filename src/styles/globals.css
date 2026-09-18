@@ -593,6 +593,21 @@
   }
 }
 
+/* The hero's line comes up after the windows do, a sentence at a time. It is
+   visible by default and only animates where motion is allowed, so it can
+   never be left hidden. */
+@media (prefers-reduced-motion: no-preference) {
+  .dusk-rise {
+    animation: dusk-rise 1.3s var(--ease-out-expo) both;
+  }
+}
+@keyframes dusk-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.45em;
+  }
+}
+
 /* ------------------------------------------------------------------ room modules
    A room cut from the plan. Blueprint ink, a hairline in blue, and a lamp that
    goes acid when the room is lit. Its size is a token so Society and Rooms
@@ -620,11 +635,11 @@
    light whole dots. */
 .led {
   --led-pitch: 4px;
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--c-bone) 8%, transparent) 1.1px, transparent 1.5px);
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--c-bone) 7%, transparent) 1.2px, transparent 1.6px);
   background-size: var(--led-pitch) var(--led-pitch);
 }
 .led-dots {
-  mask-image: radial-gradient(circle, #000 1.1px, transparent 1.5px);
+  mask-image: radial-gradient(circle, #000 1.35px, transparent 1.75px);
   mask-size: var(--led-pitch) var(--led-pitch);
 }
 
