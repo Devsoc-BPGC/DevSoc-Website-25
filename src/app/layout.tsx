@@ -1,45 +1,26 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bodoni_Moda, Space_Grotesk, DotGothic16 } from "next/font/google";
+import { Big_Shoulders, Schibsted_Grotesk } from "next/font/google";
 import "@/styles/globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
-import { FrameChrome } from "@/components/motion/FrameChrome";
-import { Nav } from "@/components/shell/Nav";
-import { Overture } from "@/components/shell/Overture";
+import { Directory } from "@/components/shell/Directory";
 import { site } from "@/content/site";
 
-// Display and body: one variable family with a live width axis.
-// Swap for licensed Wild World via public/fonts and next/font/local if it arrives.
-const archivo = Archivo({
+// Display: condensed civic signage. Everything that should read as a sign, a
+// stamp or a poster. The optical size axis lets the same family stay open at
+// label sizes and tighten at poster sizes.
+const shoulders = Big_Shoulders({
   subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-
-// Voice: high-contrast italic for one-line statements.
-const bodoni = Bodoni_Moda({
-  subsets: ["latin"],
-  style: ["italic", "normal"],
   axes: ["opsz"],
-  variable: "--font-bodoni",
+  variable: "--font-shoulders",
   display: "swap",
 });
 
-// Metadata: not a monospace. A grotesque with drawn-in technical detail,
-// which reads as equipment labelling at 13px without the even rhythm and
-// wasted width of a monospace. Carries nav, clock, captions, tables and numerals.
-const grotesk = Space_Grotesk({
+// Body and data: a newspaper grotesk built for long reading. There is no mono
+// on this site; numbers are this face with tabular figures.
+const schibsted = Schibsted_Grotesk({
   subsets: ["latin"],
-  variable: "--font-grotesk",
-  display: "swap",
-});
-
-// HUD: pixel face for the frame timecode only.
-const dotgothic = DotGothic16({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-dotgothic",
+  variable: "--font-schibsted",
   display: "swap",
 });
 
@@ -54,36 +35,31 @@ export const metadata: Metadata = {
     siteName: site.fullName,
     type: "website",
     locale: "en_IN",
-    images: [{ url: "/images/hero/facade-night-wide.jpg", width: 1672, height: 941, alt: site.line }],
+    images: [{ url: "/images/graded/hero-facade-night-wide.jpg", width: 1672, height: 941, alt: site.line }],
   },
   twitter: {
     card: "summary_large_image",
     title: "DevSoc",
     description: site.line,
-    images: ["/images/hero/facade-night-wide.jpg"],
+    images: ["/images/graded/hero-facade-night-wide.jpg"],
   },
   icons: { icon: "/images/brand/mark.png", apple: "/images/brand/window.png" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#161310",
+  themeColor: "#0d0e0c",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${archivo.variable} ${bodoni.variable} ${grotesk.variable} ${dotgothic.variable}`}
-    >
+    <html lang="en" className={`${shoulders.variable} ${schibsted.variable}`}>
       <body>
         <SmoothScroll>
-          <Nav />
+          <Directory />
           {children}
         </SmoothScroll>
-        <FrameChrome />
-        <Overture />
         <Cursor />
         <div className="grain" aria-hidden="true" />
       </body>

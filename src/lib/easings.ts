@@ -19,6 +19,11 @@ export const EASE = {
   /** Takeovers, veils, chrome swaps. Symmetric, so it reads the same reversed. */
   inOut: "power3.inOut",
   /**
+   * Camera moves: pushes, tips, pans between scenes. Slow to leave, slow to
+   * arrive, so the frame feels carried by something heavy rather than yanked.
+   */
+  camera: "expo.inOut",
+  /**
    * Scrubs, and the playhead tweens that drive a through-timeline. Never
    * anything else: the eases and staggers baked into the timeline are what you
    * are meant to see, and a second ease on the playhead would double them up.

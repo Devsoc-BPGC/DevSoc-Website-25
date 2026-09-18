@@ -1,75 +1,67 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   DevSoc 2026 · tokens
-   Obsidian ground, bone type, acid light, amber windows, brass hairlines.
+   DevSoc 2026 · the drawing set, read at night
+
+   Ink is the night. Bone is paper and the light. Electric blue is
+   blueprint ink: floor plans, room numbers, stamps, marker notes, links.
+   Acid and signal orange are indicators, used on ink and nowhere else,
+   and orange is never set on paper.
    ------------------------------------------------------------------ */
 
 /* Tier 1: palette. Raw values, never referenced directly by a component. */
 :root {
-  --c-obsidian: oklch(0.13 0.008 60);
-  --c-soot: oklch(0.2 0.008 60);
-  --c-bone: oklch(0.93 0.02 85);
-  --c-ash: oklch(0.66 0.015 80);
-  --c-acid: oklch(0.93 0.19 118);
-  --c-ember: oklch(0.7 0.17 50);
-  --c-brass: oklch(0.78 0.09 85);
-  --c-verdigris-deep: oklch(0.45 0.08 190);
-  /* What comes through the open door at the end of the night.
-
-     Sampled from door-wide.jpg rather than picked, because the light in the
-     plate and the ground it becomes have to be the same colour: the scroll
-     pushes into that doorway and the light grows until it *is* the page. Any
-     gap between the two shows up as a seam at exactly the moment the whole
-     transition is asking you to believe it is one continuous light. The mean of
-     the bright warm pixels inside the opening is #edb455 and its core is
-     #fdd77d, which is this. */
-  --c-dawn: #fdd77d;
-  --c-dawn-ink: oklch(0.24 0.035 62);
+  --c-ink: #0d0e0c;
+  --c-ink-2: #151713;
+  --c-bone: #f0ece2;
+  --c-paper: #e4ded0;
+  --c-blue: #3457ff;
+  --c-acid: #d7ff3f;
+  --c-orange: #ff6a32;
+  --c-steel: #777872;
+  --c-gray: #a6a39b;
 }
 
 /* Tier 2: semantic roles. Components only ever speak in these.
 
-   There is one theme. An earlier build carried a second, morning, and the
-   theme toggle that went with it. Both are gone: the site is one night, the
-   artwork is drawn for one night, and a second ground meant every effect had
-   to be designed twice and the chrome had two masters. What is left of that
-   system is the tier separation, which still earns its keep because the
-   section tone system overrides these role tokens locally.
-   ------------------------------------------------------------------ */
+   The older role names (--accent-warm, --accent-light, --rule-color, --grade)
+   are kept on purpose: /projects, /inductees, /gallery and /lab still use them
+   and inherit the new system through them without being redesigned. */
 :root {
-  --bg-base: var(--c-obsidian);
-  --surface-raised: var(--c-soot);
+  --bg-base: var(--c-ink);
+  --surface-raised: var(--c-ink-2);
   --text-primary: var(--c-bone);
-  --text-muted: var(--c-ash);
+  --text-muted: var(--c-gray);
   --accent-light: var(--c-acid);
-  --accent-warm: var(--c-ember);
-  --rule-color: var(--c-brass);
-  --scrim: color-mix(in oklch, var(--c-obsidian) 70%, transparent);
-  --grade: var(--c-verdigris-deep);
+  --accent-warm: var(--c-blue);
+  --rule-color: var(--c-steel);
+  --scrim: color-mix(in srgb, var(--c-ink) 72%, transparent);
+  --grade: var(--c-ink-2);
+
+  /* The world. */
+  --paper: var(--c-bone);
+  --paper-2: var(--c-paper);
+  --ink-on-paper: var(--c-ink);
+  --blueprint: var(--c-blue);
+  --signal: var(--c-acid);
+  --alarm: var(--c-orange);
+  --light-core: #fbf8f0;
+  --light-halo: color-mix(in srgb, var(--c-blue) 55%, var(--c-bone));
+
   color-scheme: dark;
 }
 
-/* The dawn light.
-
-   The one place the night gives way. The door in the last chapter opens, the
-   scroll pushes into it, its light takes the whole frame, and the questions get
-   answered standing in it. That is the payoff the whole site is walking toward:
-   dusk to dawn, and the only way out is through the lit door.
-
-   It redefines the role tokens rather than recolouring elements one at a time,
-   which is the same mechanism the inverted chrome uses, so anything dropped
-   inside it inverts correctly without knowing it has been inverted.
-   ------------------------------------------------------------------ */
+/* Sunrise. Dawn and the colophon redefine the roles rather than recolouring
+   elements one at a time, so anything placed inside inverts without knowing it
+   has been inverted. */
 .lit {
-  --bg-base: var(--c-dawn);
-  --surface-raised: color-mix(in oklch, var(--c-dawn) 92%, var(--c-dawn-ink));
-  --text-primary: var(--c-dawn-ink);
-  --text-muted: color-mix(in oklch, var(--c-dawn-ink) 58%, transparent);
-  --rule-color: color-mix(in oklch, var(--c-dawn-ink) 34%, transparent);
-  --accent-warm: oklch(0.48 0.15 52);
-  --accent-light: oklch(0.42 0.13 128);
-  --scrim: color-mix(in oklch, var(--c-dawn) 70%, transparent);
+  --bg-base: var(--c-bone);
+  --surface-raised: var(--c-paper);
+  --text-primary: var(--c-ink);
+  --text-muted: color-mix(in srgb, var(--c-ink) 64%, var(--c-bone));
+  --rule-color: color-mix(in srgb, var(--c-ink) 30%, transparent);
+  --light-core: var(--c-paper);
+  --light-halo: color-mix(in srgb, var(--c-paper) 70%, var(--c-bone));
   background: var(--bg-base);
   color: var(--text-primary);
 }
@@ -83,18 +75,21 @@
   --color-light: var(--accent-light);
   --color-warm: var(--accent-warm);
   --color-rule: var(--rule-color);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink-on-paper);
+  --color-blueprint: var(--blueprint);
+  --color-signal: var(--signal);
+  --color-alarm: var(--alarm);
   --color-transparent: transparent;
   --color-current: currentColor;
 }
 
 @theme {
-  --font-display: var(--font-archivo), "Arial Black", Impact, sans-serif;
-  --font-body: var(--font-archivo), Arial, sans-serif;
-  --font-voice: var(--font-bodoni), "Bodoni MT", Didot, Georgia, serif;
-  --font-meta: var(--font-grotesk), "Helvetica Neue", Arial, sans-serif;
-  --font-hud: var(--font-dotgothic), "Courier New", monospace;
+  --font-display: var(--font-shoulders), "Arial Narrow", Impact, sans-serif;
+  --font-body: var(--font-schibsted), "Helvetica Neue", Arial, sans-serif;
 
-  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
 
@@ -105,16 +100,25 @@
   --breakpoint-2xl: 96rem;
 }
 
+/* Layer order is a scale, not a set of guesses. */
 :root {
   --gutter: clamp(1.25rem, 4vw, 4rem);
-  --nav-h: 4.5rem;
+  --nav-h: 4rem;
+  --z-scene: 1;
+  --z-light: 5;
+  --z-chrome: 60;
+  --z-directory: 80;
   --z-grain: 90;
-  --z-frame: 70;
-  --z-nav: 60;
-  --z-menu: 80;
-  --z-overture: 100;
   --z-cursor: 120;
   --dur-hover: 0.6s;
+  --shadow-paper:
+    0 1px 1px color-mix(in srgb, var(--c-ink) 55%, transparent),
+    0 4px 8px color-mix(in srgb, var(--c-ink) 38%, transparent),
+    0 22px 40px -18px color-mix(in srgb, var(--c-ink) 70%, transparent);
+  --shadow-lifted:
+    0 2px 2px color-mix(in srgb, var(--c-ink) 50%, transparent),
+    0 10px 18px color-mix(in srgb, var(--c-ink) 36%, transparent),
+    0 44px 60px -24px color-mix(in srgb, var(--c-ink) 80%, transparent);
 }
 
 /* ------------------------------------------------------------------ base
@@ -123,91 +127,86 @@
    display: block }` silently defeats `md:hidden` on every image. */
 
 @layer base {
+  html {
+    background: var(--bg-base);
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
 
-html {
-  background: var(--bg-base);
-  scrollbar-width: none;
-}
-html::-webkit-scrollbar {
-  display: none;
-}
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
 
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
 
-body {
-  background: var(--bg-base);
-  color: var(--text-primary);
-  transition:
-    background-color 0.6s var(--ease-out-expo),
-    color 0.6s var(--ease-out-expo);
-  font-family: var(--font-body);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-x: clip;
-}
+  ::selection {
+    background: var(--c-blue);
+    color: var(--c-bone);
+  }
 
-::selection {
-  background: var(--grade);
-  color: var(--text-primary);
-}
+  /* Blueprint blue clears 3:1 on ink, which is the bar for a focus ring. */
+  :focus-visible {
+    outline: 2px solid var(--c-blue);
+    outline-offset: 4px;
+  }
+  .lit :focus-visible {
+    outline-color: var(--c-ink);
+  }
 
-:focus-visible {
-  outline: 1px solid var(--rule-color);
-  outline-offset: 4px;
-}
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
 
-img,
-video {
-  display: block;
-  max-width: 100%;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
 
-h1,
-h2,
-h3 {
-  text-wrap: balance;
-}
+  p {
+    text-wrap: pretty;
+  }
 
-p {
-  text-wrap: pretty;
-}
-
-/* the whole site runs on a fine pointer with the custom cursor;
-   touch devices and reduced motion keep the native one */
-@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  html.has-cursor,
-  html.has-cursor * {
-    cursor: none !important;
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    html.has-cursor,
+    html.has-cursor * {
+      cursor: none !important;
+    }
   }
 }
-}
 
-/* ------------------------------------------------------------------ utilities */
+/* ------------------------------------------------------------------ chrome
+   The fixed chrome floats over every scene. Scenes declare the ground under it
+   through data-ink on the root, and the chrome follows. */
 
-/* The Society inverts the page under the fixed chrome, which would otherwise
-   sit there in the wrong tone, unreadable, for the length of the takeover.
-   Rather than hold it half legible while the flood crosses, the chrome steps
-   out, swaps tone while it is gone, and comes back inverted. Only the role
-   tokens move, so every utility inside follows without knowing why. */
 .chrome {
   transition:
     color 600ms var(--ease-out-expo),
@@ -220,11 +219,12 @@ p {
 }
 
 [data-ink="1"] .chrome {
-  --text-primary: var(--bg-base);
-  --text-muted: color-mix(in oklch, var(--bg-base) 62%, transparent);
-  --rule-color: color-mix(in oklch, var(--bg-base) 55%, transparent);
-  --accent-light: color-mix(in oklch, var(--accent-light) 62%, var(--bg-base));
+  --text-primary: var(--c-ink);
+  --text-muted: color-mix(in srgb, var(--c-ink) 64%, transparent);
+  --rule-color: color-mix(in srgb, var(--c-ink) 40%, transparent);
 }
+
+/* ------------------------------------------------------------------ type */
 
 @utility gutter {
   padding-inline: var(--gutter);
@@ -236,52 +236,58 @@ p {
   column-gap: clamp(0.75rem, 1.5vw, 1.5rem);
 }
 
+/* Big Shoulders: condensed civic signage. It carries everything that should
+   read as a sign, a stamp or a poster: wordmark, room plates, headlines. */
 @utility display {
   font-family: var(--font-display);
-  font-variation-settings: "wdth" 125;
-  font-weight: 900;
+  font-weight: 800;
+  font-optical-sizing: auto;
   text-transform: uppercase;
   line-height: 0.86;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
+/* A statement line. It used to be a serif italic; the new system has no serif,
+   so a statement is the body face set large and a step heavier. */
 @utility voice {
-  font-family: var(--font-voice);
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: -0.005em;
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.012em;
 }
 
-/* The metadata layer: nav, clock, captions, numerals, tables. Tracked out a
-   little so it reads as labelling rather than as small body copy. */
+/* Metadata: room numbers, IDs, sheet numbers, T-minus marks, captions. There is
+   no mono on this site by choice, so data is the body face with tabular
+   figures and a little tracking, which is what makes a column of numbers line
+   up and read as labelling rather than as small prose. */
 @utility meta {
-  font-family: var(--font-meta);
-  font-weight: 400;
+  font-family: var(--font-body);
+  font-weight: 500;
   font-size: 0.8125rem;
-  line-height: 1.55;
-  letter-spacing: 0.045em;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
 }
 
+/* Kept for the routes that still use it; it no longer implies a pixel face. */
 @utility hud {
-  font-family: var(--font-hud);
+  font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.8125rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
 }
 
 @utility body-copy {
   font-family: var(--font-body);
-  font-variation-settings: "wdth" 100;
   font-weight: 400;
   font-size: 1.0625rem;
-  line-height: 1.6;
-  color: color-mix(in oklch, var(--text-primary) 86%, transparent);
-  max-width: 68ch;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--text-primary) 88%, transparent);
+  max-width: 66ch;
 }
 
-/* text link: hairline underline that thickens toward brass on hover */
+/* text link: an underline that thickens into blueprint blue */
 @utility text-link {
   position: relative;
   display: inline-block;
@@ -296,46 +302,48 @@ p {
 }
 .text-link:hover {
   background-size: 100% 2px;
-  color: var(--accent-warm);
 }
 
-/* ------------------------------------------------------------------ duotone
-   Archive photos rest as verdigris duotone and resolve to colour on state. */
+/* ------------------------------------------------------------------ materials */
 
-/* callers position the element (relative or absolute); the tint overlay needs it */
-.duotone {
-  isolation: isolate;
-  background: var(--grade);
+/* A sheet of paper. Grain is multiplied from one small tile; the shadow is the
+   only thing that says it is lying on something. No border, ever. */
+.paper {
+  position: relative;
+  background-color: var(--paper);
+  background-image: url("/textures/paper.jpg");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  color: var(--ink-on-paper);
+  box-shadow: var(--shadow-paper);
 }
-.duotone > img,
-.duotone > picture > img {
-  filter: grayscale(1) contrast(1.08) brightness(0.62);
-  transition: filter var(--dur-hover) var(--ease-out-expo);
+.paper--warm {
+  background-color: var(--paper-2);
 }
-.duotone::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--grade);
-  mix-blend-mode: color;
-  opacity: 0.5;
-  pointer-events: none;
-  transition: opacity var(--dur-hover) var(--ease-out-expo);
-}
-.duotone.is-color > img,
-.duotone.is-color > picture > img,
-.duotone:hover > img,
-.duotone:hover > picture > img {
-  filter: none;
-}
-.duotone.is-color::after,
-.duotone:hover::after {
-  opacity: 0;
+/* Grid paper: a printed ruling, only ever on a sheet, never on the page. */
+.paper--grid {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--c-blue) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--c-blue) 16%, transparent) 1px, transparent 1px),
+    url("/textures/paper.jpg");
+  background-size:
+    18px 18px,
+    18px 18px,
+    384px 384px;
+  background-blend-mode: normal, normal, multiply;
 }
 
-/* ------------------------------------------------------------------ resolve
-   Scroll-driven grade: --resolve runs 0 to 1 as the photo climbs the
-   viewport. Without JavaScript it stays at 1, so photos ship in colour. */
+/* Printed halftone for plates: a dot screen used as a mask, never as a pattern
+   on the page. */
+.halftone {
+  -webkit-mask-image: radial-gradient(circle, #000 0.9px, transparent 1.3px);
+  mask-image: radial-gradient(circle, #000 0.9px, transparent 1.3px);
+  -webkit-mask-size: 4px 4px;
+  mask-size: 4px 4px;
+}
+
+/* ------------------------------------------------------------------ legacy grades
+   Still used by /projects. */
 
 .resolve {
   --resolve: 1;
@@ -350,103 +358,150 @@ p {
   filter: grayscale(calc(1 - var(--resolve))) contrast(calc(1.08 - 0.08 * var(--resolve)))
     brightness(calc(0.6 + 0.4 * var(--resolve)));
 }
-.resolve::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--grade);
-  mix-blend-mode: color;
-  opacity: calc(0.55 * (1 - var(--resolve)));
-  pointer-events: none;
-}
 
-/* ------------------------------------------------------------------ flywheel
-   A degree of drift on a long period, on its own layer so it composes with
-   the angle JavaScript writes rather than fighting it. */
-
-@media (prefers-reduced-motion: no-preference) {
-  .wheel-drift {
-    animation: wheel-drift 12s ease-in-out infinite;
-  }
-}
-@keyframes wheel-drift {
-  0%, 100% { transform: rotate(-0.5deg); }
-  50% { transform: rotate(0.5deg); }
-}
-
-/* ------------------------------------------------------------------ grain
-   Film grain from the frame-chrome concept. Fixed, non-interactive, faint. */
-
-.grain {
-  position: fixed;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  z-index: var(--z-grain);
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 240px 240px;
-  mix-blend-mode: screen;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .grain {
-    animation: grain-shift 1.2s steps(6) infinite;
-  }
-}
-@keyframes grain-shift {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-2%, 3%); }
-  40% { transform: translate(3%, -1%); }
-  60% { transform: translate(-1%, -3%); }
-  80% { transform: translate(2%, 2%); }
-  100% { transform: translate(0, 0); }
-}
-
-/* ------------------------------------------------------------------ ambient light
-   One soft field of verdigris light. Position is driven by --lx / --ly. */
-
-.ambient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    60% 50% at var(--lx, 70%) var(--ly, 40%),
-    color-mix(in oklch, var(--grade) 55%, transparent),
-    transparent 70%
-  );
-  opacity: 0.55;
-  transition:
-    background-position 1.2s var(--ease-out-expo),
-    opacity 1.2s var(--ease-out-expo);
-}
-
-/* a single soft light that can be moved with transform (see Rooms) */
-.glow {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 70vw;
-  height: 70vh;
-  pointer-events: none;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in oklch, var(--grade) 60%, transparent),
-    transparent
-  );
-  opacity: 0.5;
-  will-change: transform;
-  transition: transform 1.8s var(--ease-out-expo);
-}
-
-/* crossfade for captions that change with state */
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .rise-in {
   animation: rise-in 0.9s var(--ease-out-expo) both;
+}
+
+/* ------------------------------------------------------------------ grain */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("/textures/grain.png");
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+}
+
+/* ------------------------------------------------------------------ layers
+   Depth is pure CSS. A scene writes --p (progress) and --mx/--my (pointer,
+   -1..1) on its stage, and every layer inside reads them against its own
+   depth. One style write per frame moves every layer in the scene. */
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(
+    calc(var(--mx, 0) * var(--d, 0) * -12px),
+    calc(var(--my, 0) * var(--d, 0) * -8px + (var(--p, 0.5) - 0.5) * var(--ds, 0) * -6vh),
+    0
+  );
+}
+
+/* ------------------------------------------------------------------ windows
+   A window on the facade, lit in code. The glass is dark; the lamp inside is
+   bone with the same glazing bar the drawing uses. `--on` (0 to 1) is how lit
+   it is and a scene can drive it; the load stutter runs on an inner layer so
+   the two multiply rather than fight. The stutter is CSS, not JavaScript, so
+   the building lights with scripting off, and reduced motion collapses it to
+   an instant switch through the global rule below. */
+
+.win {
+  position: absolute;
+  background: #0f1010;
+}
+.win-lamp {
+  position: absolute;
+  inset: 0;
+  opacity: var(--on, 1);
+  transition: opacity 0.5s var(--ease-out-expo);
+}
+.win-glass {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--light-core) 0 calc(var(--bar, 0.27) * 100%),
+    #1f2536 calc(var(--bar, 0.27) * 100%) calc(var(--bar, 0.27) * 100% + 3px),
+    var(--light-core) calc(var(--bar, 0.27) * 100% + 3px)
+  );
+  /* --near is hover or focus, --prox is how close the pointer is. Whichever is
+     stronger wins, so hovering a window never dims it. */
+  --lift: max(var(--near, 0), var(--prox, 0));
+  box-shadow:
+    0 0 calc(10px + var(--lift) * 26px) calc(1px + var(--lift) * 5px)
+      color-mix(in srgb, var(--light-halo) calc(30% + var(--lift) * 30%), transparent);
+  transition: box-shadow 0.6s var(--ease-out-expo);
+}
+.win-glass--strike {
+  animation: window-strike 0.95s linear both;
+  animation-delay: var(--strike, 0s);
+}
+@keyframes window-strike {
+  0% { opacity: 0; }
+  9% { opacity: 0.75; }
+  15% { opacity: 0.08; }
+  27% { opacity: 0.9; }
+  34% { opacity: 0.3; }
+  46% { opacity: 1; }
+  100% { opacity: 1; }
+}
+.win-plate {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 12px);
+  opacity: 0;
+  translate: -6px 0;
+  pointer-events: none;
+  transition:
+    opacity 0.45s var(--ease-out-expo),
+    translate 0.6s var(--ease-out-expo);
+}
+.win-plate--left {
+  left: auto;
+  right: calc(100% + 12px);
+  translate: 6px 0;
+}
+.win:hover .win-plate,
+.win:focus-visible .win-plate {
+  opacity: var(--hold, 1);
+  translate: 0 0;
+}
+.win:hover,
+.win:focus-visible {
+  --near: 1;
+}
+
+/* ------------------------------------------------------------------ the camera
+   The hero's facade, moved as a camera would move toward it. Everything is a
+   function of three numbers the scene writes (--push, --tip) and where the
+   window carrying the light sits in the drawing (--wx, --wy, as shares of the
+   facade). Scale is taken about that window, so it holds still while the
+   building grows around it, and the translate walks it to the middle of the
+   frame as you approach. Then the facade tips back about the same point until
+   it lies down and reads as a plan. */
+
+.facade-cam {
+  --wx: var(--wx-s);
+  --wy: var(--wy-s);
+  --bh: var(--bh-s);
+  transform-origin: calc(var(--wx) * 100%) calc(var(--wy) * 100%);
+  transform: translate3d(
+      calc(var(--push, 0) * (50vw - var(--wx) * 100vw)),
+      calc(var(--push, 0) * (46vh - var(--roof) - var(--wy) * var(--bh))),
+      0
+    )
+    rotateX(calc(var(--tip, 0) * 58deg)) scale(calc(1 + var(--push, 0) * 0.75));
+}
+@media (min-width: 48rem) {
+  .facade-cam {
+    --wx: var(--wx-l);
+    --wy: var(--wy-l);
+    --bh: var(--bh-l);
+  }
 }
 
 /* ------------------------------------------------------------------ reduced motion */
@@ -459,5 +514,8 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  .layer {
+    transform: none;
   }
 }

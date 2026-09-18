@@ -2,13 +2,15 @@
 
 /**
  * Cursor
- * A small bone dot that follows the pointer on a 0.18s ease and inverts what
- * it crosses (mix-blend difference). Over anything marked `data-cursor`
- * it grows into a thin brass ring; if the attribute has a value
- * (`data-cursor="Drag"`) that word appears beside it in the metadata face.
+ * A registration mark, the crosshair printed at the corners of a drawing so
+ * the sheets line up. It follows the pointer on a short ease and inverts what
+ * it crosses, so it reads on ink and on paper. Over anything marked
+ * `data-cursor`, or any link or button, four corner brackets close in around
+ * it; if the attribute has a value (`data-cursor="R-03"`) that word is printed
+ * beside it as a small blueprint tag.
  *
- * Fine pointers only. Reduced motion: never mounted.
- * Mark interactive elements with data-cursor; nothing else to wire.
+ * Fine pointers only, never required to understand anything, and never
+ * mounted under reduced motion.
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -65,7 +67,7 @@ export function Cursor() {
         overwrite: true,
       });
       gsap.to(dot.current, {
-        scale: active ? 0.5 : 1,
+        scale: active ? 0.6 : 1,
         duration: 0.5,
         ease: "expo.out",
         overwrite: true,
@@ -107,18 +109,25 @@ export function Cursor() {
       className="pointer-events-none fixed left-0 top-0 opacity-0"
       style={{ zIndex: "var(--z-cursor)" }}
     >
-      <div
-        ref={dot}
-        className="absolute -left-1 -top-1 h-2 w-2 rounded-full bg-primary"
-        style={{ mixBlendMode: "difference" }}
-      />
+      {/* The mark. */}
+      <div ref={dot} className="absolute -left-[9px] -top-[9px] h-[18px] w-[18px]" style={{ mixBlendMode: "difference" }}>
+        <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--c-bone)]" />
+        <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--c-bone)]" />
+        <span className="absolute left-1/2 top-1/2 h-[8px] w-[8px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--c-bone)]" />
+      </div>
+      {/* The brackets. */}
       <div
         ref={ring}
-        className="absolute -left-7 -top-7 h-14 w-14 rounded-full border border-rule opacity-0"
-        style={{ transform: "scale(0.4)" }}
-      />
+        className="absolute -left-[18px] -top-[18px] h-9 w-9 opacity-0"
+        style={{ transform: "scale(0.4)", mixBlendMode: "difference" }}
+      >
+        <span className="absolute left-0 top-0 h-2 w-2 border-l border-t border-[var(--c-bone)]" />
+        <span className="absolute right-0 top-0 h-2 w-2 border-r border-t border-[var(--c-bone)]" />
+        <span className="absolute bottom-0 left-0 h-2 w-2 border-b border-l border-[var(--c-bone)]" />
+        <span className="absolute bottom-0 right-0 h-2 w-2 border-b border-r border-[var(--c-bone)]" />
+      </div>
       {label ? (
-        <span className="meta absolute left-9 top-9 whitespace-nowrap bg-base px-1.5 py-0.5 text-primary">
+        <span className="meta absolute left-6 top-6 whitespace-nowrap bg-[var(--c-blue)] px-1.5 py-0.5 text-[var(--c-bone)]">
           {label}
         </span>
       ) : null}
