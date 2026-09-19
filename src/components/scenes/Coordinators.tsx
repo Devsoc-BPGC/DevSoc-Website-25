@@ -2,11 +2,11 @@
 
 /**
  * 09 The coordinators
- * This year's call sheet: seven people, one at a time, on the stage.
+ * This year's coordinators: seven people, one at a time, on the stage.
  *
  * DevFest ended with its poster down and the title stencilled on the wall
  * behind it; this scene starts on that frame. The title goes up to the corner
- * as the head of the call sheet, the list of the seven comes up under it, and
+ * as the head of the list, the seven names come up under it, and
  * then each of them takes the stage in turn.
  *
  * Whoever is on stands in the middle with their name behind them at poster
@@ -14,14 +14,14 @@
  * as one word and the person is never covered: the name is drawn twice, solid
  * behind the portrait and outlined over it, the outline clipped to the
  * portrait's own frame. Their role, their rooms and their link are read out on
- * the right, and their line on the call sheet is lit, with the light run down
+ * the right, and their name on the list is lit, with the light run down
  * the sheet to it.
  *
  * At the end the stage empties and the light is laid flat along the bottom of
  * the frame, which is where the next scene's horizon is.
  *
  * Progress:
- *   0.00 - 0.10   the title goes up; the call sheet comes up under it
+ *   0.00 - 0.10   the title goes up; the list comes up under it
  *   0.10 - 0.92   seven people, one after another
  *   0.92 - 1.00   the stage empties; the light lies down as a horizon
  */
@@ -97,7 +97,7 @@ function Details({ person }: { person: CrewMember }) {
   const heads = roomNames(person.rooms);
   return (
     <>
-      <p className="meta text-[0.8rem] text-[var(--c-gray)]">{person.coordinator ? crewCopy.sheet : crewCopy.heads}</p>
+      <p className="meta text-[0.8rem] text-[var(--c-gray)]">{person.coordinator ? crewCopy.coordinators : crewCopy.heads}</p>
       <h3 className="display mt-2 text-[clamp(1.8rem,2.6vw,2.8rem)] leading-[0.9] text-[var(--c-bone)]">{person.role}</h3>
       <p className="mt-2 text-[1.05rem] text-[var(--c-bone)]/85">{person.name}</p>
       {heads.length ? (
@@ -131,6 +131,7 @@ function MovingCoordinators() {
   const titleSmall = useRef<HTMLDivElement>(null);
   const sheet = useRef<HTMLOListElement>(null);
   const rows = useRef<(HTMLLIElement | null)[]>([]);
+  const ticks = useRef<(HTMLButtonElement | null)[]>([]);
   const names = useRef<(HTMLDivElement | null)[]>([]);
   const portraits = useRef<(HTMLDivElement | null)[]>([]);
   const details = useRef<(HTMLDivElement | null)[]>([]);
@@ -148,7 +149,7 @@ function MovingCoordinators() {
       if (!el || !s) return;
       const H = el.offsetHeight;
       const W = el.offsetWidth;
-      // The light runs down the left of the call sheet, from its head to its foot.
+      // The light runs down the left of the list, from its head to its foot.
       const r = s.getBoundingClientRect();
       const e = el.getBoundingClientRect();
       const x = (r.left - e.left - 14) / W;
@@ -172,7 +173,7 @@ function MovingCoordinators() {
     const el = root.current;
     if (!el) return;
 
-    // The stencilled title hands over to the head of the call sheet.
+    // The stencilled title hands over to the head of the list.
     const up = ease(span(p, 0.01, SHEET_TO));
     title.current?.style.setProperty("opacity", (1 - span(p, 0.02, 0.06)).toFixed(3));
     title.current?.style.setProperty("scale", (1 - up * 0.12).toFixed(4));
@@ -201,6 +202,7 @@ function MovingCoordinators() {
         d.style.setProperty("visibility", w > 0.05 ? "visible" : "hidden");
       }
       rows.current[i]?.style.setProperty("--on", w.toFixed(3));
+      ticks.current[i]?.style.setProperty("--on", w.toFixed(3));
     });
   }, []);
 
@@ -285,10 +287,41 @@ function MovingCoordinators() {
           ))}
         </div>
 
-        {/* The call sheet. */}
+        {/* On a phone the list of names does not fit beside the portrait, so
+            it is seven marks along the top, one lit for whoever is on, each
+            one a way to jump to that person. */}
+        <div
+          className="absolute inset-x-[var(--gutter)] top-[calc(var(--nav-h)+0.25rem)] md:hidden"
+          style={{ opacity: "var(--sheet, 0)" }}
+        >
+          <p className="meta text-[0.75rem] text-[var(--c-gray)]">{crewCopy.label}</p>
+          <div className="mt-1 flex gap-1.5">
+            {crew.map((person, i) => (
+              <button
+                key={person.id}
+                ref={(n) => {
+                  ticks.current[i] = n;
+                }}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={person.name}
+                className="group h-9 flex-1"
+                style={{ ["--on" as string]: 0 } as CSSProperties}
+              >
+                <span
+                  aria-hidden="true"
+                  className="block h-[3px] w-full"
+                  style={{ background: "color-mix(in srgb, var(--c-bone) calc(22% + var(--on) * 78%), transparent)" }}
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* The list of the seven. */}
         <div className="absolute left-[var(--gutter)] top-[13vh] w-[min(19rem,24vw)] max-md:hidden" style={{ opacity: "var(--sheet, 0)" }}>
           <div ref={titleSmall} style={{ opacity: 0 }}>
-            <p className="meta text-[0.8rem] text-[var(--c-gray)]">{crewCopy.sheet}</p>
+            <p className="meta text-[0.8rem] text-[var(--c-gray)]">{crewCopy.label}</p>
             <h2 id="coordinators-title" className="display mt-2 text-[clamp(1.8rem,2.4vw,2.4rem)] leading-[0.9] text-[var(--c-bone)]">
               {crewCopy.title}
             </h2>
@@ -342,11 +375,11 @@ function MovingCoordinators() {
   );
 }
 
-/** Reduced motion: the call sheet, with everyone on it at once. */
+/** Reduced motion: everyone on the page at once. */
 function StillCoordinators() {
   return (
     <Scene id="crew" aria-labelledby="coordinators-title" stageClassName="px-[var(--gutter)] py-[12vh]">
-      <p className="meta text-[0.8rem] text-[var(--c-gray)]">{crewCopy.sheet}</p>
+      <p className="meta text-[0.8rem] text-[var(--c-gray)]">{crewCopy.label}</p>
       <h2 id="coordinators-title" className="display mt-2 text-[clamp(2.6rem,6vw,5.8rem)] leading-[0.85] text-[var(--c-bone)]">
         {crewCopy.title}
       </h2>

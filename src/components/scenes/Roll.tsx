@@ -108,7 +108,7 @@ function RollPaper({
 }) {
   return (
     <div className="fanfold border-t-2 border-dashed border-[var(--c-ink)]/40">
-      <div className="grid gap-10 px-[max(7%,3.6rem)] pb-[8vh] pt-[12vh] lg:grid-cols-[auto_minmax(0,1fr)] lg:items-end lg:gap-[5vw]">
+      <div className="grid gap-10 px-[max(7%,2.4rem)] pb-[8vh] pt-[12vh] md:px-[max(7%,3.6rem)] lg:grid-cols-[auto_minmax(0,1fr)] lg:items-end lg:gap-[5vw]">
         <div>
           <h2 id="roll-title" className="sr-only">{`${roll.count} ${roll.line}`}</h2>
           <Stamp rotate={-4} className="border-[6px] px-[0.12em] pb-[0.02em] pt-[0.08em] text-[clamp(7rem,19vw,22rem)] leading-[0.8]">
@@ -125,13 +125,13 @@ function RollPaper({
 
       <ol
         ref={listRef}
-        className="dotmatrix grid grid-cols-[minmax(0,1fr)] px-[max(7%,3.6rem)] md:grid-cols-2 md:gap-x-[4vw]"
+        className="dotmatrix grid grid-cols-2 gap-x-[1.1rem] px-[max(7%,2.4rem)] md:gap-x-[4vw] md:px-[max(7%,3.6rem)]"
       >
         {list.map((p, i) => (
           <li
             key={`${p.name}-${i}`}
             data-row={i}
-            className="relative flex h-[2.3rem] items-center gap-3 border-b border-dotted border-[var(--c-ink)]/20 text-[0.95rem] uppercase text-[var(--c-ink)]"
+            className="relative flex h-[2.7rem] items-center gap-1.5 border-b border-dotted border-[var(--c-ink)]/20 text-[0.68rem] uppercase text-[var(--c-ink)] md:h-[2.3rem] md:gap-3 md:text-[0.95rem]"
             style={{ ["--i" as string]: i } as CSSProperties}
           >
             {/* The highlighter, for a name that has been looked up. */}
@@ -143,17 +143,19 @@ function RollPaper({
             {/* The tick, once the name has been counted. */}
             <span
               aria-hidden="true"
-              className="relative block h-[0.7rem] w-[0.4rem] shrink-0 -translate-y-[0.1rem] rotate-45 border-b-2 border-r-2 border-[var(--c-blue)]"
+              className="relative hidden h-[0.7rem] w-[0.4rem] shrink-0 -translate-y-[0.1rem] rotate-45 border-b-2 border-r-2 border-[var(--c-blue)] md:block"
               style={{ opacity: "clamp(0, var(--counted, 0) - var(--i), 1)" }}
             />
-            <span className="relative w-[2.6rem] shrink-0 tabular-nums text-[var(--c-ink)]/55">{pad(i + 1)}</span>
-            <span className="relative min-w-0 flex-1 truncate font-semibold tracking-[0.02em]">{p.name}</span>
-            <span className="relative shrink-0 text-[0.8rem] tabular-nums text-[var(--c-ink)]/65">{p.id ?? roll.search.noId}</span>
+            <span className="relative w-[1.4rem] shrink-0 text-[0.6rem] tabular-nums text-[var(--c-ink)]/60 md:w-[2.6rem] md:text-[0.95rem] md:text-[var(--c-ink)]/55">{pad(i + 1)}</span>
+            {/* Names matter more than IDs: on a phone the name gets the row, and
+                may take two lines; the ID is one search away. */}
+            <span className="relative line-clamp-2 min-w-0 flex-1 font-semibold leading-[1.15] tracking-[0.01em] md:line-clamp-none md:truncate md:tracking-[0.02em]">{p.name}</span>
+            <span className="relative hidden shrink-0 text-[0.8rem] tabular-nums text-[var(--c-ink)]/65 md:block">{p.id ?? roll.search.noId}</span>
           </li>
         ))}
       </ol>
 
-      <div className="grid gap-6 px-[max(7%,3.6rem)] pb-[14vh] pt-[8vh] md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+      <div className="grid gap-6 px-[max(7%,2.4rem)] pb-[14vh] pt-[8vh] md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:px-[max(7%,3.6rem)]">
         <p className="max-w-[46ch] text-[0.9rem] leading-[1.55] text-[var(--c-ink)]/75">{roll.note}</p>
         <ActionLink href={roll.link.href} className="text-[1rem] text-[var(--c-ink)]">
           {roll.link.label}

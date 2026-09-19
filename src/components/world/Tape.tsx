@@ -70,9 +70,13 @@ export function PrintedTape({
       className={`pointer-events-none ${flow ? "relative w-max" : "absolute"} flex items-center overflow-hidden whitespace-nowrap ${className ?? ""}`}
       style={{
         rotate: `${rotate}deg`,
-        background: "var(--c-blue)",
+        // Ink with a bone edge: it has to read over bone paper, over the blue
+        // print, and over the dark board it overhangs, and a blue strip did none
+        // of the three.
+        background: "var(--c-ink)",
         color: "var(--c-bone)",
-        boxShadow: "0 2px 3px rgb(13 14 12 / 0.35)",
+        borderBlock: "2px solid color-mix(in srgb, var(--c-bone) 88%, transparent)",
+        boxShadow: "0 2px 4px rgb(0 0 0 / 0.45)",
         ...style,
       }}
     >

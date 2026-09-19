@@ -188,7 +188,11 @@ export function Scene({
         id={id}
         data-scene=""
         data-continues={continues && !reduced ? "" : undefined}
-        className={`relative ${continues && !reduced ? "-mt-[100dvh]" : ""} ${className ?? ""}`}
+        // The track never takes pointer events itself: when a scene continues
+        // from the one before, the two tracks overlap by a screen, and the earlier
+        // one is layered above, so its empty box would swallow every tap meant for
+        // the scene under it. Only the stage, which has the content, takes them.
+        className={`pointer-events-none relative ${continues && !reduced ? "-mt-[100dvh]" : ""} ${className ?? ""}`}
         style={reduced ? undefined : { height: `${height}vh` }}
         {...rest}
       >
@@ -198,9 +202,9 @@ export function Scene({
           // stage still needs a screen's height or it collapses to nothing.
           className={
             reduced
-              ? `relative min-h-[100dvh] overflow-hidden ${stageClassName ?? ""}`
+              ? `pointer-events-auto relative min-h-[100dvh] overflow-hidden ${stageClassName ?? ""}`
               : // Opaque, so the stage it takes over from never shows through it.
-                `sticky top-0 h-[100dvh] overflow-hidden bg-[var(--c-ink)] ${stageClassName ?? ""}`
+                `pointer-events-auto sticky top-0 h-[100dvh] overflow-hidden bg-[var(--c-ink)] ${stageClassName ?? ""}`
           }
           style={{ ["--mx" as string]: 0, ["--my" as string]: 0 }}
         >

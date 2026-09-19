@@ -142,13 +142,19 @@ function DevFestPoster() {
         <p className="mt-[3.5cqw] max-w-[78%] text-[3.1cqw] leading-[1.42]">{devfest.blurb}</p>
 
         {/* The fest's own site, printed in the same one ink. */}
-        <div className="relative -mx-[6cqw] mt-auto h-[42cqw] overflow-hidden bg-[var(--c-blue)] [isolation:isolate]">
+        {/* Cropped to the logos, which sit at the middle of the screenshot
+            (the nav is above the crop and the button below it), so the print
+            is centred on what it is for. Full width and high quality: at a
+            phone's pixel density a small rendition is what read as blur. */}
+        <div className="relative -mx-[6cqw] mt-auto h-[33cqw] overflow-hidden bg-[var(--c-blue)] [isolation:isolate]">
           <Image
             src="/images/work/devfest-site.jpg"
             alt=""
             fill
-            sizes="40vw"
-            className="object-cover object-top mix-blend-screen grayscale contrast-[1.25]"
+            sizes="(max-width: 768px) 100vw, 60vw"
+            quality={92}
+            className="object-cover mix-blend-screen grayscale"
+            style={{ objectPosition: "50% 51.3%" }}
           />
         </div>
       </div>
@@ -219,15 +225,17 @@ function EventPoster({ event, index }: { event: Event; index: number }) {
 }
 
 /**
- * Where the other posters are pasted, on a wide frame: centre (shares of the
- * frame), height (share of the frame's height), tilt. On a phone they are
- * pushed out to the edges, so only their edges show round the flagship.
+ * Where the other posters are pasted: centre (shares of the frame), height
+ * (share of the frame's height), tilt. On a wide frame two go either side of
+ * the flagship. On a phone there is no room beside it, so they go above and
+ * below it, two and two, tucked in behind its edges, instead of being cut to
+ * unreadable fragments at the sides.
  */
 const PASTED = [
-  { x: 0.17, y: 0.33, h: 0.47, r: -2.2, narrowX: -0.04 },
-  { x: 0.2, y: 0.755, h: 0.4, r: 1.6, narrowX: -0.08 },
-  { x: 0.83, y: 0.335, h: 0.48, r: 2, narrowX: 1.04 },
-  { x: 0.8, y: 0.765, h: 0.39, r: -1.4, narrowX: 1.08 },
+  { x: 0.17, y: 0.33, h: 0.47, r: -2.2, phone: { x: 0.27, y: 0.155, h: 0.2, r: -3 } },
+  { x: 0.2, y: 0.755, h: 0.4, r: 1.6, phone: { x: 0.73, y: 0.155, h: 0.2, r: 2.5 } },
+  { x: 0.83, y: 0.335, h: 0.48, r: 2, phone: { x: 0.27, y: 0.895, h: 0.2, r: 2.5 } },
+  { x: 0.8, y: 0.765, h: 0.39, r: -1.4, phone: { x: 0.73, y: 0.895, h: 0.2, r: -2.5 } },
 ];
 const others = events.filter((e) => e.name !== devfest.name);
 
@@ -278,8 +286,8 @@ function MovingDevFest() {
       setLights(tubesFor(w));
       pasted.current.forEach((n, i) => {
         if (!n) return;
-        const at = PASTED[i];
-        n.style.setProperty("left", `${(narrow ? at.narrowX : at.x) * 100}%`);
+        const at = narrow ? PASTED[i].phone : PASTED[i];
+        n.style.setProperty("left", `${at.x * 100}%`);
         n.style.setProperty("top", `${at.y * 100}%`);
         n.style.setProperty("height", `${at.h * h}px`);
         n.style.setProperty("width", `${(at.h * h) / 1.414}px`);

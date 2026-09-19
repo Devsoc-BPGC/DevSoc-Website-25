@@ -19,7 +19,7 @@ export function crewTitleAt() {
 export function CrewTitle({ className, style, id }: { className?: string; style?: CSSProperties; id?: string }) {
   return (
     <div className={`text-center ${className ?? ""}`} style={style}>
-      <p className="meta text-[0.8rem] text-[var(--c-gray)]">{crewCopy.sheet}</p>
+      <p className="meta text-[0.8rem] text-[var(--c-gray)]">{crewCopy.label}</p>
       {/* On two lines and sized to the poster, so it never shows past the
           poster that covers it. */}
       <h2 id={id} className="display mt-3 text-[clamp(2.6rem,6vw,5.8rem)] leading-[0.82] text-[var(--c-bone)]">

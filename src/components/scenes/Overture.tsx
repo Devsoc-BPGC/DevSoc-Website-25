@@ -29,15 +29,13 @@ import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 import { gsap } from "@/lib/gsap";
 import { colophon, hero } from "@/content/home";
+import { OVERTURE_KEY } from "./overtureEarly";
 
-const KEY = "devsoc:overture";
+const KEY = OVERTURE_KEY;
 /** The longest it will wait for anything, in seconds. */
 const MAX_WAIT = 7;
 /** The shortest it stays up, so the warm-up reads as a warm-up. */
 const MIN_SHOW = 1.4;
-
-/** Runs before the page is painted: a visit that has seen it hides it at once. */
-const EARLY = `try{if(sessionStorage.getItem("${KEY}")||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("overture-seen")}catch(e){}`;
 
 function whenLoaded(img: HTMLImageElement) {
   return img.complete
@@ -148,7 +146,6 @@ export function Overture() {
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: EARLY }} />
       <div ref={root} className="overture fixed inset-0" style={{ zIndex: 100 }} aria-hidden="true">
         {/* The upper half, carrying the fixture on its lower edge. */}
         <div ref={top} className="absolute inset-x-0 top-0 h-1/2 bg-[var(--c-ink)]">

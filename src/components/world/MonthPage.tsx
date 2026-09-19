@@ -23,8 +23,10 @@ export function monthPageRect(W: number, H: number) {
   if (W / H >= 1.2 && panel >= 380) {
     return { wide: true, cx: W / 2, cy: H * 0.54, w: panel, h: panel * 1.32, ratio: 1.32 };
   }
-  const ratio = 1.5;
-  const w = Math.min(W * 0.86, 520, (H * 0.84) / ratio);
+  // Tall, so that each panel is about a screen: the camera reads down them one
+  // at a time, at a size of type a phone can read.
+  const ratio = 2.05;
+  const w = Math.min(W * 0.88, 520, (H * 0.84) / ratio);
   return { wide: false, cx: W / 2, cy: H * 0.52, w, h: w * ratio, ratio };
 }
 
@@ -68,7 +70,7 @@ export function MonthCover({ opens, children }: { opens: "side" | "foot"; childr
       <div className="paper paper--quiet relative flex h-full w-full flex-col overflow-hidden">
         <div className="riso flex flex-1 flex-col text-[var(--c-blue)]">
           {/* The block, with the title knocked out of it. */}
-          <div className="relative bg-current px-[7cqw] pb-[7cqw] pt-[12cqw]">
+          <div className="relative flex-1 bg-current px-[7cqw] pb-[7cqw] pt-[12cqw]">
             {/* Big Shoulders has an optical size axis, so the same title set at
                 two sizes would wrap differently. Pinned to one design, it
                 scales as a picture does, and the small leaflet on the wall and
@@ -91,13 +93,13 @@ export function MonthCover({ opens, children }: { opens: "side" | "foot"; childr
             {[0, 1, 2, 3, 4].map((w) => (
               <li key={w} className="border-l border-current/40 px-[1.4cqw] pb-[2cqw] pt-[1.6cqw] first:border-l-0 first:pl-0">
                 <span className="display block text-[9cqw] leading-[0.8]">{w}</span>
-                <span className="meta mt-[1cqw] block text-[2.1cqw] leading-tight">{`Week ${w}`}</span>
+                <span className="meta mt-[1cqw] block text-[2.1cqw] leading-tight max-md:text-[3cqw]">{`Week ${w}`}</span>
               </li>
             ))}
           </ol>
           <div className="mx-[7cqw] mb-[6cqw] mt-[3cqw] flex items-end justify-between gap-[4cqw]">
-            <p className="meta max-w-[60%] text-[2.6cqw] leading-snug text-[var(--c-ink)]/70">{firstMonth.line}</p>
-            <p className="display text-[4.2cqw] leading-none">DEVSOC</p>
+            <p className="meta max-w-[60%] text-[2.6cqw] leading-snug text-[var(--c-ink)]/70 max-md:text-[3.4cqw]">{firstMonth.line}</p>
+            <p className="display text-[4.2cqw] leading-none max-md:text-[5.4cqw]">DEVSOC</p>
           </div>
         </div>
         {children}

@@ -144,9 +144,11 @@ function BackToTop() {
 function GroundFloor() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-[var(--c-ink)] px-[var(--gutter)] pb-[8vh] pt-[8vh] text-[var(--c-bone)]">
-      <div className="mx-auto grid max-w-[80rem] gap-12 border-t border-[var(--c-steel)]/40 pt-10 md:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,0.7fr))]">
-        <div>
+    <footer className="bg-[var(--c-ink)] px-[var(--gutter)] pb-[max(6vh,env(safe-area-inset-bottom))] pt-[6vh] text-[var(--c-bone)] md:pb-[8vh] md:pt-[8vh]">
+      {/* Two columns on a phone (the pages beside the elsewhere) to keep the
+          footer short; the note and the address take the full width. */}
+      <div className="mx-auto grid max-w-[80rem] grid-cols-2 gap-x-6 gap-y-9 border-t border-[var(--c-steel)]/40 pt-8 md:grid-cols-[minmax(0,1.3fr)_repeat(3,minmax(0,0.7fr))] md:gap-12 md:pt-10">
+        <div className="col-span-2 md:col-span-1">
           <p className="max-w-[44ch] text-[1.02rem] leading-[1.6] text-[var(--c-bone)]/85">{colophon.body}</p>
           <div className="mt-6">
             <ActionLink href={`mailto:${colophon.email}`} className="text-[1rem] text-[var(--c-bone)]" cursor="Write">
@@ -156,10 +158,10 @@ function GroundFloor() {
         </div>
         <nav aria-label={colophon.headings.pages}>
           <p className="meta text-[0.78rem] text-[var(--c-gray)]">{colophon.headings.pages}</p>
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-3 md:mt-4 md:space-y-2">
             {colophon.pages.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="text-[1rem] hover:text-[var(--c-blue)] focus-visible:text-[var(--c-blue)]">
+                <a href={l.href} className="block py-1.5 text-[1rem] hover:text-[var(--c-blue)] focus-visible:text-[var(--c-blue)] md:inline md:py-0">
                   {l.label}
                 </a>
               </li>
@@ -168,28 +170,29 @@ function GroundFloor() {
         </nav>
         <div>
           <p className="meta text-[0.78rem] text-[var(--c-gray)]">{colophon.headings.elsewhere}</p>
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-3 md:mt-4 md:space-y-2">
             {colophon.elsewhere.map((l) => (
               <li key={l.href}>
-                <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-[1rem] hover:text-[var(--c-blue)] focus-visible:text-[var(--c-blue)]">
+                <a href={l.href} target="_blank" rel="noopener noreferrer" className="block py-1.5 text-[1rem] hover:text-[var(--c-blue)] focus-visible:text-[var(--c-blue)] md:inline md:py-0">
                   {l.label}
                 </a>
               </li>
             ))}
           </ul>
         </div>
-        <div>
+        <div className="col-span-2 md:col-span-1">
           <p className="meta text-[0.78rem] text-[var(--c-gray)]">{colophon.headings.where}</p>
-          <address className="mt-4 not-italic">
-            {colophon.where.map((l) => (
-              <span key={l} className="block text-[1rem] leading-[1.7]">
+          <address className="mt-3 not-italic md:mt-4">
+            {colophon.where.map((l, i) => (
+              <span key={l} className="text-[1rem] leading-[1.7] md:block">
                 {l}
+                {i < colophon.where.length - 1 ? <span className="md:hidden">{", "}</span> : null}
               </span>
             ))}
           </address>
         </div>
       </div>
-      <div className="mx-auto mt-14 flex max-w-[80rem] flex-wrap items-end justify-between gap-6">
+      <div className="mx-auto mt-10 flex max-w-[80rem] flex-wrap items-end justify-between gap-x-6 gap-y-5 md:mt-14">
         <p className="meta text-[0.78rem] text-[var(--c-gray)]">{colophon.credit(year)}</p>
         <BackToTop />
       </div>
@@ -259,14 +262,17 @@ export function Colophon() {
   return (
     <>
       <Scene id="colophon" vh={240} vhMobile={200} settled={1} onProgress={onProgress} aria-labelledby="colophon-line">
-        <div ref={root} className="lit absolute inset-0">
+        {/* On a phone the line and the building stack, the line centred in the
+            sky above the sign, so the space over the roof is used and not left
+            empty; beside a wide frame they are placed by hand. */}
+        <div ref={root} className="lit absolute inset-0 flex flex-col md:block">
           {/* The line, in the sky. */}
           <div
-            className="absolute inset-x-[var(--gutter)] top-[13vh] text-center max-md:top-[12vh]"
+            className="text-center max-md:grid max-md:flex-1 max-md:place-items-center max-md:px-[var(--gutter)] max-md:pb-[3vh] max-md:pt-[calc(var(--nav-h)+1vh)] md:absolute md:inset-x-[var(--gutter)] md:top-[13vh]"
             style={{ opacity: "var(--line, 1)", translate: "0 calc((1 - var(--line, 1)) * 18px)" }}
           >
             {/* In blueprint blue, so it stays clear of the ink sign under it. */}
-            <h2 id="colophon-line" className="display mx-auto max-w-[20ch] text-[clamp(2.2rem,min(5.2vw,8.5vh),5.2rem)] leading-[0.88] text-[var(--c-blue)]">
+            <h2 id="colophon-line" className="display mx-auto max-w-[20ch] text-[clamp(2.2rem,min(5.2vw,8.5vh),5.2rem)] leading-[0.88] text-[var(--c-blue)] max-md:text-[clamp(2.6rem,12.5vw,3.6rem)]">
               {colophon.line}
             </h2>
           </div>
@@ -276,7 +282,7 @@ export function Colophon() {
           {/* Sized to the frame's height as well as its width, so on a short,
               wide window the sign never reaches up into the line. */}
           <div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 [container-type:inline-size]"
+            className="relative mx-auto shrink-0 [container-type:inline-size] md:absolute md:bottom-0 md:left-1/2 md:-translate-x-1/2"
             style={{ width: `min(92vw, ${(56 / tallness(plate)).toFixed(1)}vh)` }}
           >
             <RoofSign />

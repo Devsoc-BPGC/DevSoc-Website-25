@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
 import { Directory } from "@/components/shell/Directory";
+import { OVERTURE_EARLY } from "@/components/scenes/overtureEarly";
 import { site } from "@/content/site";
 
 // Display: condensed civic signage. Everything that should read as a sign, a
@@ -76,6 +77,9 @@ export const viewport: Viewport = {
   themeColor: "#0d0e0c",
   width: "device-width",
   initialScale: 1,
+  // Lets the safe-area insets work: the chrome keeps clear of a notch or a
+  // home indicator in landscape and when installed.
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -83,6 +87,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // The overture's early script marks <html> before hydration on a visit that
     // has already seen it; that one class is expected to differ.
     <html lang="en" className={`${shoulders.variable} ${schibsted.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: OVERTURE_EARLY }} />
+      </head>
       <body>
         <SmoothScroll>
           <Directory />

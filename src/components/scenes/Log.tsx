@@ -118,7 +118,7 @@ function MovingLog() {
   const [held, setHeld] = useState<number | null>(null);
   const heldRef = useRef<number | null>(null);
   const heldAt = useRef(0);
-  const frame = useRef({ W: 1, H: 1, u: 1 });
+  const frame = useRef({ W: 1, H: 1, u: 1, yk: 1 });
   const last = useRef(0);
   const apply = useRef<(p: number) => void>(() => {});
 
@@ -129,7 +129,11 @@ function MovingLog() {
       const W = c.offsetWidth;
       const H = c.offsetHeight;
       const u = unitFor(W, H);
-      frame.current = { W, H, u };
+      // On a tall phone frame the sheets are spread further up and down the
+      // wall, so the frame is used and not just its middle third.
+      const yk = W < 768 ? 2.3 : 1;
+      frame.current = { W, H, u, yk };
+      wall.current?.style.setProperty("--yk", String(yk));
       const wallW = FOLDED.x * u + W / 2 + 40;
       if (wall.current) {
         wall.current.style.width = `${wallW}px`;
@@ -141,7 +145,7 @@ function MovingLog() {
       // The cable, pin to pin, from the wall's left edge to the folded sheet.
       const pts: LightPoint[] = [[0, 0.16]];
       sheets.forEach(({ pin, project }) => {
-        const top = pin.y * H - (sheetH(pin, project) * u) / 2 + u * 1.2;
+        const top = (0.5 + (pin.y - 0.5) * yk) * H - (sheetH(pin, project) * u) / 2 + u * 1.2;
         pts.push([(pin.x * u) / wallW, top / H]);
       });
       pts.push([(TAB.x * u) / wallW, 0.3]);
@@ -196,7 +200,7 @@ function MovingLog() {
       const travel = travelAt(last.current, u, W);
       // Where the sheet is now, on the frame, and where a hand would hold it.
       const cx = pin.x * u - travel;
-      const cy = pin.y * H;
+      const cy = (0.5 + (pin.y - 0.5) * frame.current.yk) * H;
       const w = pin.w * u;
       const h = sheetH(pin, project) * u;
       const narrow = W < 768;
@@ -205,7 +209,7 @@ function MovingLog() {
       const s = Math.min(narrow ? (W * 0.92) / w : (W * 0.56) / w, narrow ? (H * 0.46) / h : (H * 0.74) / h, 2.6);
 
       heldRef.current = i;
-      heldAt.current = last.current;
+      heldAt.current = window.scrollY;
       setHeld(i);
       gsap.set(b, { zIndex: 60 });
       gsap.to(lift, { x: tx - cx, y: ty - cy, scale: s, duration: 1.1, ease: "expo.out", overwrite: true });
@@ -228,8 +232,19 @@ function MovingLog() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && heldRef.current !== null) putBack(true);
     };
+    // Scrolling on puts a held sheet back. Measured on the page's own scroll
+    // position, not on the scene's progress: progress is smoothed and keeps
+    // catching up for a second after the finger stops, and a tap in that
+    // second would lift the sheet and drop it again at once.
+    const onScroll = () => {
+      if (heldRef.current !== null && Math.abs(window.scrollY - heldAt.current) > 56) putBack();
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [putBack]);
 
   const onProgress = useCallback(
@@ -240,8 +255,6 @@ function MovingLog() {
       const wl = wall.current;
       if (!c || !wl) return;
 
-      // Scrolling on puts a held sheet back.
-      if (heldRef.current !== null && Math.abs(p - heldAt.current) > 0.006) putBack();
 
       const travel = travelAt(p, u, W);
       wl.style.transform = `translate3d(${(-travel).toFixed(1)}px, 0, 0)`;
@@ -269,7 +282,7 @@ function MovingLog() {
         c.style.transform = "";
       }
     },
-    [putBack],
+    [],
   );
 
   useEffect(() => {
@@ -343,14 +356,19 @@ function MovingLog() {
                   buttons.current[i] = n;
                 }}
                 onClick={() => pickUp(i)}
-                onFocus={() => bringIntoView(i)}
+                onFocus={(e) => {
+                  // Only for a keyboard: a tap also focuses the button, and
+                  // scrolling the wall round under a finger would drop the sheet
+                  // it has just lifted.
+                  if (e.currentTarget.matches(":focus-visible")) bringIntoView(i);
+                }}
                 aria-label={`${log.pickUp}: ${project.title}, ${project.year}`}
                 aria-pressed={held === i}
                 data-cursor={held === i ? log.putBack : log.pickUp}
                 className="group absolute text-left"
                 style={{
                   left: `calc(var(--u) * ${pin.x - pin.w / 2})`,
-                  top: `calc(${pin.y * 100}% - var(--u) * ${h / 2})`,
+                  top: `calc(50% + ${(pin.y - 0.5) * 100}% * var(--yk, 1) - var(--u) * ${h / 2})`,
                   width: `calc(var(--u) * ${pin.w})`,
                   height: `calc(var(--u) * ${h})`,
                   zIndex: 20,

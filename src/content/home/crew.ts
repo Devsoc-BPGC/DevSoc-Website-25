@@ -1,5 +1,5 @@
 /**
- * The coordinators. This year's call sheet.
+ * The coordinators, this year.
  *
  * Seven people: the chief and sub-coordinator, and five room heads. Game Engine Development sits under the
  * game room, so its head carries two room numbers.
@@ -32,7 +32,10 @@ export const crew: CrewMember[] = people.map((p) => ({
 export const crewCopy = {
   title: "The coordinators",
   line: "The coordinators for this year. Every room has a head; the heads answer to two.",
-  sheet: "Call sheet",
+  /** The small label over the title and over the list. */
+  label: "DevSoc, 2026",
+  /** Printed before a coordinator's role. */
+  coordinators: "Coordinators",
   /** The link to each coordinator's own page. */
   profile: "Profile",
   /** Printed before a head's room numbers. */

@@ -28,7 +28,7 @@ import { directory } from "@/content/home/directory";
 const holds: Record<string, string> = {
   Rooms: "R-01 to R-06",
   Work: "The log",
-  Coordinators: "Call sheet",
+  Coordinators: "The seven",
   Inductees: "This year's list",
 };
 
@@ -40,10 +40,10 @@ export function Directory() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 flex h-[var(--nav-h)] items-center justify-between text-[var(--c-bone)] mix-blend-difference gutter"
+      className="fixed inset-x-0 top-0 flex h-[calc(var(--nav-h)+env(safe-area-inset-top,0px))] items-center justify-between pt-[env(safe-area-inset-top,0px)] text-[var(--c-bone)] mix-blend-difference gutter"
       style={{ zIndex: "var(--z-chrome)" }}
     >
-      <Link href="/" className="display text-[1.35rem] leading-none tracking-[0.02em]" data-cursor="Home">
+      <Link href="/" className="relative before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-[''] display text-[1.35rem] leading-none tracking-[0.02em]" data-cursor="Home">
         Devsoc
       </Link>
 
@@ -61,7 +61,7 @@ export function Directory() {
 
       <button
         type="button"
-        className="meta md:hidden"
+        className="relative before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-[''] meta md:hidden"
         onClick={() => dialog.current?.showModal()}
         aria-haspopup="dialog"
       >
@@ -76,7 +76,7 @@ export function Directory() {
         <div className="flex h-full flex-col gutter pb-10 pt-6">
           <div className="flex items-center justify-between">
             <span className="display text-[1.35rem] leading-none">Devsoc</span>
-            <button type="button" className="meta" onClick={() => dialog.current?.close()}>
+            <button type="button" className="relative before:absolute before:-inset-x-3 before:-inset-y-3.5 before:content-[''] meta" onClick={() => dialog.current?.close()}>
               Close
             </button>
           </div>

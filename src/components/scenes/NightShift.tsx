@@ -32,8 +32,8 @@
  *   0.63          T-3 hours: the stutter, and the alarm
  *   0.71          T-0
  *   0.72 - 0.79   the notes square up
- *   0.75 - 0.86   the terminal prints
- *   0.88 - 1.00   push into the screen
+ *   0.75 - 0.86   the terminal prints (wide)
+ *   0.88 - 1.00   push into the screen (wide; on a phone it goes in first)
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -57,9 +57,18 @@ const arrive = (i: number) => FIRST + i * STEP;
 const T0 = arrive(beats.length - 1);
 const SQUARE_FROM = T0 + 0.01;
 const SQUARE_TO = T0 + 0.08;
-const TYPE_FROM = T0 + 0.04;
-const TYPE_TO = T0 + 0.15;
-const PUSH_FROM = 0.86;
+/**
+ * When the camera goes up to the screen, and when the terminal types on it.
+ *
+ * On a wide frame the screen is big enough in the room to read, so the terminal
+ * types there and the camera goes in afterwards. On a phone the same screen is
+ * a few dozen pixels of type, so the camera goes in first, as T-0 lands, and
+ * the terminal types on the screen when it fills the frame.
+ */
+const TIMING = {
+  wide: { pushFrom: 0.86, pushTo: 0.93, typeFrom: T0 + 0.04, typeTo: T0 + 0.15 },
+  narrow: { pushFrom: T0 + 0.03, pushTo: T0 + 0.1, typeFrom: T0 + 0.115, typeTo: T0 + 0.205 },
+};
 /** The screen switching off: its picture collapses to a line of light. */
 const OFF_FROM = 0.945;
 const OFF_TO = 0.975;
@@ -186,7 +195,10 @@ type Layout = {
 };
 
 function layoutFor(W: number, H: number): Layout {
-  const wide = W >= 1024 && W / H >= 1.1;
+  // A desktop or laptop, or a phone held sideways: a frame with room for the
+  // monitor to be a monitor beside its notes. A phone upright, or a tablet
+  // upright, stacks them.
+  const wide = (W >= 1024 && W / H >= 1.1) || (W >= 700 && W / H >= 1.6);
   let gw: number;
   let gh: number;
   let gy: number;
@@ -381,8 +393,9 @@ function MovingNightShift() {
     const { W, H } = L;
 
     // The camera: out of the screen at the start, back into it at the end.
+    const tm = L.wide ? TIMING.wide : TIMING.narrow;
     const pull = 1 - ease(span(p, 0, PULL_TO));
-    const push = ease(span(p, PUSH_FROM, 0.93));
+    const push = ease(span(p, tm.pushFrom, tm.pushTo));
     const d = Math.max(pull, push);
     const move = dolly(d, L.glass, L.fit, W, H);
     el.style.transform = d > 0 ? move.layer : "";
@@ -407,7 +420,7 @@ function MovingNightShift() {
     // one drawn over it while the camera is close.
     const r = readout(hoursAt(p));
     const alarm = p > arrive(ALARM) - 0.004 && p < T0 - 0.004;
-    const type = span(p, TYPE_FROM, TYPE_TO);
+    const type = span(p, tm.typeFrom, tm.typeTo);
     // Code types a character at a time; the last line lands whole, as output does.
     const lines = shipLines.map((l, i) => {
       const n = l.text.length;
@@ -417,8 +430,8 @@ function MovingNightShift() {
     const s = shown.current;
     const valueChanged = s.value !== r.value || s.unit !== r.unit;
     const linesChanged = lines.some((c, i) => c !== s.lines[i]);
-    const readoutOpacity = (1 - span(p, TYPE_FROM - 0.03, TYPE_FROM)).toFixed(3);
-    const terminalOpacity = span(p, TYPE_FROM - 0.01, TYPE_FROM + 0.005).toFixed(3);
+    const readoutOpacity = (1 - span(p, tm.typeFrom - 0.03, tm.typeFrom)).toFixed(3);
+    const terminalOpacity = span(p, tm.typeFrom - 0.01, tm.typeFrom + 0.005).toFixed(3);
     for (const host of [glass.current, screen.current]) {
       if (!host) continue;
       const sc = screenParts(host);
@@ -441,14 +454,14 @@ function MovingNightShift() {
     s.lines = lines;
 
     // The tube and the light it throws on the wall.
-    const glow = stutter(p) * (1 - span(p, PUSH_FROM, 0.95));
+    const glow = stutter(p) * (1 - span(p, tm.pushFrom, tm.pushTo + 0.02));
     if (pool.current) pool.current.style.opacity = glow.toFixed(3);
 
     // The notes.
     const lands = Array.from({ length: NOTES }, (_, k) => settleOut(span(p, landsAt(k) - LAND, landsAt(k))));
     const square = ease(span(p, SQUARE_FROM, SQUARE_TO));
     // The notes clear before the sharp screen is drawn over the glass they overlap.
-    const clear = 1 - span(p, PUSH_FROM, PUSH_FROM + 0.04);
+    const clear = 1 - span(p, tm.pushFrom, tm.pushFrom + 0.04);
     let newest = -1;
     lands.forEach((l, k) => {
       if (l > 0.5) newest = k;
@@ -511,7 +524,10 @@ function MovingNightShift() {
   }, [onProgress]);
 
   const lineOn = useCallback((p: number) => span(p, OFF_TO - 0.012, OFF_TO + 0.006), []);
-  const tubeIntensity = useCallback((p: number) => stutter(p) * (1 - span(p, PUSH_FROM, 0.95)), []);
+  const tubeIntensity = useCallback((p: number) => {
+    const tm = layout.current?.wide === false ? TIMING.narrow : TIMING.wide;
+    return stutter(p) * (1 - span(p, tm.pushFrom, tm.pushTo + 0.02));
+  }, []);
   const first = readout(beats[0].hours);
 
   return (

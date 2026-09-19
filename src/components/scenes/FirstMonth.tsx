@@ -79,7 +79,7 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
                 </svg>
               ) : null}
             </span>
-            <span className="meta whitespace-nowrap text-[2.5cqw] leading-none text-[var(--c-ink)]/70">{f}</span>
+            <span className="meta whitespace-nowrap text-[calc(2.5cqw*var(--k,1))] leading-none text-[var(--c-ink)]/70">{f}</span>
             <span aria-hidden="true" className="mb-[0.3cqw] block h-px flex-1 bg-[var(--c-ink)]/30" />
           </div>
         ))}
@@ -90,7 +90,7 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
     return (
       <div className="mt-[3cqw] flex gap-[1.4cqw]">
         {rooms.map((r, k) => (
-          <span key={r.id} className="display relative flex-1 bg-[var(--c-blue)] py-[1.2cqw] text-center text-[2.8cqw] leading-none text-[var(--c-bone)]">
+          <span key={r.id} className="display relative flex-1 bg-[var(--c-blue)] py-[1.2cqw] text-center text-[calc(2.8cqw*var(--k,1))] leading-none text-[var(--c-bone)]">
             {r.number}
             {k === 0 ? (
               <svg aria-hidden="true" viewBox="0 0 100 60" preserveAspectRatio="none" className="absolute -inset-[1.6cqw] h-[calc(100%+3.2cqw)] w-[calc(100%+3.2cqw)] overflow-visible">
@@ -106,12 +106,12 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
     return (
       <div className="mt-[3cqw] flex items-center gap-[3cqw]">
         <span
-          className="display -rotate-2 border-[0.5cqw] border-dashed border-[var(--c-blue)] px-[2cqw] py-[1cqw] text-[4.4cqw] leading-none text-[var(--c-blue)]"
+          className="display -rotate-2 border-[0.5cqw] border-dashed border-[var(--c-blue)] px-[2cqw] py-[1cqw] text-[calc(4.4cqw*var(--k,1))] leading-none text-[var(--c-blue)]"
           style={{ opacity: `clamp(0.25, var(${v}, 1) * 3, 1)` }}
         >
           {firstMonth.ticket.due}
         </span>
-        <span className="meta text-[2.5cqw] text-[var(--c-ink)]/70">
+        <span className="meta text-[calc(2.5cqw*var(--k,1))] text-[var(--c-ink)]/70">
           {firstMonth.ticket.owner} <span className="font-semibold text-[var(--c-ink)]">{firstMonth.ticket.you}</span>
         </span>
       </div>
@@ -120,13 +120,13 @@ function Accent({ kind, i }: { kind: WeekKind; i: number }) {
   if (kind === "review") {
     return (
       <div className="mt-[3cqw] flex items-center gap-[3cqw]">
-        <span className="relative whitespace-pre text-[2.8cqw] text-[var(--c-ink)]/80">
+        <span className="relative whitespace-pre text-[calc(2.8cqw*var(--k,1))] text-[var(--c-ink)]/80">
           {firstMonth.reviewCode[3].trim()}
           <svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" className="absolute inset-x-0 top-1/2 h-[1.4cqw] w-full -translate-y-1/2 overflow-visible">
             <Marker d="M0 6 L100 4" to={0.6} width={4} variable={v} />
           </svg>
         </span>
-        <span className="display text-[3.4cqw] leading-none text-[var(--c-blue)]" style={{ opacity: `clamp(0, (var(${v}, 1) - 0.5) * 4, 1)` }}>
+        <span className="display text-[calc(3.4cqw*var(--k,1))] leading-none text-[var(--c-blue)]" style={{ opacity: `clamp(0, (var(${v}, 1) - 0.5) * 4, 1)` }}>
           {firstMonth.reviewNotes[0]}
         </span>
       </div>
@@ -140,22 +140,22 @@ function Week({ i }: { i: number }) {
   return (
     <article className="relative">
       <div className="flex items-end gap-[3cqw]">
-        <span aria-hidden="true" className="display text-[15cqw] leading-[0.76] text-[var(--c-blue)]">
+        <span aria-hidden="true" className="display text-[calc(15cqw*var(--k,1))] leading-[0.76] text-[var(--c-blue)]">
           {i}
         </span>
         <div className="pb-[0.4cqw]">
-          <p className="meta text-[2.7cqw] leading-none text-[var(--c-ink)]/60">{w.label}</p>
-          <h3 className="display mt-[1cqw] text-[6.4cqw] leading-[0.9] text-[var(--c-ink)]">{w.title}</h3>
+          <p className="meta text-[calc(2.7cqw*var(--k,1))] leading-none text-[var(--c-ink)]/60">{w.label}</p>
+          <h3 className="display mt-[1cqw] text-[calc(6.4cqw*var(--k,1))] leading-[0.9] text-[var(--c-ink)]">{w.title}</h3>
         </div>
       </div>
-      <p className="mt-[2.4cqw] text-[3.3cqw] leading-[1.5] text-[var(--c-ink)]/85">{w.body}</p>
+      <p className="mt-[2.4cqw] text-[calc(3.3cqw*var(--k,1))] leading-[1.5] text-[var(--c-ink)]/85">{w.body}</p>
       <Accent kind={w.kind} i={i} />
       {w.kind === "stamp" ? (
         <div
           className="pointer-events-none absolute -right-[2cqw] top-[1cqw]"
           style={{ scale: `calc(1 + (1 - clamp(0, var(--r${i}, 1) * 5, 1)) * 0.6)`, opacity: `clamp(0, var(--r${i}, 1) * 5, 1)` }}
         >
-          <Stamp rotate={-9} className="border-[0.8cqw] px-[2cqw] py-[0.5cqw] text-[10cqw]">
+          <Stamp rotate={-9} className="border-[0.8cqw] px-[2cqw] py-[0.5cqw] text-[calc(10cqw*var(--k,1))]">
             {firstMonth.stamp}
           </Stamp>
         </div>
@@ -167,7 +167,7 @@ function Week({ i }: { i: number }) {
 /** One panel of the leaflet, sized in its own width. */
 function Panel({ children }: { children?: ReactNode }) {
   return (
-    <div className="paper paper--quiet relative h-full w-full overflow-hidden [container-type:inline-size]" style={{ boxShadow: "none" }}>
+    <div className="leaflet-panel paper paper--quiet relative h-full w-full overflow-hidden [container-type:inline-size]" style={{ boxShadow: "none" }}>
       <div className="flex h-full flex-col gap-[6cqw] px-[7cqw] pb-[7cqw] pt-[9cqw]">{children}</div>
     </div>
   );
@@ -180,7 +180,7 @@ function Inside({ n }: { n: 0 | 1 | 2 }) {
       <Panel>
         <h2
           id="first-month-title"
-          className="display text-[9.5cqw] leading-[0.88] text-[var(--c-ink)]"
+          className="display text-[calc(9.5cqw*var(--k,1))] leading-[0.88] text-[var(--c-ink)]"
           style={{ fontOpticalSizing: "none", fontVariationSettings: '"opsz" 72' }}
         >
           {firstMonth.title}
@@ -202,7 +202,7 @@ function Inside({ n }: { n: 0 | 1 | 2 }) {
       <Week i={3} />
       <Week i={4} />
       {/* The leaflet's sign-off, printed at the foot of its last panel. */}
-      <p className="display mt-auto border-t border-[var(--c-ink)]/25 pt-[3cqw] text-[5.2cqw] leading-[0.95] text-[var(--c-ink)]">{firstMonth.coda}</p>
+      <p className="display mt-auto border-t border-[var(--c-ink)]/25 pt-[3cqw] text-[calc(5.2cqw*var(--k,1))] leading-[0.95] text-[var(--c-ink)]">{firstMonth.coda}</p>
     </Panel>
   );
 }

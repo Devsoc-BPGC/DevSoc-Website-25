@@ -17,14 +17,14 @@ import type { Room } from "@/content/home/rooms";
 export function RoomModule({ room, className, style }: { room: Room; className?: string; style?: CSSProperties }) {
   return (
     <div
-      className={`room-module flex flex-col justify-between p-3 ${className ?? ""}`}
+      className={`room-module flex flex-col justify-between p-3 max-md:p-2 ${className ?? ""}`}
       style={style}
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="display text-[1.55rem] leading-none tracking-[0.02em] text-[var(--c-bone)]">{room.number}</span>
-        <span aria-hidden="true" className="room-lamp mt-1 block h-2 w-2 rounded-full" />
+        <span className="display text-[1.55rem] leading-none tracking-[0.02em] text-[var(--c-bone)] max-md:text-[1.1rem]">{room.number}</span>
+        <span aria-hidden="true" className="room-lamp mt-1 block h-2 w-2 rounded-full max-md:h-1.5 max-md:w-1.5" />
       </div>
-      <span className="meta text-[0.72rem] leading-tight text-[var(--c-bone)]/85">{room.name}</span>
+      <span className="meta text-[0.72rem] leading-tight text-[var(--c-bone)]/85 max-md:text-[0.6rem]">{room.name}</span>
     </div>
   );
 }
