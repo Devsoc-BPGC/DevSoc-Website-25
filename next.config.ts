@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     qualities: [75, 92],
     deviceSizes: [390, 640, 768, 1024, 1280, 1536, 1920, 2560],
   },
+  output: "export",
 };
 
 export default nextConfig;
