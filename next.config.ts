@@ -3,10 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // No on-screen Next.js indicator in development.
   devIndicators: false,
-  // The team page became the coordinators' scene on the home page.
-  async redirects() {
-    return [{ source: "/team", destination: "/#crew", statusCode: 301 }];
-  },
   images: {
     formats: ["image/webp"],
     // 92 is for the one print that is shown at full size on a poster.
